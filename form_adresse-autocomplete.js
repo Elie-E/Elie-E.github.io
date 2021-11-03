@@ -41,6 +41,7 @@ function fillInAddress() {
   for (const component of place.address_components) {
     console.log(component);
     const componentType = component.types[0];
+    console.log(componentType);
     switch (componentType) {
       case "street_number": {
         address1 = `${component.long_name} ${address1}`;
