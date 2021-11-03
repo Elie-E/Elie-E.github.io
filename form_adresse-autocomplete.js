@@ -81,3 +81,22 @@ function fillInAddress() {
   // entry of subpremise information such as apartment, unit, or floor number.
   address2Field.focus();
 }
+
+
+// Autocomplete with mapbox :
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3VzbWFwYm94IiwiYSI6ImNrdmpldG1hMDBsbGUyb3RrYWF5NmoyamsifQ.4k9gpyen4m077P-ZtHaD7A';
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-79.4512, 43.6568],
+    zoom: 13
+});
+
+// Add the control to the map.
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    })
+);
