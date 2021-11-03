@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -91,6 +92,49 @@
         </ul>
     </aside>
 
+    <!-- form test  -->
+
+    <form id="address-form" action="" method="get" autocomplete="off">
+        <p class="title">Sample address form for North America</p>
+        <p class="note"><em>* = required field</em></p>
+        <label class="full-field">
+          <!-- Avoid the word "address" in id, name, or label text to avoid browser autofill from conflicting with Place Autocomplete. Star or comment bug https://crbug.com/587466 to request Chromium to honor autocomplete="off" attribute. -->
+          <span class="form-label">Deliver to*</span>
+          <input
+            id="ship-address"
+            name="ship-address"
+            required
+            autocomplete="off"
+          />
+        </label>
+        <label class="full-field">
+          <span class="form-label">Apartment, unit, suite, or floor #</span>
+          <input id="address2" name="address2" />
+        </label>
+        <label class="full-field">
+          <span class="form-label">City*</span>
+          <input id="locality" name="locality" required />
+        </label>
+        <label class="slim-field-left">
+          <span class="form-label">State/Province*</span>
+          <input id="state" name="state" required />
+        </label>
+        <label class="slim-field-right" for="postal_code">
+          <span class="form-label">Postal code*</span>
+          <input id="postcode" name="postcode" required />
+        </label>
+        <label class="full-field">
+          <span class="form-label">Country/Region*</span>
+          <input id="country" name="country" required />
+        </label>
+        <button type="button" class="my-button">Save address</button>
+  
+        <!-- Reset button provided for development testing convenience.
+    Not recommended for user-facing forms due to risk of mis-click when aiming for Submit button. -->
+        <input type="reset" value="Clear form" />
+      </form>
+
+
 
     <footer>
         <div>
@@ -100,5 +144,13 @@
         </div>
     </footer>
      
+          <!-- AIzaSyC1Y2_yUjhGGi5GPXQlmqaMfHZFtaySDKs -->
+          <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Y2_yUjhGGi5GPXQlmqaMfHZFtaySDKs&libraries=places"></script>
+          <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Y2_yUjhGGi5GPXQlmqaMfHZFtaySDKs&callback=initAutocomplete&libraries=places&v=weekly"
+          async
+        ></script>
+        <script src="form_adresse-autocomplete.js"></script>
 </body>
 </html>
