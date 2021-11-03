@@ -10,6 +10,15 @@
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+#geocoder{
+    z-index: 1;
+    margin: 20px;
+}
+.mapbox-ctrl-geocoder {
+    min-width: 100%;
+}
+
 </style>
 
 </head>
@@ -22,6 +31,10 @@ body { margin: 0; padding: 0; }
 
 <!-- The div where the map will be display  -->
 <div id="map"></div>
+
+<!-- test div to display only the search field  -->
+<!-- <div id="geocoder"></div>
+<pre id="result"></pre> -->
 
 <script src="form_adresse-autocomplete.js"></script>
 

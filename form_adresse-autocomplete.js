@@ -85,18 +85,42 @@ function fillInAddress() {
 
 // Autocomplete with mapbox :
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3VzbWFwYm94IiwiYSI6ImNrdmpldG1hMDBsbGUyb3RrYWF5NmoyamsifQ.4k9gpyen4m077P-ZtHaD7A';
-const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-79.4512, 43.6568],
-    zoom: 13
-});
+// mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3VzbWFwYm94IiwiYSI6ImNrdmpldG1hMDBsbGUyb3RrYWF5NmoyamsifQ.4k9gpyen4m077P-ZtHaD7A';
+// const map = new mapboxgl.Map({
+//     container: 'map',
+//     style: 'mapbox://styles/mapbox/streets-v11',
+//     center: [-79.4512, 43.6568],
+//     zoom: 13
+// });
 
-// Add the control to the map.
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    })
-);
+// // Add the control to the map.
+// map.addControl(
+//     new MapboxGeocoder({
+//         accessToken: mapboxgl.accessToken,
+//         mapboxgl: mapboxgl
+//     }), 'top-left'
+// );
+
+// ______________________________________
+// search field without using a map 
+
+// mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3VzbWFwYm94IiwiYSI6ImNrdmpldG1hMDBsbGUyb3RrYWF5NmoyamsifQ.4k9gpyen4m077P-ZtHaD7A';
+// const geocoder = new MapboxGeocoder({
+// accessToken: mapboxgl.accessToken,
+// types: 'country,region,place,postcode,locality,neighborhood'
+// });
+ 
+// geocoder.addTo('#geocoder');
+ 
+// // Get the geocoder results container.
+// const results = document.getElementById('result');
+ 
+// // Add geocoder result to container.
+// geocoder.on('result', (e) => {
+// results.innerText = JSON.stringify(e.result, null, 2);
+// });
+ 
+// // Clear results container when search is cleared.
+// geocoder.on('clear', () => {
+// results.innerText = '';
+// });
