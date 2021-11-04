@@ -23,13 +23,12 @@ let adresseField1;
 let adresseField2;
 let postalCodeField;
 
-function initAutocomplete(){
+window.initAutocomplete = function() {
     console.log('zizi');
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
     adresseField2 = document.querySelector("input[id$='adr2_user_adr']");
     postalCodeField = document.querySelector("input[id$='cp_user_adr']");
-console.log(adresseField1);
-console.log(autocompleteField);
+
     autocompleteField = new google.maps.places.Autocomplete(adresseField1, {
         componentRestrictions: { country: "fr" },
         fields: ["address_components", "geometry"],
@@ -37,7 +36,7 @@ console.log(autocompleteField);
     });
     adresseField1.focus();
 
-    autocompleteField.addEventListener("place_changed", fillInAddress);
+    autocompleteField.addListener("place_changed", fillInAddress);
 }
 
 function fillInAddress() {
