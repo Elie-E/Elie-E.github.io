@@ -8,15 +8,15 @@ console.log('z');
 //     });
 // });
 
-let countrySelector = document.querySelector("select[id$='pays_user_adr']");
-let countrySelectedIso = (countrySelector.options[countrySelector.selectedIndex].value).toLowerCase();
+// let countrySelector = document.querySelector("select[id$='pays_user_adr']");
+// let countrySelectedIso = (countrySelector.options[countrySelector.selectedIndex].value).toLowerCase();
 
-console.log(countrySelectedIso);
+// console.log(countrySelectedIso);
 
-countrySelector.addEventListener('change', function(){
-    let countrySelectedIso = this.options[this.selectedIndex].value.toLowerCase();
-    console.log(countrySelectedIso);
-})
+// countrySelector.addEventListener('change', function(){
+//     let countrySelectedIso = this.options[this.selectedIndex].value.toLowerCase();
+//     console.log(countrySelectedIso);
+// })
 
 let autocompleteField;
 let adresseField1;
@@ -24,7 +24,16 @@ let adresseField2;
 let postalCodeField;
 
 window.initAutocomplete = function() {
-    console.log('zz');
+    let countrySelector = document.querySelector("select[id$='pays_user_adr']");
+    let countrySelectedIso = (countrySelector.options[countrySelector.selectedIndex].value).toLowerCase();
+
+    console.log(countrySelectedIso);
+
+    countrySelector.addEventListener('change', function(){
+    let countrySelectedIso = this.options[this.selectedIndex].value.toLowerCase();
+    console.log(countrySelectedIso);
+    })
+
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
     adresseField2 = document.querySelector("input[id$='adr2_user_adr']");
     postalCodeField = document.querySelector("input[id$='cp_user_adr']");
