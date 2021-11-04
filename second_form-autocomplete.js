@@ -36,9 +36,8 @@ window.initAutocomplete = function() {
     });
     adresseField1.focus();
 
-    autocompleteField.addListener("change", fillInAddress);
+    autocompleteField.addListener("click", fillInAddress);
 }
-window.initAutocomplete();
 
 function fillInAddress() {
     console.log('zzz');
@@ -46,3 +45,5 @@ function fillInAddress() {
     let adresse1 = "";
     let postalCode = "";
 }
+
+window.initAutocomplete();
