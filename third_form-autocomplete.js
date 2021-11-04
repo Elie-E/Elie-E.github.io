@@ -32,6 +32,7 @@ window.initAutocomplete = function() {
     countrySelector.addEventListener('change', function(){
     let countrySelectedIso = this.options[this.selectedIndex].value.toLowerCase();
     console.log(countrySelectedIso);
+    window.initAutocomplete();
     })
 
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
