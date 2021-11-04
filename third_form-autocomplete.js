@@ -1,23 +1,3 @@
-console.log('z');
-// $(document).ready(function(){
-//     let countrySelectedIso = $('#pays_user_adr option:selected').val().toLowerCase();
-// // Select all the "select" which id's end with "pays_user_adr" :
-//     $("select[id$='pays_user_adr']").on('change', function() {        
-//         let countrySelectedIso = $(this).val().toLowerCase();
-//    //     console.log(countrySelectedIso);
-//     });
-// });
-
-// let countrySelector = document.querySelector("select[id$='pays_user_adr']");
-// let countrySelectedIso = (countrySelector.options[countrySelector.selectedIndex].value).toLowerCase();
-
-// console.log(countrySelectedIso);
-
-// countrySelector.addEventListener('change', function(){
-//     let countrySelectedIso = this.options[this.selectedIndex].value.toLowerCase();
-//     console.log(countrySelectedIso);
-// })
-
 let autocompleteField;
 let adresseField1;
 let adresseField2;
@@ -31,7 +11,6 @@ window.initAutocomplete = function() {
 
     countrySelector.addEventListener('change', function(){
     let countrySelectedIso = this.options[this.selectedIndex].value.toLowerCase();
-    console.log(countrySelectedIso);
     window.initAutocomplete();
     })
 
@@ -88,9 +67,6 @@ console.log(place);
         //     document.querySelector("#state").value = component.short_name;
         //     break;
         //   }
-        //   case "country":
-        //     document.querySelector("#country").value = component.long_name;
-        //     break;
         }
       }
     
