@@ -36,13 +36,13 @@ window.initAutocomplete = function() {
     });
     adresseField1.focus();
 
-    autocompleteField.addListener("place_changed", fillInAddress);
+    autocompleteField.addListener("change", fillInAddress);
 }
 window.initAutocomplete();
 
 function fillInAddress() {
+    console.log('zzz');
     const place = autocompleteField.getPlace();
     let adresse1 = "";
     let postalCode = "";
-    console.log('zzz');
 }
