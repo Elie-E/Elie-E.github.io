@@ -44,5 +44,5 @@ function fillInAddress() {
     const place = autocompleteField.getPlace();
     let adresse1 = "";
     let postalCode = "";
-    
+    console.log('zzz');
 }
