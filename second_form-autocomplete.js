@@ -60,12 +60,12 @@ console.log(place);
           }
     
           case "postal_code": {
-            postcode = `${component.long_name}${postcode}`;
+            postalCode = `${component.long_name}${postalCode}`;
             break;
           }
     
           case "postal_code_suffix": {
-            postcode = `${postcode}-${component.long_name}`;
+            postalCode = `${postalCode}-${component.long_name}`;
             break;
           }
           case "locality":
