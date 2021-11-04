@@ -69,15 +69,15 @@ console.log(place);
             break;
           }
           case "locality":
-            document.querySelector("#locality").value = component.long_name;
+            document.querySelector("#ville_user_adr").value = component.long_name;
             break;
-          case "administrative_area_level_1": {
-            document.querySelector("#state").value = component.short_name;
-            break;
-          }
-          case "country":
-            document.querySelector("#country").value = component.long_name;
-            break;
+        //   case "administrative_area_level_1": {
+        //     document.querySelector("#state").value = component.short_name;
+        //     break;
+        //   }
+        //   case "country":
+        //     document.querySelector("#country").value = component.long_name;
+        //     break;
         }
       }
     
