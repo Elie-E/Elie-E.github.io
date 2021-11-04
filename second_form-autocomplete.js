@@ -23,7 +23,7 @@ let adresseField1;
 let adresseField2;
 let postalCodeField;
 
-function initAutoComplete(){
+function initAutocomplete(){
     console.log('zizi');
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
     adresseField2 = document.querySelector("input[id$='adr2_user_adr']");
