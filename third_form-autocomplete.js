@@ -23,7 +23,7 @@ let adresseField1;
 let adresseField2;
 let postalCodeField;
 
-function initAutocomplete() {
+window.initAutocomplete = function() {
     console.log('zz');
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
     adresseField2 = document.querySelector("input[id$='adr2_user_adr']");
@@ -34,6 +34,7 @@ function initAutocomplete() {
         fields: ["address_components", "geometry"],
         types: ["address"],
     });
+    
     console.log(autocompleteField);
 
     adresseField1.focus();
@@ -88,4 +89,4 @@ console.log(place);
       adresseField2.focus();
 }
 
-// window.initAutocomplete();
+window.initAutocomplete();
