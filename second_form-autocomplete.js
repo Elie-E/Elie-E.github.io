@@ -24,7 +24,7 @@ let adresseField2;
 let postalCodeField;
 
 window.initAutocomplete = function() {
-    console.log('zizi');
+    console.log('zz');
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
     adresseField2 = document.querySelector("input[id$='adr2_user_adr']");
     postalCodeField = document.querySelector("input[id$='cp_user_adr']");

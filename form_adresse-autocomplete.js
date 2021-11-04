@@ -31,6 +31,7 @@ function initAutocomplete() {
 function fillInAddress() {
   // Get the place details from the autocomplete object.
   const place = autocomplete.getPlace();
+  console.log(place);
   let address1 = "";
   let postcode = "";
 
@@ -39,6 +40,7 @@ function fillInAddress() {
   // place.address_components are google.maps.GeocoderAddressComponent objects
   // which are documented at http://goo.gle/3l5i5Mr
   for (const component of place.address_components) {
+    console.log(component);
     const componentType = component.types[0];
     switch (componentType) {
       case "street_number": {
