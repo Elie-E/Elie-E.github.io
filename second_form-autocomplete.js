@@ -39,8 +39,8 @@ window.initAutocomplete = function() {
     autocompleteField.addListener("place_changed", fillInAddress);}
 
 function fillInAddress() {
-    console.log('zzz');
     const place = autocompleteField.getPlace();
+    console.log(place);
     let adresse1 = "";
     let postalCode = "";
 
