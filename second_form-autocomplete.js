@@ -36,7 +36,7 @@ window.initAutocomplete = function() {
     });
     adresseField1.focus();
 
-    autocompleteField.addListener("place_changed", fillInAddress);}
+    autocompleteField.addEventListener("place_changed", fillInAddress);}
 
 function fillInAddress() {
     const place = autocompleteField.getPlace();
