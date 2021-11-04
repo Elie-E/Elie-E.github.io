@@ -82,7 +82,7 @@ console.log(place);
       }
     
       adresseField1.value = adresse1;
-      postalCodeField.value = postcode;
+      postalCodeField.value = postalCode;
       adresseField2.focus();
 }
 
