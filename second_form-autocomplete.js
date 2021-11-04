@@ -38,6 +38,7 @@ window.initAutocomplete = function() {
 
     autocompleteField.addListener("place_changed", fillInAddress);
 }
+window.initAutocomplete();
 
 function fillInAddress() {
     const place = autocompleteField.getPlace();
