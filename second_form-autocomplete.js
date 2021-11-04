@@ -40,7 +40,7 @@ window.initAutocomplete = function() {
 
 function fillInAddress() {
     const place = autocompleteField.getPlace();
-
+console.log(place);
     let adresse1 = "";
     let postalCode = "";
 
