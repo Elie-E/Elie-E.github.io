@@ -40,11 +40,12 @@ window.initAutocomplete = function() {
 
 function fillInAddress() {
     const place = autocompleteField.getPlace();
-    console.log(place);
+
     let adresse1 = "";
     let postalCode = "";
 
     for (const component of place.address_components) {
+        console.log(component);
         const componentType = component.types[0];
         switch (componentType) {
           case "street_number": {
