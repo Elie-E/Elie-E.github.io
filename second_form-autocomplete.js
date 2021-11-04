@@ -49,7 +49,7 @@ console.log(place);
         const componentType = component.types[0];
         switch (componentType) {
           case "street_number": {
-            adresse1 = `${component.long_name} ${address1}`;
+            adresse1 = `${component.long_name} ${addresse1}`;
             break;
           }
     
