@@ -1,11 +1,3 @@
-// This sample uses the Places Autocomplete widget to:
-// 1. Help the user select a place
-// 2. Retrieve the address components associated with that place
-// 3. Populate the form fields with those address components.
-// This sample requires the Places library, Maps JavaScript API.
-// Include the libraries=places parameter when you first load the API.
-// For example:
-
 let autocomplete;
 let address1Field;
 let address2Field;
