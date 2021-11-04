@@ -40,8 +40,9 @@ function fillInAddress() {
   // place.address_components are google.maps.GeocoderAddressComponent objects
   // which are documented at http://goo.gle/3l5i5Mr
   for (const component of place.address_components) {
-    console.log(component);
     const componentType = component.types[0];
+    console.log(component);
+    console.log(componentType);
     switch (componentType) {
       case "street_number": {
         address1 = `${component.long_name} ${address1}`;
