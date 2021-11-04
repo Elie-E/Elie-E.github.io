@@ -30,7 +30,7 @@ window.initAutocomplete = function() {
     postalCodeField = document.querySelector("input[id$='cp_user_adr']");
 
     autocompleteField = new google.maps.places.Autocomplete(adresseField1, {
-        componentRestrictions: { country: "fr" },
+        componentRestrictions: { country: "'+ countrySelectedIso +'" },
         fields: ["address_components", "geometry"],
         types: ["address"],
     });
