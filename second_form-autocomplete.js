@@ -69,7 +69,7 @@ console.log(place);
             break;
           }
           case "locality":
-            document.querySelector("#ville_user_adr").value = component.long_name;
+            document.querySelector("input[id$='ville_user_adr']").value = component.long_name;
             break;
         //   case "administrative_area_level_1": {
         //     document.querySelector("#state").value = component.short_name;
