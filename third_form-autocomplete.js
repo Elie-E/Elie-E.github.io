@@ -23,7 +23,7 @@ let adresseField1;
 let adresseField2;
 let postalCodeField;
 
-window.initAutocomplete = function() {
+function initAutocomplete() {
     console.log('zz');
     adresseField1 = document.querySelector('.autocomplete_adresse_field');
     adresseField2 = document.querySelector("input[id$='adr2_user_adr']");
@@ -35,7 +35,7 @@ window.initAutocomplete = function() {
         types: ["address"],
     });
     console.log(autocompleteField);
-    
+
     adresseField1.focus();
 
     autocompleteField.addListener("place_changed", fillInAddress);}
@@ -88,4 +88,4 @@ console.log(place);
       adresseField2.focus();
 }
 
-window.initAutocomplete();
+// window.initAutocomplete();
