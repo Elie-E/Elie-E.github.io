@@ -48,12 +48,12 @@ function fillInAddress() {
         const componentType = component.types[0];
         switch (componentType) {
           case "street_number": {
-            address1 = `${component.long_name} ${address1}`;
+            adresse1 = `${component.long_name} ${address1}`;
             break;
           }
     
           case "route": {
-            address1 += component.short_name;
+            adresse1 += component.short_name;
             break;
           }
     
@@ -79,7 +79,7 @@ function fillInAddress() {
         }
       }
     
-      adresseField1.value = address1;
+      adresseField1.value = adresse1;
       postalCodeField.value = postcode;
       adresseField2.focus();
 }
