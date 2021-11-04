@@ -79,9 +79,9 @@ function fillInAddress() {
         }
       }
     
-      address1Field.value = address1;
-      postalField.value = postcode;
-      address2Field.focus();
+      adresseField1.value = address1;
+      postalCodeField.value = postcode;
+      adresseField2.focus();
 }
 
 window.initAutocomplete();
