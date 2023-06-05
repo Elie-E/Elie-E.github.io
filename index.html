@@ -1,155 +1,352 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
-    <meta charset="UTF-8">
+    <title>Personal Resume</title>
+    
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <div class="header_banner">
-            <div class="tittle-wrapper">
-                <h1 class="header_main-title">Titre</h1>
-            </div>
-            
-        </div>
-        <div class="navbar">
-                <a href="index.html">Home</a>
-                <a href="mapbox_test.html">MapBox</a>
-                <div class="dropdown">
-                    <button class="dropbtn">Dropdown
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="second_test.html">Test 2</a>
-                        <a href="third_test.html">Test 3</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </div>
-        </div>
-    </header>
-
-    <main>
-
-        <section class="article_section">
-
-            <article>
-                <div class="article">
-                    <h2>Titre h2</h2>
-                    <div class="article_article-wrapper">
-                        <div class="article_article-image"></div>
-                        <div class="article_content">
-                            <h4>Titre 4</h4>
-                            <div>
-                                <p>laurengpàizhgizhgipz aepgjegpagpizagiazipgnoi noin</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="article">
-                    <h2>Titre h2</h2>
-                    <div class="article_article-wrapper">
-                        <div class="article_article-image"></div>
-                        <div class="article_content">
-                            <h4>Titre 4</h4>
-                            <div>
-                                <p>laurengpàizhgizhgipz aepgjegpagpizagiazipgnoi noin</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="article">
-                    <h2>Titre h2</h2>
-                    <div class="article_article-wrapper">
-                        <div class="article_article-image"></div>
-                        <div class="article_content">
-                            <h4>Titre 4</h4>
-                            <div>
-                                <p>laurengpàizhgizhgipz aepgjegpagpizagiazipgnoi noin</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-        </section>
-
-    </main>
+    <meta name="description" content="Personal Resume">
+    <link type="image/png" sizes="16x16" rel="icon" href="assets/images/icons8-cv-ios-16-filled-16.png">
     
-    <aside class="side-menu">
-        <ul>
-            <li>zizi</li>
-            <li>zizi</li>
-            <li>zizi</li>
-        </ul>
-    </aside>
-
-    <!-- form test  -->
-
-    <form id="address-form" action="" method="get" autocomplete="off">
-        <p class="title">Sample address form for North America</p>
-        <p class="note"><em>* = required field</em></p>
-        <label class="full-field">
-          <!-- Avoid the word "address" in id, name, or label text to avoid browser autofill from conflicting with Place Autocomplete. Star or comment bug https://crbug.com/587466 to request Chromium to honor autocomplete="off" attribute. -->
-          <span class="form-label">Deliver to*</span>
-          <input
-            id="ship-address"
-            name="ship-address"
-            required
-            autocomplete="off"
-          />
-        </label>
-        <label class="full-field">
-          <span class="form-label">Apartment, unit, suite, or floor #</span>
-          <input id="address2" name="address2" />
-        </label>
-        <label class="full-field">
-          <span class="form-label">City*</span>
-          <input id="locality" name="locality" required />
-        </label>
-        <label class="slim-field-left">
-          <span class="form-label">State/Province*</span>
-          <input id="state" name="state" required />
-        </label>
-        <label class="slim-field-right" for="postal_code">
-          <span class="form-label">Postal code*</span>
-          <input id="postcode" name="postcode" required />
-        </label>
-        <label class="full-field">
-          <span class="form-label">Country/Region*</span>
-          <input id="country" name="country" required />
-        </label>
-        <button type="button" class="my-button">Save address</button>
-  
-        <!-- Reset button provided for development testing convenience.
-    Not recommended for user-facing forms due to risk of mis-click when aiming for Submit button. -->
-        <input type="reset" value="Clear form" />
-      </form>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+    
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+       
+    <link id="theme-style" rel="stylesheet" href="assets/css/resume-4.css">
 
 
+</head> 
 
-    <footer>
-        <div>
-            <div class="col"><h3>Titre</h3></div>
-            <div class="col"><h3>Titre</h3></div>
-            <div class="col"><h3>Titre</h3></div>
-        </div>
+<body>	
+
+    <article class="resume-wrapper text-center position-relative">
+	    <div class="resume-wrapper-inner mx-auto text-start bg-white shadow-lg">
+		    <header class="resume-header pt-4 pt-md-0">
+			    <div class="row">
+				    <div class="col-block col-md-auto resume-picture-holder text-center text-md-start">
+				        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+						<lottie-player src="https://assets1.lottiefiles.com/packages/lf20_jtbfg2nb.json"  background="transparent"  speed="1"  style="width: 220px; height: 190px;"  loop  autoplay></lottie-player>
+				    </div>
+				    <div class="col">
+					    <div class="row p-4 justify-content-center justify-content-md-between">
+						    <div class="primary-info col-auto">
+							    <h1 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">Alban</h1>
+							    <div class="title mb-3">Full Stack Developer</div>
+							    <ul class="list-unstyled">
+								    <li class="mb-2"><a class="text-link" href="mailto:augier.al@gmail.com"><i class="far fa-envelope fa-fw me-2" data-fa-transform="grow-3"></i>augier.al@gmail.com</a></li>
+								    <li><i class="fas fa-mobile-alt fa-fw me-2" data-fa-transform="grow-6"></i>+33 06 58 44 98 04</li>
+							    </ul>
+						    </div>
+						    <div class="secondary-info col-auto mt-2">
+								<ul class="language-list list-unstyled">
+									<li class="mb-5">See in : <a class="text-link" href="resume-fr.html">French</a> or <a class="text-link" href="resume-es.html">Spanish</a></li>
+								</ul>
+							    <ul class="resume-social list-unstyled">
+					                <li class="mb-3"><a class="text-link" href="https://www.linkedin.com/in/alban-augier-a64297108/"><span class="fa-container text-center me-2"><i class="fab fa-linkedin-in fa-fw"></i></span>linkedin.com/in/alban-augier-a64297108/</a></li>
+					                <li><a class="text-link" href="https://elie-e.github.io/"><span class="fa-container text-center me-2"><i class="fas fa-globe"></i></span>https://elie-e.github.io/</a></li>
+							    </ul>
+						    </div>
+					    </div>
+					    
+				    </div>
+			    </div>
+		    </header>
+		    <div class="resume-body p-5">
+			    <section class="resume-section summary-section mb-5">
+				    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Profile</h2>
+				    <div class="resume-section-content">
+					    <p class="mb-0">I am an autonomous and professional web developer with two years of experience in full-stack development and project management. Skilled in working with a variety of programming languages. I have a comprehensive understanding of both front-end and back-end technologies, supplemented by my abilities to interpret requirements and designing solutions to coordinating teams and handling client communications.</p>
+				    </div>
+			    </section>
+			    <div class="row">
+				    <div class="col-lg-9">
+					    <section class="resume-section experience-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Work Experience</h2>
+						    <div class="resume-section-content">
+							    <div class="resume-timeline position-relative">
+								    <article class="resume-timeline-item position-relative pb-5">
+									    
+									    <div class="resume-timeline-item-header mb-2">
+										    <div class="d-flex flex-column flex-md-row">
+										        <h3 class="resume-position-title font-weight-bold mb-1">Full-Stack Developer</h3>
+										        <div class="resume-company-name ms-auto">Advercity</div>
+										    </div>
+										    <div class="resume-position-time">2022 - Present</div>
+									    </div>
+									    <div class="resume-timeline-item-desc">
+										    <p>In this role, I specialize in constructing efficient web applications and enhancing existing company websites with new functionalities. My responsibilities also include managing database operations—updating data and optimizing performance—and troubleshooting and resolving issues across multiple websites built with PHP, Laravel, React, and various CMS platforms. I consistently implement changes and improvements, contributing significantly to website stability and user experience.</p>
+										    <ul>
+											    <li>Led full stack development of web applications and functionalities
+												</li>
+											    <li>Handled database operations and improvement
+												</li>
+											    <li>Employed Docker for containerization and AWS for deployment
+												</li>
+											    <li>Optimized website performance.</li>
+										    </ul>
+										    <h4 class="resume-timeline-item-desc-heading font-weight-bold">Technologies used:</h4>
+										    <ul class="list-inline">
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">Laravel</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">Python</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">jQuery</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">PHP</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">HTML/SASS</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">SQL</span></li>
+										    </ul>
+									    </div>
+
+								    </article>
+								    
+								    <article class="resume-timeline-item position-relative pb-5">
+									    
+									    <div class="resume-timeline-item-header mb-2">
+										    <div class="d-flex flex-column flex-md-row">
+										        <h3 class="resume-position-title font-weight-bold mb-1">E-Commerce Project Manager </br>Front end Developer</h3>
+										        <div class="resume-company-name ms-auto"><a href="https://www.nateev.fr/">Nateev</a></div>
+										    </div>
+										    <div class="resume-position-time">2021 - 2022</div>
+									    </div>
+									    <div class="resume-timeline-item-desc">
+										    <p>As the project manager, my role involved leading and coordinating all phases of e-commerce website projects, from initial conception to final delivery; as well as the implementation of new features as required to keep the sites modern, user-friendly, and aligned with the client's business needs. </p>
+										    
+											<ul>
+											    <li>Managed and coordinated multiple e-commerce projects, ensuring they met established timelines, client needs, and quality standards.
+												</li>
+											    <li>Managed a cross-functional team of designers and developers.
+												</li>
+											    <li>Worked closely with the SEO, marketing, and analytics teams to optimize product listings and improve search performance
+												</li>
+												<li>Coordinated and managed website testing efforts.
+												</li>
+												<li>Developed small front-end functionalities (JavaScript)</li>
+										    </ul>
+
+											<h4 class="resume-timeline-item-desc-heading font-weight-bold">Achievements</h4>
+										    <p>Successfully managed the entire project <a href="https://fr.seasonpapercollection.com/">Season Paper</a>, from initial client engagement to final delivery, leading to the successful launch of a high-quality, website. Led testing procedures to ensure optimal performance and client satisfaction.</p>
+
+										    <h4 class="resume-timeline-item-desc-heading font-weight-bold">Technologies used:</h4>
+										    <ul class="list-inline">
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">JavaScript</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">CodeIgniter</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">RedBooth</span></li>
+											    <li class="list-inline-item"><span class="badge bg-secondary badge-pill">HTML/SASS</span></li>
+										    </ul>
+									    </div>
+
+								    </article>
+								    
+								    <article class="resume-timeline-item position-relative pb-5">
+									    
+									    <div class="resume-timeline-item-header mb-2">
+										    <div class="d-flex flex-column flex-md-row">
+										        <h3 class="resume-position-title font-weight-bold mb-1">Founder & Restaurant Manager</h3>
+										        <div class="resume-company-name ms-auto">El Viaje - Mexico</div>
+										    </div>
+										    <div class="resume-position-time">2017 - 2021</div>
+									    </div>
+									    <div class="resume-timeline-item-desc">
+										    <p>I created a restaurant from scratch, injecting my own vision into everything from the unique style and decor to the innovative menu. I made sure everything ran smoothly and ensured every guest left with a smile.  </p>
+											<ul>
+											    <li>Conceived and launched a restaurant concept.</li>
+											    <li>Managed daily operations, ensuring efficient and high-quality service.</li>
+											    <li>Recruited, trained, and mentored restaurant staff.</li>
+										    </ul>
+											
+
+
+										    
+									    </div>
+
+								    </article>
+								    
+								    <article class="resume-timeline-item position-relative pb-4">
+									    
+									    <div class="resume-timeline-item-header mb-2">
+										    <div class="d-flex flex-column flex-md-row">
+										        <h3 class="resume-position-title font-weight-bold mb-1">Team Manager </h3>
+										        <div class="resume-company-name ms-auto">Ong Conseil</div>
+										    </div>
+										    <div class="resume-position-time">2015 - 2017</div>
+									    </div>
+									    <div class="resume-timeline-item-desc">
+										    <p>Provided training and leadership to teams of street fundraisers, while also ensuring the achievement of financial targets.</p>
+									    </div>
+
+								    </article>
+
+									<article class="resume-timeline-item position-relative">
+									    
+									    <div class="resume-timeline-item-header mb-2">
+										    <div class="d-flex flex-column flex-md-row">
+										        <h3 class="resume-position-title font-weight-bold mb-1">Globe Trotter </h3>
+										        <div class="resume-company-name ms-auto">Europe & America</div>
+										    </div>
+										    <div class="resume-position-time">2013 - 2015</div>
+									    </div>
+									    <div class="resume-timeline-item-desc">
+										    <p>Travel and work around the world</p>
+									    </div>
+
+								    </article>
+								    
+								    
+							    </div>
+							    
+						    </div>
+					    </section>
+				    </div>
+				    <div class="col-lg-3">
+					    <section class="resume-section skills-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Skills &amp; Tools</h2>
+						    <div class="resume-section-content">
+						        <div class="resume-skill-item">
+							        <ul class="list-unstyled mb-4">
+										<li class="mb-2">
+								            <div class="resume-skill-name">HTML/CSS/SASS</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+										<li class="mb-2">
+								            <div class="resume-skill-name">PHP</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+								        <li class="mb-2">
+								            <div class="resume-skill-name">Laravel</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 92%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+								        
+										<li class="mb-2">
+								            <div class="resume-skill-name">Symfony</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+								        <li class="mb-2">
+								            <div class="resume-skill-name">Angular</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 98%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+								        <li class="mb-2">
+								            <div class="resume-skill-name">React</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+								        <li class="mb-2">
+								            <div class="resume-skill-name">JavaScript</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 96%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+								        
+								        <li class="mb-2">
+								            <div class="resume-skill-name">Node.js</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 80%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+										<li class="mb-2">
+								            <div class="resume-skill-name">SQL</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 85%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+										<li class="mb-2">
+								            <div class="resume-skill-name">Ionic</div>
+									        <div class="progress resume-progress">
+											    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+								        </li>
+										
+							        </ul>
+						        </div>
+						        
+						        <div class="resume-skill-item">
+						            <h4 class="resume-skills-cat font-weight-bold">Others</h4>
+						            <ul class="list-inline">
+										<li class="list-inline-item"><span class="badge badge-light">Linux</span></li>
+							            <li class="list-inline-item"><span class="badge badge-light">AWS</span></li>
+										<li class="list-inline-item"><span class="badge badge-light">Docker</span></li>
+							            <li class="list-inline-item"><span class="badge badge-light">SEO</span></li>
+							            <li class="list-inline-item"><span class="badge badge-light">Git</span></li>
+							            <li class="list-inline-item"><span class="badge badge-light">Python</span></li>
+							            <li class="list-inline-item"><span class="badge badge-light">REST</span></li>
+							            <li class="list-inline-item"><span class="badge badge-light">WordPress</span></li>
+										<li class="list-inline-item"><span class="badge badge-light">CodeIgniter</span></li>
+						            </ul>
+						        </div>
+						    </div>
+					    </section>
+					    <section class="resume-section education-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Education</h2>
+						    <div class="resume-section-content">
+							    <ul class="list-unstyled">
+								    <li class="mb-2">
+								        <div class="resume-degree font-weight-bold">Bac+2 in <strong>web & mobile development</strong></div>
+								        <div class="resume-degree-org">Human Booster</div>
+								        <div class="resume-degree-time">2021</div>
+								    </li>
+							    </ul>
+						    </div>
+					    </section>
+					    <section class="resume-section reference-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Certification</h2>
+						    <div class="resume-section-content">
+							    <ul class="list-unstyled resume-awards-list">
+								    <li class="mb-2 ps-4 position-relative">
+								        <i class="resume-award-icon fas fa-trophy position-absolute" data-fa-transform="shrink-2"></i>
+										
+								        <div class="resume-award-name">SCRUM PSM 1</div>
+								        <div class="resume-award-desc">Profesionnal Scrum Master - Scrum.org</div>
+
+										<svg viewBox="-17.429084416588353 -9.362805561401416 334.8581688331767 514.3628055614014" xmlns="http://www.w3.org/2000/svg" width="40" height="40" class="scrum-icon"><path d="M82.43 182.42V505L150 437.36 217.56 505V182.42z" fill="#3a7c9a"/><path d="M207.62 192.36V481l-54.79-54.86-2.83-2.84-2.83 2.83L92.37 481V192.36zm4-4H88.37v302.29L150 429l61.62 61.69z" fill="#89b0c2"/><path d="M254.3 48.2a147.51 147.51 0 0 0-208.6 0A147.5 147.5 0 0 0 150 300 147.5 147.5 0 0 0 254.3 48.2z" fill="#3a7c9a"/><g fill="#89b0c2"><circle cx="150" cy="30" r="5"/><path d="M109.8 42a5 5 0 1 0-6.4-3 4.89 4.89 0 0 0 6.4 3zM68 54.8a5 5 0 1 0 7 .6 5 5 0 0 0-7-.6zM41.4 95.6a5 5 0 1 0-1.8-6.8 4.93 4.93 0 0 0 1.8 6.8zM30.2 126.3a5 5 0 1 0 4 5.8 5 5 0 0 0-4-5.8zM28.5 168.9a5 5 0 1 0 5.8 4 5 5 0 0 0-5.8-4zM41.4 209.4a5 5 0 1 0 6.8 1.8 5.12 5.12 0 0 0-6.8-1.8zM67.4 243.2a5 5 0 1 0 7-.6 4.85 4.85 0 0 0-7 .6z"/><circle cx="108.06" cy="267.63" r="5"/><path d="M150 270a5 5 0 1 0 5 5 5 5 0 0 0-5-5zM190.2 263a5 5 0 1 0 6.4 3 4.85 4.85 0 0 0-6.4-3zM225.6 242.5a5 5 0 1 0 7 .6 5 5 0 0 0-7-.6zM258.6 209.4a5 5 0 1 0 1.8 6.8 4.93 4.93 0 0 0-1.8-6.8z"/><path d="M280.2 152.5l4-15.6 10.9.7c-.4-3.5-.8-7-1.4-10.4v-.1c-.6-3.5-1.3-6.9-2.2-10.2l-10 4.3-9.1-13.3-1.6-16 10.5-3.1c-1.5-3.1-3.2-6.2-4.9-9.3h-.1v-.1c-1.8-3-3.6-6-5.6-8.9l-7.9 7.5-13.1-9.4-6.9-14.5 8.8-6.5c-2.5-2.4-5.1-4.8-7.8-7s-5.4-4.4-8.3-6.5l-4.9 9.8-15.5-4.3-11.5-11.3 6-9.1c-3.2-1.4-6.4-2.8-9.7-3.9h-.1v-.1c-3.3-1.2-6.6-2.3-10-3.2l-1.2 10.9-16 1.3-14.6-6.6L160.5 7c-3.5-.2-7-.4-10.5-.4s-7 .1-10.5.4l2.5 10.6-14.7 6.7-16-1.3-1.2-10.9c-3.4 1-6.7 2-10 3.2v.1h-.1c-3.3 1.2-6.5 2.5-9.7 3.9l6 9.1-11.4 11.3L69.4 44l-4.9-9.8c-2.8 2.1-5.6 4.2-8.3 6.5-2.7 2.2-5.3 4.6-7.8 7l8.7 6.5-6.9 14.5L37.1 78l-7.9-7.5c-2 2.9-3.8 5.8-5.6 8.9v.1h-.1c-1.7 3-3.4 6.1-4.9 9.3l10.5 3.1-1.6 16-9.1 13.3-10-4.3c-.8 3.4-1.6 6.8-2.2 10.2v.1h-.1c-.6 3.4-1.1 6.9-1.4 10.4l10.9-.7 4 15.6-4 15.6-10.9-.7c.4 3.5.8 7 1.4 10.4h.1c.6 3.5 1.3 6.9 2.2 10.2l10-4.3 9.1 13.3 1.6 16-10.5 3.1c1.5 3.1 3.2 6.2 4.9 9.3h.1v.1c1.7 3 3.6 6 5.6 8.9l7.9-7.5 13.1 9.3 6.9 14.5-8.8 6.5c2.5 2.4 5.1 4.8 7.8 7 2.7 2.3 5.4 4.4 8.3 6.5l4.9-9.8 15.5 4.3 11.5 11.3-6 9.1c3.2 1.4 6.4 2.7 9.7 3.9h.1v.1c3.3 1.2 6.6 2.3 10 3.2l1.2-10.9 16-1.3 14.7 6.7-2.5 10.6c3.5.2 7 .4 10.5.4s7-.1 10.5-.4l-2.5-10.6 14.7-6.7 16 1.3 1.2 10.9c3.4-1 6.7-2 10-3.2v-.1h.1c3.3-1.2 6.5-2.5 9.7-3.9l-6-9.1 11.5-11.3 15.5-4.3 4.9 9.8c2.8-2.1 5.6-4.2 8.3-6.5 2.7-2.3 5.3-4.6 7.8-7l-8.8-6.5 6.9-14.5 13.1-9.3 7.9 7.5c2-2.9 3.8-5.8 5.6-8.9v-.1h.1c1.7-3 3.4-6.1 4.9-9.3l-10.5-3.1 1.6-16 9.1-13.3 10 4.4c.9-3.4 1.6-6.8 2.2-10.2.6-3.4 1.1-6.9 1.4-10.4l-10.9.7zm-2.2 22.6a123 123 0 0 1-5.9 21.8 132.16 132.16 0 0 1-9.6 20.6 130.19 130.19 0 0 1-13 18.5 127.28 127.28 0 0 1-16 16 138.07 138.07 0 0 1-18.6 13 128.14 128.14 0 0 1-20.5 9.6 133.65 133.65 0 0 1-21.9 5.8 127.56 127.56 0 0 1-45 0 133.65 133.65 0 0 1-21.9-5.8 124.2 124.2 0 0 1-20.5-9.6 128 128 0 0 1-18.5-12.9 131.82 131.82 0 0 1-29-34.5 122.11 122.11 0 0 1-9.5-20.5 130.66 130.66 0 0 1-5.9-21.9 135.36 135.36 0 0 1 0-45.2 118.51 118.51 0 0 1 5.9-21.8 141.36 141.36 0 0 1 9.5-20.6 146.76 146.76 0 0 1 13-18.6 127.28 127.28 0 0 1 16-16 129.57 129.57 0 0 1 18.6-13 128.14 128.14 0 0 1 20.5-9.6 133.65 133.65 0 0 1 21.9-5.8 127 127 0 0 1 44.9 0 134.77 134.77 0 0 1 22 5.8A132.33 132.33 0 0 1 215 40a122.06 122.06 0 0 1 18.6 13 135.06 135.06 0 0 1 16 16.1 130.19 130.19 0 0 1 13 18.5 123 123 0 0 1 9.5 20.6A132.14 132.14 0 0 1 278 130a134.77 134.77 0 0 1 0 45.1z"/><path d="M271.5 168.9a5 5 0 1 0 4 5.9 4.87 4.87 0 0 0-4-5.9z"/><circle cx="270.7" cy="131.19" r="5"/><path d="M253.6 86.9a5 5 0 1 0 6.8 1.8 5 5 0 0 0-6.8-1.8zM224.9 55.4a5 5 0 1 0 7-.6 5 5 0 0 0-7 .6zM193.6 32.7a5 5 0 1 0 3 6.4 5 5 0 0 0-3-6.4z"/></g><path d="M262.9 152.5A112.9 112.9 0 1 1 150 39.6a112.9 112.9 0 0 1 112.9 112.9z" fill="#fff"/><path d="M49.2 116.89h26.43c14.78 0 27.05 4.72 27.05 21.61 0 16.69-11.36 21.82-26.34 21.82H64.87v27.74H49.2zm15.67 30.16h10.46c5.53 0 11.06-1.91 11.06-8.55 0-7.34-7.44-8.35-13.47-8.35h-8zM147.72 134.28c-2.52-3.22-7.54-4.73-11.36-4.73-4.43 0-10.56 2-10.56 7.34 0 13 32.78 4.62 32.78 29.56 0 15.88-12.77 23.42-27.45 23.42-9.15 0-17.19-2.71-23.93-8.94l11.16-12.27a17.45 17.45 0 0 0 13.64 6.73c5.13 0 10.86-2.41 10.86-7.43 0-13.07-33.38-6-33.38-29.76 0-15.18 13.18-23.12 27.15-23.12 8 0 15.78 2.11 21.82 7.44zM170.24 116.89H194l16.39 46.44h.2L227 116.89h23.63v71.17H235v-54.59h-.2l-18.7 54.59h-12l-18-54.59h-.2v54.59h-15.66zM144.53 200.34h10.94V250h-10.94z" fill="#3a7c9a"/></svg>
+								    </li>
+							    </ul>
+						    </div>
+					    </section>
+					    <section class="resume-section language-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Language</h2>
+						    <div class="resume-section-content">
+							    <ul class="list-unstyled resume-lang-list">
+								    <li class="mb-2"><span class="resume-lang-name font-weight-bold">French</span> <small class="text-muted font-weight-normal">(Native)</small></li>
+								    <li class="mb-2 align-middle"><span class="resume-lang-name font-weight-bold">English</span> <small class="text-muted font-weight-normal">(Professional)</small></li>
+								    <li><span class="resume-lang-name font-weight-bold">Spanish</span> <small class="text-muted font-weight-normal">(Professional)</small></li>
+							    </ul>
+						    </div>
+					    </section>
+					    <section class="resume-section interests-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Interests</h2>
+						    <div class="resume-section-content">
+							    <ul class="list-unstyled">
+								    <li class="mb-1">Outdoor & Climbing</li>
+								    <li class="mb-1">Topography & orientation</li>
+								    <li class="mb-1">Foreign culture</li>
+							    </ul>
+						    </div>
+					    </section>
+					    
+				    </div>
+			    </div>
+		    </div>
+		    
+		    
+	    </div>
+    </article> 
+
+    
+    <footer class="footer text-center pt-2 pb-5">
+        
     </footer>
-     
-          
 
-          <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZQsPANzbjgDromRPqD6zwZ1OW3p9Jd6c&callback=initAutocomplete&libraries=places&v=weekly"
-          async
-        ></script>
-        <script src="form_adresse-autocomplete.js"></script>
+    
+
 </body>
-</html>
+</html> 
+
