@@ -1,0 +1,708 @@
+/* Global styles for the portfolio */
+
+/* Tailwind CSS imports must come first */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Disable automatic translation */
+html {
+  -webkit-translate: no;
+  -moz-translate: no;
+  -ms-translate: no;
+  translate: no;
+}
+
+/* Prevent Google Translate from modifying content */
+.notranslate {
+  -webkit-translate: no !important;
+  -moz-translate: no !important;
+  -ms-translate: no !important;
+  translate: no !important;
+}
+
+/* Universal reset for margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Professional Cool Blue Theme */
+:root {
+  --color-primary: #1e40af;
+  --color-primary-dark: #1e3a8a;
+  --color-primary-light: #3b82f6;
+  --color-secondary: #0f172a;
+  --color-accent: #06b6d4;
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Force body constraints */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Force html constraints */
+html {
+  scroll-behavior: smooth;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Custom components */
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border: 1px solid #dbeafe;
+}
+
+.tag {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Custom utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.shadow-3xl {
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flagBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-in {
+  animation: slideInFromBottom 0.2s ease-out;
+}
+
+.slide-in-from-bottom-2 {
+  animation: slideInFromBottom 0.2s ease-out;
+}
+
+.flag-bounce {
+  animation: flagBounce 0.3s ease-in-out;
+}
+
+.pulse-glow {
+  animation: pulseGlow 0.6s ease-in-out;
+}
+
+/* Language switcher hover effects */
+.lang-flag {
+  transition: all 0.2s ease-in-out;
+}
+
+.lang-flag:hover {
+  transform: scale(1.15);
+  filter: brightness(1.1);
+}
+
+/* Smooth transitions for language dropdown */
+.lang-dropdown {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-dropdown.hidden {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+}
+
+.lang-dropdown:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Language switcher styles */
+.language-switcher {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+.language-switcher-content {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+  padding: 0.5rem;
+  border: 1px solid #dbeafe;
+}
+
+/* Force language switcher to be visible */
+.lang-switcher-container {
+  position: fixed !important;
+  right: 0.25rem !important;
+  bottom: 0.25rem !important;
+  z-index: 9999 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .language-switcher-content {
+    background: #1f2937;
+    border-color: #374151;
+  }
+}
+
+/* Responsive design improvements */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .language-switcher {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  /* Prevent content from overlapping with language switcher */
+  main {
+    padding-bottom: 4rem;
+  }
+  
+  /* Ensure text doesn't overflow on mobile */
+  .text-overflow-fix {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    overflow-x: hidden;
+    word-break: break-word;
+    max-width: 100%;
+  }
+  
+  /* Ensure language switcher is always visible */
+  .fixed {
+    position: fixed !important;
+  }
+  
+  /* Language switcher specific positioning */
+  .lang-switcher-container {
+    position: fixed !important;
+    right: 0.25rem !important;
+    bottom: 0.25rem !important;
+    z-index: 9999 !important;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Ensure viewport doesn't exceed screen width */
+  * {
+    max-width: 100vw !important;
+  }
+  
+  /* Ensure all containers are properly constrained */
+  .container {
+    max-width: 100vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Homepage specific fixes */
+@media (max-width: 640px) {
+  /* Ensure homepage hero section doesn't overflow */
+  .hero-section {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Ensure photo container doesn't cause overflow */
+  .photo-container {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+  
+  /* Ensure decorative elements don't extend beyond container */
+  .decorative-element {
+    max-width: 100% !important;
+  }
+}
+
+
+/* Code block styling for blog posts - DESKTOP */
+pre {
+  overflow-x: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  word-break: break-all !important;
+  margin: 1rem 0 !important;
+  padding: 1rem !important;
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-radius: 0.5rem !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+/* MOBILE: Force pre to behave like div */
+@media (max-width: 768px) {
+  pre {
+    white-space: normal !important;
+    overflow-x: visible !important;
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+  }
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.875rem !important;
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.25rem !important;
+}
+
+pre code {
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+
+/* Print styles */
+@media print {
+  .language-switcher {
+    display: none;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Language switcher animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes flag-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 0.6s ease-in-out;
+}
+
+.flag-bounce {
+  animation: flag-bounce 0.3s ease-in-out;
+}
+
+.animate-in {
+  animation: animate-in 0.2s ease-out;
+}
+
+/* Mobile navigation fixes */
+@media (max-width: 768px) {
+  /* Fix mobile navigation issues */
+  #mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Prevent layout shifts during navigation */
+  main {
+    min-height: 100vh;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  /* Ensure proper rendering on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Fix mobile menu button */
+  #mobile-menu-button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Prevent white screen on navigation */
+  body {
+    background-color: #f8fafc;
+  }
+
+
+
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific styles */
+    a {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    /* Fix iOS link handling */
+    nav a {
+      -webkit-touch-callout: default;
+      -webkit-user-select: default;
+      user-select: default;
+    }
+    
+    /* Prevent iOS zoom on double tap */
+    button, a {
+      touch-action: manipulation;
+    }
+  }
+}
+
+/* Back to Top Button */
+.back-to-top {
+  right: 0.3rem;
+  position: fixed;
+  bottom: 3rem;
+  z-index: 50;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.back-to-top:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(1.05);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #4b5563;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-to-top:hover svg {
+  color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+/* Language Switcher */
+.lang-switcher-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+.lang-toggle {
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.lang-toggle:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(1.05);
+}
+
+.lang-toggle img {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.125rem;
+}
+
+.lang-dropdown {
+  position: absolute;
+  bottom: 3rem;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 0.5rem;
+  min-width: 11.25rem;
+  display: none;
+}
+
+.lang-dropdown.show {
+  display: block;
+  animation: animate-in 0.2s ease-out;
+}
+
+.lang-dropdown .space-y-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.lang-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.75rem;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.lang-dropdown a:hover {
+  background-color: #f3f4f6;
+}
+
+.lang-dropdown a.active {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 500;
+}
+
+.lang-dropdown a:not(.active) {
+  color: #374151;
+}
+
+.lang-dropdown a img {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.125rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .back-to-top {
+    right: 0.55rem;
+    padding: 0.75rem;
+    margin-bottom: 0.7rem;
+  }
+  
+  .back-to-top svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .lang-switcher-container {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  
+  .lang-toggle {
+    padding: 0.75rem;
+  }
+  
+  .lang-toggle img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .lang-dropdown {
+    bottom: 3.5rem;
+    padding: 0.75rem;
+    min-width: 12.5rem;
+  }
+  
+  .lang-dropdown a {
+    font-size: 0.875rem;
+  }
+  
+  .lang-dropdown a img {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

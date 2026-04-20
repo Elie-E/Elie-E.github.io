@@ -1,0 +1,248 @@
+---
+import { languages } from '../types/index.js';
+import { getPersonalInfo } from '../data/index.js';
+
+export interface Props {
+  currentLang: string;
+}
+
+const { currentLang } = Astro.props;
+const personalInfo = getPersonalInfo(currentLang);
+
+// Get current year dynamically
+const currentYear = new Date().getFullYear();
+
+// Footer text translations
+const footerText = {
+  fr: { 
+    rights: 'Tous droits réservés',
+    description: 'CTO & Lead Developer passionné par la construction de solutions évolutives et le mentorat d\'équipes de développement. Spécialisé dans les technologies modernes et l\'architecture logicielle.',
+    navigation: 'Navigation',
+    contact: 'Contact',
+    home: 'Accueil',
+    resume: 'CV',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    about: 'À propos',
+    contact_link: 'Contact',
+    location: 'Lyon, France',
+    linkedin: 'LinkedIn'
+  },
+  en: { 
+    rights: 'All rights reserved',
+    description: 'CTO & Lead Developer passionate about building scalable solutions and mentoring development teams. Specialized in modern technologies and software architecture.',
+    navigation: 'Navigation',
+    contact: 'Contact',
+    home: 'Home',
+    resume: 'Resume',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    about: 'About',
+    contact_link: 'Contact',
+    location: 'Lyon, France',
+    linkedin: 'LinkedIn'
+  },
+  es: { 
+    rights: 'Todos los derechos reservados',
+    description: 'CTO & Lead Developer apasionado por construir soluciones escalables y mentorizar equipos de desarrollo. Especializado en tecnologías modernas y arquitectura de software.',
+    navigation: 'Navegación',
+    contact: 'Contacto',
+    home: 'Inicio',
+    resume: 'Currículum',
+    portfolio: 'Portafolio',
+    blog: 'Blog',
+    about: 'Acerca de',
+    contact_link: 'Contacto',
+    location: 'Lyon, Francia',
+    linkedin: 'LinkedIn'
+  },
+  de: { 
+    rights: 'Alle Rechte vorbehalten',
+    description: 'CTO & Lead Developer, leidenschaftlich für den Aufbau skalierbarer Lösungen und die Betreuung von Entwicklungsteams. Spezialisiert auf moderne Technologien und Softwarearchitektur.',
+    navigation: 'Navigation',
+    contact: 'Kontakt',
+    home: 'Startseite',
+    resume: 'Lebenslauf',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    about: 'Über mich',
+    contact_link: 'Kontakt',
+    location: 'Lyon, Frankreich',
+    linkedin: 'LinkedIn'
+  },
+  pt: { 
+    rights: 'Todos os direitos reservados',
+    description: 'CTO & Lead Developer apaixonado por construir soluções escaláveis e mentorar equipes de desenvolvimento. Especializado em tecnologias modernas e arquitetura de software.',
+    navigation: 'Navegação',
+    contact: 'Contato',
+    home: 'Início',
+    resume: 'Currículo',
+    portfolio: 'Portfólio',
+    blog: 'Blog',
+    about: 'Sobre',
+    contact_link: 'Contato',
+    location: 'Lyon, França',
+    linkedin: 'LinkedIn'
+  },
+  ja: { 
+    rights: '全著作権所有',
+    description: 'スケーラブルなソリューションの構築と開発チームのメンタリングに情熱を注ぐCTO & Lead Developer。モダンなテクノロジーとソフトウェアアーキテクチャを専門とする。',
+    navigation: 'ナビゲーション',
+    contact: 'お問い合わせ',
+    home: 'ホーム',
+    resume: '履歴書',
+    portfolio: 'ポートフォリオ',
+    blog: 'ブログ',
+    about: 'について',
+    contact_link: 'お問い合わせ',
+    location: 'リヨン、フランス',
+    linkedin: 'LinkedIn'
+  },
+  ko: { 
+    rights: '모든 권리 보유',
+    description: '확장 가능한 솔루션 구축과 개발팀 멘토링에 열정을 가진 CTO & Lead Developer. 현대 기술과 소프트웨어 아키텍처를 전문으로 함.',
+    navigation: '네비게이션',
+    contact: '연락처',
+    home: '홈',
+    resume: '이력서',
+    portfolio: '포트폴리오',
+    blog: '블로그',
+    about: '소개',
+    contact_link: '연락처',
+    location: '리옹, 프랑스',
+    linkedin: 'LinkedIn'
+  },
+  zh: { 
+    rights: '版权所有',
+    description: '热衷于构建可扩展解决方案和指导开发团队的CTO & Lead Developer。专注于现代技术和软件架构。',
+    navigation: '导航',
+    contact: '联系',
+    home: '首页',
+    resume: '简历',
+    portfolio: '作品集',
+    blog: '博客',
+    about: '关于',
+    contact_link: '联系',
+    location: '里昂，法国',
+    linkedin: 'LinkedIn'
+  },
+  ar: { 
+    rights: 'جميع الحقوق محفوظة',
+    description: 'CTO & Lead Developer شغوف ببناء الحلول القابلة للتوسع وإرشاد فرق التطوير. متخصص في التقنيات الحديثة وهندسة البرمجيات.',
+    navigation: 'التنقل',
+    contact: 'اتصل',
+    home: 'الرئيسية',
+    resume: 'السيرة الذاتية',
+    portfolio: 'المحفظة',
+    blog: 'المدونة',
+    about: 'حول',
+    contact_link: 'اتصل',
+    location: 'ليون، فرنسا',
+    linkedin: 'LinkedIn'
+  }
+};
+
+const currentFooter = footerText[currentLang as keyof typeof footerText] || footerText.en;
+---
+
+<footer class="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white">
+  <div class="container mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-4 gap-8">
+      <!-- Brand & Description -->
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+          {personalInfo.name}
+        </h3>
+        <p class="text-gray-300 mb-6 max-w-md leading-relaxed">
+          {currentFooter.description}
+        </p>
+        <div class="flex space-x-4">
+          <a 
+            href="https://www.linkedin.com/in/oussema-trabelsi/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-blue-400 transition-all duration-300 hover:scale-110"
+            aria-label="Visit LinkedIn profile"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+          <a 
+            href="mailto:contact@oussematrabelsi.com"
+            class="text-gray-400 hover:text-blue-400 transition-all duration-300 hover:scale-110"
+            aria-label="Send email"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+            </svg>
+          </a>
+          <a 
+            href="https://github.com/oussematrabelsi" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-blue-400 transition-all duration-300 hover:scale-110"
+            aria-label="Visit GitHub profile"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-semibold text-blue-400 mb-6">{currentFooter.navigation}</h4>
+        <ul class="space-y-3">
+          <li><a href={`/${currentLang}`} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block">{currentFooter.home}</a></li>
+          <li><a href={`/${currentLang}/resume`} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block">{currentFooter.resume}</a></li>
+          <li><a href={`/${currentLang}/portfolio`} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block">{currentFooter.portfolio}</a></li>
+          <li><a href={`/${currentLang}/blog`} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block">{currentFooter.blog}</a></li>
+          <li><a href={`/${currentLang}/about`} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block">{currentFooter.about}</a></li>
+          <li><a href={`/${currentLang}/contact`} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:translate-x-1 inline-block">{currentFooter.contact_link}</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="text-lg font-semibold text-blue-400 mb-6">{currentFooter.contact}</h4>
+        <div class="space-y-3 text-gray-300">
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>{currentFooter.location}</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+            </svg>
+            <a href="mailto:contact@oussematrabelsi.com" class="hover:text-blue-400 transition-colors duration-200">
+              contact@oussematrabelsi.com
+            </a>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+            </svg>
+            <a href="https://www.linkedin.com/in/oussema-trabelsi/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors duration-200">
+              {currentFooter.linkedin}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-700 mt-12 pt-8">
+      <div class="flex justify-center">
+        <div class="text-gray-400">
+          © {currentYear} {personalInfo.name}. {currentFooter.rights}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

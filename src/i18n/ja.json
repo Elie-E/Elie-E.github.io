@@ -1,0 +1,79 @@
+{
+  "home": {
+    "title": "Oussema Trabelsi - CTO & Lead Developer",
+    "description": "Oussema Trabelsiのプロフェッショナルウェブサイト、5年以上の経験を持つCTO兼Lead Developer。",
+    "viewCV": "履歴書を見る",
+    "viewPortfolio": "ポートフォリオを見る",
+    "yearsExperience": "年の経験",
+    "currentRole": "現在の役職",
+    "languagesSupported": "対応言語",
+    "getInTouch": "お問い合わせ",
+    "contactDescription": "新しい挑戦とコラボレーションの準備ができています。",
+    "sendEmail": "メールを送る",
+    "connectLinkedIn": "LinkedInでつながる"
+  },
+  "cv": {
+    "title": "履歴書 - Oussema Trabelsi",
+    "description": "Oussema Trabelsiのプロフェッショナルな履歴書、CTO兼Lead Developer。",
+    "bio": "自己紹介",
+    "experience": "職歴",
+    "education": "学歴",
+    "skills": "スキル",
+    "technicalSkills": "技術スキル",
+    "languages": "言語",
+    "certifications": "認定資格",
+    "grade": "成績",
+    "present": "現在",
+    "downloadCV": "履歴書をダウンロード"
+  },
+  "portfolio": {
+    "title": "ポートフォリオ - Oussema Trabelsi",
+    "description": "Oussema Trabelsiのプロジェクトポートフォリオ、CTO兼Lead Developer。",
+    "allProjects": "すべてのプロジェクト",
+    "featured": "おすすめ",
+    "web": "Web",
+    "mobile": "モバイル",
+    "ai": "AI",
+    "backend": "バックエンド",
+    "frontend": "フロントエンド",
+    "fullstack": "フルスタック",
+    "viewProject": "プロジェクトを見る",
+    "viewCode": "コードを見る",
+    "technologies": "技術",
+    "getInTouch": "お問い合わせ",
+    "contactDescription": "コラボレーションに興味がありますか？お気軽にお問い合わせください。",
+    "contact": "お問い合わせ"
+  },
+  "blog": {
+    "title": "ブログ - Oussema Trabelsi",
+    "description": "開発とリーダーシップに関する技術記事とインサイト。",
+    "allPosts": "すべての記事",
+    "featured": "おすすめ",
+    "latest": "最新",
+    "readMore": "続きを読む",
+    "publishedOn": "公開日",
+    "readTime": "読了時間",
+    "tags": "タグ",
+    "noPosts": "記事が見つかりません"
+  },
+  "about": {
+    "title": "私について - Oussema Trabelsi",
+    "description": "Oussema Trabelsiについてもっと知る、CTO兼Lead Developer。",
+    "myStory": "私のストーリー",
+    "passion": "情熱",
+    "values": "価値観",
+    "achievements": "実績",
+    "getInTouch": "お問い合わせ",
+    "contactDescription": "機会について話しましょう。"
+  },
+  "contact": {
+    "title": "お問い合わせ - Oussema Trabelsi",
+    "description": "プロジェクトやコラボレーションについてOussema Trabelsiにお問い合わせください。",
+    "getInTouch": "お問い合わせ",
+    "sendMessage": "メッセージを送る",
+    "email": "メール",
+    "linkedin": "LinkedIn",
+    "location": "所在地",
+    "sendMessage": "メッセージを送る"
+  }
+}

@@ -1,0 +1,348 @@
+---
+import type { Props } from 'astro';
+import { languages } from '../types';
+import { getPersonalInfo } from '../data/index.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  currentPath?: string;
+  currentLang?: string;
+}
+
+const { 
+  title, 
+  description, 
+  lang = 'fr', 
+  canonical, 
+  ogImage = '/images/og-image.jpg',
+  noindex = false,
+  currentPath: propCurrentPath,
+  currentLang: propCurrentLang
+} = Astro.props;
+
+const site = 'https://www.oussematrabelsi.com';
+const currentLang = propCurrentLang || lang;
+const currentPath = propCurrentPath || Astro.url.pathname;
+const currentUrl = canonical || `${site}${currentPath}`;
+
+const personalInfo = getPersonalInfo(currentLang);
+
+// Add cache busting timestamp
+const timestamp = new Date().getTime();
+
+// Get alternate language URLs
+const alternateUrls = languages.map(lang => {
+  // Extract the path without language prefix
+  const pathWithoutLang = currentPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+  const cleanPath = pathWithoutLang === '/' ? '' : pathWithoutLang;
+  
+  return {
+    lang: lang.code,
+    url: `${site}/${lang.code}${cleanPath}`
+  };
+});
+---
+
+<!DOCTYPE html>
+<html lang={currentLang} dir={currentLang === 'ar' ? 'rtl' : 'ltr'} translate="no" class="notranslate">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Disable automatic translation -->
+    <meta name="google" content="notranslate" />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical || currentUrl} />
+    
+    <!-- Language Alternates -->
+    {alternateUrls.map(({ lang, url }) => (
+      <link rel="alternate" hreflang={lang} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${site}/en${currentPath.replace(/^\/[a-z]{2}(\/|$)/, '/')}`} />
+    
+    <!-- Robots -->
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={`${personalInfo.name} - ${personalInfo.title}`} />
+    <meta property="og:description" content="Experienced CTO and Lead Developer with 5+ years at Advercity, specializing in full-stack development, team leadership, and technical architecture." />
+    <meta property="og:image" content={`${site}/images/og-image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${personalInfo.name} - ${personalInfo.title}`} />
+    <meta property="og:site_name" content={`${personalInfo.name} - ${personalInfo.title}`} />
+    <meta property="og:locale" content={currentLang === 'fr' ? 'fr_FR' : currentLang === 'en' ? 'en_US' : currentLang} />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@oussematrabelsi" />
+    <meta name="twitter:creator" content="@oussematrabelsi" />
+    <meta name="twitter:url" content={currentUrl} />
+    <meta name="twitter:title" content={`${personalInfo.name} - ${personalInfo.title}`} />
+    <meta name="twitter:description" content="Experienced CTO and Lead Developer with 5+ years at Advercity, specializing in full-stack development, team leadership, and technical architecture." />
+    <meta name="twitter:image" content={`${site}/images/og-image.png`} />
+    <meta name="twitter:image:alt" content={`${personalInfo.name} - ${personalInfo.title}`} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    
+    <!-- Preload critical fonts with optimized loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/_astro/page.DTIbhfSr.js" as="script" />
+    <link rel="preload" href="/_astro/hoisted.BzJg_0AP.js" as="script" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/images/oussema-trabelsi-cto.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preload" href="/images/oussema-trabelsi-cto.png" as="image" type="image/png" fetchpriority="high" />
+    
+    <!-- Critical CSS inline for above-the-fold content -->
+    <style>
+      /* Critical CSS for immediate rendering */
+      body { margin: 0; padding: 0; font-family: Inter, system-ui, sans-serif; }
+      .min-h-screen { min-height: 100vh; }
+      .bg-gradient-to-br { background: linear-gradient(to bottom right, #f8fafc, #ffffff, #eff6ff); }
+      .text-gray-900 { color: #111827; }
+      .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      
+      /* Critical layout styles */
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+      .hero-section { padding: 4rem 0; text-align: center; }
+      .hero-image { max-width: 300px; height: auto; border-radius: 1rem; }
+      
+      /* Critical button styles */
+      .btn-primary { 
+        background: #3b82f6; 
+        color: white; 
+        padding: 0.75rem 1.5rem; 
+        border-radius: 0.5rem; 
+        text-decoration: none; 
+        display: inline-block;
+        transition: background-color 0.2s;
+      }
+      .btn-primary:hover { background: #2563eb; }
+    </style>
+    
+    <!-- Google Analytics - Optimized loading -->
+    <script>
+      // Load Google Analytics with requestIdleCallback for better performance
+      function loadGA() {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-V5ZN06BDH7';
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-V5ZN06BDH7', {
+            send_page_view: false
+          });
+        };
+      }
+      
+      // Use requestIdleCallback if available, otherwise fallback to setTimeout
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGA, { timeout: 2000 });
+      } else {
+        setTimeout(loadGA, 1000);
+      }
+    </script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": personalInfo.name,
+      "jobTitle": "CTO & Lead Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Advercity"
+      },
+      "url": "https://www.oussematrabelsi.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussema-trabelsi/"
+      ],
+      "email": "contact@oussematrabelsi.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lyon",
+        "addressCountry": "FR"
+      }
+    })}>
+    </script>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 text-gray-900 antialiased" style="margin: 0; padding: 0; width: 100%; max-width: 100vw; overflow-x: hidden;">
+    <Header currentLang={currentLang} currentPath={currentPath} />
+    <slot />
+    <Footer currentLang={currentLang} />
+    
+    <!-- Back to Top Button -->
+    <button 
+      id="back-to-top"
+      class="back-to-top"
+      aria-label="Back to top"
+    >
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher-container">
+      <div class="relative">
+        <button 
+          id="lang-toggle"
+          class="lang-toggle pulse-glow"
+          aria-label="Change language"
+        >
+          <img 
+            id="current-flag"
+            src="/flags/fr.png" 
+            alt="Current language flag"
+            class="flag-bounce"
+          />
+        </button>
+        
+        <div 
+          id="lang-dropdown"
+          class="lang-dropdown"
+        >
+          <div class="space-y-1">
+            {languages.map(lang => (
+              <a 
+                href={`/${lang.code}${currentPath.replace(/^\/[a-z]{2}(\/|$)/, '/')}`}
+                class={currentLang === lang.code ? 'active' : ''}
+              >
+                <img 
+                  src={lang.flag} 
+                  alt={`${lang.name} flag`}
+                  class="lang-flag"
+                />
+                <span>{lang.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script define:vars={{ languages, currentLang }}>
+      // Optimized language switcher and back to top functionality
+      // Use requestIdleCallback for better performance
+      function initUI() {
+        const langToggle = document.getElementById('lang-toggle');
+        const langDropdown = document.getElementById('lang-dropdown');
+        const currentFlag = document.getElementById('current-flag');
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        // Language switcher functionality
+        if (langToggle && langDropdown && currentFlag) {
+          // Optimized event handling
+          langToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isHidden = !langDropdown.classList.contains('show');
+            
+            if (isHidden) {
+              langDropdown.classList.add('show');
+              langToggle.classList.add('pulse-glow');
+              setTimeout(() => langToggle.classList.remove('pulse-glow'), 600);
+              currentFlag.classList.add('flag-bounce');
+              setTimeout(() => currentFlag.classList.remove('flag-bounce'), 300);
+            } else {
+              langDropdown.classList.remove('show');
+            }
+          });
+          
+          // Close dropdown when clicking outside
+          document.addEventListener('click', (e) => {
+            if (!langToggle.contains(e.target) && !langDropdown.contains(e.target)) {
+              langDropdown.classList.remove('show');
+            }
+          });
+          
+          // iOS-specific: Handle language links to prevent white page
+          const langLinks = langDropdown.querySelectorAll('a');
+          langLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+              // Close dropdown immediately
+              langDropdown.classList.remove('show');
+              
+              // For iOS, add a small delay to ensure smooth navigation
+              if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                e.preventDefault();
+                setTimeout(() => {
+                  window.location.href = link.href;
+                }, 50);
+              }
+            });
+          });
+          
+          // Update current flag
+          const updateCurrentFlag = () => {
+            const currentLangFlag = languages.find(lang => lang.code === currentLang)?.flag || '/flags/us.png';
+            currentFlag.src = currentLangFlag;
+          };
+          updateCurrentFlag();
+        }
+        
+        // Back to top functionality
+        if (backToTopBtn) {
+          // Show/hide button based on scroll position
+          window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+              backToTopBtn.classList.add('visible');
+            } else {
+              backToTopBtn.classList.remove('visible');
+            }
+          });
+          
+          // Smooth scroll to top
+          backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          });
+        }
+      }
+      
+      // Initialize UI with requestIdleCallback for better performance
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initUI);
+      } else {
+        // Fallback for browsers without requestIdleCallback
+        setTimeout(initUI, 0);
+      }
+    </script>
+  </body>
+</html>

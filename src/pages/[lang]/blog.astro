@@ -1,0 +1,616 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../data/index.js';
+import { languages } from '../../types/index.js';
+
+// Generate static paths for all languages
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+// Get language from URL path
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/blog`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/blog`;
+const title = `Blog - ${personalInfo.name}`;
+const description = `Technical blog and insights by ${personalInfo.name}, covering web development, leadership, and technology trends`;
+
+// Blog page translations
+const blogTranslations = {
+  fr: {
+    title: 'Blog',
+    subtitle: 'Insights techniques, conseils de développement et réflexions sur le leadership dans l\'industrie tech.',
+    featured: 'À la une',
+    recentPosts: 'Articles Récents',
+    categories: 'Catégories',
+    stayUpdated: 'Restez Informé',
+    stayUpdatedDesc: 'Soyez notifié quand je publie de nouveaux articles sur le développement web, le leadership et la technologie.',
+    enterEmail: 'Entrez votre email',
+    subscribe: 'S\'abonner',
+    readMore: 'Lire la suite',
+    minRead: 'min de lecture',
+    home: 'Accueil',
+    resume: 'CV',
+    portfolio: 'Portfolio',
+    contact: 'Contact',
+    webDev: 'Développement Web',
+    leadership: 'Leadership',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'Architecture'
+  },
+  en: {
+    title: 'Blog',
+    subtitle: 'Technical insights, development tips, and thoughts on leadership in the tech industry.',
+    featured: 'Featured',
+    recentPosts: 'Recent Posts',
+    categories: 'Categories',
+    stayUpdated: 'Stay Updated',
+    stayUpdatedDesc: 'Get notified when I publish new articles about web development, leadership, and technology.',
+    enterEmail: 'Enter your email',
+    subscribe: 'Subscribe',
+    readMore: 'Read More',
+    minRead: 'min read',
+    home: 'Home',
+    resume: 'Resume',
+    portfolio: 'Portfolio',
+    contact: 'Contact',
+    webDev: 'Web Development',
+    leadership: 'Leadership',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'Architecture'
+  },
+  es: {
+    title: 'Blog',
+    subtitle: 'Perspectivas técnicas, consejos de desarrollo y reflexiones sobre liderazgo en la industria tecnológica.',
+    featured: 'Destacado',
+    recentPosts: 'Publicaciones Recientes',
+    categories: 'Categorías',
+    stayUpdated: 'Mantente Actualizado',
+    stayUpdatedDesc: 'Recibe notificaciones cuando publique nuevos artículos sobre desarrollo web, liderazgo y tecnología.',
+    enterEmail: 'Ingresa tu email',
+    subscribe: 'Suscribirse',
+    readMore: 'Leer más',
+    minRead: 'min de lectura',
+    home: 'Inicio',
+    resume: 'Currículum',
+    portfolio: 'Portafolio',
+    contact: 'Contacto',
+    webDev: 'Desarrollo Web',
+    leadership: 'Liderazgo',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'Arquitectura'
+  },
+  de: {
+    title: 'Blog',
+    subtitle: 'Technische Einblicke, Entwicklungstipps und Gedanken über Führung in der Tech-Branche.',
+    featured: 'Empfohlen',
+    recentPosts: 'Neueste Beiträge',
+    categories: 'Kategorien',
+    stayUpdated: 'Bleiben Sie auf dem Laufenden',
+    stayUpdatedDesc: 'Erhalten Sie Benachrichtigungen, wenn ich neue Artikel über Webentwicklung, Führung und Technologie veröffentliche.',
+    enterEmail: 'E-Mail eingeben',
+    subscribe: 'Abonnieren',
+    readMore: 'Weiterlesen',
+    minRead: 'Min. Lesezeit',
+    home: 'Startseite',
+    resume: 'Lebenslauf',
+    portfolio: 'Portfolio',
+    contact: 'Kontakt',
+    webDev: 'Webentwicklung',
+    leadership: 'Führung',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'Architektur'
+  },
+  pt: {
+    title: 'Blog',
+    subtitle: 'Insights técnicos, dicas de desenvolvimento e reflexões sobre liderança na indústria tech.',
+    featured: 'Em Destaque',
+    recentPosts: 'Posts Recentes',
+    categories: 'Categorias',
+    stayUpdated: 'Mantenha-se Atualizado',
+    stayUpdatedDesc: 'Seja notificado quando eu publicar novos artigos sobre desenvolvimento web, liderança e tecnologia.',
+    enterEmail: 'Digite seu email',
+    subscribe: 'Inscrever-se',
+    readMore: 'Leia mais',
+    minRead: 'min de leitura',
+    home: 'Início',
+    resume: 'Currículo',
+    portfolio: 'Portfólio',
+    contact: 'Contato',
+    webDev: 'Desenvolvimento Web',
+    leadership: 'Liderança',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'Arquitetura'
+  },
+  ja: {
+    title: 'ブログ',
+    subtitle: '技術的な洞察、開発のヒント、テック業界のリーダーシップについての考察。',
+    featured: '注目',
+    recentPosts: '最近の投稿',
+    categories: 'カテゴリー',
+    stayUpdated: '最新情報を取得',
+    stayUpdatedDesc: 'ウェブ開発、リーダーシップ、テクノロジーに関する新しい記事を公開したときに通知を受け取ります。',
+    enterEmail: 'メールアドレスを入力',
+    subscribe: '購読',
+    readMore: '続きを読む',
+    minRead: '分で読める',
+    home: 'ホーム',
+    resume: '履歴書',
+    portfolio: 'ポートフォリオ',
+    contact: 'お問い合わせ',
+    webDev: 'ウェブ開発',
+    leadership: 'リーダーシップ',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'アーキテクチャ'
+  },
+  ko: {
+    title: '블로그',
+    subtitle: '기술적 통찰, 개발 팁, 테크 업계의 리더십에 대한 생각.',
+    featured: '추천',
+    recentPosts: '최근 게시물',
+    categories: '카테고리',
+    stayUpdated: '업데이트 유지',
+    stayUpdatedDesc: '웹 개발, 리더십, 기술에 대한 새로운 기사를 게시할 때 알림을 받으세요.',
+    enterEmail: '이메일 입력',
+    subscribe: '구독',
+    readMore: '더 읽기',
+    minRead: '분 읽기',
+    home: '홈',
+    resume: '이력서',
+    portfolio: '포트폴리오',
+    contact: '연락처',
+    webDev: '웹 개발',
+    leadership: '리더십',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: '아키텍처'
+  },
+  zh: {
+    title: '博客',
+    subtitle: '技术洞察、开发技巧和对科技行业领导力的思考。',
+    featured: '精选',
+    recentPosts: '最新文章',
+    categories: '分类',
+    stayUpdated: '保持更新',
+    stayUpdatedDesc: '当我发布关于网络开发、领导力和技术的新文章时获得通知。',
+    enterEmail: '输入您的邮箱',
+    subscribe: '订阅',
+    readMore: '阅读更多',
+    minRead: '分钟阅读',
+    home: '首页',
+    resume: '简历',
+    portfolio: '作品集',
+    contact: '联系',
+    webDev: '网络开发',
+    leadership: '领导力',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: '架构'
+  },
+  ar: {
+    title: 'المدونة',
+    subtitle: 'رؤى تقنية ونصائح التطوير وأفكار حول القيادة في صناعة التكنولوجيا.',
+    featured: 'مميز',
+    recentPosts: 'المشاركات الأخيرة',
+    categories: 'الفئات',
+    stayUpdated: 'ابق محدثاً',
+    stayUpdatedDesc: 'احصل على إشعارات عند نشر مقالات جديدة حول تطوير الويب والقيادة والتكنولوجيا.',
+    enterEmail: 'أدخل بريدك الإلكتروني',
+    subscribe: 'اشترك',
+    readMore: 'اقرأ المزيد',
+    minRead: 'دقيقة قراءة',
+    home: 'الرئيسية',
+    resume: 'السيرة الذاتية',
+    portfolio: 'المحفظة',
+    contact: 'اتصل',
+    webDev: 'تطوير الويب',
+    leadership: 'القيادة',
+    javascript: 'JavaScript',
+    devops: 'DevOps',
+    architecture: 'الهندسة المعمارية'
+  }
+};
+
+const t = blogTranslations[lang as keyof typeof blogTranslations] || blogTranslations.en;
+
+// Sample blog posts with translations
+const blogPosts = {
+  fr: [
+    {
+      title: "Docker pour le Développement Local : Démarrer des Projets en Minutes",
+      excerpt: "Découvrez comment Docker simplifie le développement local. Apprenez à démarrer des projets PHP, JavaScript et full-stack en minutes avec des environnements reproductibles.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    },
+    {
+      title: "Astuces de Performance Eloquent : Faire Voler Laravel avec des Milliers d'Enregistrements",
+      excerpt: "Découvrez les techniques avancées pour optimiser les performances d'Eloquent ORM dans Laravel. Des astuces pratiques pour gérer efficacement des milliers d'enregistrements sans sacrifier l'élégance du code.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "Pourquoi Nous Aimons Encore PHP en 2025 : Une Perspective Personnelle",
+      excerpt: "Chaque année, quelqu'un prédit la mort de PHP. Et chaque année, PHP hausse simplement les épaules, se met à jour et continue d'alimenter une énorme partie d'Internet. Une perspective personnelle sur pourquoi PHP reste pertinent en 2025.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "Design Thinking pour Développeurs : Comment Mon Passé de Création de Logos Influence Mon Code",
+      excerpt: "Découvrez comment les principes du design thinking, appris à travers la création de logos et le design visuel, peuvent façonner de meilleurs développeurs. Un parcours personnel du design créatif au code et au leadership CTO.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    }
+  ],
+  en: [
+    {
+      title: "Docker for Local Dev: Spinning Up Projects in Minutes",
+      excerpt: "Learn how Docker simplifies local development. Discover how to bootstrap PHP, JavaScript, and full-stack projects in minutes with reproducible environments.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    },
+    {
+      title: "Eloquent Performance Tricks: Making Laravel Fly with Thousands of Records",
+      excerpt: "Discover advanced techniques to optimize Eloquent ORM performance in Laravel. Practical tricks for efficiently handling thousands of records without sacrificing code elegance.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "Why We Still Love PHP in 2025: A Personal Perspective",
+      excerpt: "Every year, someone predicts the death of PHP. And every year, PHP just shrugs, updates itself, and keeps powering a huge portion of the internet. A personal perspective on why PHP remains relevant in 2025.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "Design Thinking for Developers: How My Logo-Making Past Shapes My Code",
+      excerpt: "Discover how design thinking principles, learned through logo creation and visual design, can shape better developers. A personal journey from creative design to coding and CTO leadership.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    }
+  ],
+  es: [
+    {
+      title: "Trucos de Rendimiento Eloquent: Haciendo Volar Laravel con Miles de Registros",
+      excerpt: "Descubre técnicas avanzadas para optimizar el rendimiento de Eloquent ORM en Laravel. Trucos prácticos para manejar eficientemente miles de registros sin sacrificar la elegancia del código.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "Por Qué Seguimos Amando PHP en 2025: Una Perspectiva Personal",
+      excerpt: "Cada año, alguien predice la muerte de PHP. Y cada año, PHP simplemente se encoge de hombros, se actualiza y sigue alimentando una enorme porción de Internet. Una perspectiva personal sobre por qué PHP sigue siendo relevante en 2025.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "Design Thinking para Desarrolladores: Cómo Mi Pasado Creando Logos Moldea Mi Código",
+      excerpt: "Descubre cómo los principios del design thinking, aprendidos a través de la creación de logos y diseño visual, pueden moldear mejores desarrolladores. Un viaje personal del diseño creativo al código y liderazgo CTO.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "Docker para Desarrollo Local: Iniciando Proyectos en Minutos",
+      excerpt: "Aprende cómo Docker simplifica el desarrollo local. Descubre cómo inicializar proyectos PHP, JavaScript y full-stack en minutos con entornos reproducibles.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ],
+  de: [
+    {
+      title: "Eloquent Performance Tricks: Laravel mit Tausenden von Datensätzen zum Fliegen bringen",
+      excerpt: "Entdecke fortgeschrittene Techniken zur Optimierung der Eloquent ORM Performance in Laravel. Praktische Tricks für effizientes Handling von Tausenden von Datensätzen ohne Code-Eleganz zu opfern.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "Warum wir PHP 2025 immer noch lieben: Eine persönliche Perspektive",
+      excerpt: "Jedes Jahr sagt jemand den Tod von PHP voraus. Und jedes Jahr zuckt PHP nur mit den Schultern, aktualisiert sich und treibt weiterhin einen riesigen Teil des Internets an. Eine persönliche Perspektive darauf, warum PHP 2025 noch relevant ist.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "Design Thinking für Entwickler: Wie meine Logo-Erstellung-Vergangenheit meinen Code prägt",
+      excerpt: "Entdecken Sie, wie Design-Thinking-Prinzipien, die durch Logo-Erstellung und visuelles Design gelernt wurden, bessere Entwickler prägen können. Eine persönliche Reise vom kreativen Design zum Coding und CTO-Führung.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "Docker für lokale Entwicklung: Projekte in Minuten starten",
+      excerpt: "Erfahren Sie, wie Docker die lokale Entwicklung vereinfacht. Entdecken Sie, wie Sie PHP-, JavaScript- und Full-Stack-Projekte in Minuten mit reproduzierbaren Umgebungen starten.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ],
+  pt: [
+    {
+      title: "Truques de Performance Eloquent: Fazendo Laravel Voar com Milhares de Registros",
+      excerpt: "Descubra técnicas avançadas para otimizar a performance do Eloquent ORM no Laravel. Truques práticos para lidar eficientemente com milhares de registros sem sacrificar a elegância do código.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "Por Que Ainda Amamos PHP em 2025: Uma Perspectiva Pessoal",
+      excerpt: "Todo ano, alguém prevê a morte do PHP. E todo ano, o PHP simplesmente encolhe os ombros, se atualiza e continua alimentando uma enorme parte da internet. Uma perspectiva pessoal sobre por que o PHP ainda é relevante em 2025.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "Design Thinking para Desenvolvedores: Como Meu Passado Criando Logos Molda Meu Código",
+      excerpt: "Descubra como os princípios do design thinking, aprendidos através da criação de logos e design visual, podem moldar melhores desenvolvedores. Uma jornada pessoal do design criativo ao código e liderança CTO.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "Docker para Desenvolvimento Local: Iniciando Projetos em Minutos",
+      excerpt: "Aprenda como o Docker simplifica o desenvolvimento local. Descubra como inicializar projetos PHP, JavaScript e full-stack em minutos com ambientes reproduzíveis.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ],
+  ja: [
+    {
+      title: "Eloquent パフォーマンスのコツ：数千のレコードでLaravelを飛ばす",
+      excerpt: "LaravelのEloquent ORMパフォーマンスを最適化する高度なテクニックを発見してください。コードのエレガンスを犠牲にすることなく、数千のレコードを効率的に処理する実用的なコツ。",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "2025年にPHPをまだ愛する理由：個人的な視点",
+      excerpt: "毎年、誰かがPHPの死を予測します。そして毎年、PHPは肩をすくめて、自分を更新し、インターネットの巨大な部分を動かし続けます。2025年にPHPがまだ関連性がある理由についての個人的な視点。",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "開発者向けデザイン思考：ロゴ制作の過去がコードを形作る方法",
+      excerpt: "ロゴ制作とビジュアルデザインを通じて学んだデザイン思考の原則が、より良い開発者を形作る方法を発見してください。クリエイティブデザインからコーディング、CTOリーダーシップへの個人的な旅路。",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "ローカル開発用Docker：数分でプロジェクトを立ち上げる",
+      excerpt: "Dockerがローカル開発をどのように簡素化するかを学びましょう。再現可能な環境でPHP、JavaScript、フルスタックプロジェクトを数分でブートストラップする方法を発見してください。",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ],
+  ko: [
+    {
+      title: "Eloquent 성능 트릭: 수천 개의 레코드로 Laravel을 날게 만들기",
+      excerpt: "Laravel의 Eloquent ORM 성능을 최적화하는 고급 기법을 발견하세요. 코드의 우아함을 희생하지 않고 수천 개의 레코드를 효율적으로 처리하는 실용적인 트릭들.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "2025년에 여전히 PHP를 사랑하는 이유: 개인적인 관점",
+      excerpt: "매년 누군가가 PHP의 죽음을 예측합니다. 그리고 매년 PHP는 어깨를 으쓱하고, 자신을 업데이트하고, 인터넷의 거대한 부분을 계속 동력으로 공급합니다. 2025년에 PHP가 여전히 관련성이 있는 이유에 대한 개인적인 관점.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "개발자를 위한 디자인 씽킹: 로고 제작의 과거가 코드를 형성하는 방법",
+      excerpt: "로고 제작과 비주얼 디자인을 통해 배운 디자인 씽킹 원칙이 더 나은 개발자를 형성하는 방법을 발견하세요. 창의적 디자인에서 코딩, CTO 리더십으로의 개인적인 여정.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "로컬 개발용 Docker: 몇 분 만에 프로젝트 시작하기",
+      excerpt: "Docker가 로컬 개발을 어떻게 단순화하는지 알아보세요. 재현 가능한 환경으로 PHP, JavaScript, 풀스택 프로젝트를 몇 분 만에 부트스트랩하는 방법을 발견하세요.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ],
+  zh: [
+    {
+      title: "Eloquent性能技巧：让Laravel处理数千条记录时飞起来",
+      excerpt: "发现优化Laravel中Eloquent ORM性能的高级技术。在不牺牲代码优雅性的情况下高效处理数千条记录的实用技巧。",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "为什么我们在2025年仍然热爱PHP：个人观点",
+      excerpt: "每年，都有人预测PHP的死亡。每年，PHP只是耸耸肩，更新自己，继续为互联网的巨大一部分提供动力。关于为什么PHP在2025年仍然相关的个人观点。",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "开发者的设计思维：我的标志制作经历如何塑造我的代码",
+      excerpt: "发现通过标志创作和视觉设计学到的设计思维原则如何塑造更好的开发者。从创意设计到编码和CTO领导力的个人旅程。",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "本地开发Docker：几分钟内启动项目",
+      excerpt: "了解Docker如何简化本地开发。发现如何在几分钟内使用可重现环境启动PHP、JavaScript和全栈项目。",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ],
+  ar: [
+    {
+      title: "حيل أداء Eloquent: جعل Laravel يطير مع آلاف السجلات",
+      excerpt: "اكتشف التقنيات المتقدمة لتحسين أداء Eloquent ORM في Laravel. حيل عملية للتعامل بكفاءة مع آلاف السجلات دون التضحية بأناقة الكود.",
+      date: "2024-02-05",
+      readTime: "9",
+      category: "Web Development",
+      slug: "eloquent-performance-tricks"
+    },
+    {
+      title: "لماذا ما زلنا نحب PHP في 2025: منظور شخصي",
+      excerpt: "كل عام، يتنبأ شخص ما بموت PHP. وكل عام، PHP يكتفي بهز كتفيه، يحدث نفسه، ويستمر في تشغيل جزء ضخم من الإنترنت. منظور شخصي حول سبب بقاء PHP ذا صلة في 2025.",
+      date: "2024-01-30",
+      readTime: "7",
+      category: "Web Development",
+      slug: "why-we-still-love-php-in-2025"
+    },
+    {
+      title: "التفكير التصميمي للمطورين: كيف يشكل ماضي صنع الشعارات كودي",
+      excerpt: "اكتشف كيف يمكن لمبادئ التفكير التصميمي، المكتسبة من خلال إنشاء الشعارات والتصميم البصري، أن تشكل مطورين أفضل. رحلة شخصية من التصميم الإبداعي إلى البرمجة وقيادة CTO.",
+      date: "2024-01-25",
+      readTime: "8",
+      category: "Leadership",
+      slug: "design-thinking-for-developers"
+    },
+    {
+      title: "Docker للتطوير المحلي: بدء المشاريع في دقائق",
+      excerpt: "تعلم كيف يبسط Docker التطوير المحلي. اكتشف كيفية بدء مشاريع PHP و JavaScript و full-stack في دقائق مع بيئات قابلة للتكرار.",
+      date: "2024-01-20",
+      readTime: "6",
+      category: "DevOps",
+      slug: "docker-for-local-development"
+    }
+  ]
+};
+
+const posts = blogPosts[lang as keyof typeof blogPosts] || blogPosts.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">{t.title}</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          {t.subtitle}
+        </p>
+      </div>
+
+      <!-- Featured Post -->
+      <section class="mb-12">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">{t.featured}</span>
+            <span class="text-sm opacity-90">{posts[0].date}</span>
+            <span class="text-sm opacity-90">*</span>
+            <span class="text-sm opacity-90">{posts[0].readTime} {t.minRead}</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">{posts[0].title}</h2>
+          <p class="text-lg opacity-90 mb-6">{posts[0].excerpt}</p>
+          <a href={`/${lang}/blog/${posts[0].slug}`} class="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors font-medium">
+            {t.readMore}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Blog Posts Grid -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-8">{t.recentPosts}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.slice(1).map(post => (
+            <article class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 flex flex-col">
+              <div class="mb-4">
+                <span class={`px-3 py-1 rounded-full text-sm ${
+                  post.category === 'Leadership' 
+                    ? 'bg-green-100 text-green-800' 
+                    : post.category === 'Web Development'
+                    ? 'bg-blue-100 text-blue-800'
+                    : 'bg-purple-100 text-purple-800'
+                }`}>
+                  {post.category}
+                </span>
+                <div class="text-xs text-gray-500 mt-1 pl-1">{post.readTime} {t.minRead}</div>
+              </div>
+              
+              <h3 class="text-xl font-semibold mb-3">{post.title}</h3>
+              <p class="text-gray-600 mb-4 leading-relaxed flex-grow">{post.excerpt}</p>
+              
+              <div class="flex justify-between items-center mt-auto">
+                <a href={`/${lang}/blog/${post.slug}`} class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+                  {t.readMore}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+                <span class="text-sm text-gray-600">{post.date}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+
+
+    </div>
+  </main>
+</Layout>

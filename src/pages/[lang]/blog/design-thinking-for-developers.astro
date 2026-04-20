@@ -1,0 +1,768 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../../data/index.js';
+import { languages } from '../../../types/index.js';
+
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/blog/design-thinking-for-developers`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/blog/design-thinking-for-developers`;
+const title = `Design Thinking for Developers: How My Logo-Making Past Shapes My Code - ${personalInfo.name}`;
+const description = `Discover how design thinking principles, learned through logo creation and visual design, can shape better developers. A personal journey from creative design to coding and CTO leadership.`;
+
+// Article content translations
+const articleContent = {
+  fr: {
+    title: "Design Thinking pour Développeurs : Comment Mon Passé de Création de Logos Influence Mon Code",
+    metaDescription: "Découvrez comment les principes du design thinking, appris à travers la création de logos et le design visuel, peuvent façonner de meilleurs développeurs. Un parcours personnel du design créatif au code et au leadership CTO.",
+    introduction: "Quand les gens entendent développeur, ils imaginent souvent des lignes de code, des algorithmes et du jargon technique. Mais mon parcours n'a pas commencé par le code - il a commencé par le design. Adolescent, j'ai passé d'innombrables heures à créer des logos et des identités visuelles sur des plateformes comme Freelancer.com.",
+    introParagraph: "Ce que je ne savais pas à l'époque, c'est que cette formation créative façonnerait plus tard mon approche du développement logiciel. Aujourd'hui, en tant que CTO, j'utilise encore les principes du design thinking que j'ai appris dans mes années de design pour construire de meilleures applications, guider les équipes et créer des produits que les utilisateurs aiment vraiment.",
+    fromLogosToLogic: "Des Logos à la Logique",
+    logosDescription: "À 16 ans, j'ai commencé à vendre des logos en ligne. Concevoir n'était pas seulement faire quelque chose de joli - c'était comprendre ce que le client voulait exprimer :",
+    logosQuestions: [
+      "Qui est le public cible ?",
+      "Quelle émotion le design doit-il déclencher ?",
+      "Comment l'identité visuelle s'aligne-t-elle avec les objectifs de la marque ?"
+    ],
+    sameQuestions: "Ces mêmes questions s'appliquent au développement :",
+    devQuestions: [
+      "Qui utilisera le produit ?",
+      "Quel problème l'application résout-elle ?",
+      "Comment pouvons-nous construire quelque chose à la fois fonctionnel et agréable ?"
+    ],
+    mindsetTranslation: "Cette mentalité s'est naturellement traduite dans mon parcours de codage.",
+    whatIsDesignThinking: "Qu'est-ce que le Design Thinking pour les Développeurs ?",
+    designThinkingDef: "Le design thinking est une approche centrée sur l'humain pour résoudre les problèmes. Pour les développeurs, cela signifie non seulement écrire du code mais concevoir des expériences.",
+    corePillars: "Les piliers fondamentaux :",
+    pillars: [
+      "Empathiser : Comprendre les besoins de l'utilisateur.",
+      "Définir : Clarifier le problème que vous résolvez.",
+      "Idéer : Explorer plusieurs solutions.",
+      "Prototyper : Construire rapidement pour tester les idées.",
+      "Tester : Obtenir des commentaires, itérer et améliorer."
+    ],
+    appliedToCode: "Appliqué au code, ces étapes nous empêchent de construire des fonctionnalités que personne n'utilise.",
+    howDesignShapesCode: "Comment Mon Passé de Design Influence Mon Code",
+    attentionToDetail: "Attention aux Détails",
+    detailDescription: "Le design m'a appris que les petits détails comptent. Un pixel de décalage dans un logo pouvait ruiner l'équilibre. De même, dans le code, une variable mal nommée ou une API incohérente peut casser l'utilisabilité.",
+    userCenteredDev: "Développement Centré Utilisateur",
+    userCenteredDesc: "Concevoir des logos m'a forcé à me mettre à la place du client. En tant que développeur, je pense maintenant naturellement à l'utilisateur final :",
+    userQuestions: [
+      "Cette interface est-elle intuitive ?",
+      "Cette API est-elle claire pour les autres développeurs ?",
+      "Les performances sont-elles optimisées pour les cas d'usage réels ?"
+    ],
+    visualThinking: "Pensée Visuelle → Meilleure Architecture",
+    visualThinkingDesc: "La composition visuelle en design concerne l'harmonie. En codage, je vois l'architecture de la même façon : les modules, services et composants doivent s'écouler ensemble comme les éléments d'une bonne mise en page.",
+    creativityMeetsProblem: "Créativité Rencontre Résolution de Problèmes",
+    creativityDesc: "Le design est la résolution de problèmes avec des couleurs et des formes. Le développement est la résolution de problèmes avec la logique et le code. Les deux nécessitent de la créativité. Mon travail de design précoce m'a donné la confiance pour penser différemment en codant.",
+    practicalExample: "Exemple Pratique : Construire une Interface avec le Design Thinking",
+    exampleIntro: "Disons que nous construisons un formulaire multilingue dans une application web. Sans design thinking, nous pourrions juste assembler des entrées et de la validation.",
+    withDesignThinking: "Avec le design thinking :",
+    exampleSteps: [
+      "Nous empathisons d'abord : les utilisateurs non-natifs pourraient avoir des difficultés avec les labels français.",
+      "Nous définissons : le formulaire doit être bilingue (FR/EN au minimum).",
+      "Nous idéons : plusieurs façons de changer de langue (menu déroulant, détection automatique).",
+      "Nous prototypons : construisons un commutateur rapide.",
+      "Nous testons : les vrais utilisateurs confirment si le commutateur est intuitif."
+    ],
+    exampleResult: "Le résultat n'est pas seulement un formulaire - c'est une expérience réfléchie et conviviale.",
+    lessonsForDevelopers: "Leçons pour les Développeurs qui Veulent Penser comme des Designers",
+    lessons: [
+      "Commencez toujours par la perspective de l'utilisateur.",
+      "Ne sous-estimez pas la simplicité - design minimal, code minimal.",
+      "Esquissez ou diagrammez les solutions avant de coder - comme le wireframing.",
+      "Itérez rapidement, ne visez pas la perfection dès le premier jour."
+    ],
+    conclusion: "Conclusion",
+    conclusionText: "Mon parcours du concepteur de logos au CTO pourrait sembler inhabituel, mais la vérité est : le design et le développement sont profondément connectés. La créativité, l'empathie et la résolution de problèmes que j'ai apprises à travers le design façonnent encore mon code et mon leadership aujourd'hui.",
+    finalCall: "Si vous êtes développeur, essayez d'adopter le design thinking. Il ne s'agit pas de rendre les choses jolies - il s'agit de les faire fonctionner magnifiquement.",
+    backToBlog: "Retour au Blog",
+    shareArticle: "Partager cet Article",
+    readTime: "8 min de lecture",
+    publishedOn: "Publié le",
+    category: "Leadership"
+  },
+  en: {
+    title: "Design Thinking for Developers: How My Logo-Making Past Shapes My Code",
+    metaDescription: "Discover how design thinking principles, learned through logo creation and visual design, can shape better developers. A personal journey from creative design to coding and CTO leadership.",
+    introduction: "When people hear developer, they often imagine lines of code, algorithms, and technical jargon. But my journey didn't start with code - it started with design. As a teenager, I spent countless hours creating logos and visual identities on platforms like Freelancer.com.",
+    introParagraph: "What I didn't know at the time was that this creative background would later shape my approach to software development. Today, as a CTO, I still use the principles of design thinking I learned in my design days to build better applications, guide teams, and create products that users actually love.",
+    fromLogosToLogic: "From Logos to Logic",
+    logosDescription: "At 16, I started selling logos online. Designing wasn't just about making something pretty - it was about understanding what the client wanted to express:",
+    logosQuestions: [
+      "Who is the target audience?",
+      "What emotion should the design trigger?",
+      "How does the visual identity align with the brand's goals?"
+    ],
+    sameQuestions: "These same questions apply to development:",
+    devQuestions: [
+      "Who will use the product?",
+      "What problem does the app solve?",
+      "How can we build something both functional and enjoyable?"
+    ],
+    mindsetTranslation: "That mindset naturally translated into my coding journey.",
+    whatIsDesignThinking: "What is Design Thinking for Developers?",
+    designThinkingDef: "Design thinking is a human-centered approach to solving problems. For developers, it means not just writing code but designing experiences.",
+    corePillars: "The core pillars:",
+    pillars: [
+      "Empathize: Understand the user's needs.",
+      "Define: Clarify the problem you're solving.",
+      "Ideate: Explore multiple solutions.",
+      "Prototype: Build quickly to test ideas.",
+      "Test: Get feedback, iterate, and improve."
+    ],
+    appliedToCode: "When applied to code, these steps prevent us from building features nobody uses.",
+    howDesignShapesCode: "How My Design Background Shapes My Code",
+    attentionToDetail: "Attention to Detail",
+    detailDescription: "Design taught me that small details matter. A pixel off in a logo could ruin balance. Similarly, in code, a poorly named variable or inconsistent API can break usability.",
+    userCenteredDev: "User-Centered Development",
+    userCenteredDesc: "Designing logos forced me to put myself in the client's shoes. As a developer, I now naturally think about the end-user:",
+    userQuestions: [
+      "Is this UI intuitive?",
+      "Is this API clear for other developers?",
+      "Is performance optimized for real-world use cases?"
+    ],
+    visualThinking: "Visual Thinking → Better Architecture",
+    visualThinkingDesc: "Visual composition in design is about harmony. In coding, I see architecture the same way: modules, services, and components must flow together like elements of a good layout.",
+    creativityMeetsProblem: "Creativity Meets Problem-Solving",
+    creativityDesc: "Design is problem-solving with colors and shapes. Development is problem-solving with logic and code. Both require creativity. My early design work gave me the confidence to think outside the box when coding.",
+    practicalExample: "Practical Example: Building a UI with Design Thinking",
+    exampleIntro: "Let's say we're building a multilingual form in a web app. Without design thinking, we might just throw together inputs and validation.",
+    withDesignThinking: "With design thinking:",
+    exampleSteps: [
+      "We first empathize: non-native users might struggle with French labels.",
+      "We define: form needs to be bilingual (FR/EN at minimum).",
+      "We ideate: multiple ways to switch languages (dropdown, auto-detect).",
+      "We prototype: build a quick toggle.",
+      "We test: real users confirm if the toggle is intuitive."
+    ],
+    exampleResult: "The result is not just a form - it's a thoughtful, user-friendly experience.",
+    lessonsForDevelopers: "Lessons for Developers Who Want to Think Like Designers",
+    lessons: [
+      "Always start with the user's perspective.",
+      "Don't underestimate simplicity - minimal design, minimal code.",
+      "Sketch or diagram solutions before coding - just like wireframing.",
+      "Iterate quickly, don't aim for perfection from day one."
+    ],
+    conclusion: "Conclusion",
+    conclusionText: "My journey from logo designer to CTO might seem unusual, but the truth is: design and development are deeply connected. The creativity, empathy, and problem-solving I learned through design still shape my code and leadership today.",
+    finalCall: "If you're a developer, try to embrace design thinking. It's not about making things look pretty - it's about making things work beautifully.",
+    backToBlog: "Back to Blog",
+    shareArticle: "Share Article",
+    readTime: "8 min read",
+    publishedOn: "Published on",
+    category: "Leadership"
+  },
+  es: {
+    title: "Design Thinking para Desarrolladores: Cómo Mi Pasado Creando Logos Moldea Mi Código",
+    metaDescription: "Descubre cómo los principios del design thinking, aprendidos a través de la creación de logos y diseño visual, pueden moldear mejores desarrolladores. Un viaje personal del diseño creativo al código y liderazgo CTO.",
+    introduction: "Cuando la gente escucha desarrollador, a menudo imaginan líneas de código, algoritmos y jerga técnica. Pero mi viaje no comenzó con código - comenzó con diseño. Como adolescente, pasé incontables horas creando logos e identidades visuales en plataformas como Freelancer.com.",
+    introParagraph: "Lo que no sabía en ese momento era que este fondo creativo más tarde moldearía mi enfoque del desarrollo de software. Hoy, como CTO, todavía uso los principios del design thinking que aprendí en mis días de diseño para construir mejores aplicaciones, guiar equipos y crear productos que los usuarios realmente aman.",
+    fromLogosToLogic: "De Logos a Lógica",
+    logosDescription: "A los 16, comencé a vender logos en línea. Diseñar no era solo hacer algo bonito - era entender lo que el cliente quería expresar:",
+    logosQuestions: [
+      "¿Quién es la audiencia objetivo?",
+      "¿Qué emoción debería desencadenar el diseño?",
+      "¿Cómo se alinea la identidad visual con los objetivos de la marca?"
+    ],
+    sameQuestions: "Estas mismas preguntas se aplican al desarrollo:",
+    devQuestions: [
+      "¿Quién usará el producto?",
+      "¿Qué problema resuelve la aplicación?",
+      "¿Cómo podemos construir algo tanto funcional como agradable?"
+    ],
+    mindsetTranslation: "Esa mentalidad se tradujo naturalmente en mi viaje de codificación.",
+    whatIsDesignThinking: "¿Qué es Design Thinking para Desarrolladores?",
+    designThinkingDef: "El design thinking es un enfoque centrado en el ser humano para resolver problemas. Para desarrolladores, significa no solo escribir código sino diseñar experiencias.",
+    corePillars: "Los pilares fundamentales:",
+    pillars: [
+      "Empatizar: Entender las necesidades del usuario.",
+      "Definir: Aclarar el problema que estás resolviendo.",
+      "Idear: Explorar múltiples soluciones.",
+      "Prototipar: Construir rápidamente para probar ideas.",
+      "Probar: Obtener retroalimentación, iterar y mejorar."
+    ],
+    appliedToCode: "Cuando se aplica al código, estos pasos nos previenen de construir características que nadie usa.",
+    howDesignShapesCode: "Cómo Mi Fondo de Diseño Moldea Mi Código",
+    attentionToDetail: "Atención al Detalle",
+    detailDescription: "El diseño me enseñó que los pequeños detalles importan. Un píxel fuera en un logo podría arruinar el equilibrio. Similarmente, en código, una variable mal nombrada o una API inconsistente puede romper la usabilidad.",
+    userCenteredDev: "Desarrollo Centrado en el Usuario",
+    userCenteredDesc: "Diseñar logos me obligó a ponerme en los zapatos del cliente. Como desarrollador, ahora naturalmente pienso en el usuario final:",
+    userQuestions: [
+      "¿Es esta UI intuitiva?",
+      "¿Es esta API clara para otros desarrolladores?",
+      "¿Está el rendimiento optimizado para casos de uso del mundo real?"
+    ],
+    visualThinking: "Pensamiento Visual → Mejor Arquitectura",
+    visualThinkingDesc: "La composición visual en diseño se trata de armonía. En codificación, veo la arquitectura de la misma manera: módulos, servicios y componentes deben fluir juntos como elementos de un buen diseño.",
+    creativityMeetsProblem: "Creatividad Encuentra Resolución de Problemas",
+    creativityDesc: "El diseño es resolución de problemas con colores y formas. El desarrollo es resolución de problemas con lógica y código. Ambos requieren creatividad. Mi trabajo de diseño temprano me dio la confianza para pensar fuera de la caja al codificar.",
+    practicalExample: "Ejemplo Práctico: Construyendo una UI con Design Thinking",
+    exampleIntro: "Digamos que estamos construyendo un formulario multilingüe en una aplicación web. Sin design thinking, podríamos simplemente juntar entradas y validación.",
+    withDesignThinking: "Con design thinking:",
+    exampleSteps: [
+      "Primero empatizamos: los usuarios no nativos podrían tener dificultades con las etiquetas francesas.",
+      "Definimos: el formulario necesita ser bilingüe (FR/EN como mínimo).",
+      "Ideamos: múltiples formas de cambiar idiomas (menú desplegable, detección automática).",
+      "Prototipamos: construimos un interruptor rápido.",
+      "Probamos: usuarios reales confirman si el interruptor es intuitivo."
+    ],
+    exampleResult: "El resultado no es solo un formulario - es una experiencia reflexiva y amigable para el usuario.",
+    lessonsForDevelopers: "Lecciones para Desarrolladores que Quieren Pensar como Diseñadores",
+    lessons: [
+      "Siempre comienza con la perspectiva del usuario.",
+      "No subestimes la simplicidad - diseño mínimo, código mínimo.",
+      "Esboza o diagrama soluciones antes de codificar - como wireframing.",
+      "Itera rápidamente, no apuntes a la perfección desde el día uno."
+    ],
+    conclusion: "Conclusión",
+    conclusionText: "Mi viaje de diseñador de logos a CTO podría parecer inusual, pero la verdad es: el diseño y el desarrollo están profundamente conectados. La creatividad, empatía y resolución de problemas que aprendí a través del diseño todavía moldean mi código y liderazgo hoy.",
+    finalCall: "Si eres desarrollador, trata de abrazar el design thinking. No se trata de hacer las cosas bonitas - se trata de hacerlas funcionar hermosamente.",
+    backToBlog: "Volver al Blog",
+    shareArticle: "Compartir Artículo",
+    readTime: "8 min de lectura",
+    publishedOn: "Publicado el",
+    category: "Leadership"
+  },
+  ja: {
+    title: "開発者向けデザイン思考：ロゴ制作の過去がコードを形作る方法",
+    metaDescription: "ロゴ制作とビジュアルデザインを通じて学んだデザイン思考の原則が、より良い開発者を形作る方法を発見してください。クリエイティブデザインからコーディング、CTOリーダーシップへの個人的な旅路。",
+    introduction: "人々が「開発者」と聞くと、しばしばコードの行、アルゴリズム、技術的な専門用語を想像します。しかし、私の旅はコードから始まったのではありません - デザインから始まりました。10代の頃、私はFreelancer.comのようなプラットフォームでロゴやビジュアルアイデンティティを作成することに無数の時間を費やしました。",
+    introParagraph: "当時知らなかったのは、この創造的な背景が後にソフトウェア開発への私のアプローチを形作るということでした。今日、CTOとして、私はデザインの日々で学んだデザイン思考の原則をまだ使って、より良いアプリケーションを構築し、チームを導き、ユーザーが実際に愛する製品を作っています。",
+    fromLogosToLogic: "ロゴからロジックへ",
+    logosDescription: "16歳の時、オンラインでロゴを売り始めました。デザインは単に何かを美しくすることではありませんでした - クライアントが表現したいことを理解することでした：",
+    logosQuestions: [
+      "ターゲットオーディエンスは誰か？",
+      "デザインはどのような感情を引き起こすべきか？",
+      "ビジュアルアイデンティティはブランドの目標とどのように一致するか？"
+    ],
+    sameQuestions: "これらの同じ質問は開発にも適用されます：",
+    devQuestions: [
+      "誰が製品を使用するか？",
+      "アプリはどのような問題を解決するか？",
+      "機能的で楽しいものをどのように構築できるか？"
+    ],
+    mindsetTranslation: "そのマインドセットは自然に私のコーディングの旅に翻訳されました。",
+    whatIsDesignThinking: "開発者向けデザイン思考とは？",
+    designThinkingDef: "デザイン思考は問題解決のための人間中心のアプローチです。開発者にとって、それは単にコードを書くだけでなく、体験をデザインすることを意味します。",
+    corePillars: "核心的な柱：",
+    pillars: [
+      "共感：ユーザーのニーズを理解する。",
+      "定義：解決している問題を明確にする。",
+      "アイデア：複数の解決策を探る。",
+      "プロトタイプ：アイデアをテストするために迅速に構築する。",
+      "テスト：フィードバックを得て、反復し、改善する。"
+    ],
+    appliedToCode: "コードに適用されると、これらのステップは誰も使用しない機能を構築することを防ぎます。",
+    howDesignShapesCode: "私のデザイン背景がコードを形作る方法",
+    attentionToDetail: "細部への注意",
+    detailDescription: "デザインは小さな詳細が重要であることを教えてくれました。ロゴで1ピクセルずれていればバランスを崩す可能性がありました。同様に、コードでは、不適切に命名された変数や一貫性のないAPIがユーザビリティを破る可能性があります。",
+    userCenteredDev: "ユーザー中心の開発",
+    userCenteredDesc: "ロゴのデザインは私をクライアントの立場に立たせました。開発者として、私は今自然にエンドユーザーについて考えます：",
+    userQuestions: [
+      "このUIは直感的か？",
+      "このAPIは他の開発者にとって明確か？",
+      "パフォーマンスは実際の使用ケースに最適化されているか？"
+    ],
+    visualThinking: "視覚的思考 → より良いアーキテクチャ",
+    visualThinkingDesc: "デザインにおける視覚的構成は調和についてです。コーディングでは、アーキテクチャを同じように見ます：モジュール、サービス、コンポーネントは良いレイアウトの要素のように一緒に流れる必要があります。",
+    creativityMeetsProblem: "創造性が問題解決と出会う",
+    creativityDesc: "デザインは色と形での問題解決です。開発はロジックとコードでの問題解決です。両方とも創造性を必要とします。私の初期のデザイン作業は、コーディング時に型にはまらない思考への自信を与えてくれました。",
+    practicalExample: "実践例：デザイン思考でUIを構築する",
+    exampleIntro: "ウェブアプリで多言語フォームを構築しているとしましょう。デザイン思考なしでは、入力とバリデーションを一緒に投げるだけかもしれません。",
+    withDesignThinking: "デザイン思考では：",
+    exampleSteps: [
+      "まず共感：非ネイティブユーザーはフランス語のラベルで苦労するかもしれません。",
+      "定義：フォームはバイリンガル（最低限FR/EN）である必要があります。",
+      "アイデア：言語を切り替える複数の方法（ドロップダウン、自動検出）。",
+      "プロトタイプ：クイックトグルを構築。",
+      "テスト：実際のユーザーがトグルが直感的かどうかを確認。"
+    ],
+    exampleResult: "結果は単なるフォームではありません - それは思慮深く、ユーザーフレンドリーな体験です。",
+    lessonsForDevelopers: "デザイナーのように考えたい開発者への教訓",
+    lessons: [
+      "常にユーザーの視点から始める。",
+      "シンプルさを過小評価しない - 最小限のデザイン、最小限のコード。",
+      "コーディング前に解決策をスケッチまたは図解する - ワイヤーフレーミングのように。",
+      "迅速に反復し、初日から完璧を目指さない。"
+    ],
+    conclusion: "結論",
+    conclusionText: "ロゴデザイナーからCTOへの私の旅は珍しく見えるかもしれませんが、真実は：デザインと開発は深く結びついているということです。デザインを通じて学んだ創造性、共感、問題解決は、今日もまだ私のコードとリーダーシップを形作っています。",
+    finalCall: "開発者なら、デザイン思考を受け入れてみてください。それは物事を美しく見せることではありません - 美しく機能させることです。",
+    backToBlog: "ブログに戻る",
+    shareArticle: "記事を共有",
+    readTime: "8分で読める",
+    publishedOn: "公開日",
+    category: "Leadership"
+  },
+  ko: {
+    title: "개발자를 위한 디자인 씽킹: 로고 제작의 과거가 코드를 형성하는 방법",
+    metaDescription: "로고 제작과 비주얼 디자인을 통해 배운 디자인 씽킹 원칙이 더 나은 개발자를 형성하는 방법을 발견하세요. 창의적 디자인에서 코딩, CTO 리더십으로의 개인적인 여정.",
+    introduction: "사람들이 개발자라고 들으면 종종 코드 라인, 알고리즘, 기술 전문 용어를 상상합니다. 하지만 제 여정은 코드로 시작하지 않았습니다 - 디자인으로 시작했습니다. 십대 시절, 저는 Freelancer.com과 같은 플랫폼에서 로고와 비주얼 아이덴티티를 만드는 데 무수한 시간을 보냈습니다.",
+    introParagraph: "당시 몰랐던 것은 이 창의적 배경이 나중에 소프트웨어 개발에 대한 제 접근 방식을 형성할 것이라는 점이었습니다. 오늘날 CTO로서 저는 여전히 디자인 시절에 배운 디자인 씽킹 원칙을 사용하여 더 나은 애플리케이션을 구축하고, 팀을 이끌고, 사용자가 실제로 사랑하는 제품을 만들고 있습니다.",
+    fromLogosToLogic: "로고에서 로직으로",
+    logosDescription: "16세에 온라인으로 로고를 팔기 시작했습니다. 디자인은 단순히 무언가를 예쁘게 만드는 것이 아니었습니다 - 클라이언트가 표현하고 싶은 것을 이해하는 것이었습니다:",
+    logosQuestions: [
+      "타겟 오디언스는 누구인가?",
+      "디자인이 어떤 감정을 유발해야 하는가?",
+      "비주얼 아이덴티티가 브랜드의 목표와 어떻게 일치하는가?"
+    ],
+    sameQuestions: "이러한 동일한 질문들이 개발에도 적용됩니다:",
+    devQuestions: [
+      "누가 제품을 사용할 것인가?",
+      "앱이 어떤 문제를 해결하는가?",
+      "기능적이면서 즐거운 것을 어떻게 구축할 수 있는가?"
+    ],
+    mindsetTranslation: "그 마인드셋이 자연스럽게 제 코딩 여정으로 번역되었습니다.",
+    whatIsDesignThinking: "개발자를 위한 디자인 씽킹이란?",
+    designThinkingDef: "디자인 씽킹은 문제 해결을 위한 인간 중심의 접근 방식입니다. 개발자에게는 단순히 코드를 작성하는 것이 아니라 경험을 디자인하는 것을 의미합니다.",
+    corePillars: "핵심 기둥:",
+    pillars: [
+      "공감: 사용자의 필요를 이해한다.",
+      "정의: 해결하고 있는 문제를 명확히 한다.",
+      "아이디어: 여러 해결책을 탐색한다.",
+      "프로토타입: 아이디어를 테스트하기 위해 빠르게 구축한다.",
+      "테스트: 피드백을 받고, 반복하고, 개선한다."
+    ],
+    appliedToCode: "코드에 적용될 때, 이러한 단계들은 아무도 사용하지 않는 기능을 구축하는 것을 방지합니다.",
+    howDesignShapesCode: "제 디자인 배경이 코드를 형성하는 방법",
+    attentionToDetail: "세부사항에 대한 주의",
+    detailDescription: "디자인은 작은 세부사항이 중요하다는 것을 가르쳐주었습니다. 로고에서 한 픽셀이 벗어나면 균형을 망칠 수 있었습니다. 마찬가지로 코드에서 잘못 명명된 변수나 일관성 없는 API는 사용성을 깨뜨릴 수 있습니다.",
+    userCenteredDev: "사용자 중심 개발",
+    userCenteredDesc: "로고 디자인은 저를 클라이언트의 입장에 서게 했습니다. 개발자로서 저는 이제 자연스럽게 최종 사용자에 대해 생각합니다:",
+    userQuestions: [
+      "이 UI가 직관적인가?",
+      "이 API가 다른 개발자들에게 명확한가?",
+      "성능이 실제 사용 사례에 최적화되어 있는가?"
+    ],
+    visualThinking: "시각적 사고 → 더 나은 아키텍처",
+    visualThinkingDesc: "디자인에서 시각적 구성은 조화에 관한 것입니다. 코딩에서 저는 아키텍처를 같은 방식으로 봅니다: 모듈, 서비스, 컴포넌트는 좋은 레이아웃의 요소들처럼 함께 흘러야 합니다.",
+    creativityMeetsProblem: "창의성이 문제 해결과 만나다",
+    creativityDesc: "디자인은 색상과 모양으로 문제를 해결하는 것입니다. 개발은 논리와 코드로 문제를 해결하는 것입니다. 둘 다 창의성을 요구합니다. 제 초기 디자인 작업은 코딩할 때 틀에 박힌 사고를 벗어나 생각할 수 있는 자신감을 주었습니다.",
+    practicalExample: "실용적 예제: 디자인 씽킹으로 UI 구축하기",
+    exampleIntro: "웹 앱에서 다국어 폼을 구축한다고 가정해봅시다. 디자인 씽킹 없이는 단순히 입력과 검증을 함께 던져놓을 수 있습니다.",
+    withDesignThinking: "디자인 씽킹으로:",
+    exampleSteps: [
+      "먼저 공감: 비원어민 사용자들이 프랑스어 라벨로 어려움을 겪을 수 있습니다.",
+      "정의: 폼은 최소한 이중 언어(FR/EN)여야 합니다.",
+      "아이디어: 언어를 전환하는 여러 방법(드롭다운, 자동 감지).",
+      "프로토타입: 빠른 토글을 구축합니다.",
+      "테스트: 실제 사용자가 토글이 직관적인지 확인합니다."
+    ],
+    exampleResult: "결과는 단순한 폼이 아닙니다 - 사려 깊고 사용자 친화적인 경험입니다.",
+    lessonsForDevelopers: "디자이너처럼 생각하고 싶은 개발자를 위한 교훈",
+    lessons: [
+      "항상 사용자의 관점에서 시작하세요.",
+      "단순함을 과소평가하지 마세요 - 최소한의 디자인, 최소한의 코드.",
+      "코딩하기 전에 해결책을 스케치하거나 다이어그램으로 그리세요 - 와이어프레임처럼.",
+      "빠르게 반복하고 첫날부터 완벽을 목표로 하지 마세요."
+    ],
+    conclusion: "결론",
+    conclusionText: "로고 디자이너에서 CTO로의 제 여정은 특이해 보일 수 있지만, 진실은 디자인과 개발이 깊이 연결되어 있다는 것입니다. 디자인을 통해 배운 창의성, 공감, 문제 해결은 오늘도 여전히 제 코드와 리더십을 형성하고 있습니다.",
+    finalCall: "개발자라면 디자인 씽킹을 받아들이려고 노력해보세요. 그것은 물건을 예쁘게 보이게 하는 것이 아닙니다 - 아름답게 작동하게 하는 것입니다.",
+    backToBlog: "블로그로 돌아가기",
+    shareArticle: "기사 공유",
+    readTime: "8분 읽기",
+    publishedOn: "게시일",
+    category: "Leadership"
+  },
+  zh: {
+    title: "开发者的设计思维：我的标志制作经历如何塑造我的代码",
+    metaDescription: "发现通过标志创作和视觉设计学到的设计思维原则如何塑造更好的开发者。从创意设计到编码和CTO领导力的个人旅程。",
+    introduction: "当人们听到开发者时，他们经常想象代码行、算法和技术术语。但我的旅程不是从代码开始的--它是从设计开始的。作为一个青少年，我在Freelancer.com等平台上花费了无数小时创建标志和视觉标识。",
+    introParagraph: "我当时不知道的是，这种创意背景后来会塑造我对软件开发的方法。今天，作为CTO，我仍然使用我在设计时代学到的设计思维原则来构建更好的应用程序，指导团队，并创建用户真正喜爱的产品。",
+    fromLogosToLogic: "从标志到逻辑",
+    logosDescription: "16岁时，我开始在线销售标志。设计不仅仅是让某些东西变得漂亮--它是关于理解客户想要表达什么：",
+    logosQuestions: [
+      "目标受众是谁？",
+      "设计应该触发什么情感？",
+      "视觉标识如何与品牌目标保持一致？"
+    ],
+    sameQuestions: "这些相同的问题适用于开发：",
+    devQuestions: [
+      "谁将使用产品？",
+      "应用程序解决了什么问题？",
+      "我们如何构建既实用又令人愉快的东西？"
+    ],
+    mindsetTranslation: "这种心态自然地转化为我的编码之旅。",
+    whatIsDesignThinking: "什么是开发者的设计思维？",
+    designThinkingDef: "设计思维是一种以人为中心的问题解决方法。对于开发者来说，它意味着不仅要编写代码，还要设计体验。",
+    corePillars: "核心支柱：",
+    pillars: [
+      "共情：理解用户的需求。",
+      "定义：澄清你正在解决的问题。",
+      "构思：探索多种解决方案。",
+      "原型：快速构建以测试想法。",
+      "测试：获得反馈，迭代和改进。"
+    ],
+    appliedToCode: "当应用于代码时，这些步骤防止我们构建没有人使用的功能。",
+    howDesignShapesCode: "我的设计背景如何塑造我的代码",
+    attentionToDetail: "对细节的关注",
+    detailDescription: "设计教会我小细节很重要。标志中的一个像素偏差可能会破坏平衡。同样，在代码中，命名不当的变量或不一致的API可能会破坏可用性。",
+    userCenteredDev: "以用户为中心的开发",
+    userCenteredDesc: "设计标志迫使我站在客户的立场上。作为开发者，我现在自然地考虑最终用户：",
+    userQuestions: [
+      "这个UI直观吗？",
+      "这个API对其他开发者来说清楚吗？",
+      "性能是否针对实际使用案例进行了优化？"
+    ],
+    visualThinking: "视觉思维 → 更好的架构",
+    visualThinkingDesc: "设计中的视觉构成是关于和谐的。在编码中，我以同样的方式看待架构：模块、服务和组件必须像良好布局的元素一样一起流动。",
+    creativityMeetsProblem: "创造力遇到问题解决",
+    creativityDesc: "设计是用颜色和形状解决问题。开发是用逻辑和代码解决问题。两者都需要创造力。我早期的设计工作给了我编码时跳出框框思考的信心。",
+    practicalExample: "实际例子：用设计思维构建UI",
+    exampleIntro: "假设我们在Web应用程序中构建多语言表单。没有设计思维，我们可能只是把输入和验证放在一起。",
+    withDesignThinking: "有了设计思维：",
+    exampleSteps: [
+      "我们首先共情：非母语用户可能在法语标签上遇到困难。",
+      "我们定义：表单需要是双语的（至少FR/EN）。",
+      "我们构思：多种切换语言的方法（下拉菜单、自动检测）。",
+      "我们原型：构建快速切换。",
+      "我们测试：真实用户确认切换是否直观。"
+    ],
+    exampleResult: "结果不仅仅是一个表单--它是一个深思熟虑、用户友好的体验。",
+    lessonsForDevelopers: "想要像设计师一样思考的开发者的教训",
+    lessons: [
+      "总是从用户的角度开始。",
+      "不要低估简单性--最小设计，最小代码。",
+      "在编码前素描或图解解决方案--就像线框图一样。",
+      "快速迭代，不要从第一天就追求完美。"
+    ],
+    conclusion: "结论",
+    conclusionText: "我从标志设计师到CTO的旅程可能看起来不寻常，但事实是：设计和开发是深度连接的。我通过设计学到的创造力、共情和问题解决今天仍然塑造着我的代码和领导力。",
+    finalCall: "如果你是开发者，试着拥抱设计思维。这不是让东西看起来漂亮--而是让东西美丽地工作。",
+    backToBlog: "返回博客",
+    shareArticle: "分享文章",
+    readTime: "8分钟阅读",
+    publishedOn: "发布于",
+    category: "Leadership"
+  },
+  ar: {
+    title: "التفكير التصميمي للمطورين: كيف يشكل ماضي صنع الشعارات كودي",
+    metaDescription: "اكتشف كيف يمكن لمبادئ التفكير التصميمي، المكتسبة من خلال إنشاء الشعارات والتصميم البصري، أن تشكل مطورين أفضل. رحلة شخصية من التصميم الإبداعي إلى البرمجة وقيادة CTO.",
+    introduction: "عندما يسمع الناس مطور، غالباً ما يتخيلون أسطر الكود والخوارزميات والمصطلحات التقنية. لكن رحلتي لم تبدأ بالكود - بدأت بالتصميم. كمراهق، قضيت ساعات لا حصر لها في إنشاء الشعارات والهويات البصرية على منصات مثل Freelancer.com.",
+    introParagraph: "ما لم أكن أعرفه في ذلك الوقت هو أن هذه الخلفية الإبداعية ستشكل لاحقاً نهجي في تطوير البرمجيات. اليوم، كـ CTO، ما زلت أستخدم مبادئ التفكير التصميمي التي تعلمتها في أيام التصميم لبناء تطبيقات أفضل وتوجيه الفرق وإنشاء منتجات يحبها المستخدمون فعلاً.",
+    fromLogosToLogic: "من الشعارات إلى المنطق",
+    logosDescription: "في سن 16، بدأت بيع الشعارات عبر الإنترنت. التصميم لم يكن مجرد جعل شيء ما جميلاً - كان حول فهم ما يريد العميل التعبير عنه:",
+    logosQuestions: [
+      "من هو الجمهور المستهدف؟",
+      "ما هي المشاعر التي يجب أن يثيرها التصميم؟",
+      "كيف تتماشى الهوية البصرية مع أهداف العلامة التجارية؟"
+    ],
+    sameQuestions: "هذه الأسئلة نفسها تنطبق على التطوير:",
+    devQuestions: [
+      "من سيستخدم المنتج؟",
+      "ما هي المشكلة التي يحلها التطبيق؟",
+      "كيف يمكننا بناء شيء وظيفي وممتع؟"
+    ],
+    mindsetTranslation: "هذه العقلية ترجمت طبيعياً إلى رحلة البرمجة الخاصة بي.",
+    whatIsDesignThinking: "ما هو التفكير التصميمي للمطورين؟",
+    designThinkingDef: "التفكير التصميمي هو نهج يركز على الإنسان لحل المشاكل. للمطورين، يعني ذلك ليس فقط كتابة الكود بل تصميم التجارب.",
+    corePillars: "الأعمدة الأساسية:",
+    pillars: [
+      "التعاطف: فهم احتياجات المستخدم.",
+      "التعريف: توضيح المشكلة التي تحلها.",
+      "التفكير: استكشاف حلول متعددة.",
+      "النماذج الأولية: البناء السريع لاختبار الأفكار.",
+      "الاختبار: الحصول على ملاحظات والتكرار والتحسين."
+    ],
+    appliedToCode: "عندما يُطبق على الكود، تمنعنا هذه الخطوات من بناء ميزات لا يستخدمها أحد.",
+    howDesignShapesCode: "كيف تشكل خلفيتي التصميمية كودي",
+    attentionToDetail: "الانتباه للتفاصيل",
+    detailDescription: "علمني التصميم أن التفاصيل الصغيرة مهمة. بكسل واحد خاطئ في الشعار يمكن أن يفسد التوازن. وبالمثل، في الكود، متغير سيء التسمية أو API غير متسق يمكن أن يكسر القابلية للاستخدام.",
+    userCenteredDev: "التطوير المرتكز على المستخدم",
+    userCenteredDesc: "تصميم الشعارات أجبرني على وضع نفسي في مكان العميل. كمطور، أفكر الآن طبيعياً في المستخدم النهائي:",
+    userQuestions: [
+      "هل واجهة المستخدم هذه بديهية؟",
+      "هل API هذا واضح للمطورين الآخرين؟",
+      "هل الأداء محسن لحالات الاستخدام الحقيقية؟"
+    ],
+    visualThinking: "التفكير البصري → هندسة معمارية أفضل",
+    visualThinkingDesc: "التكوين البصري في التصميم يتعلق بالانسجام. في البرمجة، أرى الهندسة المعمارية بنفس الطريقة: الوحدات والخدمات والمكونات يجب أن تتدفق معاً مثل عناصر التخطيط الجيد.",
+    creativityMeetsProblem: "الإبداع يلتقي بحل المشاكل",
+    creativityDesc: "التصميم هو حل المشاكل بالألوان والأشكال. التطوير هو حل المشاكل بالمنطق والكود. كلاهما يتطلب إبداعاً. عملي التصميمي المبكر أعطاني الثقة للتفكير خارج الصندوق عند البرمجة.",
+    practicalExample: "مثال عملي: بناء واجهة مستخدم بالتفكير التصميمي",
+    exampleIntro: "لنقل أننا نبني نموذجاً متعدد اللغات في تطبيق ويب. بدون التفكير التصميمي، قد نرمي المدخلات والتحقق معاً.",
+    withDesignThinking: "مع التفكير التصميمي:",
+    exampleSteps: [
+      "نحن أولاً نتعاطف: المستخدمون غير الأصليين قد يواجهون صعوبة مع التسميات الفرنسية.",
+      "نحن نعرف: النموذج يحتاج أن يكون ثنائي اللغة (FR/EN كحد أدنى).",
+      "نحن نفكر: طرق متعددة لتبديل اللغات (قائمة منسدلة، كشف تلقائي).",
+      "نحن نبني نموذجاً أولياً: نبني مفتاح تبديل سريع.",
+      "نحن نختبر: المستخدمون الحقيقيون يؤكدون ما إذا كان المفتاح بديهياً."
+    ],
+    exampleResult: "النتيجة ليست مجرد نموذج - إنها تجربة مدروسة وصديقة للمستخدم.",
+    lessonsForDevelopers: "دروس للمطورين الذين يريدون التفكير كمصممين",
+    lessons: [
+      "ابدأ دائماً من منظور المستخدم.",
+      "لا تستخف بالبساطة - تصميم أدنى، كود أدنى.",
+      "ارسم أو ارسم مخططاً للحلول قبل البرمجة - مثل الإطار السلكي.",
+      "كرر بسرعة، لا تهدف للكمال من اليوم الأول."
+    ],
+    conclusion: "الخلاصة",
+    conclusionText: "رحلتي من مصمم الشعارات إلى CTO قد تبدو غير عادية، لكن الحقيقة هي: التصميم والتطوير مترابطان بعمق. الإبداع والتعاطف وحل المشاكل التي تعلمتها من خلال التصميم ما زالت تشكل كودي وقيادتي اليوم.",
+    finalCall: "إذا كنت مطوراً، حاول تبني التفكير التصميمي. لا يتعلق الأمر بجعل الأشياء تبدو جميلة - يتعلق بجعلها تعمل بجمال.",
+    backToBlog: "العودة إلى المدونة",
+    shareArticle: "مشاركة المقال",
+    readTime: "8 دقائق قراءة",
+    publishedOn: "نشر في",
+    category: "Leadership"
+  }
+};
+
+const content = articleContent[lang as keyof typeof articleContent] || articleContent.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back to Blog -->
+      <div class="mb-8">
+        <a href={`/${lang}/blog/`} class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          {content.backToBlog}
+        </a>
+      </div>
+
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+            {content.category}
+          </span>
+          <span class="text-sm text-gray-600">{content.publishedOn} 2024-01-25</span>
+          <span class="text-sm text-gray-600">*</span>
+          <span class="text-sm text-gray-600">{content.readTime}</span>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+          {content.title}
+        </h1>
+        
+        <p class="text-lg text-gray-600 leading-relaxed">
+          {content.metaDescription}
+        </p>
+      </header>
+
+      <!-- Article Content -->
+      <article class="prose prose-lg max-w-none">
+        <!-- Introduction -->
+        <section class="mb-8">
+          <p class="text-xl text-gray-700 leading-relaxed mb-6">
+            {content.introduction}
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            {content.introParagraph}
+          </p>
+        </section>
+
+        <!-- From Logos to Logic -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.fromLogosToLogic}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.logosDescription}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.logosQuestions.map(question => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{question}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <p class="text-lg text-gray-600 mb-4">{content.sameQuestions}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.devQuestions.map(question => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{question}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <p class="text-lg text-gray-600 font-medium">
+            {content.mindsetTranslation}
+          </p>
+        </section>
+
+        <!-- What is Design Thinking -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.whatIsDesignThinking}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.designThinkingDef}</p>
+          
+          <p class="text-lg text-gray-700 mb-4 font-medium">{content.corePillars}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.pillars.map(pillar => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{pillar}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <p class="text-lg text-gray-600 font-medium">
+            {content.appliedToCode}
+          </p>
+        </section>
+
+        <!-- How Design Shapes Code -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.howDesignShapesCode}</h2>
+          
+          <!-- Attention to Detail -->
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">{content.attentionToDetail}</h3>
+            <p class="text-gray-700">{content.detailDescription}</p>
+          </div>
+
+          <!-- User-Centered Development -->
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">{content.userCenteredDev}</h3>
+            <p class="text-gray-700 mb-4">{content.userCenteredDesc}</p>
+            
+            <ul class="space-y-2">
+              {content.userQuestions.map(question => (
+                <li class="flex items-start">
+                  <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span class="text-gray-700">{question}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Visual Thinking -->
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">{content.visualThinking}</h3>
+            <p class="text-gray-700">{content.visualThinkingDesc}</p>
+          </div>
+
+          <!-- Creativity Meets Problem-Solving -->
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">{content.creativityMeetsProblem}</h3>
+            <p class="text-gray-700">{content.creativityDesc}</p>
+          </div>
+        </section>
+
+        <!-- Practical Example -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.practicalExample}</h2>
+          <p class="text-gray-700 mb-4">{content.exampleIntro}</p>
+          
+          <p class="text-lg text-gray-700 mb-4 font-medium">{content.withDesignThinking}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.exampleSteps.map(step => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{step}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+            <p class="text-blue-800 font-medium">{content.exampleResult}</p>
+          </div>
+        </section>
+
+        <!-- Lessons for Developers -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.lessonsForDevelopers}</h2>
+          
+          <ul class="space-y-3">
+            {content.lessons.map(lesson => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{lesson}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.conclusion}</h2>
+          <p class="text-lg text-gray-700 mb-6">{content.conclusionText}</p>
+          <p class="text-lg text-gray-700 font-medium">{content.finalCall}</p>
+        </section>
+      </article>
+
+      <!-- Share Section -->
+      <section class="border-t pt-8 mt-12">
+        <div class="text-center">
+          <h3 class="text-lg font-semibold mb-4">{content.shareArticle}</h3>
+          <div class="flex justify-center gap-4">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(content.title)}&url=${encodeURIComponent(canonical)}`} 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              Twitter
+            </a>
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`} 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": content.title,
+    "description": content.metaDescription,
+    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "author": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "url": "https://www.oussematrabelsi.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussematrabelsi",
+        "https://github.com/oussematrabelsi"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "url": "https://www.oussematrabelsi.com"
+    },
+    "datePublished": `${content.date}T00:00:00+01:00`,
+    "dateModified": `${content.date}T00:00:00+01:00`,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonical
+    },
+    "url": canonical,
+    "articleSection": content.category,
+    "wordCount": "2200",
+    "timeRequired": `PT${content.readTime}M`,
+    "inLanguage": lang,
+    "keywords": ["Design Thinking", "Leadership", "Development", "CTO", "Creative Process", "Problem Solving"],
+    "about": {
+      "@type": "Thing",
+      "name": "Design Thinking for Developers"
+    }
+  })} />
+</Layout>

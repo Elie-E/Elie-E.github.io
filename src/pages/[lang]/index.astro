@@ -1,0 +1,166 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../data/index.js';
+import { languages } from '../../types/index.js';
+import JourneySection from '../../components/JourneySection.astro';
+import SkillsSection from '../../components/SkillsSection.astro';
+import TestimonialsCarousel from '../../components/TestimonialsCarousel.astro';
+import ExperienceTimeline from '../../components/ExperienceTimeline.astro';
+import ContactSection from '../../components/ContactSection.astro';
+
+// Generate static paths for all languages
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+// Get language from URL path
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}`;
+const title = `${personalInfo.name} - ${personalInfo.title}`;
+const description = personalInfo.bio;
+
+// Navigation translations
+const navTranslations = {
+  fr: { resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', contact: 'Contact' },
+  en: { resume: 'Resume', portfolio: 'Portfolio', blog: 'Blog', about: 'About', contact: 'Contact' },
+  es: { resume: 'Currículum', portfolio: 'Portafolio', blog: 'Blog', about: 'Acerca de', contact: 'Contacto' },
+  de: { resume: 'Lebenslauf', portfolio: 'Portfolio', blog: 'Blog', about: 'Über mich', contact: 'Kontakt' },
+  pt: { resume: 'Currículo', portfolio: 'Portfólio', blog: 'Blog', about: 'Sobre', contact: 'Contato' },
+  ja: { resume: '履歴書', portfolio: 'ポートフォリオ', blog: 'ブログ', about: 'について', contact: 'お問い合わせ' },
+  ko: { resume: '이력서', portfolio: '포트폴리오', blog: 'ブログ', about: '소개', contact: '연락처' },
+  zh: { resume: '简历', portfolio: '作品集', blog: '博客', about: '关于', contact: '联系' },
+  ar: { resume: 'السيرة الذاتية', portfolio: 'المحفظة', blog: 'المدونة', about: 'حول', contact: 'اتصل' }
+};
+
+const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslations.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main>
+    <!-- Hero Section -->
+    <section class="py-12 md:py-20 bg-gradient-to-br from-blue-50 via-white to-cyan-50 hero-section">
+      <div class="container mx-auto px-4 md:px-6 max-w-full overflow-hidden">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start lg:items-center">
+            <!-- Text Content -->
+            <div class="text-center lg:text-left order-2 lg:order-1 w-full max-w-full">
+              <h1 class="text-2xl md:text-3xl lg:text-6xl font-bold mb-3 md:mb-4 lg:mb-6 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                {personalInfo.name}
+              </h1>
+              <h2 class="text-base md:text-lg lg:text-2xl text-gray-600 mb-4 md:mb-6 lg:mb-8">
+                {personalInfo.title}
+              </h2>
+              <p class="text-xs md:text-sm lg:text-lg text-gray-700 max-w-full mx-auto lg:mx-0 mb-6 md:mb-8 lg:mb-12 leading-relaxed px-2 lg:px-0 text-overflow-fix">
+                {personalInfo.bio}
+              </p>
+              
+              <!-- Quick Navigation -->
+              <div class="flex flex-nowrap justify-center lg:justify-start gap-1 md:gap-2 mb-8 md:mb-12 overflow-x-auto px-1 md:px-2">
+        <a href={`/${lang}/resume/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
+          {nav.resume}
+        </a>
+        <a href={`/${lang}/portfolio/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
+          {nav.portfolio}
+        </a>
+        <a href={`/${lang}/blog/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
+          {nav.blog}
+        </a>
+        <a href={`/${lang}/about/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
+          {nav.about}
+        </a>
+        <a href={`/${lang}/contact/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
+          {nav.contact}
+        </a>
+              </div>
+            </div>
+
+            <!-- Photo -->
+            <div class="flex justify-center lg:justify-end order-1 lg:order-2 photo-container">
+              <div class="relative group">
+                <div class="w-56 h-56 md:w-72 md:h-72 lg:w-[28rem] lg:h-[28rem] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-200 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-3xl">
+                <picture>
+                  <source srcset="/images/oussema-trabelsi-cto.webp" type="image/webp">
+                  <img 
+                    src="/images/oussema-trabelsi-cto.png" 
+                    alt="Oussema Trabelsi - CTO & Lead Developer"
+                    class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                    style="object-position: center 20%;"
+                    loading="eager"
+                    decoding="sync"
+                    fetchpriority="high"
+                  />
+                </picture>
+                </div>
+                <!-- Enhanced decorative elements - positioned inside container -->
+                <div class="absolute top-2 right-2 md:top-4 md:right-4 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 animate-pulse group-hover:opacity-40 transition-opacity duration-300 decorative-element"></div>
+                <div class="absolute bottom-2 left-2 md:bottom-4 md:left-4 w-4 h-4 md:w-6 md:h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full opacity-30 animate-pulse group-hover:opacity-50 transition-opacity duration-300 decorative-element" style="animation-delay: 0.5s;"></div>
+                <div class="absolute top-1/2 left-2 md:left-4 w-3 h-3 md:w-4 md:h-4 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-25 animate-pulse group-hover:opacity-40 transition-opacity duration-300 decorative-element" style="animation-delay: 1s;"></div>
+                <!-- Glow effect on hover -->
+                <div class="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-blue-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Journey Section -->
+    <JourneySection lang={lang} />
+
+    <!-- Skills Section -->
+    <SkillsSection lang={lang} />
+
+    <!-- Experience Timeline -->
+    <!-- Testimonials Carousel -->
+    <TestimonialsCarousel lang={lang} />
+    
+    <ExperienceTimeline lang={lang} />
+
+    <!-- Contact Section -->
+    <ContactSection lang={lang} />
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": personalInfo.name,
+    "jobTitle": personalInfo.title,
+    "description": personalInfo.bio,
+    "url": "https://www.oussematrabelsi.com",
+    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "sameAs": [
+      "https://www.linkedin.com/in/oussematrabelsi",
+      "https://github.com/oussematrabelsi"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lyon",
+      "addressCountry": "France"
+    },
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Advercity",
+      "url": "https://advercity.com"
+    },
+    "knowsAbout": [
+      "PHP", "Laravel", "JavaScript", "React", "Node.js", "Docker", 
+      "Web Development", "CTO", "Leadership", "Team Management"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Université de Lyon"
+    }
+  })} />
+</Layout>

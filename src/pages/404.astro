@@ -1,0 +1,257 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getPersonalInfo } from '../data/index.js';
+
+// Get personal info for default language (English)
+const personalInfo = getPersonalInfo('en');
+
+// 404 page translations
+const translations = {
+  en: {
+    title: 'Oops! You\'re Lost',
+    subtitle: 'The page you\'re looking for doesn\'t exist.',
+    description: 'The page you requested might have been moved, deleted, or you may have entered an incorrect URL.',
+    suggestions: 'Here are some suggestions:',
+    suggestionsList: [
+      'Check the URL for typos',
+      'Go back to the previous page',
+      'Visit our homepage',
+      'Use the navigation menu above'
+    ],
+    backHome: 'Back to Home',
+    contactUs: 'Contact',
+    searchPlaceholder: 'Search our site...'
+  },
+  fr: {
+    title: 'Oups ! Vous êtes perdu',
+    subtitle: 'La page que vous recherchez n\'existe pas.',
+    description: 'La page demandée a peut-être été déplacée, supprimée, ou vous avez peut-être saisi une URL incorrecte.',
+    suggestions: 'Voici quelques suggestions :',
+    suggestionsList: [
+      'Vérifiez l\'URL pour les fautes de frappe',
+      'Retournez à la page précédente',
+      'Visitez notre page d\'accueil',
+      'Utilisez le menu de navigation ci-dessus'
+    ],
+    backHome: 'Retour à l\'Accueil',
+    contactUs: 'Contact',
+    searchPlaceholder: 'Rechercher sur notre site...'
+  },
+  es: {
+    title: '¡Ups! Estás perdido',
+    subtitle: 'La página que buscas no existe.',
+    description: 'La página solicitada podría haber sido movida, eliminada, o podrías haber ingresado una URL incorrecta.',
+    suggestions: 'Aquí tienes algunas sugerencias:',
+    suggestionsList: [
+      'Verifica la URL en busca de errores tipográficos',
+      'Regresa a la página anterior',
+      'Visita nuestra página de inicio',
+      'Usa el menú de navegación de arriba'
+    ],
+    backHome: 'Volver al Inicio',
+    contactUs: 'Contacto',
+    searchPlaceholder: 'Buscar en nuestro sitio...'
+  },
+  de: {
+    title: 'Ups! Du bist verloren',
+    subtitle: 'Die gesuchte Seite existiert nicht.',
+    description: 'Die angeforderte Seite wurde möglicherweise verschoben, gelöscht oder Sie haben eine falsche URL eingegeben.',
+    suggestions: 'Hier sind einige Vorschläge:',
+    suggestionsList: [
+      'Überprüfen Sie die URL auf Tippfehler',
+      'Gehen Sie zur vorherigen Seite zurück',
+      'Besuchen Sie unsere Startseite',
+      'Verwenden Sie das Navigationsmenü oben'
+    ],
+    backHome: 'Zurück zur Startseite',
+    contactUs: 'Kontakt',
+    searchPlaceholder: 'Unsere Website durchsuchen...'
+  },
+  pt: {
+    title: 'Página Não Encontrada',
+    subtitle: 'Ops! A página que você está procurando não existe.',
+    description: 'A página solicitada pode ter sido movida, excluída ou você pode ter inserido uma URL incorreta.',
+    suggestions: 'Aqui estão algumas sugestões:',
+    suggestionsList: [
+      'Verifique a URL em busca de erros de digitação',
+      'Volte para a página anterior',
+      'Visite nossa página inicial',
+      'Use o menu de navegação acima'
+    ],
+    backHome: 'Voltar ao Início',
+    contactUs: 'Entre em Contato',
+    searchPlaceholder: 'Pesquisar em nosso site...'
+  },
+  ja: {
+    title: 'ページが見つかりません',
+    subtitle: 'おっと！お探しのページは存在しません。',
+    description: 'リクエストされたページは移動、削除されたか、間違ったURLを入力した可能性があります。',
+    suggestions: '以下をご提案します：',
+    suggestionsList: [
+      'URLのタイプミスを確認してください',
+      '前のページに戻ってください',
+      'ホームページをご覧ください',
+      '上記のナビゲーションメニューをご利用ください'
+    ],
+    backHome: 'ホームに戻る',
+    contactUs: 'お問い合わせ',
+    searchPlaceholder: 'サイトを検索...'
+  },
+  ko: {
+    title: '페이지를 찾을 수 없음',
+    subtitle: '앗! 찾고 계신 페이지가 존재하지 않습니다.',
+    description: '요청하신 페이지가 이동되었거나 삭제되었거나, 잘못된 URL을 입력하셨을 수 있습니다.',
+    suggestions: '다음과 같은 제안이 있습니다:',
+    suggestionsList: [
+      'URL의 오타를 확인해보세요',
+      '이전 페이지로 돌아가세요',
+      '홈페이지를 방문해보세요',
+      '위의 네비게이션 메뉴를 사용하세요'
+    ],
+    backHome: '홈으로 돌아가기',
+    contactUs: '문의하기',
+    searchPlaceholder: '사이트 검색...'
+  },
+  zh: {
+    title: '页面未找到',
+    subtitle: '哎呀！您要找的页面不存在。',
+    description: '请求的页面可能已被移动、删除，或者您可能输入了错误的URL。',
+    suggestions: '以下是一些建议：',
+    suggestionsList: [
+      '检查URL是否有拼写错误',
+      '返回上一页',
+      '访问我们的主页',
+      '使用上面的导航菜单'
+    ],
+    backHome: '返回首页',
+    contactUs: '联系我们',
+    searchPlaceholder: '搜索我们的网站...'
+  },
+  ar: {
+    title: 'الصفحة غير موجودة',
+    subtitle: 'عذراً! الصفحة التي تبحث عنها غير موجودة.',
+    description: 'قد تكون الصفحة المطلوبة قد تم نقلها أو حذفها، أو ربما أدخلت رابطاً غير صحيح.',
+    suggestions: 'إليك بعض الاقتراحات:',
+    suggestionsList: [
+      'تحقق من الرابط للبحث عن أخطاء إملائية',
+      'ارجع إلى الصفحة السابقة',
+      'قم بزيارة صفحتنا الرئيسية',
+      'استخدم قائمة التنقل أعلاه'
+    ],
+    backHome: 'العودة للصفحة الرئيسية',
+    contactUs: 'اتصل بنا',
+    searchPlaceholder: 'ابحث في موقعنا...'
+  }
+};
+
+// Try to detect language from URL or default to English
+const url = Astro.url;
+const pathSegments = url.pathname.split('/').filter(Boolean);
+const detectedLang = pathSegments[0] && ['en', 'fr', 'es', 'de', 'pt', 'ja', 'ko', 'zh', 'ar'].includes(pathSegments[0]) 
+  ? pathSegments[0] 
+  : 'en';
+
+const t = translations[detectedLang] || translations.en;
+const currentLang = detectedLang;
+const currentPath = '/404';
+const canonical = 'https://www.oussematrabelsi.com/404';
+const title = `${t.title} - ${personalInfo.name}`;
+const description = t.description;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentLang={currentLang}
+  currentPath={currentPath}
+>
+  <!-- Main Content -->
+  <main class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto text-center">
+        
+        <!-- 404 Illustration -->
+        <div class="mb-12">
+          <div class="relative inline-block">
+            <!-- Large 404 Number -->
+            <div class="text-9xl md:text-[12rem] font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 leading-none">
+              404
+            </div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-bounce"></div>
+            <div class="absolute -bottom-2 -left-6 w-6 h-6 bg-pink-400 rounded-full animate-pulse"></div>
+            <div class="absolute top-1/2 -right-8 w-4 h-4 bg-blue-400 rounded-full animate-ping"></div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+            {t.title}
+          </h1>
+          <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            {t.subtitle}
+          </p>
+          <p class="text-lg text-gray-500 max-w-3xl mx-auto">
+            {t.description}
+          </p>
+        </div>
+
+        <!-- Suggestions Card -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12 max-w-2xl mx-auto">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+            {t.suggestions}
+          </h2>
+          <ul class="space-y-3 text-left">
+            {t.suggestionsList.map((suggestion) => (
+              <li class="flex items-center gap-3 text-gray-600">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <a 
+            href={`/${currentLang}/`} 
+            class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            {t.backHome}
+          </a>
+          
+          <a 
+            href={`/${currentLang}/contact`} 
+            class="inline-flex items-center gap-2 px-8 py-4 border-2 border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            {t.contactUs}
+          </a>
+        </div>
+
+
+        <!-- Fun Animation -->
+        <div class="mt-16">
+          <div class="flex justify-center space-x-2">
+            <div class="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
+            <div class="w-3 h-3 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+            <div class="w-3 h-3 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</Layout>

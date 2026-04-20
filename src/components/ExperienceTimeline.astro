@@ -1,0 +1,379 @@
+---
+import { getExperiences, formatDate } from '../data';
+
+export interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const experiences = getExperiences(lang);
+
+// Translations
+const translations = {
+  fr: {
+    title: 'Expérience Professionnelle',
+    subtitle: 'Mon parcours professionnel',
+    labels: {
+      duration: 'Durée',
+      type: 'Type',
+      location: 'Localisation',
+      technologies: 'Technologies'
+    },
+    types: {
+      CDI: 'CDI',
+      Freelance: 'Freelance',
+      Stage: 'Stage',
+      Internship: 'Stage'
+    },
+    present: 'Présent',
+    summary: {
+      title: 'Plus de 10 ans d\'expérience',
+      description: 'De développeur freelance à CTO, en passant par Lead Developer, j\'ai acquis une expertise complète en développement web et leadership technique.',
+      skills: ['Développement Full-Stack', 'Leadership Technique', 'Gestion d\'Équipe', 'Conception d\'Architecture']
+    }
+  },
+  en: {
+    title: 'Professional Experience',
+    subtitle: 'My professional journey',
+    labels: {
+      duration: 'Duration',
+      type: 'Type',
+      location: 'Location',
+      technologies: 'Technologies'
+    },
+    types: {
+      CDI: 'Full-time',
+      Freelance: 'Freelance',
+      Stage: 'Internship',
+      Internship: 'Internship'
+    },
+    present: 'Present',
+    summary: {
+      title: 'Over 10 years of experience',
+      description: 'From freelance developer to CTO, through Lead Developer, I have gained comprehensive expertise in web development and technical leadership.',
+      skills: ['Full-Stack Development', 'Technical Leadership', 'Team Management', 'Architecture Design']
+    }
+  },
+  es: {
+    title: 'Experiencia Profesional',
+    subtitle: 'Mi trayectoria profesional',
+    labels: {
+      duration: 'Duración',
+      type: 'Tipo',
+      location: 'Ubicación',
+      technologies: 'Tecnologías'
+    },
+    types: {
+      CDI: 'Tiempo completo',
+      Freelance: 'Freelance',
+      Stage: 'Prácticas',
+      Internship: 'Prácticas'
+    },
+    present: 'Presente',
+    summary: {
+      title: 'Más de 10 años de experiencia',
+      description: 'De desarrollador freelance a CTO, pasando por Lead Developer, he adquirido experiencia integral en desarrollo web y liderazgo técnico.',
+      skills: ['Desarrollo Full-Stack', 'Liderazgo Técnico', 'Gestión de Equipos', 'Diseño de Arquitectura']
+    }
+  },
+  de: {
+    title: 'Berufserfahrung',
+    subtitle: 'Mein beruflicher Werdegang',
+    labels: {
+      duration: 'Dauer',
+      type: 'Typ',
+      location: 'Standort',
+      technologies: 'Technologien'
+    },
+    types: {
+      CDI: 'Vollzeit',
+      Freelance: 'Freelance',
+      Stage: 'Praktikum',
+      Internship: 'Praktikum'
+    },
+    present: 'Gegenwart',
+    summary: {
+      title: 'Über 10 Jahre Erfahrung',
+      description: 'Vom Freelance-Entwickler zum CTO, über Lead Developer, habe ich umfassende Expertise in Webentwicklung und technischer Führung erlangt.',
+      skills: ['Full-Stack Entwicklung', 'Technische Führung', 'Teammanagement', 'Architekturdesign']
+    }
+  },
+  pt: {
+    title: 'Experiência Profissional',
+    subtitle: 'Minha jornada profissional',
+    labels: {
+      duration: 'Duração',
+      type: 'Tipo',
+      location: 'Localização',
+      technologies: 'Tecnologias'
+    },
+    types: {
+      CDI: 'Tempo integral',
+      Freelance: 'Freelance',
+      Stage: 'Estágio',
+      Internship: 'Estágio'
+    },
+    present: 'Presente',
+    summary: {
+      title: 'Mais de 10 anos de experiência',
+      description: 'De desenvolvedor freelance a CTO, passando por Lead Developer, adquiri experiência abrangente em desenvolvimento web e liderança técnica.',
+      skills: ['Desenvolvimento Full-Stack', 'Liderança Técnica', 'Gestão de Equipes', 'Design de Arquitetura']
+    }
+  },
+  ja: {
+    title: '職歴',
+    subtitle: '私の職業的経歴',
+    labels: {
+      duration: '期間',
+      type: 'タイプ',
+      location: '場所',
+      technologies: '技術'
+    },
+    types: {
+      CDI: 'フルタイム',
+      Freelance: 'フリーランス',
+      Stage: 'インターンシップ',
+      Internship: 'インターンシップ'
+    },
+    present: '現在',
+    summary: {
+      title: '10年以上の経験',
+      description: 'フリーランス開発者からCTOへ、Lead Developerを経て、Web開発と技術的リーダーシップの包括的な専門知識を獲得しました。',
+      skills: ['フルスタック開発', '技術的リーダーシップ', 'チーム管理', 'アーキテクチャ設計']
+    }
+  },
+  ko: {
+    title: '전문 경험',
+    subtitle: '나의 전문적 여정',
+    labels: {
+      duration: '기간',
+      type: '유형',
+      location: '위치',
+      technologies: '기술'
+    },
+    types: {
+      CDI: '정규직',
+      Freelance: '프리랜서',
+      Stage: '인턴십',
+      Internship: '인턴십'
+    },
+    present: '현재',
+    summary: {
+      title: '10년 이상의 경험',
+      description: '프리랜서 개발자에서 CTO까지, Lead Developer를 거쳐 웹 개발과 기술적 리더십의 포괄적인 전문성을 얻었습니다.',
+      skills: ['풀스택 개발', '기술적 리더십', '팀 관리', '아키텍처 설계']
+    }
+  },
+  zh: {
+    title: '专业经验',
+    subtitle: '我的专业历程',
+    labels: {
+      duration: '持续时间',
+      type: '类型',
+      location: '位置',
+      technologies: '技术'
+    },
+    types: {
+      CDI: '全职',
+      Freelance: '自由职业',
+      Stage: '实习',
+      Internship: '实习'
+    },
+    present: '现在',
+    summary: {
+      title: '超过10年的经验',
+      description: '从自由职业开发者到CTO，通过Lead Developer，我在Web开发和技术领导方面获得了全面的专业知识。',
+      skills: ['全栈开发', '技术领导', '团队管理', '架构设计']
+    }
+  },
+  ar: {
+    title: 'الخبرة المهنية',
+    subtitle: 'رحلتي المهنية',
+    labels: {
+      duration: 'المدة',
+      type: 'النوع',
+      location: 'الموقع',
+      technologies: 'التقنيات'
+    },
+    types: {
+      CDI: 'دوام كامل',
+      Freelance: 'عمل حر',
+      Stage: 'تدريب',
+      Internship: 'تدريب'
+    },
+    present: 'حاضر',
+    summary: {
+      title: 'أكثر من 10 سنوات من الخبرة',
+      description: 'من مطور مستقل إلى CTO، مروراً بـ Lead Developer، اكتسبت خبرة شاملة في تطوير الويب والقيادة التقنية.',
+      skills: ['تطوير شامل', 'القيادة التقنية', 'إدارة الفرق', 'تصميم الهندسة المعمارية']
+    }
+  }
+};
+
+const t = translations[lang as keyof typeof translations] || translations.en;
+
+// Format date for display
+function formatDate(dateStr: string): string {
+  const [year, month] = dateStr.split('-');
+  const monthNames = {
+    '01': 'janv.', '02': 'févr.', '03': 'mars', '04': 'avr.',
+    '05': 'mai', '06': 'juin', '07': 'juil.', '08': 'août',
+    '09': 'sept.', '10': 'oct.', '11': 'nov.', '12': 'déc.'
+  };
+  return `${monthNames[month as keyof typeof monthNames]} ${year}`;
+}
+
+// Get type color
+function getTypeColor(type: string): string {
+  switch (type) {
+    case 'CDI': return 'bg-blue-100 text-blue-700 border-blue-200';
+    case 'Freelance': return 'bg-green-100 text-green-700 border-green-200';
+    case 'Stage': return 'bg-purple-100 text-purple-700 border-purple-200';
+    case 'Internship': return 'bg-purple-100 text-purple-700 border-purple-200';
+    default: return 'bg-gray-100 text-gray-700 border-gray-200';
+  }
+}
+---
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+        {t.title}
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        {t.subtitle}
+      </p>
+    </div>
+
+    <!-- Experience Timeline -->
+    <div class="relative max-w-4xl mx-auto">
+      <!-- Timeline Line -->
+      <div class="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-200 via-blue-400 to-cyan-400 rounded-full"></div>
+      
+      <!-- Experience Items -->
+      <div class="space-y-8">
+        {experiences.map((exp, index) => (
+          <div class="relative flex items-start group">
+            <!-- Timeline Dot -->
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg border-4 border-blue-200 group-hover:border-blue-400 transition-all duration-300 group-hover:scale-110">
+              <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold text-sm">{index + 1}</span>
+              </div>
+            </div>
+            
+            <!-- Experience Card -->
+            <div class="ml-8 flex-1">
+              <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300 group-hover:translate-x-2">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                  <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors duration-300">
+                      {exp.position}
+                    </h3>
+                    <h4 class="text-xl font-semibold text-blue-600 mb-2">
+                      {exp.company}
+                    </h4>
+                  </div>
+                  <div class="flex flex-wrap gap-2 mb-4 md:mb-0">
+                    <span class={`px-3 py-1 rounded-full text-sm font-medium border ${getTypeColor(exp.type)}`}>
+                      {t.types[exp.type as keyof typeof t.types]}
+                    </span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium border border-gray-200">
+                      {exp.duration}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Date and Location -->
+                <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4 text-sm text-gray-600">
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>
+                      {formatDate(exp.startDate, lang)}
+                      {exp.endDate ? ` - ${formatDate(exp.endDate, lang)}` : ` - ${t.present}`}
+                    </span>
+                  </div>
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>{exp.location}</span>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <p class="text-gray-700 leading-relaxed mb-6">
+                  {exp.description}
+                </p>
+
+                <!-- Technologies -->
+                <div>
+                  <h5 class="text-sm font-semibold text-gray-600 mb-3">{t.labels.technologies}</h5>
+                  <div class="flex flex-wrap gap-2">
+                    {exp.technologies.map((tech) => (
+                      <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium border border-blue-200 hover:bg-blue-100 transition-colors duration-200">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="mt-16 text-center">
+      <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200 max-w-4xl mx-auto">
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">
+          {t.summary.title}
+        </h3>
+        <p class="text-gray-600 mb-6">
+          {t.summary.description}
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          {t.summary.skills.map(skill => (
+            <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Custom animations for timeline */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .timeline-item {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+  .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+  .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+  .timeline-item:nth-child(8) { animation-delay: 0.8s; }
+  .timeline-item:nth-child(9) { animation-delay: 0.9s; }
+</style>

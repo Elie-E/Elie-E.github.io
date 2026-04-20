@@ -1,0 +1,468 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../data/index.js';
+import { languages } from '../../types/index.js';
+
+// Generate static paths for all languages
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+// Get language from URL path
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/contact`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/contact`;
+const title = `Contact - ${personalInfo.name}`;
+const description = `Get in touch with ${personalInfo.name} for opportunities, collaborations, or just to say hello`;
+
+// Contact page translations
+const contactTranslations = {
+  fr: {
+    title: 'Contactez-moi',
+    subtitle: 'Commençons une conversation sur votre prochain projet',
+    sendMessage: 'Envoyer un message',
+    firstName: 'Prénom',
+    lastName: 'Nom',
+    email: 'Adresse e-mail',
+    subject: 'Sujet',
+    selectSubject: 'Sélectionnez un sujet',
+    message: 'Message',
+    messagePlaceholder: 'Parlez-moi de votre projet ou de la façon dont je peux vous aider...',
+    send: 'Envoyer le message',
+    getInTouch: 'Entrer en contact',
+    emailLabel: 'E-mail',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Localisation',
+    profile: 'Profil',
+    portfolio: 'Portfolio',
+    respondTime: 'Temps de réponse',
+    respondTimeDesc: 'Je réponds généralement aux e-mails dans les 24 heures. Pour les questions urgentes, veuillez mentionner "URGENT" dans votre objet.',
+    openOpportunities: 'Ouvert aux nouvelles opportunités',
+    consultingProjects: 'Disponible pour les projets de conseil',
+    speakingEngagements: 'Intéressé par les engagements de conférence',
+    home: 'Accueil',
+    resume: 'CV',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    about: 'À propos',
+    responseTime: 'Je réponds généralement dans les 24 heures',
+    professionalNetworking: 'Réseautage professionnel et mises à jour',
+    remoteCollaboration: 'Ouvert à la collaboration à distance',
+    currentAvailability: 'Disponibilité actuelle'
+  },
+  en: {
+    title: 'Contact Me',
+    subtitle: 'Let\'s start a conversation about your next project',
+    sendMessage: 'Send a Message',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Email Address',
+    subject: 'Subject',
+    selectSubject: 'Select a subject',
+    message: 'Message',
+    messagePlaceholder: 'Tell me about your project or how I can help...',
+    send: 'Send Message',
+    getInTouch: 'Get in Touch',
+    emailLabel: 'Email',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Location',
+    profile: 'Profile',
+    portfolio: 'Portfolio',
+    respondTime: 'Response Time',
+    respondTimeDesc: 'I typically respond to emails within 24 hours. For urgent matters, please mention "URGENT" in your subject line.',
+    openOpportunities: 'Open to new opportunities',
+    consultingProjects: 'Available for consulting projects',
+    speakingEngagements: 'Interested in speaking engagements',
+    home: 'Home',
+    resume: 'Resume',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    about: 'About',
+    responseTime: 'I typically respond within 24 hours',
+    professionalNetworking: 'Professional networking and updates',
+    remoteCollaboration: 'Open to remote collaboration',
+    currentAvailability: 'Current Availability'
+  },
+  es: {
+    title: 'Contáctame',
+    subtitle: 'Comencemos una conversación sobre tu próximo proyecto',
+    sendMessage: 'Enviar un mensaje',
+    firstName: 'Nombre',
+    lastName: 'Apellido',
+    email: 'Dirección de correo',
+    subject: 'Asunto',
+    selectSubject: 'Selecciona un asunto',
+    message: 'Mensaje',
+    messagePlaceholder: 'Cuéntame sobre tu proyecto o cómo puedo ayudarte...',
+    send: 'Enviar mensaje',
+    getInTouch: 'Ponerse en contacto',
+    emailLabel: 'Correo',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Ubicación',
+    profile: 'Perfil',
+    portfolio: 'Portafolio',
+    respondTime: 'Tiempo de respuesta',
+    respondTimeDesc: 'Normalmente respondo a los correos electrónicos dentro de 24 horas. Para asuntos urgentes, por favor menciona "URGENTE" en tu asunto.',
+    openOpportunities: 'Abierto a nuevas oportunidades',
+    consultingProjects: 'Disponible para proyectos de consultoría',
+    speakingEngagements: 'Interesado en compromisos de conferencias',
+    home: 'Inicio',
+    resume: 'Currículum',
+    portfolio: 'Portafolio',
+    blog: 'Blog',
+    about: 'Acerca de',
+    responseTime: 'Normalmente respondo dentro de 24 horas',
+    professionalNetworking: 'Redes profesionales y actualizaciones',
+    remoteCollaboration: 'Abierto a colaboración remota',
+    currentAvailability: 'Disponibilidad Actual'
+  },
+  de: {
+    title: 'Kontaktieren Sie mich',
+    subtitle: 'Lassen Sie uns ein Gespräch über Ihr nächstes Projekt beginnen',
+    sendMessage: 'Nachricht senden',
+    firstName: 'Vorname',
+    lastName: 'Nachname',
+    email: 'E-Mail-Adresse',
+    subject: 'Betreff',
+    selectSubject: 'Betreff auswählen',
+    message: 'Nachricht',
+    messagePlaceholder: 'Erzählen Sie mir von Ihrem Projekt oder wie ich helfen kann...',
+    send: 'Nachricht senden',
+    getInTouch: 'Kontakt aufnehmen',
+    emailLabel: 'E-Mail',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Standort',
+    profile: 'Profil',
+    portfolio: 'Portfolio',
+    respondTime: 'Antwortzeit',
+    respondTimeDesc: 'Ich antworte normalerweise innerhalb von 24 Stunden auf E-Mails. Für dringende Angelegenheiten erwähnen Sie bitte "DRINGEND" in Ihrer Betreffzeile.',
+    openOpportunities: 'Offen für neue Möglichkeiten',
+    consultingProjects: 'Verfügbar für Beratungsprojekte',
+    speakingEngagements: 'Interessiert an Vortragsengagements',
+    home: 'Startseite',
+    resume: 'Lebenslauf',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    about: 'Über mich',
+    responseTime: 'Ich antworte normalerweise innerhalb von 24 Stunden',
+    professionalNetworking: 'Professionelles Networking und Updates',
+    remoteCollaboration: 'Offen für Remote-Zusammenarbeit',
+    currentAvailability: 'Aktuelle Verfügbarkeit'
+  },
+  pt: {
+    title: 'Entre em contato',
+    subtitle: 'Vamos começar uma conversa sobre seu próximo projeto',
+    sendMessage: 'Enviar uma mensagem',
+    firstName: 'Nome',
+    lastName: 'Sobrenome',
+    email: 'Endereço de e-mail',
+    subject: 'Assunto',
+    selectSubject: 'Selecione um assunto',
+    message: 'Mensagem',
+    messagePlaceholder: 'Me conte sobre seu projeto ou como posso ajudar...',
+    send: 'Enviar mensagem',
+    getInTouch: 'Entrar em contato',
+    emailLabel: 'E-mail',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Localização',
+    profile: 'Perfil',
+    portfolio: 'Portfólio',
+    respondTime: 'Tempo de resposta',
+    respondTimeDesc: 'Normalmente respondo e-mails em 24 horas. Para assuntos urgentes, mencione "URGENTE" na linha de assunto.',
+    openOpportunities: 'Aberto a novas oportunidades',
+    consultingProjects: 'Disponível para projetos de consultoria',
+    speakingEngagements: 'Interessado em compromissos de palestras',
+    home: 'Início',
+    resume: 'Currículo',
+    portfolio: 'Portfólio',
+    blog: 'Blog',
+    about: 'Sobre',
+    responseTime: 'Normalmente respondo em 24 horas',
+    professionalNetworking: 'Networking profissional e atualizações',
+    remoteCollaboration: 'Aberto para colaboração remota',
+    currentAvailability: 'Disponibilidade Atual'
+  },
+  ja: {
+    title: 'お問い合わせ',
+    subtitle: 'あなたの次のプロジェクトについて話し合いを始めましょう',
+    sendMessage: 'メッセージを送信',
+    firstName: '名',
+    lastName: '姓',
+    email: 'メールアドレス',
+    subject: '件名',
+    selectSubject: '件名を選択',
+    message: 'メッセージ',
+    messagePlaceholder: 'あなたのプロジェクトや私がどのようにお手伝いできるかについて教えてください...',
+    send: 'メッセージを送信',
+    getInTouch: 'お問い合わせ',
+    emailLabel: 'メール',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: '場所',
+    profile: 'プロフィール',
+    portfolio: 'ポートフォリオ',
+    respondTime: '返信時間',
+    respondTimeDesc: '通常24時間以内にメールに返信します。緊急の場合は、件名に「緊急」と記載してください。',
+    openOpportunities: '新しい機会にオープン',
+    consultingProjects: 'コンサルティングプロジェクトに利用可能',
+    speakingEngagements: '講演活動に興味あり',
+    home: 'ホーム',
+    resume: '履歴書',
+    portfolio: 'ポートフォリオ',
+    blog: 'ブログ',
+    about: 'について',
+    responseTime: '通常24時間以内に返信します',
+    professionalNetworking: 'プロフェッショナルネットワーキングとアップデート',
+    remoteCollaboration: 'リモートコラボレーションにオープン',
+    currentAvailability: '現在の利用可能性'
+  },
+  ko: {
+    title: '연락처',
+    subtitle: '다음 프로젝트에 대해 대화를 시작해보세요',
+    sendMessage: '메시지 보내기',
+    firstName: '이름',
+    lastName: '성',
+    email: '이메일 주소',
+    subject: '제목',
+    selectSubject: '제목 선택',
+    message: '메시지',
+    messagePlaceholder: '프로젝트에 대해 알려주시거나 제가 어떻게 도울 수 있는지 말씀해주세요...',
+    send: '메시지 보내기',
+    getInTouch: '연락하기',
+    emailLabel: '이메일',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: '위치',
+    profile: '프로필',
+    portfolio: '포트폴리오',
+    respondTime: '응답 시간',
+    respondTimeDesc: '보통 24시간 이내에 이메일에 응답합니다. 긴급한 사항의 경우 제목에 "긴급"이라고 언급해주세요.',
+    openOpportunities: '새로운 기회에 열려있음',
+    consultingProjects: '컨설팅 프로젝트에 사용 가능',
+    speakingEngagements: '강연 활동에 관심 있음',
+    home: '홈',
+    resume: '이력서',
+    portfolio: '포트폴리오',
+    blog: '블로그',
+    about: '소개',
+    responseTime: '보통 24시간 이내에 응답합니다',
+    professionalNetworking: '전문 네트워킹 및 업데이트',
+    remoteCollaboration: '원격 협업에 열려있음',
+    currentAvailability: '현재 가용성'
+  },
+  zh: {
+    title: '联系我',
+    subtitle: '让我们开始讨论您的下一个项目',
+    sendMessage: '发送消息',
+    firstName: '名',
+    lastName: '姓',
+    email: '邮箱地址',
+    subject: '主题',
+    selectSubject: '选择主题',
+    message: '消息',
+    messagePlaceholder: '告诉我您的项目或我如何能帮助您...',
+    send: '发送消息',
+    getInTouch: '取得联系',
+    emailLabel: '邮箱',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: '位置',
+    profile: '档案',
+    portfolio: '作品集',
+    respondTime: '响应时间',
+    respondTimeDesc: '我通常在24小时内回复邮件。对于紧急事项，请在主题行中提及"紧急"。',
+    openOpportunities: '对新机会开放',
+    consultingProjects: '可用于咨询项目',
+    speakingEngagements: '对演讲活动感兴趣',
+    home: '首页',
+    resume: '简历',
+    portfolio: '作品集',
+    blog: '博客',
+    about: '关于',
+    responseTime: '我通常在24小时内回复',
+    professionalNetworking: '专业网络和更新',
+    remoteCollaboration: '开放远程协作',
+    currentAvailability: '当前可用性'
+  },
+  ar: {
+    title: 'اتصل بي',
+    subtitle: 'دعنا نبدأ محادثة حول مشروعك القادم',
+    sendMessage: 'إرسال رسالة',
+    firstName: 'الاسم الأول',
+    lastName: 'الاسم الأخير',
+    email: 'عنوان البريد الإلكتروني',
+    subject: 'الموضوع',
+    selectSubject: 'اختر موضوعاً',
+    message: 'الرسالة',
+    messagePlaceholder: 'أخبرني عن مشروعك أو كيف يمكنني المساعدة...',
+    send: 'إرسال الرسالة',
+    getInTouch: 'تواصل معنا',
+    emailLabel: 'البريد الإلكتروني',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'الموقع',
+    profile: 'الملف الشخصي',
+    portfolio: 'المحفظة',
+    respondTime: 'وقت الاستجابة',
+    respondTimeDesc: 'أستجيب عادة للرسائل الإلكترونية خلال 24 ساعة. للأمور العاجلة، يرجى ذكر "عاجل" في موضوع الرسالة.',
+    openOpportunities: 'منفتح على الفرص الجديدة',
+    consultingProjects: 'متاح لمشاريع الاستشارات',
+    speakingEngagements: 'مهتم بالالتزامات التحدث',
+    home: 'الرئيسية',
+    resume: 'السيرة الذاتية',
+    portfolio: 'المحفظة',
+    blog: 'المدونة',
+    about: 'حول',
+    responseTime: 'أستجيب عادة خلال 24 ساعة',
+    professionalNetworking: 'الشبكات المهنية والتحديثات',
+    remoteCollaboration: 'منفتح للتعاون عن بُعد',
+    currentAvailability: 'التوفر الحالي'
+  }
+};
+
+const t = contactTranslations[lang as keyof typeof contactTranslations] || contactTranslations.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">{t.title}</h1>
+        <p class="text-lg text-gray-600">
+          {t.subtitle}
+        </p>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="max-w-2xl mx-auto">
+          <h2 class="text-2xl font-semibold mb-6">{t.getInTouch}</h2>
+          
+          <!-- Direct Contact -->
+          <div class="space-y-6 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">{t.emailLabel}</h3>
+                <a href={`mailto:${personalInfo.email}`} class="text-blue-600 hover:underline">
+                  {personalInfo.email}
+                </a>
+                <p class="text-sm text-gray-600 mt-1">
+                  {t.responseTime}
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">{t.linkedinLabel}</h3>
+                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+                  {t.profile}
+                </a>
+                <p class="text-sm text-gray-600 mt-1">
+                  {t.professionalNetworking}
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">{t.locationLabel}</h3>
+                <p class="text-gray-700">{personalInfo.location}</p>
+                <p class="text-sm text-gray-600 mt-1">
+                  {t.remoteCollaboration}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Availability -->
+          <div class="bg-gray-50 rounded-lg p-6 mb-8">
+            <h3 class="font-semibold mb-4">{t.currentAvailability}</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span class="text-sm">{t.openOpportunities}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <span class="text-sm">{t.consultingProjects}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                <span class="text-sm">{t.speakingEngagements}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Response Time -->
+          <div class="bg-blue-50 rounded-lg p-6">
+            <h3 class="font-semibold mb-2">{t.respondTime}</h3>
+            <p class="text-sm text-gray-700">
+              {t.respondTimeDesc}
+            </p>
+          </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": t.title,
+    "description": t.subtitle,
+    "url": canonical,
+    "mainEntity": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "jobTitle": personalInfo.title,
+      "description": personalInfo.bio,
+      "url": "https://www.oussematrabelsi.com",
+      "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+      "email": "contact@oussematrabelsi.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussematrabelsi",
+        "https://github.com/oussematrabelsi"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lyon",
+        "addressCountry": "France"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Advercity",
+        "url": "https://advercity.com"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "contact@oussematrabelsi.com",
+        "contactType": "professional",
+        "availableLanguage": ["French", "English", "Arabic"]
+      }
+    },
+    "inLanguage": lang
+  })} />
+</Layout>

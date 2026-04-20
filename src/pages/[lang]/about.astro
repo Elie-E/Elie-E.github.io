@@ -1,0 +1,443 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPersonalInfo, getJourneyContent } from '../../data/index.js';
+import { languages } from '../../types/index.js';
+import JourneySection from '../../components/JourneySection.astro';
+
+// Generate static paths for all languages
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+// Get language from URL path
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/about`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/about`;
+const title = `About - ${personalInfo.name}`;
+const description = `Learn more about ${personalInfo.name}, his journey, values, and approach to technology and leadership`;
+
+// About page translations
+const aboutTranslations = {
+  fr: {
+    title: 'À propos de moi',
+    subtitle: 'Découvrez la personne derrière le code',
+    journey: 'Mon Parcours',
+    values: 'Valeurs & Philosophie',
+    technicalExcellence: 'Excellence Technique',
+    leadershipPrinciples: 'Principes de Leadership',
+    beyondWork: 'Au-delà du Travail',
+    openSource: 'Open Source',
+    speaking: 'Conférences',
+    writing: 'Écriture',
+    connect: 'Connectons-nous',
+    connectDesc: 'Je suis toujours intéressé par de nouvelles opportunités, partager des connaissances, ou simplement discuter de technologie.',
+    getInTouch: 'Entrer en contact',
+    home: 'Accueil',
+    resume: 'CV',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    contact: 'Contact',
+    writeCleanCode: 'Écrire du code propre et maintenable',
+    embraceLearning: 'Embrasser l\'apprentissage continu',
+    prioritizeUX: 'Prioriser l\'expérience utilisateur',
+    buildScalable: 'Construire pour l\'évolutivité et les performances',
+    leadByExample: 'Diriger par l\'exemple',
+    fosterCollaboration: 'Favoriser des environnements collaboratifs',
+    investInTeam: 'Investir dans la croissance de l\'équipe',
+    communicateClearly: 'Communiquer clairement et souvent',
+    openSourceDesc: 'Contribuer à des projets qui bénéficient à la communauté développeur',
+    speakingDesc: 'Partager les connaissances lors de conférences tech et meetups',
+    writingDesc: 'Bloguer sur les pratiques de développement et les tendances de l\'industrie'
+  },
+  en: {
+    title: 'About Me',
+    subtitle: 'Get to know the person behind the code',
+    journey: 'My Journey',
+    values: 'Values & Philosophy',
+    technicalExcellence: 'Technical Excellence',
+    leadershipPrinciples: 'Leadership Principles',
+    beyondWork: 'Beyond Work',
+    openSource: 'Open Source',
+    speaking: 'Speaking',
+    writing: 'Writing',
+    connect: 'Let\'s Connect',
+    connectDesc: 'I\'m always interested in discussing new opportunities, sharing knowledge, or just having a chat about technology.',
+    getInTouch: 'Get in Touch',
+    home: 'Home',
+    resume: 'Resume',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    contact: 'Contact',
+    writeCleanCode: 'Write clean, maintainable code',
+    embraceLearning: 'Embrace continuous learning',
+    prioritizeUX: 'Prioritize user experience',
+    buildScalable: 'Build for scalability and performance',
+    leadByExample: 'Lead by example',
+    fosterCollaboration: 'Foster collaborative environments',
+    investInTeam: 'Invest in team growth',
+    communicateClearly: 'Communicate clearly and often',
+    openSourceDesc: 'Contributing to projects that benefit the developer community',
+    speakingDesc: 'Sharing knowledge at tech conferences and meetups',
+    writingDesc: 'Blogging about development practices and industry trends'
+  },
+  es: {
+    title: 'Acerca de mí',
+    subtitle: 'Conoce a la persona detrás del código',
+    journey: 'Mi Viaje',
+    values: 'Valores y Filosofía',
+    technicalExcellence: 'Excelencia Técnica',
+    leadershipPrinciples: 'Principios de Liderazgo',
+    beyondWork: 'Más allá del Trabajo',
+    openSource: 'Código Abierto',
+    speaking: 'Conferencias',
+    writing: 'Escritura',
+    connect: 'Conectemos',
+    connectDesc: 'Siempre estoy interesado en discutir nuevas oportunidades, compartir conocimientos, o simplemente charlar sobre tecnología.',
+    getInTouch: 'Ponerse en contacto',
+    home: 'Inicio',
+    resume: 'Currículum',
+    portfolio: 'Portafolio',
+    blog: 'Blog',
+    contact: 'Contacto',
+    writeCleanCode: 'Escribir código limpio y mantenible',
+    embraceLearning: 'Abrazar el aprendizaje continuo',
+    prioritizeUX: 'Priorizar la experiencia del usuario',
+    buildScalable: 'Construir para escalabilidad y rendimiento',
+    leadByExample: 'Liderar con el ejemplo',
+    fosterCollaboration: 'Fomentar entornos colaborativos',
+    investInTeam: 'Invertir en el crecimiento del equipo',
+    communicateClearly: 'Comunicar clara y frecuentemente',
+    openSourceDesc: 'Contribuyendo a proyectos que benefician a la comunidad desarrolladora',
+    speakingDesc: 'Compartiendo conocimiento en conferencias tech y meetups',
+    writingDesc: 'Blogueando sobre prácticas de desarrollo y tendencias de la industria'
+  },
+  de: {
+    title: 'Über mich',
+    subtitle: 'Lernen Sie die Person hinter dem Code kennen',
+    journey: 'Mein Weg',
+    values: 'Werte & Philosophie',
+    technicalExcellence: 'Technische Exzellenz',
+    leadershipPrinciples: 'Führungsprinzipien',
+    beyondWork: 'Über die Arbeit hinaus',
+    openSource: 'Open Source',
+    speaking: 'Vorträge',
+    writing: 'Schreiben',
+    connect: 'Lassen Sie uns verbinden',
+    connectDesc: 'Ich bin immer interessiert daran, neue Möglichkeiten zu diskutieren, Wissen zu teilen oder einfach über Technologie zu plaudern.',
+    getInTouch: 'Kontakt aufnehmen',
+    home: 'Startseite',
+    resume: 'Lebenslauf',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    contact: 'Kontakt',
+    writeCleanCode: 'Sauberen, wartbaren Code schreiben',
+    embraceLearning: 'Kontinuierliches Lernen umarmen',
+    prioritizeUX: 'Benutzererfahrung priorisieren',
+    buildScalable: 'Für Skalierbarkeit und Leistung bauen',
+    leadByExample: 'Mit gutem Beispiel vorangehen',
+    fosterCollaboration: 'Kollaborative Umgebungen fördern',
+    investInTeam: 'In Teamwachstum investieren',
+    communicateClearly: 'Klar und oft kommunizieren',
+    openSourceDesc: 'Beitragen zu Projekten, die der Entwicklergemeinschaft zugute kommen',
+    speakingDesc: 'Wissen bei Tech-Konferenzen und Meetups teilen',
+    writingDesc: 'Bloggen über Entwicklungspraktiken und Branchentrends'
+  },
+  pt: {
+    title: 'Sobre mim',
+    subtitle: 'Conheça a pessoa por trás do código',
+    journey: 'Minha Jornada',
+    values: 'Valores e Filosofia',
+    technicalExcellence: 'Excelência Técnica',
+    leadershipPrinciples: 'Princípios de Liderança',
+    beyondWork: 'Além do Trabalho',
+    openSource: 'Código Aberto',
+    speaking: 'Palestras',
+    writing: 'Escrita',
+    connect: 'Vamos nos conectar',
+    connectDesc: 'Sempre estou interessado em discutir novas oportunidades, compartilhar conhecimento ou simplesmente conversar sobre tecnologia.',
+    getInTouch: 'Entrar em contato',
+    home: 'Início',
+    resume: 'Currículo',
+    portfolio: 'Portfólio',
+    blog: 'Blog',
+    contact: 'Contato',
+    writeCleanCode: 'Escrever código limpo e sustentável',
+    embraceLearning: 'Abraçar o aprendizado contínuo',
+    prioritizeUX: 'Priorizar a experiência do usuário',
+    buildScalable: 'Construir para escalabilidade e performance',
+    leadByExample: 'Liderar pelo exemplo',
+    fosterCollaboration: 'Promover ambientes colaborativos',
+    investInTeam: 'Investir no crescimento da equipe',
+    communicateClearly: 'Comunicar clara e frequentemente',
+    openSourceDesc: 'Contribuindo para projetos que beneficiam a comunidade desenvolvedora',
+    speakingDesc: 'Compartilhando conhecimento em conferências tech e meetups',
+    writingDesc: 'Blogando sobre práticas de desenvolvimento e tendências da indústria'
+  },
+  ja: {
+    title: '私について',
+    subtitle: 'コードの背後にいる人を知る',
+    journey: '私の旅路',
+    values: '価値観と哲学',
+    technicalExcellence: '技術的卓越性',
+    leadershipPrinciples: 'リーダーシップの原則',
+    beyondWork: '仕事を超えて',
+    openSource: 'オープンソース',
+    speaking: '講演',
+    writing: '執筆',
+    connect: 'つながりましょう',
+    connectDesc: '新しい機会について話し合ったり、知識を共有したり、テクノロジーについて単純にチャットしたりすることに常に興味があります。',
+    getInTouch: 'お問い合わせ',
+    home: 'ホーム',
+    resume: '履歴書',
+    portfolio: 'ポートフォリオ',
+    blog: 'ブログ',
+    contact: 'お問い合わせ',
+    writeCleanCode: 'クリーンで保守可能なコードを書く',
+    embraceLearning: '継続的な学習を受け入れる',
+    prioritizeUX: 'ユーザーエクスペリエンスを優先する',
+    buildScalable: 'スケーラビリティとパフォーマンスのために構築する',
+    leadByExample: '模範を示してリードする',
+    fosterCollaboration: '協力的な環境を育成する',
+    investInTeam: 'チームの成長に投資する',
+    communicateClearly: '明確かつ頻繁にコミュニケーションを取る',
+    openSourceDesc: '開発者コミュニティに利益をもたらすプロジェクトに貢献する',
+    speakingDesc: 'テックカンファレンスやミートアップで知識を共有する',
+    writingDesc: '開発実践と業界トレンドについてブログを書く'
+  },
+  ko: {
+    title: '나에 대해',
+    subtitle: '코드 뒤에 있는 사람을 알아보세요',
+    journey: '나의 여정',
+    values: '가치관과 철학',
+    technicalExcellence: '기술적 우수성',
+    leadershipPrinciples: '리더십 원칙',
+    beyondWork: '일을 넘어서',
+    openSource: '오픈 소스',
+    speaking: '강연',
+    writing: '글쓰기',
+    connect: '연결해요',
+    connectDesc: '새로운 기회에 대해 논의하거나, 지식을 공유하거나, 단순히 기술에 대해 채팅하는 것에 항상 관심이 있습니다.',
+    getInTouch: '연락하기',
+    home: '홈',
+    resume: '이력서',
+    portfolio: '포트폴리오',
+    blog: '블로그',
+    contact: '연락처',
+    writeCleanCode: '깔끔하고 유지보수 가능한 코드 작성',
+    embraceLearning: '지속적인 학습 수용',
+    prioritizeUX: '사용자 경험 우선시',
+    buildScalable: '확장성과 성능을 위한 구축',
+    leadByExample: '모범을 보이며 리드',
+    fosterCollaboration: '협력적인 환경 조성',
+    investInTeam: '팀 성장에 투자',
+    communicateClearly: '명확하고 자주 소통',
+    openSourceDesc: '개발자 커뮤니티에 도움이 되는 프로젝트에 기여',
+    speakingDesc: '테크 컨퍼런스와 밋업에서 지식 공유',
+    writingDesc: '개발 실무와 업계 트렌드에 대한 블로깅'
+  },
+  zh: {
+    title: '关于我',
+    subtitle: '了解代码背后的人',
+    journey: '我的旅程',
+    values: '价值观和哲学',
+    technicalExcellence: '技术卓越',
+    leadershipPrinciples: '领导原则',
+    beyondWork: '超越工作',
+    openSource: '开源',
+    speaking: '演讲',
+    writing: '写作',
+    connect: '让我们连接',
+    connectDesc: '我总是对讨论新机会、分享知识或简单地谈论技术感兴趣。',
+    getInTouch: '取得联系',
+    home: '首页',
+    resume: '简历',
+    portfolio: '作品集',
+    blog: '博客',
+    contact: '联系',
+    writeCleanCode: '编写干净、可维护的代码',
+    embraceLearning: '拥抱持续学习',
+    prioritizeUX: '优先考虑用户体验',
+    buildScalable: '为可扩展性和性能而构建',
+    leadByExample: '以身作则',
+    fosterCollaboration: '培养协作环境',
+    investInTeam: '投资团队成长',
+    communicateClearly: '清晰且经常沟通',
+    openSourceDesc: '为有益于开发者社区的项目做出贡献',
+    speakingDesc: '在技术会议和聚会上分享知识',
+    writingDesc: '撰写关于开发实践和行业趋势的博客'
+  },
+  ar: {
+    title: 'حولي',
+    subtitle: 'تعرف على الشخص وراء الكود',
+    journey: 'رحلتي',
+    values: 'القيم والفلسفة',
+    technicalExcellence: 'التميز التقني',
+    leadershipPrinciples: 'مبادئ القيادة',
+    beyondWork: 'ما بعد العمل',
+    openSource: 'مفتوح المصدر',
+    speaking: 'المحادثات',
+    writing: 'الكتابة',
+    connect: 'دعنا نتواصل',
+    connectDesc: 'أنا مهتم دائماً بمناقشة الفرص الجديدة، أو مشاركة المعرفة، أو مجرد الدردشة حول التكنولوجيا.',
+    getInTouch: 'تواصل معنا',
+    home: 'الرئيسية',
+    resume: 'السيرة الذاتية',
+    portfolio: 'المحفظة',
+    blog: 'المدونة',
+    contact: 'اتصل',
+    writeCleanCode: 'كتابة كود نظيف وقابل للصيانة',
+    embraceLearning: 'احتضان التعلم المستمر',
+    prioritizeUX: 'إعطاء الأولوية لتجربة المستخدم',
+    buildScalable: 'البناء من أجل القابلية للتوسع والأداء',
+    leadByExample: 'القيادة بالقدوة',
+    fosterCollaboration: 'تعزيز البيئات التعاونية',
+    investInTeam: 'الاستثمار في نمو الفريق',
+    communicateClearly: 'التواصل بوضوح وبشكل متكرر',
+    openSourceDesc: 'المساهمة في المشاريع التي تفيد مجتمع المطورين',
+    speakingDesc: 'مشاركة المعرفة في مؤتمرات التقنية واللقاءات',
+    writingDesc: 'كتابة المدونات حول ممارسات التطوير واتجاهات الصناعة'
+  }
+};
+
+const t = aboutTranslations[lang as keyof typeof aboutTranslations] || aboutTranslations.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">{t.title}</h1>
+        <p class="text-lg text-gray-600">
+          {t.subtitle}
+        </p>
+      </div>
+
+      <!-- My Journey Section -->
+      <JourneySection lang={lang} />
+
+      <!-- Values & Philosophy -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-8">{t.values}</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4">{t.technicalExcellence}</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>* {t.writeCleanCode}</li>
+              <li>* {t.embraceLearning}</li>
+              <li>* {t.prioritizeUX}</li>
+              <li>* {t.buildScalable}</li>
+            </ul>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4">{t.leadershipPrinciples}</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>* {t.leadByExample}</li>
+              <li>* {t.fosterCollaboration}</li>
+              <li>* {t.investInTeam}</li>
+              <li>* {t.communicateClearly}</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interests & Hobbies -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-8">{t.beyondWork}</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.openSource}</h3>
+            <p class="text-sm text-gray-600">{t.openSourceDesc}</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 6a2 2 0 114 0 2 2 0 01-4 0zm8 0a2 2 0 114 0 2 2 0 01-4 0z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.speaking}</h3>
+            <p class="text-sm text-gray-600">{t.speakingDesc}</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.writing}</h3>
+            <p class="text-sm text-gray-600">{t.writingDesc}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact CTA -->
+      <section class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white text-center">
+        <h2 class="text-2xl font-semibold mb-4">{t.connect}</h2>
+        <p class="text-lg opacity-90 mb-6">
+          {t.connectDesc}
+        </p>
+        <a href={`/${lang}/contact`} class="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors font-medium">
+          {t.getInTouch}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </section>
+
+    </div>
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": t.title,
+    "description": t.subtitle,
+    "url": canonical,
+    "mainEntity": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "jobTitle": personalInfo.title,
+      "description": personalInfo.bio,
+      "url": "https://www.oussematrabelsi.com",
+      "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussematrabelsi",
+        "https://github.com/oussematrabelsi"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lyon",
+        "addressCountry": "France"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Advercity",
+        "url": "https://advercity.com"
+      },
+      "knowsAbout": [
+        "PHP", "Laravel", "JavaScript", "React", "Node.js", "Docker", 
+        "Web Development", "CTO", "Leadership", "Team Management"
+      ]
+    },
+    "inLanguage": lang
+  })} />
+</Layout>

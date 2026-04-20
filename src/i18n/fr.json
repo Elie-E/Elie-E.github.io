@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "Oussema Trabelsi - CTO & Lead Developer",
+    "description": "CTO et Lead Developer expérimenté avec 5+ années chez Advercity. Spécialisé dans le développement full-stack, le leadership d'équipe et l'architecture technique.",
+    "viewCV": "Voir le CV",
+    "viewPortfolio": "Voir le Portfolio",
+    "yearsExperience": "Années d'expérience",
+    "currentRole": "Rôle actuel",
+    "languagesSupported": "Langues supportées",
+    "featuredProjects": "Projets en vedette",
+    "getInTouch": "Entrer en contact",
+    "contactDescription": "Intéressé par une collaboration ? N'hésitez pas à me contacter.",
+    "sendEmail": "Envoyer un email",
+    "connectLinkedIn": "Se connecter sur LinkedIn"
+  },
+  "cv": {
+    "title": "CV - Oussema Trabelsi",
+    "description": "CV professionnel d'Oussema Trabelsi, CTO et Lead Developer chez Advercity.",
+    "bio": "À propos de moi",
+    "experience": "Expérience professionnelle",
+    "education": "Formation",
+    "skills": "Compétences",
+    "technicalSkills": "Compétences techniques",
+    "languages": "Langues",
+    "certifications": "Certifications",
+    "grade": "Mention",
+    "present": "Présent",
+    "downloadCV": "Télécharger le CV"
+  },
+  "portfolio": {
+    "title": "Portfolio - Oussema Trabelsi",
+    "description": "Portfolio de projets d'Oussema Trabelsi, CTO et Lead Developer.",
+    "allProjects": "Tous les projets",
+    "featured": "En vedette",
+    "web": "Web",
+    "mobile": "Mobile",
+    "ai": "IA",
+    "backend": "Backend",
+    "frontend": "Frontend",
+    "fullstack": "Full-Stack",
+    "viewProject": "Voir le projet",
+    "viewCode": "Voir le code",
+    "technologies": "Technologies",
+    "getInTouch": "Entrer en contact",
+    "contactDescription": "Intéressé par une collaboration ? N'hésitez pas à me contacter.",
+    "contact": "Contact"
+  },
+  "blog": {
+    "title": "Blog - Oussema Trabelsi",
+    "description": "Articles techniques et insights sur le développement et le leadership.",
+    "allPosts": "Tous les articles",
+    "featured": "En vedette",
+    "readMore": "Lire la suite",
+    "readingTime": "min de lecture",
+    "publishedOn": "Publié le",
+    "tags": "Tags"
+  },
+  "about": {
+    "title": "À propos - Oussema Trabelsi",
+    "description": "En savoir plus sur Oussema Trabelsi, son parcours et sa vision.",
+    "myStory": "Mon histoire",
+    "myJourney": "Mon parcours",
+    "currentRole": "Rôle actuel",
+    "vision": "Vision",
+    "values": "Valeurs",
+    "contact": "Contact"
+  },
+  "contact": {
+    "title": "Contact - Oussema Trabelsi",
+    "description": "Contactez Oussema Trabelsi pour toute collaboration ou opportunité.",
+    "getInTouch": "Entrer en contact",
+    "contactDescription": "Intéressé par une collaboration ? N'hésitez pas à me contacter.",
+    "sendMessage": "Envoyer un message",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "location": "Localisation"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "cv": "CV",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "about": "À propos",
+    "contact": "Contact"
+  }
+}

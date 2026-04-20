@@ -1,0 +1,1035 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../data/index.js';
+import { languages } from '../../types/index.js';
+
+// Generate static paths for all languages
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+// Get language from URL path
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/portfolio`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/portfolio`;
+const title = `Portfolio - ${personalInfo.name}`;
+const description = `Portfolio of ${personalInfo.name}, showcasing professional projects and achievements`;
+
+// Portfolio page translations
+const portfolioTranslations = {
+  fr: {
+    title: 'Portfolio',
+    subtitle: 'Une vitrine de mes projets professionnels, réalisations techniques et contributions à la communauté de développement.',
+    featuredProjects: 'Projets en Vedette',
+    technicalExpertise: 'Expertise Technique',
+    frontendDev: 'Développement Frontend',
+    backendDev: 'Développement Backend',
+    databaseMgmt: 'Gestion de Base de Données',
+    devopsCloud: 'DevOps & Cloud',
+    keyAchievements: 'Réalisations Clés',
+    leadership: 'Leadership & Management',
+    technicalImpact: 'Impact Technique',
+    home: 'Accueil',
+    resume: 'CV',
+    blog: 'Blog',
+    contact: 'Contact',
+    viewDetails: 'Voir les Détails',
+    sourceCode: 'Code Source',
+    technologiesUsed: 'Technologies Utilisées',
+    achievements: {
+      leadership: [
+        'Dirigé des équipes de développement de 5+ développeurs',
+        'Implémenté des méthodologies agiles et les meilleures pratiques',
+        'Mentoré des développeurs juniors et effectué des revues de code',
+        'Géré les décisions d\'architecture technique'
+      ],
+      technical: [
+        'Amélioré les performances des applications de 40%',
+        'Réduit le temps de déploiement de heures à minutes',
+        'Implémenté des tests automatisés réduisant les bugs de 60%',
+        'Construit des systèmes évolutifs gérant 100k+ utilisateurs'
+      ]
+    }
+  },
+  en: {
+    title: 'Portfolio',
+    subtitle: 'A showcase of my professional projects, technical achievements, and contributions to the development community.',
+    featuredProjects: 'Featured Projects',
+    technicalExpertise: 'Technical Expertise',
+    frontendDev: 'Frontend Development',
+    backendDev: 'Backend Development',
+    databaseMgmt: 'Database Management',
+    devopsCloud: 'DevOps & Cloud',
+    keyAchievements: 'Key Achievements',
+    leadership: 'Leadership & Management',
+    technicalImpact: 'Technical Impact',
+    home: 'Home',
+    resume: 'Resume',
+    blog: 'Blog',
+    contact: 'Contact',
+    viewDetails: 'View Details',
+    sourceCode: 'Source Code',
+    technologiesUsed: 'Technologies Used',
+    achievements: {
+      leadership: [
+        'Led development teams of 5+ developers',
+        'Implemented agile methodologies and best practices',
+        'Mentored junior developers and conducted code reviews',
+        'Managed technical architecture decisions'
+      ],
+      technical: [
+        'Improved application performance by 40%',
+        'Reduced deployment time from hours to minutes',
+        'Implemented automated testing reducing bugs by 60%',
+        'Built scalable systems handling 100k+ users'
+      ]
+    }
+  },
+  es: {
+    title: 'Portafolio',
+    subtitle: 'Una vitrina de mis proyectos profesionales, logros técnicos y contribuciones a la comunidad de desarrollo.',
+    featuredProjects: 'Proyectos Destacados',
+    technicalExpertise: 'Experiencia Técnica',
+    frontendDev: 'Desarrollo Frontend',
+    backendDev: 'Desarrollo Backend',
+    databaseMgmt: 'Gestión de Base de Datos',
+    devopsCloud: 'DevOps y Cloud',
+    keyAchievements: 'Logros Clave',
+    leadership: 'Liderazgo y Gestión',
+    technicalImpact: 'Impacto Técnico',
+    home: 'Inicio',
+    resume: 'Currículum',
+    blog: 'Blog',
+    contact: 'Contacto',
+    viewDetails: 'Ver Detalles',
+    sourceCode: 'Código Fuente',
+    technologiesUsed: 'Tecnologías Utilizadas',
+    achievements: {
+      leadership: [
+        'Dirigí equipos de desarrollo de 5+ desarrolladores',
+        'Implementé metodologías ágiles y mejores prácticas',
+        'Mentoricé desarrolladores junior y realicé revisiones de código',
+        'Gestioné decisiones de arquitectura técnica'
+      ],
+      technical: [
+        'Mejoré el rendimiento de aplicaciones en un 40%',
+        'Reduje el tiempo de despliegue de horas a minutos',
+        'Implementé pruebas automatizadas reduciendo bugs en un 60%',
+        'Construí sistemas escalables manejando 100k+ usuarios'
+      ]
+    }
+  },
+  de: {
+    title: 'Portfolio',
+    subtitle: 'Eine Präsentation meiner professionellen Projekte, technischen Errungenschaften und Beiträge zur Entwicklergemeinschaft.',
+    featuredProjects: 'Ausgewählte Projekte',
+    technicalExpertise: 'Technische Expertise',
+    frontendDev: 'Frontend-Entwicklung',
+    backendDev: 'Backend-Entwicklung',
+    databaseMgmt: 'Datenbankverwaltung',
+    devopsCloud: 'DevOps & Cloud',
+    keyAchievements: 'Wichtige Errungenschaften',
+    leadership: 'Führung & Management',
+    technicalImpact: 'Technische Auswirkung',
+    home: 'Startseite',
+    resume: 'Lebenslauf',
+    blog: 'Blog',
+    contact: 'Kontakt',
+    viewDetails: 'Details Anzeigen',
+    sourceCode: 'Quellcode',
+    technologiesUsed: 'Verwendete Technologien',
+    achievements: {
+      leadership: [
+        'Leitete Entwicklungsteams von 5+ Entwicklern',
+        'Implementierte agile Methodologien und Best Practices',
+        'Mentorierte Junior-Entwickler und führte Code-Reviews durch',
+        'Verwaltete technische Architekturentscheidungen'
+      ],
+      technical: [
+        'Verbesserte Anwendungsleistung um 40%',
+        'Reduzierte Bereitstellungszeit von Stunden auf Minuten',
+        'Implementierte automatisierte Tests und reduzierte Bugs um 60%',
+        'Baute skalierbare Systeme für 100k+ Benutzer'
+      ]
+    }
+  },
+  pt: {
+    title: 'Portfólio',
+    subtitle: 'Uma vitrine dos meus projetos profissionais, conquistas técnicas e contribuições para a comunidade de desenvolvimento.',
+    featuredProjects: 'Projetos em Destaque',
+    technicalExpertise: 'Experiência Técnica',
+    frontendDev: 'Desenvolvimento Frontend',
+    backendDev: 'Desenvolvimento Backend',
+    databaseMgmt: 'Gerenciamento de Banco de Dados',
+    devopsCloud: 'DevOps e Cloud',
+    keyAchievements: 'Conquistas Principais',
+    leadership: 'Liderança e Gestão',
+    technicalImpact: 'Impacto Técnico',
+    home: 'Início',
+    resume: 'Currículo',
+    blog: 'Blog',
+    contact: 'Contato',
+    viewDetails: 'Ver Detalhes',
+    sourceCode: 'Código Fonte',
+    technologiesUsed: 'Tecnologias Utilizadas',
+    achievements: {
+      leadership: [
+        'Liderou equipes de desenvolvimento de 5+ desenvolvedores',
+        'Implementou metodologias ágeis e melhores práticas',
+        'Mentorou desenvolvedores júnior e conduziu revisões de código',
+        'Gerenciou decisões de arquitetura técnica'
+      ],
+      technical: [
+        'Melhorou o desempenho das aplicações em 40%',
+        'Reduziu o tempo de implantação de horas para minutos',
+        'Implementou testes automatizados reduzindo bugs em 60%',
+        'Construiu sistemas escaláveis lidando com 100k+ usuários'
+      ]
+    }
+  },
+  ja: {
+    title: 'ポートフォリオ',
+    subtitle: 'プロフェッショナルプロジェクト、技術的成果、開発コミュニティへの貢献のショーケース。',
+    featuredProjects: '注目プロジェクト',
+    technicalExpertise: '技術専門知識',
+    frontendDev: 'フロントエンド開発',
+    backendDev: 'バックエンド開発',
+    databaseMgmt: 'データベース管理',
+    devopsCloud: 'DevOps & クラウド',
+    keyAchievements: '主要な成果',
+    leadership: 'リーダーシップ & マネジメント',
+    technicalImpact: '技術的影響',
+    home: 'ホーム',
+    resume: '履歴書',
+    blog: 'ブログ',
+    contact: 'お問い合わせ',
+    viewDetails: '詳細を見る',
+    sourceCode: 'ソースコード',
+    technologiesUsed: '使用技術',
+    achievements: {
+      leadership: [
+        '5人以上の開発者チームをリード',
+        'アジャイル手法とベストプラクティスを実装',
+        'ジュニア開発者をメンターし、コードレビューを実施',
+        '技術アーキテクチャの決定を管理'
+      ],
+      technical: [
+        'アプリケーションのパフォーマンスを40%向上',
+        'デプロイ時間を時間から分に短縮',
+        '自動テストを実装し、バグを60%削減',
+        '100k+ユーザーを処理するスケーラブルシステムを構築'
+      ]
+    }
+  },
+  ko: {
+    title: '포트폴리오',
+    subtitle: '전문 프로젝트, 기술적 성과 및 개발 커뮤니티에 대한 기여의 쇼케이스.',
+    featuredProjects: '주요 프로젝트',
+    technicalExpertise: '기술 전문성',
+    frontendDev: '프론트엔드 개발',
+    backendDev: '백엔드 개발',
+    databaseMgmt: '데이터베이스 관리',
+    devopsCloud: 'DevOps & 클라우드',
+    keyAchievements: '주요 성과',
+    leadership: '리더십 & 관리',
+    technicalImpact: '기술적 영향',
+    home: '홈',
+    resume: '이력서',
+    blog: '블로그',
+    contact: '연락처',
+    viewDetails: '세부사항 보기',
+    sourceCode: '소스 코드',
+    technologiesUsed: '사용된 기술',
+    achievements: {
+      leadership: [
+        '5명 이상의 개발자 팀을 이끔',
+        '애자일 방법론과 모범 사례를 구현',
+        '주니어 개발자를 멘토링하고 코드 리뷰를 수행',
+        '기술 아키텍처 결정을 관리'
+      ],
+      technical: [
+        '애플리케이션 성능을 40% 향상',
+        '배포 시간을 시간에서 분으로 단축',
+        '자동화된 테스트를 구현하여 버그를 60% 감소',
+        '100k+ 사용자를 처리하는 확장 가능한 시스템 구축'
+      ]
+    }
+  },
+  zh: {
+    title: '作品集',
+    subtitle: '展示我的专业项目、技术成就和对开发社区的贡献。',
+    featuredProjects: '精选项目',
+    technicalExpertise: '技术专长',
+    frontendDev: '前端开发',
+    backendDev: '后端开发',
+    databaseMgmt: '数据库管理',
+    devopsCloud: 'DevOps & 云',
+    keyAchievements: '主要成就',
+    leadership: '领导力 & 管理',
+    technicalImpact: '技术影响',
+    home: '首页',
+    resume: '简历',
+    blog: '博客',
+    contact: '联系',
+    viewDetails: '查看详情',
+    sourceCode: '源代码',
+    technologiesUsed: '使用的技术',
+    achievements: {
+      leadership: [
+        '领导5名以上开发者的开发团队',
+        '实施敏捷方法和最佳实践',
+        '指导初级开发者并进行代码审查',
+        '管理技术架构决策'
+      ],
+      technical: [
+        '将应用程序性能提高40%',
+        '将部署时间从小时缩短到分钟',
+        '实施自动化测试，减少60%的bug',
+        '构建处理100k+用户的可扩展系统'
+      ]
+    }
+  },
+  ar: {
+    title: 'المحفظة',
+    subtitle: 'عرض لمشاريعي المهنية وإنجازاتي التقنية ومساهماتي في مجتمع المطورين.',
+    featuredProjects: 'المشاريع المميزة',
+    technicalExpertise: 'الخبرة التقنية',
+    frontendDev: 'تطوير الواجهة الأمامية',
+    backendDev: 'تطوير الخادم',
+    databaseMgmt: 'إدارة قاعدة البيانات',
+    devopsCloud: 'DevOps والسحابة',
+    keyAchievements: 'الإنجازات الرئيسية',
+    leadership: 'القيادة والإدارة',
+    technicalImpact: 'التأثير التقني',
+    home: 'الرئيسية',
+    resume: 'السيرة الذاتية',
+    blog: 'المدونة',
+    contact: 'اتصل',
+    viewDetails: 'عرض التفاصيل',
+    sourceCode: 'الكود المصدري',
+    technologiesUsed: 'التقنيات المستخدمة',
+    achievements: {
+      leadership: [
+        'قاد فرق التطوير المكونة من 5+ مطورين',
+        'نفذ منهجيات أجايل وأفضل الممارسات',
+        'أرشد المطورين المبتدئين وأجرى مراجعات الكود',
+        'أدار قرارات الهندسة المعمارية التقنية'
+      ],
+      technical: [
+        'حسن أداء التطبيقات بنسبة 40%',
+        'قلل وقت النشر من ساعات إلى دقائق',
+        'نفذ الاختبارات الآلية مما قلل الأخطاء بنسبة 60%',
+        'بنى أنظمة قابلة للتوسع تتعامل مع 100k+ مستخدم'
+      ]
+    }
+  }
+};
+
+const t = portfolioTranslations[lang as keyof typeof portfolioTranslations] || portfolioTranslations.en;
+
+// Sample portfolio data with translations
+const projects = {
+  fr: [
+    {
+      title: "Plateforme Advercity - Démarches Administratives",
+      description: "CTO & Lead Developer d'une plateforme française leader dans les démarches administratives. Gestion de millions de visiteurs mensuels avec Laravel, Symfony, et Python. Architecture évolutive, API interne, scripts d'automatisation et processus DevOps complets.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - Présent",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["1.02M clics/mois", "Millions de visiteurs/mois", "Architecture évolutive", "API interne complète"]
+    },
+    {
+      title: "El Khomssa - E-commerce Artisanal",
+      description: "Plateforme e-commerce WordPress pour bijoux traditionnels tunisiens. Site fonctionnel depuis 2011 avec ventes quotidiennes et clients récurrents. Optimisation continue et maintenance technique.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - Présent",
+      role: "Développeur & Mainteneur",
+      url: "https://elkhomssa.com/",
+      achievements: ["Site stable depuis 2011", "Ventes quotidiennes", "Clients récurrents", "Maintenance continue"]
+    },
+    {
+      title: "Freelancer.com - Design & Créativité",
+      description: "Plus de 10 ans d'expérience en freelance avec des projets de design graphique, logos et créations visuelles. Cette expérience a développé ma vision du design web et de la créativité technique.",
+      technologies: ["Photoshop", "Illustrator", "Design Graphique", "Logo Design"],
+      period: "2011 - 2021",
+      role: "Designer Graphique & Développeur",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["Projets internationaux", "Design créatif", "Vision design web", "Expérience client"]
+    },
+    {
+      title: "ANDRICE - Refonte ERP",
+      description: "Migration complète d'un ERP interne de Java vers Java JEE et Spring Boot. Amélioration des processus de génération de contrats et d'offres clients pour optimiser l'efficacité opérationnelle.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "Migration"],
+      period: "2019 - 2020",
+      role: "Développeur Backend",
+      url: "https://andricegroup.com/",
+      achievements: ["Migration Java complète", "Optimisation ERP", "Génération contrats", "Amélioration processus"]
+    },
+    {
+      title: "SCIT Export - Refonte & Migration",
+      description: "Refonte complète et migration d'un site PHP legacy vers WordPress pour SCIT (Société du Commerce International de Tunisie). Migration de données, optimisation SEO, et création d'une interface moderne multilingue (Français, Anglais, Portugais) pour cette entreprise leader du commerce international tunisien depuis 1984.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "Migration"],
+      period: "2023 - 2024",
+      role: "Développeur & Consultant",
+      url: "https://scit-export.com/",
+      achievements: ["Migration PHP vers WordPress", "Site multilingue", "Optimisation SEO", "Interface moderne"]
+    },
+    {
+      title: "100+ Projets & Plus...",
+      description: "Au fil des années, j'ai eu le plaisir de travailler sur plus d'une centaine de projets variés ! Des sites web corporatifs aux applications mobiles, des plateformes e-commerce aux outils internes, chaque projet a été une nouvelle aventure technique et créative.",
+      technologies: ["Diversité", "Polyvalence", "Innovation", "Créativité"],
+      period: "2011 - Présent",
+      role: "Développeur Polyvalent",
+      achievements: ["100+ projets réalisés", "Expérience variée", "Technologies multiples", "Solutions sur mesure"]
+    }
+  ],
+  en: [
+    {
+      title: "Advercity Platform - Administrative Procedures",
+      description: "CTO & Lead Developer of France's leading administrative procedures platform. Managing millions of monthly visitors with Laravel, Symfony, and Python. Scalable architecture, internal APIs, automation scripts, and complete DevOps processes.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - Present",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["1.02M clicks/month", "Millions of visitors/month", "Scalable architecture", "Complete internal API"]
+    },
+    {
+      title: "El Khomssa - Artisanal E-commerce",
+      description: "WordPress e-commerce platform for traditional Tunisian jewelry. Site operational since 2011 with daily sales and recurring clients. Continuous optimization and technical maintenance.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - Present",
+      role: "Developer & Maintainer",
+      url: "https://elkhomssa.com/",
+      achievements: ["Stable site since 2011", "Daily sales", "Recurring clients", "Continuous maintenance"]
+    },
+    {
+      title: "Freelancer.com - Design & Creativity",
+      description: "Over 10 years of freelance experience with graphic design projects, logos, and visual creations. This experience developed my vision of web design and technical creativity.",
+      technologies: ["Photoshop", "Illustrator", "Graphic Design", "Logo Design"],
+      period: "2011 - 2021",
+      role: "Graphic Designer & Developer",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["International projects", "Creative design", "Web design vision", "Client experience"]
+    },
+    {
+      title: "ANDRICE - ERP Redesign",
+      description: "Complete migration of internal ERP from Java to Java JEE and Spring Boot. Improvement of contract generation and client offer processes to optimize operational efficiency.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "Migration"],
+      period: "2019 - 2020",
+      role: "Backend Developer",
+      url: "https://andricegroup.com/",
+      achievements: ["Complete Java migration", "ERP optimization", "Contract generation", "Process improvement"]
+    },
+    {
+      title: "SCIT Export - Redesign & Migration",
+      description: "Complete redesign and migration of a legacy PHP site to WordPress for SCIT (Société du Commerce International de Tunisie). Data migration, SEO optimization, and creation of a modern multilingual interface (French, English, Portuguese) for this leading Tunisian international trading company since 1984.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "Migration"],
+      period: "2023 - 2024",
+      role: "Developer & Consultant",
+      url: "https://scit-export.com/",
+      achievements: ["PHP to WordPress migration", "Multilingual site", "SEO optimization", "Modern interface"]
+    },
+    {
+      title: "100+ Projects & More...",
+      description: "Over the years, I've had the pleasure of working on over a hundred diverse projects! From corporate websites to mobile apps, e-commerce platforms to internal tools, each project has been a new technical and creative adventure.",
+      technologies: ["Diversity", "Versatility", "Innovation", "Creativity"],
+      period: "2011 - Present",
+      role: "Versatile Developer",
+      achievements: ["100+ projects completed", "Diverse experience", "Multiple technologies", "Custom solutions"]
+    }
+  ],
+  es: [
+    {
+      title: "Plataforma Advercity - Trámites Administrativos",
+      description: "CTO & Lead Developer de la plataforma líder francesa en trámites administrativos. Gestión de millones de visitantes mensuales con Laravel, Symfony y Python. Arquitectura escalable, APIs internas, scripts de automatización y procesos DevOps completos.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - Presente",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["1.02M clics/mes", "Millones de visitantes/mes", "Arquitectura escalable", "API interna completa"]
+    },
+    {
+      title: "El Khomssa - E-commerce Artesanal",
+      description: "Plataforma e-commerce WordPress para joyería tradicional tunecina. Sitio operativo desde 2011 con ventas diarias y clientes recurrentes. Optimización continua y mantenimiento técnico.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - Presente",
+      role: "Desarrollador & Mantenedor",
+      url: "https://elkhomssa.com/",
+      achievements: ["Sitio estable desde 2011", "Ventas diarias", "Clientes recurrentes", "Mantenimiento continuo"]
+    },
+    {
+      title: "Freelancer.com - Diseño & Creatividad",
+      description: "Más de 10 años de experiencia freelance con proyectos de diseño gráfico, logos y creaciones visuales. Esta experiencia desarrolló mi visión del diseño web y la creatividad técnica.",
+      technologies: ["Photoshop", "Illustrator", "Diseño Gráfico", "Diseño de Logos"],
+      period: "2011 - 2021",
+      role: "Diseñador Gráfico & Desarrollador",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["Proyectos internacionales", "Diseño creativo", "Visión diseño web", "Experiencia cliente"]
+    },
+    {
+      title: "ANDRICE - Rediseño ERP",
+      description: "Migración completa de ERP interno de Java a Java JEE y Spring Boot. Mejora de procesos de generación de contratos y ofertas a clientes para optimizar la eficiencia operacional.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "Migración"],
+      period: "2019 - 2020",
+      role: "Desarrollador Backend",
+      url: "https://andricegroup.com/",
+      achievements: ["Migración Java completa", "Optimización ERP", "Generación contratos", "Mejora procesos"]
+    },
+    {
+      title: "SCIT Export - Rediseño y Migración",
+      description: "Rediseño completo y migración de un sitio PHP legacy a WordPress para SCIT (Société du Commerce International de Tunisie). Migración de datos, optimización SEO, y creación de una interfaz moderna multilingüe (Francés, Inglés, Portugués) para esta empresa líder del comercio internacional tunecino desde 1984.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "Migración"],
+      period: "2023 - 2024",
+      role: "Desarrollador & Consultor",
+      url: "https://scit-export.com/",
+      achievements: ["Migración PHP a WordPress", "Sitio multilingüe", "Optimización SEO", "Interfaz moderna"]
+    },
+    {
+      title: "100+ Proyectos & Más...",
+      description: "A lo largo de los años, he tenido el placer de trabajar en más de cien proyectos diversos! Desde sitios web corporativos hasta aplicaciones móviles, plataformas e-commerce hasta herramientas internas, cada proyecto ha sido una nueva aventura técnica y creativa.",
+      technologies: ["Diversidad", "Versatilidad", "Innovación", "Creatividad"],
+      period: "2011 - Presente",
+      role: "Desarrollador Versátil",
+      achievements: ["100+ proyectos completados", "Experiencia diversa", "Múltiples tecnologías", "Soluciones personalizadas"]
+    }
+  ],
+  de: [
+    {
+      title: "Advercity Plattform - Verwaltungsverfahren",
+      description: "CTO & Lead Developer der führenden französischen Plattform für Verwaltungsverfahren. Verwaltung von Millionen monatlicher Besucher mit Laravel, Symfony und Python. Skalierbare Architektur, interne APIs, Automatisierungsskripte und vollständige DevOps-Prozesse.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - Gegenwart",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["1.02M Klicks/Monat", "Millionen Besucher/Monat", "Skalierbare Architektur", "Vollständige interne API"]
+    },
+    {
+      title: "El Khomssa - Handwerklicher E-commerce",
+      description: "WordPress E-commerce-Plattform für traditionellen tunesischen Schmuck. Seit 2011 operativ mit täglichen Verkäufen und wiederkehrenden Kunden. Kontinuierliche Optimierung und technische Wartung.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - Gegenwart",
+      role: "Entwickler & Wartung",
+      url: "https://elkhomssa.com/",
+      achievements: ["Stabile Website seit 2011", "Tägliche Verkäufe", "Wiederkehrende Kunden", "Kontinuierliche Wartung"]
+    },
+    {
+      title: "Freelancer.com - Design & Kreativität",
+      description: "Über 10 Jahre Freelance-Erfahrung mit Grafikdesign-Projekten, Logos und visuellen Kreationen. Diese Erfahrung entwickelte meine Vision von Webdesign und technischer Kreativität.",
+      technologies: ["Photoshop", "Illustrator", "Grafikdesign", "Logo-Design"],
+      period: "2011 - 2021",
+      role: "Grafikdesigner & Entwickler",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["Internationale Projekte", "Kreatives Design", "Webdesign-Vision", "Kundenerfahrung"]
+    },
+    {
+      title: "ANDRICE - ERP-Redesign",
+      description: "Vollständige Migration des internen ERP von Java zu Java JEE und Spring Boot. Verbesserung der Vertragsgenerierung und Kundenangebotsprozesse zur Optimierung der operativen Effizienz.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "Migration"],
+      period: "2019 - 2020",
+      role: "Backend-Entwickler",
+      url: "https://andricegroup.com/",
+      achievements: ["Vollständige Java-Migration", "ERP-Optimierung", "Vertragsgenerierung", "Prozessverbesserung"]
+    },
+    {
+      title: "SCIT Export - Redesign & Migration",
+      description: "Vollständiges Redesign und Migration einer Legacy-PHP-Website zu WordPress für SCIT (Société du Commerce International de Tunisie). Datenmigration, SEO-Optimierung und Erstellung einer modernen mehrsprachigen Oberfläche (Französisch, Englisch, Portugiesisch) für dieses führende tunesische Handelsunternehmen seit 1984.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "Migration"],
+      period: "2023 - 2024",
+      role: "Entwickler & Berater",
+      url: "https://scit-export.com/",
+      achievements: ["PHP zu WordPress Migration", "Mehrsprachige Website", "SEO-Optimierung", "Moderne Oberfläche"]
+    },
+    {
+      title: "100+ Projekte & Mehr...",
+      description: "Im Laufe der Jahre hatte ich das Vergnügen, an über hundert verschiedenen Projekten zu arbeiten! Von Unternehmenswebsites bis hin zu mobilen Apps, E-Commerce-Plattformen bis hin zu internen Tools - jedes Projekt war ein neues technisches und kreatives Abenteuer.",
+      technologies: ["Vielfalt", "Vielseitigkeit", "Innovation", "Kreativität"],
+      period: "2011 - Gegenwart",
+      role: "Vielseitiger Entwickler",
+      achievements: ["100+ Projekte abgeschlossen", "Vielfältige Erfahrung", "Mehrere Technologien", "Maßgeschneiderte Lösungen"]
+    }
+  ],
+  pt: [
+    {
+      title: "Plataforma Advercity - Procedimentos Administrativos",
+      description: "CTO & Lead Developer da principal plataforma francesa de procedimentos administrativos. Gerenciamento de milhões de visitantes mensais com Laravel, Symfony e Python. Arquitetura escalável, APIs internas, scripts de automação e processos DevOps completos.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - Presente",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["1.02M cliques/mês", "Milhões de visitantes/mês", "Arquitetura escalável", "API interna completa"]
+    },
+    {
+      title: "El Khomssa - E-commerce Artesanal",
+      description: "Plataforma e-commerce WordPress para joias tradicionais tunisianas. Site operacional desde 2011 com vendas diárias e clientes recorrentes. Otimização contínua e manutenção técnica.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - Presente",
+      role: "Desenvolvedor & Mantenedor",
+      url: "https://elkhomssa.com/",
+      achievements: ["Site estável desde 2011", "Vendas diárias", "Clientes recorrentes", "Manutenção contínua"]
+    },
+    {
+      title: "Freelancer.com - Design & Criatividade",
+      description: "Mais de 10 anos de experiência freelance com projetos de design gráfico, logos e criações visuais. Esta experiência desenvolveu minha visão de design web e criatividade técnica.",
+      technologies: ["Photoshop", "Illustrator", "Design Gráfico", "Design de Logos"],
+      period: "2011 - 2021",
+      role: "Designer Gráfico & Desenvolvedor",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["Projetos internacionais", "Design criativo", "Visão design web", "Experiência cliente"]
+    },
+    {
+      title: "ANDRICE - Redesign ERP",
+      description: "Migração completa de ERP interno de Java para Java JEE e Spring Boot. Melhoria dos processos de geração de contratos e ofertas a clientes para otimizar a eficiência operacional.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "Migração"],
+      period: "2019 - 2020",
+      role: "Desenvolvedor Backend",
+      url: "https://andricegroup.com/",
+      achievements: ["Migração Java completa", "Otimização ERP", "Geração contratos", "Melhoria processos"]
+    },
+    {
+      title: "SCIT Export - Redesign e Migração",
+      description: "Redesign completo e migração de um site PHP legacy para WordPress para SCIT (Société du Commerce International de Tunisie). Migração de dados, otimização SEO, e criação de uma interface moderna multilíngue (Francês, Inglês, Português) para esta empresa líder do comércio internacional tunisiano desde 1984.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "Migração"],
+      period: "2023 - 2024",
+      role: "Desenvolvedor & Consultor",
+      url: "https://scit-export.com/",
+      achievements: ["Migração PHP para WordPress", "Site multilíngue", "Otimização SEO", "Interface moderna"]
+    },
+    {
+      title: "100+ Projetos & Mais...",
+      description: "Ao longo dos anos, tive o prazer de trabalhar em mais de cem projetos diversos! De sites corporativos a aplicativos móveis, plataformas e-commerce a ferramentas internas, cada projeto foi uma nova aventura técnica e criativa.",
+      technologies: ["Diversidade", "Versatilidade", "Inovação", "Criatividade"],
+      period: "2011 - Presente",
+      role: "Desenvolvedor Versátil",
+      achievements: ["100+ projetos completados", "Experiência diversa", "Múltiplas tecnologias", "Soluções personalizadas"]
+    }
+  ],
+  ja: [
+    {
+      title: "Advercityプラットフォーム - 行政手続き",
+      description: "フランスの行政手続きプラットフォームのリーダーとしてCTO & Lead Developer。Laravel、Symfony、Pythonを使用して月間数百万の訪問者を管理。スケーラブルなアーキテクチャ、内部API、自動化スクリプト、完全なDevOpsプロセス。",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - 現在",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["月間102万クリック", "月間数百万訪問者", "スケーラブルアーキテクチャ", "完全な内部API"]
+    },
+    {
+      title: "El Khomssa - 手工芸Eコマース",
+      description: "チュニジアの伝統的なジュエリー用WordPress Eコマースプラットフォーム。2011年から運営され、日々の売上とリピート顧客を獲得。継続的な最適化と技術的メンテナンス。",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - 現在",
+      role: "開発者 & メンテナー",
+      url: "https://elkhomssa.com/",
+      achievements: ["2011年から安定運営", "日々の売上", "リピート顧客", "継続的メンテナンス"]
+    },
+    {
+      title: "Freelancer.com - デザイン & クリエイティビティ",
+      description: "グラフィックデザインプロジェクト、ロゴ、視覚的創作で10年以上のフリーランス経験。この経験がウェブデザインと技術的創造性のビジョンを発展させました。",
+      technologies: ["Photoshop", "Illustrator", "グラフィックデザイン", "ロゴデザイン"],
+      period: "2011 - 2021",
+      role: "グラフィックデザイナー & 開発者",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["国際プロジェクト", "創造的デザイン", "ウェブデザインビジョン", "顧客体験"]
+    },
+    {
+      title: "ANDRICE - ERP再設計",
+      description: "JavaからJava JEEおよびSpring Bootへの内部ERPの完全移行。契約生成と顧客オファープロセスの改善により運用効率を最適化。",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "移行"],
+      period: "2019 - 2020",
+      role: "バックエンド開発者",
+      url: "https://andricegroup.com/",
+      achievements: ["完全なJava移行", "ERP最適化", "契約生成", "プロセス改善"]
+    },
+    {
+      title: "SCIT Export - リデザイン & 移行",
+      description: "SCIT（Société du Commerce International de Tunisie）のレガシーPHPサイトからWordPressへの完全なリデザインと移行。データ移行、SEO最適化、1984年から続くチュニジアの国際貿易リーダー企業向けのモダンな多言語インターフェース（フランス語、英語、ポルトガル語）の作成。",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "移行"],
+      period: "2023 - 2024",
+      role: "開発者 & コンサルタント",
+      url: "https://scit-export.com/",
+      achievements: ["PHPからWordPressへの移行", "多言語サイト", "SEO最適化", "モダンなインターフェース"]
+    },
+    {
+      title: "100+ プロジェクト & もっと...",
+      description: "長年にわたって、100以上の多様なプロジェクトに取り組む機会がありました！企業ウェブサイトからモバイルアプリ、Eコマースプラットフォームから内部ツールまで、各プロジェクトは新しい技術的・創造的な冒険でした。",
+      technologies: ["多様性", "汎用性", "革新", "創造性"],
+      period: "2011 - 現在",
+      role: "汎用開発者",
+      achievements: ["100+ プロジェクト完了", "多様な経験", "複数の技術", "カスタムソリューション"]
+    }
+  ],
+  ko: [
+    {
+      title: "Advercity 플랫폼 - 행정 절차",
+      description: "프랑스의 행정 절차 플랫폼 리더로서 CTO & Lead Developer. Laravel, Symfony, Python을 사용하여 월간 수백만 방문자를 관리. 확장 가능한 아키텍처, 내부 API, 자동화 스크립트, 완전한 DevOps 프로세스.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - 현재",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["월간 102만 클릭", "월간 수백만 방문자", "확장 가능한 아키텍처", "완전한 내부 API"]
+    },
+    {
+      title: "El Khomssa - 수공예 E-커머스",
+      description: "튀니지 전통 보석용 WordPress E-커머스 플랫폼. 2011년부터 운영되며 일일 판매와 재방문 고객을 보유. 지속적인 최적화와 기술적 유지보수.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - 현재",
+      role: "개발자 & 유지보수자",
+      url: "https://elkhomssa.com/",
+      achievements: ["2011년부터 안정적 운영", "일일 판매", "재방문 고객", "지속적 유지보수"]
+    },
+    {
+      title: "Freelancer.com - 디자인 & 창의성",
+      description: "그래픽 디자인 프로젝트, 로고, 시각적 창작으로 10년 이상의 프리랜서 경험. 이 경험이 웹 디자인과 기술적 창의성에 대한 비전을 발전시켰습니다.",
+      technologies: ["Photoshop", "Illustrator", "그래픽 디자인", "로고 디자인"],
+      period: "2011 - 2021",
+      role: "그래픽 디자이너 & 개발자",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["국제 프로젝트", "창의적 디자인", "웹 디자인 비전", "고객 경험"]
+    },
+    {
+      title: "ANDRICE - ERP 재설계",
+      description: "Java에서 Java JEE 및 Spring Boot로의 내부 ERP 완전 마이그레이션. 계약 생성 및 고객 제안 프로세스 개선으로 운영 효율성 최적화.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "마이그레이션"],
+      period: "2019 - 2020",
+      role: "백엔드 개발자",
+      url: "https://andricegroup.com/",
+      achievements: ["완전한 Java 마이그레이션", "ERP 최적화", "계약 생성", "프로세스 개선"]
+    },
+    {
+      title: "SCIT Export - 리디자인 & 마이그레이션",
+      description: "SCIT (Société du Commerce International de Tunisie)의 레거시 PHP 사이트를 WordPress로 완전히 리디자인하고 마이그레이션. 데이터 마이그레이션, SEO 최적화, 1984년부터 이어온 튀니지 국제 무역 리더 기업을 위한 모던한 다국어 인터페이스 (프랑스어, 영어, 포르투갈어) 생성.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "마이그레이션"],
+      period: "2023 - 2024",
+      role: "개발자 & 컨설턴트",
+      url: "https://scit-export.com/",
+      achievements: ["PHP에서 WordPress로 마이그레이션", "다국어 사이트", "SEO 최적화", "모던한 인터페이스"]
+    },
+    {
+      title: "100+ 프로젝트 & 더...",
+      description: "수년에 걸쳐 100개 이상의 다양한 프로젝트에 참여할 기회가 있었습니다! 기업 웹사이트부터 모바일 앱, E-커머스 플랫폼부터 내부 도구까지, 각 프로젝트는 새로운 기술적이고 창의적인 모험이었습니다.",
+      technologies: ["다양성", "다재다능", "혁신", "창의성"],
+      period: "2011 - 현재",
+      role: "다재다능한 개발자",
+      achievements: ["100+ 프로젝트 완료", "다양한 경험", "다중 기술", "맞춤형 솔루션"]
+    }
+  ],
+  zh: [
+    {
+      title: "Advercity平台 - 行政程序",
+      description: "作为法国领先的行政程序平台的CTO & Lead Developer。使用Laravel、Symfony和Python管理每月数百万访问者。可扩展架构、内部API、自动化脚本和完整的DevOps流程。",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - 现在",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["每月102万点击", "每月数百万访问者", "可扩展架构", "完整内部API"]
+    },
+    {
+      title: "El Khomssa - 手工电商",
+      description: "突尼斯传统珠宝的WordPress电商平台。自2011年运营，拥有日常销售和回头客。持续优化和技术维护。",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - 现在",
+      role: "开发者 & 维护者",
+      url: "https://elkhomssa.com/",
+      achievements: ["自2011年稳定运营", "日常销售", "回头客", "持续维护"]
+    },
+    {
+      title: "Freelancer.com - 设计与创意",
+      description: "在平面设计项目、标志和视觉创作方面拥有10多年的自由职业经验。这种经验发展了我对网页设计和技术创造力的愿景。",
+      technologies: ["Photoshop", "Illustrator", "平面设计", "标志设计"],
+      period: "2011 - 2021",
+      role: "平面设计师 & 开发者",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["国际项目", "创意设计", "网页设计愿景", "客户体验"]
+    },
+    {
+      title: "ANDRICE - ERP重设计",
+      description: "内部ERP从Java到Java JEE和Spring Boot的完整迁移。改进合同生成和客户报价流程以优化运营效率。",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "迁移"],
+      period: "2019 - 2020",
+      role: "后端开发者",
+      url: "https://andricegroup.com/",
+      achievements: ["完整Java迁移", "ERP优化", "合同生成", "流程改进"]
+    },
+    {
+      title: "SCIT Export - 重新设计 & 迁移",
+      description: "为SCIT（Société du Commerce International de Tunisie）将遗留PHP网站完全重新设计并迁移到WordPress。数据迁移、SEO优化，为这家自1984年以来的突尼斯国际贸易领先企业创建现代多语言界面（法语、英语、葡萄牙语）。",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "迁移"],
+      period: "2023 - 2024",
+      role: "开发者 & 顾问",
+      url: "https://scit-export.com/",
+      achievements: ["PHP到WordPress迁移", "多语言网站", "SEO优化", "现代界面"]
+    },
+    {
+      title: "100+ 项目 & 更多...",
+      description: "多年来，我有幸参与了100多个不同的项目！从企业网站到移动应用，从电商平台到内部工具，每个项目都是一次新的技术和创意冒险。",
+      technologies: ["多样性", "多功能性", "创新", "创造力"],
+      period: "2011 - 现在",
+      role: "多功能开发者",
+      achievements: ["100+ 项目完成", "多样化经验", "多种技术", "定制解决方案"]
+    }
+  ],
+  ar: [
+    {
+      title: "منصة Advercity - الإجراءات الإدارية",
+      description: "CTO & Lead Developer لمنصة الإجراءات الإدارية الرائدة في فرنسا. إدارة ملايين الزوار الشهريين باستخدام Laravel و Symfony و Python. هندسة معمارية قابلة للتوسع، APIs داخلية، سكريبتات الأتمتة وعمليات DevOps كاملة.",
+      technologies: ["Laravel", "Symfony", "Python", "MySQL", "Redis", "Elasticsearch"],
+      period: "2020 - الحاضر",
+      role: "CTO & Lead Developer",
+      url: "https://www.advercity.fr/",
+      achievements: ["1.02 مليون نقرة/شهر", "ملايين الزوار/شهر", "هندسة معمارية قابلة للتوسع", "API داخلية كاملة"]
+    },
+    {
+      title: "El Khomssa - التجارة الإلكترونية الحرفية",
+      description: "منصة التجارة الإلكترونية WordPress للمجوهرات التونسية التقليدية. موقع يعمل منذ 2011 مع مبيعات يومية وعملاء متكررين. تحسين مستمر وصيانة تقنية.",
+      technologies: ["WordPress", "PHP", "MySQL", "WooCommerce", "CSS/JS"],
+      period: "2011 - الحاضر",
+      role: "مطور & صيانة",
+      url: "https://elkhomssa.com/",
+      achievements: ["موقع مستقر منذ 2011", "مبيعات يومية", "عملاء متكررين", "صيانة مستمرة"]
+    },
+    {
+      title: "Freelancer.com - التصميم والإبداع",
+      description: "أكثر من 10 سنوات من الخبرة في العمل الحر مع مشاريع التصميم الجرافيكي والشعارات والإبداعات البصرية. هذه التجربة طورت رؤيتي لتصميم الويب والإبداع التقني.",
+      technologies: ["Photoshop", "Illustrator", "التصميم الجرافيكي", "تصميم الشعارات"],
+      period: "2011 - 2021",
+      role: "مصمم جرافيكي & مطور",
+      url: "https://www.fr.freelancer.com/u/trcoolmec",
+      achievements: ["مشاريع دولية", "تصميم إبداعي", "رؤية تصميم الويب", "تجربة العميل"]
+    },
+    {
+      title: "ANDRICE - إعادة تصميم ERP",
+      description: "هجرة كاملة لنظام ERP الداخلي من Java إلى Java JEE و Spring Boot. تحسين عمليات توليد العقود وعروض العملاء لتحسين الكفاءة التشغيلية.",
+      technologies: ["Java", "Java JEE", "Spring Boot", "ERP", "الهجرة"],
+      period: "2019 - 2020",
+      role: "مطور Backend",
+      url: "https://andricegroup.com/",
+      achievements: ["هجرة Java كاملة", "تحسين ERP", "توليد العقود", "تحسين العمليات"]
+    },
+    {
+      title: "SCIT Export - إعادة تصميم & هجرة",
+      description: "إعادة تصميم كاملة وهجرة موقع PHP قديم إلى WordPress لـ SCIT (Société du Commerce International de Tunisie). هجرة البيانات، تحسين SEO، وإنشاء واجهة حديثة متعددة اللغات (الفرنسية، الإنجليزية، البرتغالية) لهذه الشركة الرائدة في التجارة الدولية التونسية منذ 1984.",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS/JS", "SEO", "الهجرة"],
+      period: "2023 - 2024",
+      role: "مطور & مستشار",
+      url: "https://scit-export.com/",
+      achievements: ["هجرة PHP إلى WordPress", "موقع متعدد اللغات", "تحسين SEO", "واجهة حديثة"]
+    },
+    {
+      title: "100+ مشروع & أكثر...",
+      description: "على مر السنين، كان لدي متعة العمل على أكثر من مائة مشروع متنوع! من المواقع المؤسسية إلى التطبيقات المحمولة، ومنصات التجارة الإلكترونية إلى الأدوات الداخلية، كل مشروع كان مغامرة تقنية وإبداعية جديدة.",
+      technologies: ["التنوع", "المرونة", "الابتكار", "الإبداع"],
+      period: "2011 - الحاضر",
+      role: "مطور متعدد المهارات",
+      achievements: ["100+ مشروع مكتمل", "خبرة متنوعة", "تقنيات متعددة", "حلول مخصصة"]
+    }
+  ]
+};
+
+const projectData = projects[lang as keyof typeof projects] || projects.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">{t.title}</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          {t.subtitle}
+        </p>
+      </div>
+
+      <!-- Featured Projects -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-8">{t.featuredProjects}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projectData.map(project => (
+            <div class={`rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 ${
+              project.title.includes('100+') 
+                ? 'bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 hover:border-purple-300 hover:scale-105' 
+                : 'bg-white'
+            }`}>
+              <div class="mb-4">
+                <h3 class={`text-xl font-semibold mb-2 ${
+                  project.title.includes('100+') ? 'text-purple-800' : ''
+                }`}>{project.title}</h3>
+                <p class="text-sm text-gray-600 mb-2">{project.period}</p>
+                <p class={`text-sm font-medium ${
+                  project.title.includes('100+') ? 'text-purple-600' : 'text-blue-600'
+                }`}>{project.role}</p>
+              </div>
+              
+              <p class="text-gray-700 mb-4 leading-relaxed">
+                {project.description}
+              </p>
+              
+              {project.achievements && (
+                <div class="mb-4">
+                  <h4 class="text-sm font-semibold mb-2">Réalisations clés:</h4>
+                  <ul class="text-sm text-gray-600 space-y-1">
+                    {project.achievements.map(achievement => (
+                      <li class="flex items-center">
+                        <span class={`w-1.5 h-1.5 rounded-full mr-2 ${
+                          project.title.includes('100+') ? 'bg-purple-500' : 'bg-green-500'
+                        }`}></span>
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              <div class="mb-4">
+                <h4 class="text-sm font-semibold mb-2">{t.technologiesUsed}:</h4>
+                <div class="flex flex-wrap gap-2">
+                  {project.technologies.map(tech => (
+                    <span class={`px-2 py-1 text-xs rounded ${
+                      project.title.includes('100+') 
+                        ? 'bg-purple-100 text-purple-800 border border-purple-200' 
+                        : 'bg-blue-100 text-blue-800'
+                    }`}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div class="flex gap-2">
+                {project.url && (
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" class={`px-4 py-2 text-white rounded hover:transition-colors text-sm ${
+                    project.title.includes('100+') 
+                      ? 'bg-purple-600 hover:bg-purple-700' 
+                      : 'bg-blue-600 hover:bg-blue-700'
+                  }`}>
+                    Voir le projet
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Technical Skills -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-8">{t.technicalExpertise}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-gray-50 p-6 rounded-lg text-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.frontendDev}</h3>
+            <p class="text-sm text-gray-600">React, Vue.js, Angular, TypeScript, Tailwind CSS</p>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-lg text-center">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.backendDev}</h3>
+            <p class="text-sm text-gray-600">Node.js, PHP, Laravel, Python, REST APIs</p>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-lg text-center">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.databaseMgmt}</h3>
+            <p class="text-sm text-gray-600">MySQL, MongoDB, PostgreSQL, Redis</p>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-lg text-center">
+            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">{t.devopsCloud}</h3>
+            <p class="text-sm text-gray-600">AWS, Docker, CI/CD, Linux, Git</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Achievements -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-8">{t.keyAchievements}</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
+            <h3 class="text-lg font-semibold mb-3">{t.leadership}</h3>
+            <ul class="space-y-2 text-gray-700">
+              {t.achievements.leadership.map(achievement => (
+                <li>* {achievement}</li>
+              ))}
+            </ul>
+          </div>
+          
+          <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
+            <h3 class="text-lg font-semibold mb-3">{t.technicalImpact}</h3>
+            <ul class="space-y-2 text-gray-700">
+              {t.achievements.technical.map(achievement => (
+                <li>* {achievement}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": t.title,
+    "description": t.subtitle,
+    "url": canonical,
+    "mainEntity": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "jobTitle": personalInfo.title,
+      "description": personalInfo.bio,
+      "url": "https://www.oussematrabelsi.com",
+      "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussematrabelsi",
+        "https://github.com/oussematrabelsi"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Advercity",
+        "url": "https://advercity.com"
+      },
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "CTO & Lead Developer",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Lyon, France"
+        },
+        "skills": [
+          "PHP", "Laravel", "JavaScript", "React", "Node.js", "Docker", 
+          "Web Development", "Leadership", "Team Management"
+        ]
+      }
+    },
+    "inLanguage": lang
+  })} />
+</Layout>

@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Disallow incorrect language combinations
+Disallow: /jp/
+Disallow: /cn/
+Disallow: /*/jp/
+Disallow: /*/cn/
+
+# Sitemap
+Sitemap: https://www.oussematrabelsi.com/sitemap-index.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow admin or private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Allow all blog posts and pages
+Allow: /blog/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/
+Allow: /resume/

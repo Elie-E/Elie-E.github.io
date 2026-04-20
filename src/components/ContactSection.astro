@@ -1,0 +1,427 @@
+---
+import { getContactInfo } from '../data/index.js';
+
+export interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const contactInfo = getContactInfo();
+
+// Translations
+const translations = {
+  fr: {
+    title: 'Contact',
+    subtitle: 'Restons en contact',
+    description: 'N\'hésitez pas à me contacter pour discuter de projets, collaborations ou opportunités.',
+    labels: {
+      email: 'Email',
+      linkedin: 'LinkedIn',
+      website: 'Site Web',
+      location: 'Localisation',
+      copy: 'Copier',
+      copied: 'Copié !',
+      visit: 'Visiter'
+    },
+    cta: {
+      title: 'Prêt à collaborer ?',
+      subtitle: 'Discutons de votre prochain projet',
+      button: 'Envoyer un message'
+    },
+    availability: 'Disponible pour de nouveaux projets'
+  },
+  en: {
+    title: 'Contact',
+    subtitle: 'Let\'s stay in touch',
+    description: 'Feel free to contact me to discuss projects, collaborations, or opportunities.',
+    labels: {
+      email: 'Email',
+      linkedin: 'LinkedIn',
+      website: 'Website',
+      location: 'Location',
+      copy: 'Copy',
+      copied: 'Copied!',
+      visit: 'Visit'
+    },
+    cta: {
+      title: 'Ready to collaborate?',
+      subtitle: 'Let\'s discuss your next project',
+      button: 'Send a message'
+    },
+    availability: 'Available for new projects'
+  },
+  es: {
+    title: 'Contacto',
+    subtitle: 'Mantengámonos en contacto',
+    description: 'No dudes en contactarme para discutir proyectos, colaboraciones u oportunidades.',
+    labels: {
+      email: 'Email',
+      linkedin: 'LinkedIn',
+      website: 'Sitio Web',
+      location: 'Ubicación',
+      copy: 'Copiar',
+      copied: '¡Copiado!',
+      visit: 'Visitar'
+    },
+    cta: {
+      title: '¿Listo para colaborar?',
+      subtitle: 'Hablemos de tu próximo proyecto',
+      button: 'Enviar mensaje'
+    },
+    availability: 'Disponible para nuevos proyectos'
+  },
+  de: {
+    title: 'Kontakt',
+    subtitle: 'Lassen Sie uns in Kontakt bleiben',
+    description: 'Kontaktieren Sie mich gerne, um über Projekte, Zusammenarbeit oder Möglichkeiten zu sprechen.',
+    labels: {
+      email: 'E-Mail',
+      linkedin: 'LinkedIn',
+      website: 'Website',
+      location: 'Standort',
+      copy: 'Kopieren',
+      copied: 'Kopiert!',
+      visit: 'Besuchen'
+    },
+    cta: {
+      title: 'Bereit zur Zusammenarbeit?',
+      subtitle: 'Lassen Sie uns über Ihr nächstes Projekt sprechen',
+      button: 'Nachricht senden'
+    },
+    availability: 'Verfügbar für neue Projekte'
+  },
+  pt: {
+    title: 'Contato',
+    subtitle: 'Vamos manter contato',
+    description: 'Sinta-se à vontade para me contatar para discutir projetos, colaborações ou oportunidades.',
+    labels: {
+      email: 'E-mail',
+      linkedin: 'LinkedIn',
+      website: 'Site',
+      location: 'Localização',
+      copy: 'Copiar',
+      copied: 'Copiado!',
+      visit: 'Visitar'
+    },
+    cta: {
+      title: 'Pronto para colaborar?',
+      subtitle: 'Vamos discutir seu próximo projeto',
+      button: 'Enviar mensagem'
+    },
+    availability: 'Disponível para novos projetos'
+  },
+  ja: {
+    title: 'お問い合わせ',
+    subtitle: 'お気軽にご連絡ください',
+    description: 'プロジェクト、コラボレーション、機会についてお話しするためにお気軽にお問い合わせください。',
+    labels: {
+      email: 'メール',
+      linkedin: 'LinkedIn',
+      website: 'ウェブサイト',
+      location: '場所',
+      copy: 'コピー',
+      copied: 'コピーしました！',
+      visit: '訪問'
+    },
+    cta: {
+      title: 'コラボレーションの準備はできていますか？',
+      subtitle: '次のプロジェクトについて話し合いましょう',
+      button: 'メッセージを送る'
+    },
+    availability: '新しいプロジェクトに利用可能'
+  },
+  ko: {
+    title: '연락처',
+    subtitle: '연락을 유지합시다',
+    description: '프로젝트, 협업 또는 기회에 대해 논의하기 위해 언제든지 연락해 주세요.',
+    labels: {
+      email: '이메일',
+      linkedin: 'LinkedIn',
+      website: '웹사이트',
+      location: '위치',
+      copy: '복사',
+      copied: '복사됨!',
+      visit: '방문'
+    },
+    cta: {
+      title: '협업할 준비가 되셨나요?',
+      subtitle: '다음 프로젝트에 대해 논의해 봅시다',
+      button: '메시지 보내기'
+    },
+    availability: '새 프로젝트에 사용 가능'
+  },
+  zh: {
+    title: '联系',
+    subtitle: '保持联系',
+    description: '随时联系我讨论项目、合作或机会。',
+    labels: {
+      email: '邮箱',
+      linkedin: 'LinkedIn',
+      website: '网站',
+      location: '位置',
+      copy: '复制',
+      copied: '已复制！',
+      visit: '访问'
+    },
+    cta: {
+      title: '准备好合作了吗？',
+      subtitle: '让我们讨论您的下一个项目',
+      button: '发送消息'
+    },
+    availability: '可用于新项目'
+  },
+  ar: {
+    title: 'اتصل',
+    subtitle: 'دعنا نبقى على تواصل',
+    description: 'لا تتردد في الاتصال بي لمناقشة المشاريع أو التعاون أو الفرص.',
+    labels: {
+      email: 'البريد الإلكتروني',
+      linkedin: 'LinkedIn',
+      website: 'الموقع الإلكتروني',
+      location: 'الموقع',
+      copy: 'نسخ',
+      copied: 'تم النسخ!',
+      visit: 'زيارة'
+    },
+    cta: {
+      title: 'مستعد للتعاون؟',
+      subtitle: 'دعنا نناقش مشروعك القادم',
+      button: 'إرسال رسالة'
+    },
+    availability: 'متاح للمشاريع الجديدة'
+  }
+};
+
+const t = translations[lang as keyof typeof translations] || translations.en;
+---
+
+<section class="py-12 md:py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
+  <div class="container mx-auto px-4 md:px-6 max-w-full">
+    <!-- Section Header -->
+    <div class="text-center mb-8 md:mb-16">
+      <h2 class="text-2xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3 md:mb-4">
+        {t.title}
+      </h2>
+      <p class="text-base md:text-xl text-gray-300 max-w-2xl mx-auto">
+        {t.subtitle}
+      </p>
+      <p class="text-sm md:text-base text-gray-400 mt-2 md:mt-4 max-w-3xl mx-auto">
+        {t.description}
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+      <!-- Contact Information -->
+      <div class="space-y-4 md:space-y-8">
+        <!-- Email -->
+        <div class="group">
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-[1.02]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4">
+                  <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-base md:text-lg font-semibold text-white">{t.labels.email}</h3>
+                  <p class="text-sm md:text-base text-gray-300">{contactInfo.email}</p>
+                </div>
+              </div>
+              <button 
+                onclick={`copyToClipboard('${contactInfo.email}', this)`}
+                class="px-3 py-2 md:px-4 md:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 text-xs md:text-sm font-medium copy-btn"
+              >
+                {t.labels.copy}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LinkedIn -->
+        <div class="group">
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-[1.02]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-700 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4">
+                  <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-base md:text-lg font-semibold text-white">{t.labels.linkedin}</h3>
+                  <p class="text-sm md:text-base text-gray-300">linkedin.com/in/oussema-trabelsi</p>
+                </div>
+              </div>
+              <a 
+                href={contactInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-2 md:px-4 md:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 text-xs md:text-sm font-medium"
+              >
+                {t.labels.visit}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="group">
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-[1.02]">
+            <div class="flex items-center">
+              <div class="w-10 h-10 md:w-12 md:h-12 bg-green-600 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4">
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-base md:text-lg font-semibold text-white">{t.labels.location}</h3>
+                <p class="text-sm md:text-base text-gray-300">{contactInfo.location}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="text-center lg:text-left">
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-6 md:p-8 border border-white/20">
+          <h3 class="text-xl md:text-3xl font-bold text-white mb-3 md:mb-4">
+            {t.cta.title}
+          </h3>
+          <p class="text-sm md:text-lg text-gray-300 mb-6 md:mb-8">
+            {t.cta.subtitle}
+          </p>
+          
+          <!-- Contact Methods -->
+          <div class="space-y-3 md:space-y-4 mb-6 md:mb-8">
+            <a 
+              href={`mailto:${contactInfo.email}`}
+              class="block w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold py-3 md:py-4 px-4 md:px-6 rounded-lg md:rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+            >
+              <div class="flex items-center justify-center">
+                <svg class="w-4 h-4 md:w-5 md:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <span class="text-sm md:text-base">{t.cta.button}</span>
+              </div>
+            </a>
+            
+            <a 
+              href={contactInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full bg-white/20 hover:bg-white/30 text-white font-semibold py-3 md:py-4 px-4 md:px-6 rounded-lg md:rounded-xl transition-all duration-300 hover:scale-[1.02] border border-white/30"
+            >
+              <div class="flex items-center justify-center">
+                <svg class="w-4 h-4 md:w-5 md:h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-sm md:text-base">{t.labels.linkedin}</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Availability Status -->
+          <div class="flex items-center justify-center lg:justify-start">
+            <div class="w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-full mr-2 md:mr-3 animate-pulse"></div>
+            <span class="text-xs md:text-sm text-gray-300">
+              {t.availability}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.copyToClipboard = function(text, button) {
+    // Add click animation
+    button.style.transform = 'scale(0.95)';
+    button.style.transition = 'all 0.1s ease';
+    
+    setTimeout(() => {
+      button.style.transform = 'scale(1)';
+    }, 100);
+    
+    navigator.clipboard.writeText(text).then(() => {
+      // Show success message with animation
+      const originalText = button.textContent;
+      const originalClasses = button.className;
+      
+      // Change button appearance
+      button.textContent = 'Copié !';
+      button.className = button.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-green-600 hover:bg-green-700');
+      
+      // Add success animation
+      button.style.transform = 'scale(1.05)';
+      button.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.5)';
+      
+      setTimeout(() => {
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = '';
+      }, 200);
+      
+      // Reset after 2 seconds
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.className = originalClasses;
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = '';
+      }, 2000);
+      
+    }).catch(() => {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        
+        // Show success message for fallback
+        const originalText = button.textContent;
+        const originalClasses = button.className;
+        
+        button.textContent = 'Copié !';
+        button.className = button.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-green-600 hover:bg-green-700');
+        
+        // Add success animation
+        button.style.transform = 'scale(1.05)';
+        button.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.5)';
+        
+        setTimeout(() => {
+          button.style.transform = 'scale(1)';
+          button.style.boxShadow = '';
+        }, 200);
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.className = originalClasses;
+          button.style.transform = 'scale(1)';
+          button.style.boxShadow = '';
+        }, 2000);
+        
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+        button.textContent = 'Erreur';
+        button.className = button.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-red-600 hover:bg-red-700');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.className = originalClasses;
+        }, 2000);
+      }
+      
+      document.body.removeChild(textArea);
+    });
+  }
+</script>

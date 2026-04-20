@@ -1,0 +1,543 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPersonalInfo, getExperiences, getEducation, formatDate } from '../../data';
+import { languages } from '../../types';
+
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const experiences = getExperiences(lang);
+const education = getEducation(lang);
+
+const currentPath = `/${lang}/resume`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/resume`;
+
+// Resume page translations
+const resumeTranslations = {
+  fr: {
+    title: 'CV',
+    subtitle: 'Expérience Professionnelle & Formation',
+    personalInfo: 'Informations Personnelles',
+    name: 'Nom',
+    title_label: 'Titre',
+    location: 'Localisation',
+    email: 'Email',
+    linkedin: 'LinkedIn',
+    website: 'Site Web',
+    profile: 'Profil',
+    portfolio: 'Portfolio',
+    summary: 'Résumé Professionnel',
+    experience: 'Expérience Professionnelle',
+    education: 'Formation',
+    skills: 'Compétences & Langues',
+    languages: 'Langues',
+    certifications: 'Certifications',
+    downloadCV: 'Télécharger mon CV',
+    home: 'Accueil',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    contact: 'Contact',
+    experience: 'Expérience',
+    years: 'années',
+    age: 'Âge',
+    present: 'Présent',
+    months: 'mois',
+    days: 'jours',
+    hours: 'heures',
+    minutes: 'minutes',
+    seconds: 'secondes'
+  },
+  en: {
+    title: 'Resume',
+    subtitle: 'Professional Experience & Education',
+    personalInfo: 'Personal Information',
+    name: 'Name',
+    title_label: 'Title',
+    location: 'Location',
+    email: 'Email',
+    linkedin: 'LinkedIn',
+    website: 'Website',
+    profile: 'Profile',
+    portfolio: 'Portfolio',
+    summary: 'Professional Summary',
+    experience: 'Professional Experience',
+    education: 'Education',
+    skills: 'Skills & Languages',
+    languages: 'Languages',
+    certifications: 'Certifications',
+    downloadCV: 'Download my CV',
+    home: 'Home',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    contact: 'Contact',
+    experience: 'Experience',
+    years: 'years',
+    age: 'Age',
+    present: 'Present',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds'
+  },
+  es: {
+    title: 'Currículum',
+    subtitle: 'Experiencia Profesional y Educación',
+    personalInfo: 'Información Personal',
+    name: 'Nombre',
+    title_label: 'Título',
+    location: 'Ubicación',
+    email: 'Email',
+    linkedin: 'LinkedIn',
+    website: 'Sitio Web',
+    profile: 'Perfil',
+    portfolio: 'Portafolio',
+    summary: 'Resumen Profesional',
+    experience: 'Experiencia Profesional',
+    education: 'Educación',
+    skills: 'Habilidades e Idiomas',
+    languages: 'Idiomas',
+    certifications: 'Certificaciones',
+    downloadCV: 'Descargar mi CV',
+    home: 'Inicio',
+    portfolio: 'Portafolio',
+    blog: 'Blog',
+    contact: 'Contacto',
+    experience: 'Experiencia',
+    years: 'años',
+    age: 'Edad',
+    present: 'Presente',
+    months: 'meses',
+    days: 'días',
+    hours: 'horas',
+    minutes: 'minutos',
+    seconds: 'segundos'
+  },
+  de: {
+    title: 'Lebenslauf',
+    subtitle: 'Berufserfahrung und Ausbildung',
+    personalInfo: 'Persönliche Informationen',
+    name: 'Name',
+    title_label: 'Titel',
+    location: 'Standort',
+    email: 'Email',
+    linkedin: 'LinkedIn',
+    website: 'Website',
+    profile: 'Profil',
+    portfolio: 'Portfolio',
+    summary: 'Berufliche Zusammenfassung',
+    experience: 'Berufserfahrung',
+    education: 'Bildung',
+    skills: 'Fähigkeiten und Sprachen',
+    languages: 'Sprachen',
+    certifications: 'Zertifizierungen',
+    downloadCV: 'Meinen Lebenslauf herunterladen',
+    home: 'Startseite',
+    portfolio: 'Portfolio',
+    blog: 'Blog',
+    contact: 'Kontakt',
+    experience: 'Erfahrung',
+    years: 'Jahre',
+    age: 'Alter',
+    present: 'Gegenwart',
+    months: 'Monate',
+    days: 'Tage',
+    hours: 'Stunden',
+    minutes: 'Minuten',
+    seconds: 'Sekunden'
+  },
+  pt: {
+    title: 'Currículo',
+    subtitle: 'Experiência Profissional e Educação',
+    personalInfo: 'Informações Pessoais',
+    name: 'Nome',
+    title_label: 'Título',
+    location: 'Localização',
+    email: 'Email',
+    linkedin: 'LinkedIn',
+    website: 'Site',
+    profile: 'Perfil',
+    portfolio: 'Portfólio',
+    summary: 'Resumo Profissional',
+    experience: 'Experiência Profissional',
+    education: 'Educação',
+    skills: 'Habilidades e Idiomas',
+    languages: 'Idiomas',
+    certifications: 'Certificações',
+    downloadCV: 'Baixar meu CV',
+    home: 'Início',
+    portfolio: 'Portfólio',
+    blog: 'Blog',
+    contact: 'Contato',
+    experience: 'Experiência',
+    years: 'anos',
+    age: 'Idade',
+    present: 'Presente',
+    months: 'meses',
+    days: 'dias',
+    hours: 'horas',
+    minutes: 'minutos',
+    seconds: 'segundos'
+  },
+  ja: {
+    title: '履歴書',
+    subtitle: '職歴と学歴',
+    personalInfo: '個人情報',
+    name: '名前',
+    title_label: '役職',
+    location: '所在地',
+    email: 'メール',
+    linkedin: 'LinkedIn',
+    website: 'ウェブサイト',
+    profile: 'プロフィール',
+    portfolio: 'ポートフォリオ',
+    summary: 'プロフェッショナルサマリー',
+    experience: '職歴',
+    education: '学歴',
+    skills: 'スキルと言語',
+    languages: '言語',
+    certifications: '認定',
+    downloadCV: '履歴書をダウンロード',
+    home: 'ホーム',
+    portfolio: 'ポートフォリオ',
+    blog: 'ブログ',
+    contact: 'お問い合わせ',
+    experience: '経験',
+    years: '年',
+    age: '年齢',
+    present: '現在',
+    months: 'ヶ月',
+    days: '日',
+    hours: '時間',
+    minutes: '分',
+    seconds: '秒'
+  },
+  ko: {
+    title: '이력서',
+    subtitle: '경력 및 학력',
+    personalInfo: '개인정보',
+    name: '이름',
+    title_label: '직책',
+    location: '위치',
+    email: '이메일',
+    linkedin: 'LinkedIn',
+    website: '웹사이트',
+    profile: '프로필',
+    portfolio: '포트폴리오',
+    summary: '전문 요약',
+    experience: '경력',
+    education: '학력',
+    skills: '기술 및 언어',
+    languages: '언어',
+    certifications: '자격증',
+    downloadCV: '이력서 다운로드',
+    home: '홈',
+    portfolio: '포트폴리오',
+    blog: '블로그',
+    contact: '연락처',
+    experience: '경험',
+    years: '년',
+    age: '나이',
+    present: '현재',
+    months: '개월',
+    days: '일',
+    hours: '시간',
+    minutes: '분',
+    seconds: '초'
+  },
+  zh: {
+    title: '简历',
+    subtitle: '工作经验和教育',
+    personalInfo: '个人信息',
+    name: '姓名',
+    title_label: '职位',
+    location: '位置',
+    email: '邮箱',
+    linkedin: 'LinkedIn',
+    website: '网站',
+    profile: '个人资料',
+    portfolio: '作品集',
+    summary: '专业摘要',
+    experience: '工作经验',
+    education: '教育',
+    skills: '技能和语言',
+    languages: '语言',
+    certifications: '认证',
+    downloadCV: '下载我的简历',
+    home: '首页',
+    portfolio: '作品集',
+    blog: '博客',
+    contact: '联系',
+    experience: '经验',
+    years: '年',
+    age: '年龄',
+    present: '现在',
+    months: '个月',
+    days: '天',
+    hours: '小时',
+    minutes: '分钟',
+    seconds: '秒'
+  },
+  ar: {
+    title: 'السيرة الذاتية',
+    subtitle: 'الخبرة المهنية والتعليم',
+    personalInfo: 'المعلومات الشخصية',
+    name: 'الاسم',
+    title_label: 'المنصب',
+    location: 'الموقع',
+    email: 'البريد الإلكتروني',
+    linkedin: 'LinkedIn',
+    website: 'الموقع الإلكتروني',
+    profile: 'الملف الشخصي',
+    portfolio: 'المحفظة',
+    summary: 'الملخص المهني',
+    experience: 'الخبرة المهنية',
+    education: 'التعليم',
+    skills: 'المهارات واللغات',
+    languages: 'اللغات',
+    certifications: 'الشهادات',
+    downloadCV: 'تحميل سيرتي الذاتية',
+    home: 'الرئيسية',
+    portfolio: 'المحفظة',
+    blog: 'المدونة',
+    contact: 'اتصل',
+    experience: 'الخبرة',
+    years: 'سنوات',
+    age: 'العمر',
+    present: 'حاضر',
+    months: 'أشهر',
+    days: 'أيام',
+    hours: 'ساعات',
+    minutes: 'دقائق',
+    seconds: 'ثواني'
+  }
+};
+
+const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeTranslations.en;
+---
+
+<Layout 
+  title={`${t.title} - ${personalInfo.name}`}
+  description={personalInfo.bio}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">{t.title}</h1>
+        <p class="text-gray-600">{t.subtitle}</p>
+      </div>
+
+      <!-- Personal Info -->
+      <section class="bg-gray-100 p-6 rounded-lg mb-8">
+        <h2 class="text-2xl font-semibold mb-4">{t.personalInfo}</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <p><strong>{t.name}:</strong> {personalInfo.name}</p>
+            <p><strong>{t.title_label}:</strong> {personalInfo.title}</p>
+            <p><strong>{t.location}:</strong> {personalInfo.location}</p>
+          </div>
+          <div>
+            <p><strong>{t.age}:</strong> <span id="age-counter" class="text-blue-600 font-semibold">Loading...</span></p>
+                <p><strong>{t.experience}:</strong> 5+ {t.years}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Professional Summary -->
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">{t.summary}</h2>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          {personalInfo.bio}
+        </p>
+        <!-- View CV Button -->
+        <div class="flex justify-center">
+          <a href={`/cv/oussema-trabelsi-cv-${lang}.pdf`} 
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+            {t.downloadCV}
+          </a>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-6">{t.experience}</h2>
+        <div class="space-y-6">
+          {experiences.map(exp => {
+            const startDate = formatDate(exp.startDate, lang);
+            const endDate = exp.endDate ? formatDate(exp.endDate, lang) : t.present;
+            const period = `${startDate} - ${endDate}`;
+            
+            return (
+              <div class="border-l-4 border-blue-600 pl-6">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                  <h3 class="text-xl font-semibold">{exp.position}</h3>
+                  <span class="text-gray-600 text-sm">{period}</span>
+                </div>
+                <p class="text-blue-600 font-medium mb-2">{exp.company}</p>
+                <p class="text-gray-600 mb-3">{exp.location}</p>
+                <p class="text-gray-700">{exp.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-6">{t.education}</h2>
+        <div class="space-y-4">
+          {education.map(edu => {
+            const period = `${edu.startDate} - ${edu.endDate}`;
+            return (
+              <div class="bg-gray-100 p-4 rounded-lg">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                  <h3 class="text-lg font-semibold">{edu.degree} - {edu.field}</h3>
+                  <span class="text-gray-600 text-sm">{period}</span>
+                </div>
+                <p class="text-blue-600 font-medium">{edu.institution}</p>
+                {edu.location && <p class="text-gray-600">{edu.location}</p>}
+                {edu.grade && <p class="text-gray-600">Note: {edu.grade}</p>}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-6">{t.skills}</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Languages -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">{t.languages}</h3>
+            <ul class="space-y-2">
+              {personalInfo.languages.map(lang => (
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                  {lang}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Certifications -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">{t.certifications}</h3>
+            <ul class="space-y-2">
+              {personalInfo.certifications.map(cert => (
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-green-600 rounded-full"></div>
+                  {cert}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        
+        <!-- View CV Button at the end -->
+        <div class="flex justify-center mt-8">
+          <a href={`/cv/oussema-trabelsi-cv-${lang}.pdf`} 
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+            {t.downloadCV}
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</Layout>
+
+<script define:vars={{ lang, t }}>
+  // Dynamic Age Counter with Seconds Animation
+  function updateAgeCounter() {
+    const birthDate = new Date('1995-11-15T00:00:00');
+    const now = new Date();
+    
+    // Calculate the difference
+    const diffMs = now - birthDate;
+    
+    // Calculate years
+    const years = Math.floor(diffMs / (365.25 * 24 * 60 * 60 * 1000));
+    
+    // Calculate remaining time after years
+    const remainingMs = diffMs - (years * 365.25 * 24 * 60 * 60 * 1000);
+    
+    // Calculate months
+    const months = Math.floor(remainingMs / (30.44 * 24 * 60 * 60 * 1000));
+    
+    // Calculate remaining time after months
+    const remainingMs2 = remainingMs - (months * 30.44 * 24 * 60 * 60 * 1000);
+    
+    // Calculate days
+    const days = Math.floor(remainingMs2 / (24 * 60 * 60 * 1000));
+    
+    // Calculate remaining time after days
+    const remainingMs3 = remainingMs2 - (days * 24 * 60 * 60 * 1000);
+    
+    // Calculate hours
+    const hours = Math.floor(remainingMs3 / (60 * 60 * 1000));
+    
+    // Calculate remaining time after hours
+    const remainingMs4 = remainingMs3 - (hours * 60 * 60 * 1000);
+    
+    // Calculate minutes
+    const minutes = Math.floor(remainingMs4 / (60 * 1000));
+    
+    // Calculate remaining time after minutes
+    const remainingMs5 = remainingMs4 - (minutes * 60 * 1000);
+    
+    // Calculate seconds
+    const seconds = Math.floor(remainingMs5 / 1000);
+    
+    // Update the display with animation
+    const ageElement = document.getElementById('age-counter');
+    if (ageElement) {
+      ageElement.innerHTML = `
+        <span class="text-blue-800 font-bold">${years}</span> ${t.years}, 
+        <span class="text-blue-700 font-semibold">${months}</span> ${t.months}, 
+        <span class="text-blue-600 font-medium">${days}</span> ${t.days}
+        <br>
+        <span class="text-blue-500">${hours}</span> ${t.hours}, 
+        <span class="text-blue-400">${minutes}</span> ${t.minutes}, 
+        <span id="seconds-counter" class="text-blue-300 font-bold animate-pulse">${seconds}</span> ${t.seconds}
+      `;
+      
+      // Add pulse animation to seconds
+      const secondsElement = document.getElementById('seconds-counter');
+      if (secondsElement) {
+        secondsElement.style.animation = 'none';
+        setTimeout(() => {
+          secondsElement.style.animation = 'pulse 1s ease-in-out';
+        }, 10);
+      }
+    }
+  }
+  
+  // Update immediately
+  updateAgeCounter();
+  
+  // Update every second for smooth animation
+  setInterval(updateAgeCounter, 1000);
+</script>

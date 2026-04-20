@@ -1,0 +1,637 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../../data/index.js';
+import { languages } from '../../../types/index.js';
+
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/blog/why-we-still-love-php-in-2025`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/blog/why-we-still-love-php-in-2025`;
+const title = `Why We Still Love PHP in 2025: A Personal Perspective - ${personalInfo.name}`;
+const description = `Every year, someone predicts the death of PHP. And every year, PHP just shrugs, updates itself, and keeps powering a huge portion of the internet. A personal perspective on why PHP remains relevant in 2025.`;
+
+// Article content translations
+const articleContent = {
+  fr: {
+    title: "Pourquoi Nous Aimons Encore PHP en 2025 : Une Perspective Personnelle",
+    metaDescription: "Chaque année, quelqu'un prédit la mort de PHP. Et chaque année, PHP hausse simplement les épaules, se met à jour et continue d'alimenter une énorme partie d'Internet. Une perspective personnelle sur pourquoi PHP reste pertinent en 2025.",
+    introduction: "Chaque année, quelqu'un prédit la mort de PHP. Et chaque année, PHP hausse simplement les épaules, se met à jour et continue d'alimenter une énorme partie d'Internet. En 2025, avec tout le buzz autour des frameworks JavaScript full-stack, Rust, Go et les assistants de codage alimentés par l'IA, les gens me demandent encore :",
+    question: "\" Pourquoi utilisez-vous encore PHP ? \"",
+    answer: "Ma réponse est simple : parce que ça marche, ça évolue, et ça rend encore les développeurs productifs.",
+    diveInto: "Plongeons dans pourquoi PHP n'est pas seulement vivant en 2025, mais prospère - et pourquoi je suis certain qu'il me survivra.",
+    phpPowersWeb: "PHP Alimente le Web Plus Que Les Gens Ne Pensent",
+    webEcosystem: "Quand vous regardez l'écosystème web, PHP est partout. WordPress seul alimente encore plus de 40% d'Internet, et ça ne ralentit pas. Ajoutez Laravel, Symfony, Drupal, Magento et d'innombrables applications personnalisées, et PHP fait tranquillement tourner des millions d'entreprises et de projets dans le monde.",
+    loveToHate: "Les gens adorent le détester, mais la réalité est : PHP est encore la colle par défaut d'Internet.",
+    modernPHP: "Le PHP Moderne N'a Rien à Voir Avec le PHP de 2005",
+    memoryPHP: "Si votre souvenir de PHP est des scripts désordonnés, du code spaghetti et mysql_query(), vous seriez choqué par le PHP moderne.",
+    modernFeatures: [
+      "Typage fort avec le mode strict",
+      "Composer pour la gestion des dépendances",
+      "Standards PSR qui unifient frameworks et bibliothèques",
+      "Fonctionnalités OOP modernes (interfaces, traits, enums)",
+      "Fibers et async dans PHP 8.x"
+    ],
+    frameworksTurn: "Laravel, Symfony et d'autres frameworks ont transformé PHP en un écosystème propre et structuré qui rivalise avec n'importe quel langage moderne.",
+    laravelKeepsCool: "Laravel Garde PHP Cool",
+    admitLaravel: "Je l'avoue : une des plus grandes raisons pour lesquelles je resterai toujours avec PHP, c'est Laravel. Ce n'est pas juste un framework - c'est tout un écosystème.",
+    laravelFeatures: [
+      "ORM élégant (Eloquent)",
+      "Templates Blade",
+      "Queues, jobs, événements",
+      "Horizon, Forge, Vapor et Nova pour les outils d'écosystème"
+    ],
+    laravelKeeps: "Laravel garde PHP excitant et amusant, tout en restant incroyablement productif. Chaque fois que je lance un nouveau projet Laravel, je me rappelle pourquoi PHP refuse de mourir.",
+    phpBeginnerFriendly: "PHP Est Convivial pour les Débutants mais S'Étend au Travail de Niveau CTO",
+    careerStarted: "J'ai commencé ma carrière en codant des sites web PHP adolescent, et aujourd'hui je suis CTO et je code encore en PHP aux côtés de mon équipe. C'est quelque chose de spécial.",
+    phpQualities: [
+      "Assez facile pour que les débutants apprennent",
+      "Assez riche pour l'architecture d'entreprise",
+      "Soutenu par une communauté mondiale massive"
+    ],
+    constantCompanion: "PHP a été mon compagnon constant du freelancing → développeur full-stack → leader d'équipe → CTO.",
+    theJoke: "La Blague (Parce Que C'est Vrai)",
+    funnyThing: "Voici le truc drôle : je suis à peu près sûr que je continuerai à utiliser PHP jusqu'à mes derniers jours.",
+    honestly: "Et honnêtement, quand je serai parti, je suis convaincu que PHP sera encore vivant, faisant tranquillement tourner le web et attendant le prochain article de blog \" PHP est mort \".",
+    goodbyeWorld: "💀 Moi : \" Adieu monde... \"",
+    phpResponse: "🐘 PHP : \" Toujours là. Faisant toujours tourner 70% d'Internet. À bientôt dans la prochaine vie. \"",
+    stabilityNoisy: "Stabilité Dans un Monde Bruyant",
+    techMovesFast: "La tech bouge vite. Les frameworks vont et viennent. Les buzzwords changent tous les six mois. Mais PHP reste stable, fiable et s'améliore constamment sans forcer les développeurs à tout jeter.",
+    stabilityUnderrated: "Cette stabilité est sous-estimée. Les entreprises veulent des systèmes qui durent. Les développeurs veulent des outils sur lesquels ils peuvent compter. PHP donne les deux.",
+    conclusion: "Conclusion : Le Langage Qui Refuse de Mourir",
+    php2025: "PHP en 2025 est plus que vivant - il prospère. Avec des frameworks comme Laravel qui poussent l'innovation, d'énormes communautés qui le soutiennent, et un ensemble de fonctionnalités en constante évolution, PHP reste l'un des langages les plus pratiques et productifs au monde.",
+    whenPeopleAsk: "Alors quand les gens me demandent pourquoi j'aime encore PHP, je ne leur donne pas seulement des raisons techniques. Je leur dis que c'est parce que PHP a été là pour moi depuis le début - et parce que, avouons-le :",
+    finalThought: "👉 Je mourrai avant PHP. Et quand ce jour viendra, PHP sera probablement encore en train de servir un site WordPress quelque part, avec un haussement d'épaules et un sourire.",
+    backToBlog: "Retour au Blog",
+    shareArticle: "Partager cet Article",
+    readTime: "7 min de lecture",
+    publishedOn: "Publié le",
+    category: "Web Development"
+  },
+  en: {
+    title: "Why We Still Love PHP in 2025: A Personal Perspective",
+    metaDescription: "Every year, someone predicts the death of PHP. And every year, PHP just shrugs, updates itself, and keeps powering a huge portion of the internet. A personal perspective on why PHP remains relevant in 2025.",
+    introduction: "Every year, someone predicts the death of PHP. And every year, PHP just shrugs, updates itself, and keeps powering a huge portion of the internet. In 2025, with all the buzz around JavaScript full-stack frameworks, Rust, Go, and AI-driven coding assistants, people still ask me:",
+    question: "\"Why are you still using PHP?\"",
+    answer: "My answer is simple: because it works, it evolves, and it still makes developers productive.",
+    diveInto: "Let's dive into why PHP is not only alive in 2025, but thriving - and why I'm certain it will outlive me.",
+    phpPowersWeb: "PHP Powers the Web More Than People Think",
+    webEcosystem: "When you look at the web ecosystem, PHP is everywhere. WordPress alone still powers over 40% of the internet, and it's not slowing down. Add Laravel, Symfony, Drupal, Magento, and countless custom apps, and PHP is quietly running millions of businesses and projects worldwide.",
+    loveToHate: "People love to hate it, but the reality is: PHP is still the default glue of the internet.",
+    modernPHP: "Modern PHP Is Nothing Like 2005 PHP",
+    memoryPHP: "If your memory of PHP is messy scripts, spaghetti code, and mysql_query(), you'd be shocked by modern PHP.",
+    modernFeatures: [
+      "Strong typing with strict mode",
+      "Composer for dependency management",
+      "PSR standards that unify frameworks and libraries",
+      "Modern OOP features (interfaces, traits, enums)",
+      "Fibers and async in PHP 8.x"
+    ],
+    frameworksTurn: "Laravel, Symfony, and other frameworks have turned PHP into a clean, structured ecosystem that rivals any modern language.",
+    laravelKeepsCool: "Laravel Keeps PHP Cool",
+    admitLaravel: "I'll admit it: one of the biggest reasons I'll always stick with PHP is Laravel. It's not just a framework - it's a whole ecosystem.",
+    laravelFeatures: [
+      "Elegant ORM (Eloquent)",
+      "Blade templating",
+      "Queues, jobs, events",
+      "Horizon, Forge, Vapor, and Nova for ecosystem tools"
+    ],
+    laravelKeeps: "Laravel keeps PHP exciting and fun, while still being incredibly productive. Every time I spin up a new Laravel project, I'm reminded why PHP refuses to die.",
+    phpBeginnerFriendly: "PHP Is Beginner-Friendly but Scales to CTO-Level Work",
+    careerStarted: "I started my career coding PHP websites as a teenager, and today I'm a CTO still coding in PHP alongside my team. That's something special.",
+    phpQualities: [
+      "Easy enough for beginners to learn",
+      "Rich enough for enterprise architecture",
+      "Supported by a massive global community"
+    ],
+    constantCompanion: "PHP has been my constant companion from freelancing → full-stack developer → team leader → CTO.",
+    theJoke: "The Joke (Because It's True)",
+    funnyThing: "Here's the funny thing: I'm pretty sure I'll continue using PHP until my last days.",
+    honestly: "And honestly, when I'm gone, I'm convinced PHP will still be alive, quietly running the web and waiting for the next \"PHP is dead\" blog post.",
+    goodbyeWorld: "💀 Me: \"Goodbye world...\"",
+    phpResponse: "🐘 PHP: \"Still here. Still running 70% of the internet. See you in the next life.\"",
+    stabilityNoisy: "Stability in a Noisy World",
+    techMovesFast: "Tech moves fast. Frameworks come and go. Buzzwords change every six months. But PHP remains stable, reliable, and constantly improving without forcing developers to throw everything away.",
+    stabilityUnderrated: "That stability is underrated. Businesses want systems that last. Developers want tools they can count on. PHP gives both.",
+    conclusion: "Conclusion: The Language That Refuses to Die",
+    php2025: "PHP in 2025 is more than alive - it's thriving. With frameworks like Laravel pushing innovation, huge communities supporting it, and an ever-evolving feature set, PHP remains one of the most practical, productive languages in the world.",
+    whenPeopleAsk: "So when people ask me why I still love PHP, I don't just give them technical reasons. I tell them it's because PHP has been there for me since the start - and because, let's face it:",
+    finalThought: "👉 I'll die before PHP does. And when that day comes, PHP will probably still be serving a WordPress site somewhere, with a shrug and a smile.",
+    backToBlog: "Back to Blog",
+    shareArticle: "Share Article",
+    readTime: "7 min read",
+    publishedOn: "Published on",
+    category: "Web Development"
+  },
+  es: {
+    title: "Por Qué Seguimos Amando PHP en 2025: Una Perspectiva Personal",
+    metaDescription: "Cada año, alguien predice la muerte de PHP. Y cada año, PHP simplemente se encoge de hombros, se actualiza y sigue alimentando una enorme porción de Internet. Una perspectiva personal sobre por qué PHP sigue siendo relevante en 2025.",
+    introduction: "Cada año, alguien predice la muerte de PHP. Y cada año, PHP simplemente se encoge de hombros, se actualiza y sigue alimentando una enorme porción de Internet. En 2025, con todo el ruido alrededor de frameworks JavaScript full-stack, Rust, Go y asistentes de codificación impulsados por IA, la gente todavía me pregunta:",
+    question: "\"¿Por qué sigues usando PHP?\"",
+    answer: "Mi respuesta es simple: porque funciona, evoluciona y sigue haciendo productivos a los desarrolladores.",
+    diveInto: "Profundicemos en por qué PHP no solo está vivo en 2025, sino prosperando - y por qué estoy seguro de que me sobrevivirá.",
+    phpPowersWeb: "PHP Alimenta la Web Más de Lo Que La Gente Piensa",
+    webEcosystem: "Cuando miras el ecosistema web, PHP está en todas partes. Solo WordPress sigue alimentando más del 40% de Internet, y no se está desacelerando. Agrega Laravel, Symfony, Drupal, Magento e innumerables aplicaciones personalizadas, y PHP está ejecutando silenciosamente millones de negocios y proyectos en todo el mundo.",
+    loveToHate: "A la gente le encanta odiarlo, pero la realidad es: PHP sigue siendo el pegamento por defecto de Internet.",
+    modernPHP: "El PHP Moderno No Se Parece en Nada al PHP de 2005",
+    memoryPHP: "Si tu memoria de PHP son scripts desordenados, código espagueti y mysql_query(), te sorprendería el PHP moderno.",
+    modernFeatures: [
+      "Tipado fuerte con modo estricto",
+      "Composer para gestión de dependencias",
+      "Estándares PSR que unifican frameworks y bibliotecas",
+      "Características OOP modernas (interfaces, traits, enums)",
+      "Fibers y async en PHP 8.x"
+    ],
+    frameworksTurn: "Laravel, Symfony y otros frameworks han convertido PHP en un ecosistema limpio y estructurado que rivaliza con cualquier lenguaje moderno.",
+    laravelKeepsCool: "Laravel Mantiene PHP Genial",
+    admitLaravel: "Lo admito: una de las mayores razones por las que siempre me quedaré con PHP es Laravel. No es solo un framework - es todo un ecosistema.",
+    laravelFeatures: [
+      "ORM elegante (Eloquent)",
+      "Plantillas Blade",
+      "Colas, trabajos, eventos",
+      "Horizon, Forge, Vapor y Nova para herramientas del ecosistema"
+    ],
+    laravelKeeps: "Laravel mantiene PHP emocionante y divertido, mientras sigue siendo increíblemente productivo. Cada vez que inicio un nuevo proyecto Laravel, me recuerdo por qué PHP se niega a morir.",
+    phpBeginnerFriendly: "PHP Es Amigable para Principiantes pero Escala al Trabajo de Nivel CTO",
+    careerStarted: "Comencé mi carrera codificando sitios web PHP como adolescente, y hoy soy CTO y sigo codificando en PHP junto con mi equipo. Eso es algo especial.",
+    phpQualities: [
+      "Suficientemente fácil para que los principiantes aprendan",
+      "Suficientemente rico para arquitectura empresarial",
+      "Soportado por una comunidad global masiva"
+    ],
+    constantCompanion: "PHP ha sido mi compañero constante desde freelancing → desarrollador full-stack → líder de equipo → CTO.",
+    theJoke: "La Broma (Porque Es Cierto)",
+    funnyThing: "Aquí está lo gracioso: estoy bastante seguro de que continuaré usando PHP hasta mis últimos días.",
+    honestly: "Y honestamente, cuando me haya ido, estoy convencido de que PHP seguirá vivo, ejecutando silenciosamente la web y esperando el próximo artículo de blog \"PHP está muerto\".",
+    goodbyeWorld: "💀 Yo: \"Adiós mundo...\"",
+    phpResponse: "🐘 PHP: \"Sigo aquí. Sigo ejecutando el 70% de Internet. Nos vemos en la próxima vida.\"",
+    stabilityNoisy: "Estabilidad en un Mundo Ruidoso",
+    techMovesFast: "La tecnología se mueve rápido. Los frameworks van y vienen. Las palabras de moda cambian cada seis meses. Pero PHP permanece estable, confiable y mejorando constantemente sin forzar a los desarrolladores a tirar todo.",
+    stabilityUnderrated: "Esa estabilidad está subestimada. Las empresas quieren sistemas que duren. Los desarrolladores quieren herramientas en las que puedan confiar. PHP da ambos.",
+    conclusion: "Conclusión: El Lenguaje Que Se Niega a Morir",
+    php2025: "PHP en 2025 está más que vivo - está prosperando. Con frameworks como Laravel impulsando la innovación, enormes comunidades apoyándolo, y un conjunto de características en constante evolución, PHP sigue siendo uno de los lenguajes más prácticos y productivos del mundo.",
+    whenPeopleAsk: "Entonces cuando la gente me pregunta por qué sigo amando PHP, no solo les doy razones técnicas. Les digo que es porque PHP ha estado ahí para mí desde el principio - y porque, seamos honestos:",
+    finalThought: "👉 Moriré antes que PHP. Y cuando llegue ese día, PHP probablemente seguirá sirviendo un sitio WordPress en algún lugar, con un encogimiento de hombros y una sonrisa.",
+    backToBlog: "Volver al Blog",
+    shareArticle: "Compartir Artículo",
+    readTime: "7 min de lectura",
+    publishedOn: "Publicado el",
+    category: "Web Development"
+  },
+  ja: {
+    title: "2025年にPHPをまだ愛する理由：個人的な視点",
+    metaDescription: "毎年、誰かがPHPの死を予測します。そして毎年、PHPは肩をすくめて、自分を更新し、インターネットの巨大な部分を動かし続けます。2025年にPHPがまだ関連性がある理由についての個人的な視点。",
+    introduction: "毎年、誰かがPHPの死を予測します。そして毎年、PHPは肩をすくめて、自分を更新し、インターネットの巨大な部分を動かし続けます。2025年、JavaScriptフルスタックフレームワーク、Rust、Go、AI駆動のコーディングアシスタントの話題で、人々はまだ私に尋ねます：",
+    question: "\"なぜまだPHPを使っているのですか？\"",
+    answer: "私の答えは簡単です：動作し、進化し、まだ開発者を生産的にするからです。",
+    diveInto: "2025年にPHPが生きているだけでなく、繁栄している理由、そして私が確信している理由 - なぜ私より長生きするのかを深く掘り下げましょう。",
+    phpPowersWeb: "PHPは人々が思う以上にWebを動かしている",
+    webEcosystem: "Webエコシステムを見ると、PHPはどこにでもあります。WordPressだけでもまだインターネットの40%以上を動かしており、減速していません。Laravel、Symfony、Drupal、Magento、無数のカスタムアプリを追加すると、PHPは静かに世界中の何百万ものビジネスとプロジェクトを動かしています。",
+    loveToHate: "人々はそれを憎むのが好きですが、現実は：PHPはまだインターネットのデフォルトの接着剤です。",
+    modernPHP: "モダンPHPは2005年のPHPとは全く違う",
+    memoryPHP: "PHPの記憶が乱雑なスクリプト、スパゲッティコード、mysql_query()なら、モダンPHPにショックを受けるでしょう。",
+    modernFeatures: [
+      "厳密モードでの強い型付け",
+      "依存関係管理のためのComposer",
+      "フレームワークとライブラリを統一するPSR標準",
+      "モダンなOOP機能（インターフェース、トレイト、列挙型）",
+      "PHP 8.xのファイバーと非同期"
+    ],
+    frameworksTurn: "Laravel、Symfony、その他のフレームワークは、PHPを任意のモダン言語と競合するクリーンで構造化されたエコシステムに変えました。",
+    laravelKeepsCool: "LaravelがPHPをクールに保つ",
+    admitLaravel: "認めます：私が常にPHPに固執する最大の理由の一つはLaravelです。それは単なるフレームワークではありません - それは全体のエコシステムです。",
+    laravelFeatures: [
+      "エレガントなORM（Eloquent）",
+      "Bladeテンプレート",
+      "キュー、ジョブ、イベント",
+      "エコシステムツールのHorizon、Forge、Vapor、Nova"
+    ],
+    laravelKeeps: "LaravelはPHPをエキサイティングで楽しく保ちながら、信じられないほど生産的です。新しいLaravelプロジェクトを立ち上げるたびに、PHPが死を拒む理由を思い出します。",
+    phpBeginnerFriendly: "PHPは初心者に優しいがCTOレベルの仕事にスケールする",
+    careerStarted: "私は10代でPHPウェブサイトをコーディングしてキャリアを始め、今日はCTOとしてチームと一緒にまだPHPでコーディングしています。それは特別なことです。",
+    phpQualities: [
+      "初心者が学ぶのに十分簡単",
+      "エンタープライズアーキテクチャに十分豊富",
+      "巨大なグローバルコミュニティにサポートされている"
+    ],
+    constantCompanion: "PHPは私の一定の仲間でした：フリーランス → フルスタック開発者 → チームリーダー → CTO。",
+    theJoke: "ジョーク（真実だから）",
+    funnyThing: "面白いことに：私は最後の日までPHPを使い続けると確信しています。",
+    honestly: "そして正直に言って、私がいなくなった時、PHPはまだ生きていて、静かにWebを動かし、次の「PHPは死んだ」ブログ投稿を待っていると確信しています。",
+    goodbyeWorld: "💀 私：「さようなら世界...」",
+    phpResponse: "🐘 PHP：「まだここにいる。まだインターネットの70%を動かしている。来世で会おう。」",
+    stabilityNoisy: "騒々しい世界での安定性",
+    techMovesFast: "テクノロジーは速く動きます。フレームワークは来たり去ったりします。バズワードは6ヶ月ごとに変わります。しかし、PHPは安定し、信頼でき、開発者にすべてを投げ捨てることを強制することなく絶えず改善し続けます。",
+    stabilityUnderrated: "その安定性は過小評価されています。ビジネスは持続するシステムを望みます。開発者は信頼できるツールを望みます。PHPは両方を提供します。",
+    conclusion: "結論：死を拒む言語",
+    php2025: "2025年のPHPは生きている以上に - 繁栄しています。Laravelのようなフレームワークが革新を推進し、巨大なコミュニティがそれをサポートし、絶えず進化する機能セットで、PHPは世界で最も実用的で生産的な言語の一つであり続けています。",
+    whenPeopleAsk: "だから人々が私にまだPHPを愛する理由を尋ねる時、私は技術的な理由だけを与えません。PHPが最初から私のためにそこにあったからだと彼らに言います - そして正直に言って：",
+    finalThought: "👉 私はPHPより先に死ぬでしょう。そしてその日が来た時、PHPはおそらくまだどこかでWordPressサイトを提供していて、肩をすくめて微笑んでいるでしょう。",
+    backToBlog: "ブログに戻る",
+    shareArticle: "記事を共有",
+    readTime: "7分で読める",
+    publishedOn: "公開日",
+    category: "Web Development"
+  },
+  ko: {
+    title: "2025년에 여전히 PHP를 사랑하는 이유: 개인적인 관점",
+    metaDescription: "매년 누군가가 PHP의 죽음을 예측합니다. 그리고 매년 PHP는 어깨를 으쓱하고, 자신을 업데이트하고, 인터넷의 거대한 부분을 계속 동력으로 공급합니다. 2025년에 PHP가 여전히 관련성이 있는 이유에 대한 개인적인 관점.",
+    introduction: "매년 누군가가 PHP의 죽음을 예측합니다. 그리고 매년 PHP는 어깨를 으쓱하고, 자신을 업데이트하고, 인터넷의 거대한 부분을 계속 동력으로 공급합니다. 2025년, JavaScript 풀스택 프레임워크, Rust, Go, AI 기반 코딩 어시스턴트에 대한 모든 소음 속에서, 사람들은 여전히 저에게 묻습니다:",
+    question: "\"왜 여전히 PHP를 사용하고 있나요?\"",
+    answer: "제 답변은 간단합니다: 작동하고, 진화하며, 여전히 개발자를 생산적으로 만들기 때문입니다.",
+    diveInto: "2025년에 PHP가 살아있을 뿐만 아니라 번영하는 이유, 그리고 제가 확신하는 이유 - 왜 제가 죽은 후에도 살아있을 것인지 깊이 파고들어보겠습니다.",
+    phpPowersWeb: "PHP는 사람들이 생각하는 것보다 웹을 더 많이 동력으로 공급합니다",
+    webEcosystem: "웹 생태계를 보면 PHP는 어디에나 있습니다. WordPress만으로도 여전히 인터넷의 40% 이상을 동력으로 공급하고 있으며, 속도가 느려지지 않고 있습니다. Laravel, Symfony, Drupal, Magento, 그리고 수많은 커스텀 앱을 추가하면, PHP는 조용히 전 세계 수백만 개의 비즈니스와 프로젝트를 운영하고 있습니다.",
+    loveToHate: "사람들은 그것을 미워하는 것을 좋아하지만, 현실은: PHP는 여전히 인터넷의 기본 접착제입니다.",
+    modernPHP: "모던 PHP는 2005년 PHP와 전혀 다릅니다",
+    memoryPHP: "PHP에 대한 기억이 지저분한 스크립트, 스파게티 코드, mysql_query()라면, 모던 PHP에 충격을 받을 것입니다.",
+    modernFeatures: [
+      "엄격 모드의 강력한 타이핑",
+      "의존성 관리를 위한 Composer",
+      "프레임워크와 라이브러리를 통합하는 PSR 표준",
+      "모던 OOP 기능 (인터페이스, 트레이트, 열거형)",
+      "PHP 8.x의 파이버와 비동기"
+    ],
+    frameworksTurn: "Laravel, Symfony, 그리고 다른 프레임워크들이 PHP를 어떤 모던 언어와도 경쟁하는 깔끔하고 구조화된 생태계로 바꿨습니다.",
+    laravelKeepsCool: "Laravel이 PHP를 쿨하게 유지합니다",
+    admitLaravel: "인정하겠습니다: 제가 항상 PHP에 고수하는 가장 큰 이유 중 하나는 Laravel입니다. 그것은 단순한 프레임워크가 아닙니다 - 그것은 전체 생태계입니다.",
+    laravelFeatures: [
+      "우아한 ORM (Eloquent)",
+      "Blade 템플릿",
+      "큐, 작업, 이벤트",
+      "생태계 도구를 위한 Horizon, Forge, Vapor, Nova"
+    ],
+    laravelKeeps: "Laravel은 PHP를 흥미롭고 재미있게 유지하면서, 여전히 믿을 수 없을 정도로 생산적입니다. 새로운 Laravel 프로젝트를 시작할 때마다, PHP가 죽기를 거부하는 이유를 기억합니다.",
+    phpBeginnerFriendly: "PHP는 초보자에게 친화적이지만 CTO 수준의 작업으로 확장됩니다",
+    careerStarted: "저는 십대 시절 PHP 웹사이트를 코딩하며 경력을 시작했고, 오늘은 CTO로서 팀과 함께 여전히 PHP로 코딩하고 있습니다. 그것은 특별한 것입니다.",
+    phpQualities: [
+      "초보자가 배우기에 충분히 쉬움",
+      "엔터프라이즈 아키텍처에 충분히 풍부함",
+      "거대한 글로벌 커뮤니티에 의해 지원됨"
+    ],
+    constantCompanion: "PHP는 프리랜싱 → 풀스택 개발자 → 팀 리더 → CTO로의 제 일정한 동반자였습니다.",
+    theJoke: "농담 (사실이기 때문에)",
+    funnyThing: "재미있는 점은: 저는 마지막 날까지 PHP를 계속 사용할 것이라고 확신합니다.",
+    honestly: "그리고 솔직히, 제가 떠난 후에도 PHP는 여전히 살아있을 것이고, 조용히 웹을 운영하며 다음 \"PHP는 죽었다\" 블로그 포스트를 기다리고 있을 것이라고 확신합니다.",
+    goodbyeWorld: "💀 저: \"안녕 세계...\"",
+    phpResponse: "🐘 PHP: \"여전히 여기 있어. 여전히 인터넷의 70%를 운영하고 있어. 다음 생에서 만나자.\"",
+    stabilityNoisy: "시끄러운 세상에서의 안정성",
+    techMovesFast: "기술은 빠르게 움직입니다. 프레임워크는 왔다 갔다 합니다. 유행어는 6개월마다 바뀝니다. 하지만 PHP는 개발자들이 모든 것을 버리도록 강요하지 않고 안정적이고 신뢰할 수 있으며 지속적으로 개선됩니다.",
+    stabilityUnderrated: "그 안정성은 과소평가되었습니다. 비즈니스는 지속되는 시스템을 원합니다. 개발자는 의존할 수 있는 도구를 원합니다. PHP는 둘 다 제공합니다.",
+    conclusion: "결론: 죽기를 거부하는 언어",
+    php2025: "2025년의 PHP는 살아있을 뿐만 아니라 - 번영하고 있습니다. Laravel과 같은 프레임워크가 혁신을 추진하고, 거대한 커뮤니티가 그것을 지원하며, 지속적으로 진화하는 기능 세트로, PHP는 여전히 세계에서 가장 실용적이고 생산적인 언어 중 하나입니다.",
+    whenPeopleAsk: "그래서 사람들이 제게 왜 여전히 PHP를 사랑하는지 묻을 때, 저는 단순히 기술적인 이유만 주지 않습니다. PHP가 처음부터 저를 위해 거기에 있었기 때문이라고 말합니다 - 그리고 솔직히 말해서:",
+    finalThought: "👉 저는 PHP보다 먼저 죽을 것입니다. 그리고 그 날이 오면, PHP는 아마도 어딘가에서 WordPress 사이트를 여전히 제공하고 있을 것이고, 어깨를 으쓱하며 미소를 지을 것입니다.",
+    backToBlog: "블로그로 돌아가기",
+    shareArticle: "기사 공유",
+    readTime: "7분 읽기",
+    publishedOn: "게시일",
+    category: "Web Development"
+  },
+  zh: {
+    title: "为什么我们在2025年仍然热爱PHP：个人观点",
+    metaDescription: "每年，都有人预测PHP的死亡。每年，PHP只是耸耸肩，更新自己，继续为互联网的巨大一部分提供动力。关于为什么PHP在2025年仍然相关的个人观点。",
+    introduction: "每年，都有人预测PHP的死亡。每年，PHP只是耸耸肩，更新自己，继续为互联网的巨大一部分提供动力。在2025年，围绕JavaScript全栈框架、Rust、Go和AI驱动的编码助手的所有炒作中，人们仍然问我：",
+    question: "你为什么还在使用PHP？",
+    answer: "我的回答很简单：因为它有效，它在进化，它仍然让开发者高效。",
+    diveInto: "让我们深入探讨为什么PHP在2025年不仅活着，而且蓬勃发展 - 以及为什么我确信它会比我活得更久。",
+    phpPowersWeb: "PHP为网络提供动力的程度超出人们的想象",
+    webEcosystem: "当你看看网络生态系统时，PHP无处不在。仅WordPress就仍然为超过40%的互联网提供动力，而且没有放缓。加上Laravel、Symfony、Drupal、Magento和无数自定义应用，PHP正在静悄悄地运行着全球数百万个企业和项目。",
+    loveToHate: "人们喜欢讨厌它，但现实是：PHP仍然是互联网的默认粘合剂。",
+    modernPHP: "现代PHP与2005年的PHP完全不同",
+    memoryPHP: "如果你对PHP的记忆是混乱的脚本、意大利面条代码和mysql_query()，你会对现代PHP感到震惊。",
+    modernFeatures: [
+      "严格模式的强类型",
+      "Composer用于依赖管理",
+      "统一框架和库的PSR标准",
+      "现代OOP功能（接口、特征、枚举）",
+      "PHP 8.x中的纤维和异步"
+    ],
+    frameworksTurn: "Laravel、Symfony和其他框架已经将PHP转变为一个干净、结构化的生态系统，可以与任何现代语言竞争。",
+    laravelKeepsCool: "Laravel保持PHP酷炫",
+    admitLaravel: "我承认：我总是坚持使用PHP的最大原因之一是Laravel。它不仅仅是一个框架 - 它是一个完整的生态系统。",
+    laravelFeatures: [
+      "优雅的ORM（Eloquent）",
+      "Blade模板",
+      "队列、作业、事件",
+      "Horizon、Forge、Vapor和Nova用于生态系统工具"
+    ],
+    laravelKeeps: "Laravel保持PHP令人兴奋和有趣，同时仍然非常高效。每次我启动一个新的Laravel项目时，我都会想起为什么PHP拒绝死亡。",
+    phpBeginnerFriendly: "PHP对初学者友好但扩展到CTO级别的工作",
+    careerStarted: "我在青少年时期开始编码PHP网站，今天我是CTO，仍然与我的团队一起在PHP中编码。这是特别的。",
+    phpQualities: [
+      "对初学者来说足够容易学习",
+      "对企业架构足够丰富",
+      "由庞大的全球社区支持"
+    ],
+    constantCompanion: "PHP一直是我从自由职业 → 全栈开发者 → 团队领导 → CTO的恒定伴侣。",
+    theJoke: "笑话（因为这是真的）",
+    funnyThing: "有趣的是：我相当确定我会继续使用PHP直到我的最后一天。",
+    honestly: "老实说，当我离开时，我确信PHP仍然会活着，静悄悄地运行网络，等待下一篇PHP已死的博客文章。",
+    goodbyeWorld: "💀 我：再见世界...",
+    phpResponse: "🐘 PHP：仍然在这里。仍然运行着70%的互联网。下辈子见。",
+    stabilityNoisy: "嘈杂世界中的稳定性",
+    techMovesFast: "技术发展很快。框架来来去去。流行语每六个月改变一次。但PHP保持稳定、可靠，并不断改进，而不强迫开发者抛弃一切。",
+    stabilityUnderrated: "这种稳定性被低估了。企业想要持久的系统。开发者想要可以依赖的工具。PHP提供两者。",
+    conclusion: "结论：拒绝死亡的语言",
+    php2025: "2025年的PHP不仅仅是活着 - 它在蓬勃发展。有了像Laravel这样的框架推动创新，巨大的社区支持它，以及不断发展的功能集，PHP仍然是世界上最实用、最高效的语言之一。",
+    whenPeopleAsk: "所以当人们问我为什么仍然热爱PHP时，我不只是给他们技术原因。我告诉他们这是因为PHP从一开始就在那里支持我 - 而且因为，让我们面对现实：",
+    finalThought: "👉 我会在PHP之前死去。当那一天到来时，PHP可能仍然在某个地方服务WordPress网站，耸耸肩微笑。",
+    backToBlog: "返回博客",
+    shareArticle: "分享文章",
+    readTime: "7分钟阅读",
+    publishedOn: "发布于",
+    category: "Web Development"
+  },
+  ar: {
+    title: "لماذا ما زلنا نحب PHP في 2025: منظور شخصي",
+    metaDescription: "كل عام، يتنبأ شخص ما بموت PHP. وكل عام، PHP يكتفي بهز كتفيه، يحدث نفسه، ويستمر في تشغيل جزء ضخم من الإنترنت. منظور شخصي حول سبب بقاء PHP ذا صلة في 2025.",
+    introduction: "كل عام، يتنبأ شخص ما بموت PHP. وكل عام، PHP يكتفي بهز كتفيه، يحدث نفسه، ويستمر في تشغيل جزء ضخم من الإنترنت. في 2025، مع كل الضجة حول أطر JavaScript الكاملة، Rust، Go، ومساعدي البرمجة المدعومين بالذكاء الاصطناعي، لا يزال الناس يسألونني:",
+    question: "\"لماذا ما زلت تستخدم PHP؟\"",
+    answer: "إجابتي بسيطة: لأنه يعمل، ويتطور، وما زال يجعل المطورين منتجين.",
+    diveInto: "دعونا نتعمق في سبب أن PHP ليس فقط حياً في 2025، بل مزدهر - ولماذا أنا متأكد أنه سيعيش بعدي.",
+    phpPowersWeb: "PHP يشغل الويب أكثر مما يعتقد الناس",
+    webEcosystem: "عندما تنظر إلى نظام الويب البيئي، PHP موجود في كل مكان. WordPress وحده ما زال يشغل أكثر من 40% من الإنترنت، ولا يتباطأ. أضف Laravel، Symfony، Drupal، Magento، وعدد لا يحصى من التطبيقات المخصصة، وPHP يشغل بهدوء ملايين الشركات والمشاريع في جميع أنحاء العالم.",
+    loveToHate: "الناس يحبون كرهه، لكن الواقع هو: PHP ما زال الغراء الافتراضي للإنترنت.",
+    modernPHP: "PHP الحديث لا يشبه PHP 2005 على الإطلاق",
+    memoryPHP: "إذا كانت ذاكرتك عن PHP هي نصوص فوضوية، كود معكرونة، وmysql_query()، فستصدم بـ PHP الحديث.",
+    modernFeatures: [
+      "كتابة قوية مع الوضع الصارم",
+      "Composer لإدارة التبعيات",
+      "معايير PSR التي توحد الأطر والمكتبات",
+      "ميزات OOP حديثة (واجهات، سمات، تعدادات)",
+      "ألياف وعدم تزامن في PHP 8.x"
+    ],
+    frameworksTurn: "Laravel، Symfony، وأطر أخرى حولت PHP إلى نظام بيئي نظيف ومنظم ينافس أي لغة حديثة.",
+    laravelKeepsCool: "Laravel يحافظ على PHP رائعاً",
+    admitLaravel: "سأعترف: أحد أكبر الأسباب التي سأتمسك بها دائماً بـ PHP هو Laravel. إنه ليس مجرد إطار عمل - إنه نظام بيئي كامل.",
+    laravelFeatures: [
+      "ORM أنيق (Eloquent)",
+      "قوالب Blade",
+      "طوابير، وظائف، أحداث",
+      "Horizon، Forge، Vapor، وNova لأدوات النظام البيئي"
+    ],
+    laravelKeeps: "Laravel يحافظ على PHP مثيراً وممتعاً، بينما يبقى منتجاً بشكل لا يصدق. في كل مرة أبدأ مشروع Laravel جديد، أتذكر لماذا PHP يرفض الموت.",
+    phpBeginnerFriendly: "PHP ودود للمبتدئين لكن يتوسع إلى عمل مستوى CTO",
+    careerStarted: "بدأت مسيرتي في برمجة مواقع PHP كمراهق، واليوم أنا CTO ما زلت أبرمج في PHP جنباً إلى جنب مع فريقي. هذا شيء خاص.",
+    phpQualities: [
+      "سهل بما فيه الكفاية للمبتدئين للتعلم",
+      "غني بما فيه الكفاية لهندسة المؤسسات",
+      "مدعوم من مجتمع عالمي ضخم"
+    ],
+    constantCompanion: "PHP كان رفيقي الثابت من العمل الحر → مطور كامل المكدس → قائد فريق → CTO.",
+    theJoke: "النكتة (لأنها حقيقية)",
+    funnyThing: "إليك الشيء المضحك: أنا متأكد تماماً أنني سأستمر في استخدام PHP حتى أيامي الأخيرة.",
+    honestly: "وبصراحة، عندما أكون قد رحلت، أنا مقتنع أن PHP سيكون ما زال حياً، يشغل الويب بهدوء وينتظر منشور المدونة التالي \"PHP ميت\".",
+    goodbyeWorld: "💀 أنا: \"وداعاً أيها العالم...\"",
+    phpResponse: "🐘 PHP: \"ما زلت هنا. ما زلت أشغل 70% من الإنترنت. أراكم في الحياة القادمة.\"",
+    stabilityNoisy: "الاستقرار في عالم صاخب",
+    techMovesFast: "التكنولوجيا تتحرك بسرعة. الأطر تأتي وتذهب. الكلمات الطنانة تتغير كل ستة أشهر. لكن PHP يبقى مستقراً وموثوقاً ويحسن باستمرار دون إجبار المطورين على التخلي عن كل شيء.",
+    stabilityUnderrated: "هذا الاستقرار مقدر بأقل من قيمته. الشركات تريد أنظمة تدوم. المطورون يريدون أدوات يمكنهم الاعتماد عليها. PHP يعطي كليهما.",
+    conclusion: "الخلاصة: اللغة التي ترفض الموت",
+    php2025: "PHP في 2025 أكثر من كونه حياً - إنه مزدهر. مع أطر مثل Laravel تدفع الابتكار، مجتمعات ضخمة تدعمه، ومجموعة ميزات تتطور باستمرار، PHP يبقى واحداً من أكثر اللغات عملية وإنتاجية في العالم.",
+    whenPeopleAsk: "لذا عندما يسألني الناس لماذا ما زلت أحب PHP، لا أعطيهم أسباباً تقنية فقط. أخبرهم أنه لأن PHP كان هناك من أجلي منذ البداية - ولأن، دعونا نواجه الأمر:",
+    finalThought: "👉 سأموت قبل PHP. وعندما يأتي ذلك اليوم، PHP سيكون على الأرجح ما زال يخدم موقع WordPress في مكان ما، بهز كتف وابتسامة.",
+    backToBlog: "العودة إلى المدونة",
+    shareArticle: "مشاركة المقال",
+    readTime: "7 دقائق قراءة",
+    publishedOn: "نشر في",
+    category: "Web Development"
+  }
+};
+
+const content = articleContent[lang as keyof typeof articleContent] || articleContent.en;
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back to Blog -->
+      <div class="mb-8">
+        <a href={`/${lang}/blog/`} class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          {content.backToBlog}
+        </a>
+      </div>
+
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+            {content.category}
+          </span>
+          <span class="text-sm text-gray-600">{content.publishedOn} 2024-01-30</span>
+          <span class="text-sm text-gray-600">*</span>
+          <span class="text-sm text-gray-600">{content.readTime}</span>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+          {content.title}
+        </h1>
+        
+        <p class="text-lg text-gray-600 leading-relaxed">
+          {content.metaDescription}
+        </p>
+      </header>
+
+      <!-- Article Content -->
+      <article class="prose prose-lg max-w-none">
+        <!-- Introduction -->
+        <section class="mb-8">
+          <p class="text-xl text-gray-700 leading-relaxed mb-6">
+            {content.introduction}
+          </p>
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mb-6">
+            <p class="text-yellow-800 font-medium text-lg">
+              👉 {content.question}
+            </p>
+          </div>
+          <p class="text-lg text-gray-600 leading-relaxed mb-6">
+            {content.answer}
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            {content.diveInto}
+          </p>
+        </section>
+
+        <!-- PHP Powers the Web -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.phpPowersWeb}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.webEcosystem}</p>
+          <p class="text-lg text-gray-600 font-medium">
+            {content.loveToHate}
+          </p>
+        </section>
+
+        <!-- Modern PHP -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.modernPHP}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.memoryPHP}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.modernFeatures.map(feature => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <p class="text-lg text-gray-600 font-medium">
+            {content.frameworksTurn}
+          </p>
+        </section>
+
+        <!-- Laravel Keeps PHP Cool -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.laravelKeepsCool}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.admitLaravel}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.laravelFeatures.map(feature => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <p class="text-lg text-gray-600 font-medium">
+            {content.laravelKeeps}
+          </p>
+        </section>
+
+        <!-- PHP Beginner Friendly -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.phpBeginnerFriendly}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.careerStarted}</p>
+          
+          <ul class="space-y-3 mb-6">
+            {content.phpQualities.map(quality => (
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-gray-700">{quality}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <p class="text-lg text-gray-600 font-medium">
+            {content.constantCompanion}
+          </p>
+        </section>
+
+        <!-- The Joke -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.theJoke}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.funnyThing}</p>
+          <p class="text-lg text-gray-600 mb-6">{content.honestly}</p>
+          
+          <div class="bg-gray-100 border-l-4 border-gray-400 p-4 rounded mb-4">
+            <p class="text-gray-800 font-medium text-lg mb-2">
+              {content.goodbyeWorld}
+            </p>
+            <p class="text-gray-800 font-medium text-lg">
+              {content.phpResponse}
+            </p>
+          </div>
+        </section>
+
+        <!-- Stability -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.stabilityNoisy}</h2>
+          <p class="text-lg text-gray-600 mb-4">{content.techMovesFast}</p>
+          <p class="text-lg text-gray-600 font-medium">
+            {content.stabilityUnderrated}
+          </p>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">{content.conclusion}</h2>
+          <p class="text-lg text-gray-700 mb-6">{content.php2025}</p>
+          <p class="text-lg text-gray-600 mb-6">{content.whenPeopleAsk}</p>
+          
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+            <p class="text-blue-800 font-medium text-lg">
+              {content.finalThought}
+            </p>
+          </div>
+        </section>
+      </article>
+
+      <!-- Share Section -->
+      <section class="border-t pt-8 mt-12">
+        <div class="text-center">
+          <h3 class="text-lg font-semibold mb-4">{content.shareArticle}</h3>
+          <div class="flex justify-center gap-4">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(content.title)}&url=${encodeURIComponent(canonical)}`} 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              Twitter
+            </a>
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`} 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": content.title,
+    "description": content.metaDescription,
+    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "author": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "url": "https://www.oussematrabelsi.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussematrabelsi",
+        "https://github.com/oussematrabelsi"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "url": "https://www.oussematrabelsi.com"
+    },
+    "datePublished": `${content.date}T00:00:00+01:00`,
+    "dateModified": `${content.date}T00:00:00+01:00`,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonical
+    },
+    "url": canonical,
+    "articleSection": content.category,
+    "wordCount": "1800",
+    "timeRequired": `PT${content.readTime}M`,
+    "inLanguage": lang,
+    "keywords": ["PHP", "Laravel", "Web Development", "Programming", "Technology", "CTO", "Career"],
+    "about": {
+      "@type": "Thing",
+      "name": "PHP Programming Language"
+    }
+  })} />
+</Layout>

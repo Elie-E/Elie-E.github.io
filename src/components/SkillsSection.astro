@@ -1,0 +1,319 @@
+---
+import { getSkillsData } from '../data/index.js';
+
+export interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const skillsData = getSkillsData();
+
+// Translations
+const translations = {
+  fr: {
+    title: 'Compétences Techniques',
+    subtitle: 'Technologies et outils que je maîtrise',
+    categories: {
+      programming: 'Développement',
+      cloud: 'Cloud & DevOps',
+      databases: 'Bases de données',
+      design: 'Design & Marketing'
+    },
+    summary: {
+      title: 'Expertise Technique',
+      description: 'Plus de 10 ans d\'expérience dans le développement web, avec une expertise approfondie en architecture logicielle et leadership technique.',
+      skills: ['Développement Full-Stack', 'Architecture Cloud', 'Conception de Bases de Données', 'Leadership d\'Équipe']
+    }
+  },
+  en: {
+    title: 'Technical Skills',
+    subtitle: 'Technologies and tools I master',
+    categories: {
+      programming: 'Development',
+      cloud: 'Cloud & DevOps',
+      databases: 'Databases',
+      design: 'Design & Marketing'
+    },
+    summary: {
+      title: 'Technical Expertise',
+      description: 'Over 10 years of experience in web development, with deep expertise in software architecture and technical leadership.',
+      skills: ['Full-Stack Development', 'Cloud Architecture', 'Database Design', 'Team Leadership']
+    }
+  },
+  es: {
+    title: 'Habilidades Técnicas',
+    subtitle: 'Tecnologías y herramientas que domino',
+    categories: {
+      programming: 'Desarrollo',
+      cloud: 'Cloud & DevOps',
+      databases: 'Bases de Datos',
+      design: 'Diseño & Marketing'
+    },
+    summary: {
+      title: 'Experiencia Técnica',
+      description: 'Más de 10 años de experiencia en desarrollo web, con profunda experiencia en arquitectura de software y liderazgo técnico.',
+      skills: ['Desarrollo Full-Stack', 'Arquitectura Cloud', 'Diseño de Bases de Datos', 'Liderazgo de Equipos']
+    }
+  },
+  de: {
+    title: 'Technische Fähigkeiten',
+    subtitle: 'Technologien und Tools, die ich beherrsche',
+    categories: {
+      programming: 'Entwicklung',
+      cloud: 'Cloud & DevOps',
+      databases: 'Datenbanken',
+      design: 'Design & Marketing'
+    },
+    summary: {
+      title: 'Technische Expertise',
+      description: 'Über 10 Jahre Erfahrung in der Webentwicklung mit tiefgreifender Expertise in Softwarearchitektur und technischer Führung.',
+      skills: ['Full-Stack Entwicklung', 'Cloud Architektur', 'Datenbankdesign', 'Teamführung']
+    }
+  },
+  pt: {
+    title: 'Habilidades Técnicas',
+    subtitle: 'Tecnologias e ferramentas que domino',
+    categories: {
+      programming: 'Desenvolvimento',
+      cloud: 'Cloud & DevOps',
+      databases: 'Bancos de Dados',
+      design: 'Design & Marketing'
+    },
+    summary: {
+      title: 'Experiência Técnica',
+      description: 'Mais de 10 anos de experiência em desenvolvimento web, com profunda experiência em arquitetura de software e liderança técnica.',
+      skills: ['Desenvolvimento Full-Stack', 'Arquitetura Cloud', 'Design de Bancos de Dados', 'Liderança de Equipes']
+    }
+  },
+  ja: {
+    title: '技術スキル',
+    subtitle: '私が習得している技術とツール',
+    categories: {
+      programming: '開発',
+      cloud: 'Cloud & DevOps',
+      databases: 'データベース',
+      design: 'デザイン & マーケティング'
+    },
+    summary: {
+      title: '技術的専門知識',
+      description: 'Web開発で10年以上の経験を持ち、ソフトウェアアーキテクチャと技術的リーダーシップに深い専門知識があります。',
+      skills: ['フルスタック開発', 'クラウドアーキテクチャ', 'データベース設計', 'チームリーダーシップ']
+    }
+  },
+  ko: {
+    title: '기술적 능력',
+    subtitle: '제가 숙련한 기술과 도구들',
+    categories: {
+      programming: '개발',
+      cloud: 'Cloud & DevOps',
+      databases: '데이터베이스',
+      design: '디자인 & 마케팅'
+    },
+    summary: {
+      title: '기술적 전문성',
+      description: '웹 개발에서 10년 이상의 경험을 가지고 있으며, 소프트웨어 아키텍처와 기술적 리더십에 깊은 전문성을 보유하고 있습니다.',
+      skills: ['풀스택 개발', '클라우드 아키텍처', '데이터베이스 설계', '팀 리더십']
+    }
+  },
+  zh: {
+    title: '技术技能',
+    subtitle: '我掌握的技术和工具',
+    categories: {
+      programming: '开发',
+      cloud: 'Cloud & DevOps',
+      databases: '数据库',
+      design: '设计与营销'
+    },
+    summary: {
+      title: '技术专长',
+      description: '在Web开发方面拥有超过10年的经验，在软件架构和技术领导方面具有深厚的专业知识。',
+      skills: ['全栈开发', '云架构', '数据库设计', '团队领导']
+    }
+  },
+  ar: {
+    title: 'المهارات التقنية',
+    subtitle: 'التقنيات والأدوات التي أتقنها',
+    categories: {
+      programming: 'التطوير',
+      cloud: 'Cloud & DevOps',
+      databases: 'قواعد البيانات',
+      design: 'التصميم والتسويق'
+    },
+    summary: {
+      title: 'الخبرة التقنية',
+      description: 'أكثر من 10 سنوات من الخبرة في تطوير الويب، مع خبرة عميقة في هندسة البرمجيات والقيادة التقنية.',
+      skills: ['التطوير الشامل', 'هندسة السحابة', 'تصميم قواعد البيانات', 'قيادة الفرق']
+    }
+  }
+};
+
+const t = translations[lang as keyof typeof translations] || translations.en;
+---
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+        {t.title}
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        {t.subtitle}
+      </p>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Programming Skills -->
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mr-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">{t.categories.programming}</h3>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          {skillsData.programming.map((skill) => (
+            <div class="group">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-medium text-gray-700 group-hover:text-blue-600 transition-colors duration-200 text-sm">
+                  {skill.name}
+                </span>
+                <span class="text-xs text-gray-500">{skill.level}%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                  style={`width: ${skill.level}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Cloud & DevOps Skills -->
+      <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-8 border border-cyan-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-cyan-600 rounded-xl flex items-center justify-center mr-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">{t.categories.cloud}</h3>
+        </div>
+        <div class="space-y-4">
+          {skillsData.cloud.map((skill) => (
+            <div class="group">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-medium text-gray-700 group-hover:text-cyan-600 transition-colors duration-200">
+                  {skill.name}
+                </span>
+                <span class="text-sm text-gray-500">{skill.level}%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                  style={`width: ${skill.level}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Database Skills -->
+      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center mr-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">{t.categories.databases}</h3>
+        </div>
+        <div class="space-y-4">
+          {skillsData.databases.map((skill) => (
+            <div class="group">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-medium text-gray-700 group-hover:text-green-600 transition-colors duration-200">
+                  {skill.name}
+                </span>
+                <span class="text-sm text-gray-500">{skill.level}%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  class="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                  style={`width: ${skill.level}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Design & Marketing Skills -->
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mr-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">{t.categories.design}</h3>
+        </div>
+        <div class="space-y-4">
+          {skillsData.design.map((skill) => (
+            <div class="group">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-medium text-gray-700 group-hover:text-purple-600 transition-colors duration-200">
+                  {skill.name}
+                </span>
+                <span class="text-sm text-gray-500">{skill.level}%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                  style={`width: ${skill.level}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Summary -->
+    <div class="mt-16 text-center">
+      <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200 max-w-4xl mx-auto">
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">
+          {t.summary.title}
+        </h3>
+        <p class="text-gray-600 mb-6">
+          {t.summary.description}
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          {t.summary.skills.map(skill => (
+            <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animation for skill bars */
+  @keyframes fillBar {
+    from { width: 0%; }
+    to { width: var(--skill-level); }
+  }
+
+  .skill-bar {
+    animation: fillBar 1.5s ease-out forwards;
+  }
+</style>

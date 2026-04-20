@@ -1,0 +1,1444 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getPersonalInfo } from '../../../data/index.js';
+import { languages } from '../../../types/index.js';
+
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const currentPath = `/${lang}/blog/eloquent-performance-tricks`;
+const currentLang = lang;
+const canonical = `https://www.oussematrabelsi.com/${lang}/blog/eloquent-performance-tricks`;
+
+const articleContent = {
+  fr: {
+    title: "Astuces de Performance Eloquent : Faire Voler Laravel avec des Milliers d'Enregistrements",
+    metaDescription: "Découvrez les techniques avancées pour optimiser les performances d'Eloquent ORM dans Laravel. Des astuces pratiques pour gérer efficacement des milliers d'enregistrements sans sacrifier l'élégance du code.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `Quand vous commencez avec Laravel, Eloquent ressemble à de la magie. Quelques lignes de code, et vous pouvez interroger votre base de données avec une syntaxe belle et expressive. Mais à mesure que votre projet grandit et que vous commencez à gérer des milliers (voire des millions) de lignes, cette magie peut soudainement se transformer en requêtes lentes, pics de mémoire et pages qui traînent.
+
+La bonne nouvelle ? L'ORM Eloquent de Laravel peut très bien évoluer - si vous connaissez quelques astuces de performance. Dans cet article, je vais partager les techniques qui ont aidé mon équipe et moi à optimiser des applications à grande échelle sans abandonner l'élégance d'Eloquent.`,
+    trick1: {
+      title: "1. Utilisez select() pour Récupérer Seulement Ce Dont Vous Avez Besoin",
+      content: `Par défaut, Eloquent récupère toutes les colonnes (SELECT *) de votre base de données. Pour de petites tables, c'est bien. Mais avec de grandes tables et des schémas larges, cela gaspille la mémoire et ralentit les requêtes.
+
+<pre><code class="language-php">// ❌ À éviter : récupère toutes les colonnes
+$users = User::all();
+
+// ✅ Mieux : récupère seulement les champs nécessaires
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 Ce petit changement peut économiser des mégaoctets de mémoire dans les grandes requêtes.`
+    },
+    trick2: {
+      title: "2. Traitez les Grandes Requêtes par Lots",
+      content: `Quand vous devez traiter des milliers d'enregistrements, ne les chargez pas tous d'un coup. Utilisez le traitement par lots pour les traiter par groupes.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // traiter l'utilisateur
+    }
+});</code></pre>
+
+Au lieu de récupérer 100k lignes en mémoire, cela en prend 500 à la fois. Laravel s'occupe de la pagination en arrière-plan.
+
+Si l'ordre compte (par exemple, pour un traitement par lots cohérent), n'oubliez pas de trier par id.`
+    },
+    trick3: {
+      title: "3. Utilisez lazy() ou cursor() pour le Streaming",
+      content: `Si vous travaillez avec des jeux de données vraiment énormes, le traitement par lots peut encore consommer trop de mémoire. Dans ce cas, utilisez les curseurs :
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // Parcourir les enregistrements un par un
+}</code></pre>
+
+Cela évite de charger de gros lots en mémoire, en parcourant les lignes directement depuis la base de données. C'est plus lent par ligne mais extrêmement efficace en mémoire.`
+    },
+    trick4: {
+      title: "4. Chargez les Relations à l'Avance (mais Ne Surchargez Pas)",
+      content: `Le problème de requête N+1 est l'un des plus grands tueurs de performance dans les applications Laravel.
+
+<pre><code class="language-php">// ❌ Mauvais : exécute une nouvelle requête pour chaque post
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ Bon : charge les utilisateurs à l'avance
+$posts = Post::with('user')->get();</code></pre>
+
+Cela réduit des dizaines de requêtes à seulement deux.
+
+⚠️ Mais ne chargez pas tout à l'avance. Chargez seulement les relations dont vous avez vraiment besoin, sinon vous submergerez la mémoire avec des données inutilisées.`
+    },
+    trick5: {
+      title: "5. Indexez Vos Colonnes de Base de Données",
+      content: `Parfois, le goulot d'étranglement n'est pas Eloquent - c'est la base de données elle-même. Ajouter des index appropriés peut réduire les temps de requête de secondes à millisecondes.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 Indexez toujours les colonnes qui sont fréquemment utilisées dans les clauses WHERE, ORDER BY, ou JOIN.`
+    },
+    trick6: {
+      title: "6. Paginez au Lieu de Tout Récupérer",
+      content: `Pour les listes et tableaux de bord, ne chargez jamais des milliers d'enregistrements d'un coup. Paginez-les plutôt.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+Cela vous donne des liens de pagination propres et garde votre utilisation mémoire minuscule.
+
+Si vous avez besoin de défilement infini, simplePaginate() est encore plus rapide.`
+    },
+    trick7: {
+      title: "7. Utilisez update() et delete() en Masse",
+      content: `Si vous devez mettre à jour ou supprimer beaucoup d'enregistrements, ne les parcourez pas en boucle. Faites-le en une seule requête.
+
+<pre><code class="language-php">// ❌ Mauvais : met à jour ligne par ligne
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ Bon : mise à jour en masse unique
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+Cela évite des milliers de requêtes et fait voler votre application.`
+    },
+    trick8: {
+      title: "8. Mettez en Cache Quand Cela a du Sens",
+      content: `Si vous exécutez répétitivement la même requête lourde, envisagez de mettre en cache les résultats.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel rend cela facile, et la mise en cache peut transformer une requête DB lente en une recherche mémoire rapide.`
+    },
+    trick9: {
+      title: "9. Profiler les Requêtes",
+      content: `Ne devinez pas où sont les goulots d'étranglement. Utilisez DB::enableQueryLog() ou Laravel Telescope pour profiler les requêtes.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+Ou utilisez toSql() pour voir ce qu'Eloquent génère :
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. Quand Nécessaire... Descendez aux Requêtes Brutes",
+      content: `Eloquent est élégant, mais parfois vous avez besoin de performance brute. Laravel facilite le retour au constructeur de requêtes ou même au SQL brut.
+
+<pre><code class="language-php">// Constructeur de requêtes
+$users = DB::table('users')->where('status', 'active')->get();
+
+// SQL brut
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+Mélanger les approches n'est pas un échec - c'est de l'ingénierie pragmatique.`
+    },
+    conclusion: `L'ORM Eloquent de Laravel n'est pas seulement pour les petits projets. Avec les bonnes astuces - du traitement par lots et des curseurs, au chargement à l'avance et aux mises à jour en masse - vous pouvez gérer des millions de lignes efficacement sans abandonner la lisibilité et la maintenabilité qui rendent Laravel spécial.
+
+À la fin de la journée, l'optimisation des performances dans Laravel ne consiste pas à abandonner Eloquent. Il s'agit de comprendre ses forces, d'éviter ses pièges, et de savoir quand mélanger la puissance brute.
+
+Et oui, même après toutes ces années, j'aime encore coder avec Laravel. Il a grandi avec moi depuis mes premiers projets secondaires jusqu'à mon rôle de CTO aujourd'hui. Tout comme PHP lui-même, il refuse de mourir - et honnêtement, ça me va très bien. 🚀`,
+    backToBlog: "Retour au Blog",
+    shareArticle: "Partager l'Article",
+    readTime: "9 min de lecture",
+    publishedOn: "Publié le",
+    category: "Web Development"
+  },
+  en: {
+    title: "Eloquent Performance Tricks: Making Laravel Fly with Thousands of Records",
+    metaDescription: "Discover advanced techniques to optimize Eloquent ORM performance in Laravel. Practical tricks for efficiently handling thousands of records without sacrificing code elegance.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `When you first start with Laravel, Eloquent feels like magic. A few lines of code, and you can query your database with beautiful, expressive syntax. But as your project grows and you start handling thousands (or even millions) of rows, that magic can suddenly turn into slow queries, memory spikes, and lagging pages.
+
+The good news? Laravel's Eloquent ORM can scale really well - if you know a few performance tricks. In this article, I'll share the techniques that helped me and my team optimize large-scale applications without giving up the elegance of Eloquent.`,
+    trick1: {
+      title: "1. Use select() to Retrieve Only What You Need",
+      content: `By default, Eloquent retrieves all columns (SELECT *) from your database. For small tables, that's fine. But with big tables and wide schemas, this wastes memory and slows down queries.
+
+<pre><code class="language-php">// ❌ Avoid: pulls all columns
+$users = User::all();
+
+// ✅ Better: fetch only the needed fields
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 This small change can save megabytes of memory in large queries.`
+    },
+    trick2: {
+      title: "2. Chunk Large Queries",
+      content: `When you need to process thousands of records, don't load them all at once. Use chunking to process them in batches.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // process user
+    }
+});</code></pre>
+
+Instead of pulling 100k rows into memory, this grabs 500 at a time. Laravel takes care of pagination behind the scenes.
+
+If order matters (e.g., for consistent batch processing), don't forget to sort by id.`
+    },
+    trick3: {
+      title: "3. Use lazy() or cursor() for Streaming",
+      content: `If you're working with really huge datasets, chunking may still consume too much memory. In that case, use cursors:
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // Stream through records one by one
+}</code></pre>
+
+This avoids loading large chunks into memory, streaming rows directly from the database. It's slower per row but extremely memory-efficient.`
+    },
+    trick4: {
+      title: "4. Eager Load Relationships (but Don't Overload)",
+      content: `The N+1 query problem is one of the biggest performance killers in Laravel apps.
+
+<pre><code class="language-php">// ❌ Bad: runs a new query for each post
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ Good: eager load users
+$posts = Post::with('user')->get();</code></pre>
+
+This reduces dozens of queries into just two.
+
+⚠️ But don't eager-load everything. Only load the relationships you really need, otherwise you'll overwhelm memory with unused data.`
+    },
+    trick5: {
+      title: "5. Index Your Database Columns",
+      content: `Sometimes, the bottleneck isn't Eloquent - it's the database itself. Adding proper indexes can cut query times from seconds to milliseconds.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 Always index columns that are frequently used in WHERE, ORDER BY, or JOIN clauses.`
+    },
+    trick6: {
+      title: "6. Paginate Instead of Fetching Everything",
+      content: `For lists and dashboards, never load thousands of records at once. Instead, paginate them.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+This gives you clean pagination links and keeps your memory usage tiny.
+
+If you need infinite scrolling, simplePaginate() is even faster.`
+    },
+    trick7: {
+      title: "7. Use update() and delete() in Bulk",
+      content: `If you need to update or delete a lot of records, don't loop through them. Do it in one query.
+
+<pre><code class="language-php">// ❌ Bad: updates row by row
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ Good: single bulk update
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+This avoids thousands of queries and makes your app fly.`
+    },
+    trick8: {
+      title: "8. Cache When It Makes Sense",
+      content: `If you're repeatedly running the same heavy query, consider caching the results.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel makes this easy, and caching can turn a slow DB query into a fast memory lookup.`
+    },
+    trick9: {
+      title: "9. Profiling Queries",
+      content: `Don't guess where the bottlenecks are. Use the DB::enableQueryLog() or Laravel Telescope to profile queries.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+Or use toSql() to see what Eloquent generates:
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. When Needed... Drop Down to Raw Queries",
+      content: `Eloquent is elegant, but sometimes you need raw performance. Laravel makes it easy to fall back to the query builder or even raw SQL.
+
+<pre><code class="language-php">// Query builder
+$users = DB::table('users')->where('status', 'active')->get();
+
+// Raw SQL
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+Mixing approaches is not a failure - it's pragmatic engineering.`
+    },
+    conclusion: `Laravel's Eloquent ORM is not just for small projects. With the right tricks - from chunking and cursors, to eager loading and bulk updates - you can handle millions of rows efficiently without giving up the readability and maintainability that makes Laravel special.
+
+At the end of the day, performance optimization in Laravel isn't about abandoning Eloquent. It's about understanding its strengths, avoiding its pitfalls, and knowing when to mix in raw power.
+
+And yes, even after all these years, I still love coding with Laravel. It's grown with me from my first side projects to my role as CTO today. Just like PHP itself, it refuses to die - and honestly, I'm fine with that. 🚀`,
+    backToBlog: "Back to Blog",
+    shareArticle: "Share Article",
+    readTime: "9 min read",
+    publishedOn: "Published on",
+    category: "Web Development"
+  },
+  es: {
+    title: "Trucos de Rendimiento Eloquent: Haciendo Volar Laravel con Miles de Registros",
+    metaDescription: "Descubre técnicas avanzadas para optimizar el rendimiento de Eloquent ORM en Laravel. Trucos prácticos para manejar eficientemente miles de registros sin sacrificar la elegancia del código.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `Cuando empiezas con Laravel, Eloquent se siente como magia. Unas pocas líneas de código, y puedes consultar tu base de datos con una sintaxis hermosa y expresiva. Pero a medida que tu proyecto crece y empiezas a manejar miles (o incluso millones) de filas, esa magia puede convertirse repentinamente en consultas lentas, picos de memoria y páginas que se arrastran.
+
+La buena noticia? El ORM Eloquent de Laravel puede escalar muy bien - si conoces algunos trucos de rendimiento. En este artículo, compartiré las técnicas que ayudaron a mi equipo y a mí a optimizar aplicaciones a gran escala sin renunciar a la elegancia de Eloquent.`,
+    trick1: {
+      title: "1. Usa select() para Recuperar Solo lo que Necesitas",
+      content: `Por defecto, Eloquent recupera todas las columnas (SELECT *) de tu base de datos. Para tablas pequeñas, está bien. Pero con tablas grandes y esquemas amplios, esto desperdicia memoria y ralentiza las consultas.
+
+<pre><code class="language-php">// ❌ Evitar: obtiene todas las columnas
+$users = User::all();
+
+// ✅ Mejor: obtén solo los campos necesarios
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 Este pequeño cambio puede ahorrar megabytes de memoria en consultas grandes.`
+    },
+    trick2: {
+      title: "2. Procesa Consultas Grandes en Lotes",
+      content: `Cuando necesitas procesar miles de registros, no los cargues todos de una vez. Usa el procesamiento en lotes para procesarlos en grupos.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // procesar usuario
+    }
+});</code></pre>
+
+En lugar de obtener 100k filas en memoria, esto toma 500 a la vez. Laravel se encarga de la paginación detrás de escena.
+
+Si el orden importa (por ejemplo, para procesamiento consistente en lotes), no olvides ordenar por id.`
+    },
+    trick3: {
+      title: "3. Usa lazy() o cursor() para Streaming",
+      content: `Si estás trabajando con conjuntos de datos realmente enormes, el procesamiento en lotes puede seguir consumiendo demasiada memoria. En ese caso, usa cursores:
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // Procesar registros uno por uno
+}</code></pre>
+
+Esto evita cargar grandes lotes en memoria, procesando filas directamente desde la base de datos. Es más lento por fila pero extremadamente eficiente en memoria.`
+    },
+    trick4: {
+      title: "4. Carga Relaciones con Anticipación (pero No Sobrecargues)",
+      content: `El problema de consulta N+1 es uno de los mayores asesinos de rendimiento en aplicaciones Laravel.
+
+<pre><code class="language-php">// ❌ Malo: ejecuta una nueva consulta para cada post
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ Bueno: carga usuarios con anticipación
+$posts = Post::with('user')->get();</code></pre>
+
+Esto reduce docenas de consultas a solo dos.
+
+⚠️ Pero no cargues todo con anticipación. Solo carga las relaciones que realmente necesitas, de lo contrario abrumarás la memoria con datos no utilizados.`
+    },
+    trick5: {
+      title: "5. Indexa Tus Columnas de Base de Datos",
+      content: `A veces, el cuello de botella no es Eloquent - es la base de datos misma. Agregar índices apropiados puede reducir los tiempos de consulta de segundos a milisegundos.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 Siempre indexa columnas que se usan frecuentemente en cláusulas WHERE, ORDER BY, o JOIN.`
+    },
+    trick6: {
+      title: "6. Pagina en Lugar de Obtener Todo",
+      content: `Para listas y dashboards, nunca cargues miles de registros de una vez. En su lugar, pagínalos.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+Esto te da enlaces de paginación limpios y mantiene tu uso de memoria pequeño.
+
+Si necesitas scroll infinito, simplePaginate() es aún más rápido.`
+    },
+    trick7: {
+      title: "7. Usa update() y delete() en Masa",
+      content: `Si necesitas actualizar o eliminar muchos registros, no los recorras en bucle. Hazlo en una sola consulta.
+
+<pre><code class="language-php">// ❌ Malo: actualiza fila por fila
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ Bueno: actualización en masa única
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+Esto evita miles de consultas y hace volar tu aplicación.`
+    },
+    trick8: {
+      title: "8. Cachea Cuando Tiene Sentido",
+      content: `Si estás ejecutando repetidamente la misma consulta pesada, considera cachear los resultados.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel hace esto fácil, y el cache puede convertir una consulta DB lenta en una búsqueda de memoria rápida.`
+    },
+    trick9: {
+      title: "9. Perfilado de Consultas",
+      content: `No adivines dónde están los cuellos de botella. Usa DB::enableQueryLog() o Laravel Telescope para perfilar consultas.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+O usa toSql() para ver lo que Eloquent genera:
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. Cuando Sea Necesario... Baja a Consultas Brutas",
+      content: `Eloquent es elegante, pero a veces necesitas rendimiento bruto. Laravel facilita volver al constructor de consultas o incluso SQL bruto.
+
+<pre><code class="language-php">// Constructor de consultas
+$users = DB::table('users')->where('status', 'active')->get();
+
+// SQL bruto
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+Mezclar enfoques no es un fracaso - es ingeniería pragmática.`
+    },
+    conclusion: `El ORM Eloquent de Laravel no es solo para proyectos pequeños. Con los trucos correctos - desde procesamiento en lotes y cursores, hasta carga anticipada y actualizaciones en masa - puedes manejar millones de filas eficientemente sin renunciar a la legibilidad y mantenibilidad que hace especial a Laravel.
+
+Al final del día, la optimización de rendimiento en Laravel no se trata de abandonar Eloquent. Se trata de entender sus fortalezas, evitar sus trampas, y saber cuándo mezclar poder bruto.
+
+Y sí, incluso después de todos estos años, todavía amo codificar con Laravel. Ha crecido conmigo desde mis primeros proyectos secundarios hasta mi rol como CTO hoy. Al igual que PHP mismo, se niega a morir - y honestamente, estoy bien con eso. 🚀`,
+    backToBlog: "Volver al Blog",
+    shareArticle: "Compartir Artículo",
+    readTime: "9 min de lectura",
+    publishedOn: "Publicado el",
+    category: "Web Development"
+  },
+  de: {
+    title: "Eloquent Performance Tricks: Laravel mit Tausenden von Datensätzen zum Fliegen bringen",
+    metaDescription: "Entdecke fortgeschrittene Techniken zur Optimierung der Eloquent ORM Performance in Laravel. Praktische Tricks für effizientes Handling von Tausenden von Datensätzen ohne Code-Eleganz zu opfern.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `Wenn du mit Laravel beginnst, fühlt sich Eloquent wie Magie an. Ein paar Zeilen Code, und du kannst deine Datenbank mit schöner, ausdrucksvoller Syntax abfragen. Aber wenn dein Projekt wächst und du anfängst, Tausende (oder sogar Millionen) von Zeilen zu handhaben, kann diese Magie plötzlich zu langsamen Abfragen, Speicherspitzen und trägen Seiten werden.
+
+Die gute Nachricht? Laravels Eloquent ORM kann wirklich gut skalieren - wenn du ein paar Performance-Tricks kennst. In diesem Artikel teile ich die Techniken, die mir und meinem Team geholfen haben, großskalige Anwendungen zu optimieren, ohne die Eleganz von Eloquent aufzugeben.`,
+    trick1: {
+      title: "1. Verwende select() um nur das zu holen, was du brauchst",
+      content: `Standardmäßig holt Eloquent alle Spalten (SELECT *) aus deiner Datenbank. Für kleine Tabellen ist das in Ordnung. Aber bei großen Tabellen und breiten Schemas verschwendet das Speicher und verlangsamt Abfragen.
+
+<pre><code class="language-php">// ❌ Vermeiden: holt alle Spalten
+$users = User::all();
+
+// ✅ Besser: hole nur die benötigten Felder
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 Diese kleine Änderung kann Megabytes Speicher in großen Abfragen sparen.`
+    },
+    trick2: {
+      title: "2. Teile große Abfragen auf",
+      content: `Wenn du Tausende von Datensätzen verarbeiten musst, lade sie nicht alle auf einmal. Verwende Chunking, um sie in Batches zu verarbeiten.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // Benutzer verarbeiten
+    }
+});</code></pre>
+
+Anstatt 100k Zeilen in den Speicher zu laden, nimmt dies 500 auf einmal. Laravel kümmert sich hinter den Kulissen um die Paginierung.
+
+Wenn die Reihenfolge wichtig ist (z.B. für konsistente Batch-Verarbeitung), vergiss nicht, nach id zu sortieren.`
+    },
+    trick3: {
+      title: "3. Verwende lazy() oder cursor() für Streaming",
+      content: `Wenn du mit wirklich riesigen Datensätzen arbeitest, kann Chunking immer noch zu viel Speicher verbrauchen. In diesem Fall verwende Cursor:
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // Datensätze einzeln durchlaufen
+}</code></pre>
+
+Dies vermeidet das Laden großer Chunks in den Speicher und streamt Zeilen direkt aus der Datenbank. Es ist langsamer pro Zeile, aber extrem speichereffizient.`
+    },
+    trick4: {
+      title: "4. Lade Beziehungen vor (aber überlade nicht)",
+      content: `Das N+1 Abfrageproblem ist einer der größten Performance-Killer in Laravel-Apps.
+
+<pre><code class="language-php">// ❌ Schlecht: führt eine neue Abfrage für jeden Post aus
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ Gut: lade Benutzer vor
+$posts = Post::with('user')->get();</code></pre>
+
+Dies reduziert Dutzende von Abfragen auf nur zwei.
+
+⚠️ Aber lade nicht alles vor. Lade nur die Beziehungen, die du wirklich brauchst, sonst überwältigst du den Speicher mit ungenutzten Daten.`
+    },
+    trick5: {
+      title: "5. Indexiere deine Datenbankspalten",
+      content: `Manchmal ist der Engpass nicht Eloquent - es ist die Datenbank selbst. Das Hinzufügen geeigneter Indizes kann Abfragezeiten von Sekunden auf Millisekunden reduzieren.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 Indexiere immer Spalten, die häufig in WHERE-, ORDER BY- oder JOIN-Klauseln verwendet werden.`
+    },
+    trick6: {
+      title: "6. Paginiere anstatt alles zu holen",
+      content: `Für Listen und Dashboards lade niemals Tausende von Datensätzen auf einmal. Paginiere sie stattdessen.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+Dies gibt dir saubere Paginierungslinks und hält deine Speichernutzung winzig.
+
+Wenn du unendliches Scrollen brauchst, ist simplePaginate() noch schneller.`
+    },
+    trick7: {
+      title: "7. Verwende update() und delete() in Massen",
+      content: `Wenn du viele Datensätze aktualisieren oder löschen musst, durchlaufe sie nicht in einer Schleife. Mache es in einer Abfrage.
+
+<pre><code class="language-php">// ❌ Schlecht: aktualisiert Zeile für Zeile
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ Gut: einzelne Massenaktualisierung
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+Dies vermeidet Tausende von Abfragen und lässt deine App fliegen.`
+    },
+    trick8: {
+      title: "8. Cache wenn es Sinn macht",
+      content: `Wenn du wiederholt dieselbe schwere Abfrage ausführst, erwäge das Caching der Ergebnisse.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel macht dies einfach, und Caching kann eine langsame DB-Abfrage in eine schnelle Speichersuche verwandeln.`
+    },
+    trick9: {
+      title: "9. Abfragen profilieren",
+      content: `Rate nicht, wo die Engpässe sind. Verwende DB::enableQueryLog() oder Laravel Telescope, um Abfragen zu profilieren.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+Oder verwende toSql(), um zu sehen, was Eloquent generiert:
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. Wenn nötig... gehe zu rohen Abfragen",
+      content: `Eloquent ist elegant, aber manchmal brauchst du rohe Performance. Laravel macht es einfach, auf den Query Builder oder sogar rohes SQL zurückzugreifen.
+
+<pre><code class="language-php">// Query Builder
+$users = DB::table('users')->where('status', 'active')->get();
+
+// Rohes SQL
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+Ansätze zu mischen ist kein Versagen - es ist pragmatisches Engineering.`
+    },
+    conclusion: `Laravels Eloquent ORM ist nicht nur für kleine Projekte. Mit den richtigen Tricks - von Chunking und Cursorn, bis hin zu Eager Loading und Massenupdates - kannst du Millionen von Zeilen effizient handhaben, ohne die Lesbarkeit und Wartbarkeit aufzugeben, die Laravel besonders macht.
+
+Am Ende des Tages geht es bei der Performance-Optimierung in Laravel nicht darum, Eloquent aufzugeben. Es geht darum, seine Stärken zu verstehen, seine Fallstricke zu vermeiden und zu wissen, wann man rohe Kraft einmischen sollte.
+
+Und ja, auch nach all diesen Jahren liebe ich es immer noch, mit Laravel zu programmieren. Es ist mit mir gewachsen, von meinen ersten Nebenprojekten bis zu meiner heutigen Rolle als CTO. Genau wie PHP selbst weigert es sich zu sterben - und ehrlich gesagt, damit bin ich einverstanden. 🚀`,
+    backToBlog: "Zurück zum Blog",
+    shareArticle: "Artikel teilen",
+    readTime: "9 min Lesezeit",
+    publishedOn: "Veröffentlicht am",
+    category: "Web Development"
+  },
+  pt: {
+    title: "Truques de Performance Eloquent: Fazendo Laravel Voar com Milhares de Registros",
+    metaDescription: "Descubra técnicas avançadas para otimizar a performance do Eloquent ORM no Laravel. Truques práticos para lidar eficientemente com milhares de registros sem sacrificar a elegância do código.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `Quando você começa com Laravel, Eloquent parece mágica. Algumas linhas de código, e você pode consultar seu banco de dados com uma sintaxe bonita e expressiva. Mas conforme seu projeto cresce e você começa a lidar com milhares (ou até milhões) de linhas, essa mágica pode de repente se transformar em consultas lentas, picos de memória e páginas travando.
+
+A boa notícia? O ORM Eloquent do Laravel pode escalar muito bem - se você souber alguns truques de performance. Neste artigo, vou compartilhar as técnicas que ajudaram minha equipe e eu a otimizar aplicações em larga escala sem desistir da elegância do Eloquent.`,
+    trick1: {
+      title: "1. Use select() para Recuperar Apenas o que Você Precisa",
+      content: `Por padrão, Eloquent recupera todas as colunas (SELECT *) do seu banco de dados. Para tabelas pequenas, isso está bem. Mas com tabelas grandes e esquemas amplos, isso desperdiça memória e desacelera consultas.
+
+<pre><code class="language-php">// ❌ Evitar: puxa todas as colunas
+$users = User::all();
+
+// ✅ Melhor: busca apenas os campos necessários
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 Esta pequena mudança pode economizar megabytes de memória em consultas grandes.`
+    },
+    trick2: {
+      title: "2. Processe Consultas Grandes em Lotes",
+      content: `Quando você precisa processar milhares de registros, não os carregue todos de uma vez. Use chunking para processá-los em lotes.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // processar usuário
+    }
+});</code></pre>
+
+Em vez de puxar 100k linhas para a memória, isso pega 500 por vez. Laravel cuida da paginação nos bastidores.
+
+Se a ordem importa (ex: para processamento consistente em lotes), não esqueça de ordenar por id.`
+    },
+    trick3: {
+      title: "3. Use lazy() ou cursor() para Streaming",
+      content: `Se você está trabalhando com conjuntos de dados realmente enormes, chunking pode ainda consumir muita memória. Nesse caso, use cursores:
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // Processar registros um por um
+}</code></pre>
+
+Isso evita carregar grandes lotes na memória, fazendo streaming das linhas diretamente do banco de dados. É mais lento por linha mas extremamente eficiente em memória.`
+    },
+    trick4: {
+      title: "4. Carregue Relacionamentos Antecipadamente (mas Não Sobrecarregue)",
+      content: `O problema de consulta N+1 é um dos maiores assassinos de performance em apps Laravel.
+
+<pre><code class="language-php">// ❌ Ruim: executa uma nova consulta para cada post
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ Bom: carrega usuários antecipadamente
+$posts = Post::with('user')->get();</code></pre>
+
+Isso reduz dezenas de consultas para apenas duas.
+
+⚠️ Mas não carregue tudo antecipadamente. Carregue apenas os relacionamentos que você realmente precisa, senão você sobrecarregará a memória com dados não utilizados.`
+    },
+    trick5: {
+      title: "5. Indexe Suas Colunas do Banco de Dados",
+      content: `Às vezes, o gargalo não é Eloquent - é o próprio banco de dados. Adicionar índices apropriados pode cortar tempos de consulta de segundos para milissegundos.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 Sempre indexe colunas que são frequentemente usadas em cláusulas WHERE, ORDER BY, ou JOIN.`
+    },
+    trick6: {
+      title: "6. Pagine em Vez de Buscar Tudo",
+      content: `Para listas e dashboards, nunca carregue milhares de registros de uma vez. Em vez disso, pagine-os.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+Isso te dá links de paginação limpos e mantém seu uso de memória minúsculo.
+
+Se você precisa de scroll infinito, simplePaginate() é ainda mais rápido.`
+    },
+    trick7: {
+      title: "7. Use update() e delete() em Massa",
+      content: `Se você precisa atualizar ou deletar muitos registros, não os percorra em loop. Faça em uma consulta.
+
+<pre><code class="language-php">// ❌ Ruim: atualiza linha por linha
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ Bom: atualização em massa única
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+Isso evita milhares de consultas e faz sua app voar.`
+    },
+    trick8: {
+      title: "8. Cache Quando Fizer Sentido",
+      content: `Se você está executando repetidamente a mesma consulta pesada, considere cachear os resultados.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel torna isso fácil, e cache pode transformar uma consulta DB lenta em uma busca de memória rápida.`
+    },
+    trick9: {
+      title: "9. Perfilando Consultas",
+      content: `Não adivinhe onde estão os gargalos. Use DB::enableQueryLog() ou Laravel Telescope para perfilar consultas.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+Ou use toSql() para ver o que Eloquent gera:
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. Quando Necessário... Desça para Consultas Brutas",
+      content: `Eloquent é elegante, mas às vezes você precisa de performance bruta. Laravel torna fácil voltar ao query builder ou até SQL bruto.
+
+<pre><code class="language-php">// Query builder
+$users = DB::table('users')->where('status', 'active')->get();
+
+// SQL bruto
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+Misturar abordagens não é falha - é engenharia pragmática.`
+    },
+    conclusion: `O ORM Eloquent do Laravel não é apenas para projetos pequenos. Com os truques certos - de chunking e cursores, a eager loading e updates em massa - você pode lidar com milhões de linhas eficientemente sem desistir da legibilidade e manutenibilidade que torna Laravel especial.
+
+No final do dia, otimização de performance no Laravel não é sobre abandonar Eloquent. É sobre entender suas forças, evitar suas armadilhas, e saber quando misturar poder bruto.
+
+E sim, mesmo depois de todos esses anos, eu ainda amo programar com Laravel. Ele cresceu comigo dos meus primeiros projetos paralelos ao meu papel como CTO hoje. Assim como o próprio PHP, ele se recusa a morrer - e honestamente, estou bem com isso. 🚀`,
+    backToBlog: "Voltar ao Blog",
+    shareArticle: "Compartilhar Artigo",
+    readTime: "9 min de leitura",
+    publishedOn: "Publicado em",
+    category: "Web Development"
+  },
+  ja: {
+    title: "Eloquent パフォーマンスのコツ：数千のレコードでLaravelを飛ばす",
+    metaDescription: "LaravelのEloquent ORMパフォーマンスを最適化する高度なテクニックを発見してください。コードのエレガンスを犠牲にすることなく、数千のレコードを効率的に処理する実用的なコツ。",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `Laravelを始めたとき、Eloquentは魔法のように感じます。数行のコードで、美しく表現力豊かな構文でデータベースをクエリできます。しかし、プロジェクトが成長し、数千（または数百万）の行を処理し始めると、その魔法は突然、遅いクエリ、メモリスパイク、遅延するページに変わることがあります。
+
+良いニュース？LaravelのEloquent ORMは本当にうまくスケールできます - いくつかのパフォーマンスのコツを知っていれば。この記事では、Eloquentのエレガンスを放棄することなく、大規模アプリケーションを最適化するのに私と私のチームを助けたテクニックを共有します。`,
+    trick1: {
+      title: "1. select()を使用して必要なものだけを取得する",
+      content: `デフォルトでは、Eloquentはデータベースからすべての列（SELECT *）を取得します。小さなテーブルでは問題ありません。しかし、大きなテーブルと広いスキーマでは、これはメモリを浪費し、クエリを遅くします。
+
+<pre><code class="language-php">// ❌ 避ける：すべての列を取得
+$users = User::all();
+
+// ✅ より良い：必要なフィールドのみを取得
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 この小さな変更で、大きなクエリでメガバイトのメモリを節約できます。`
+    },
+    trick2: {
+      title: "2. 大きなクエリをチャンクで処理する",
+      content: `数千のレコードを処理する必要があるとき、一度にすべてを読み込まないでください。チャンキングを使用してバッチで処理します。
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // ユーザーを処理
+    }
+});</code></pre>
+
+100k行をメモリに読み込む代わりに、これは一度に500を取得します。Laravelがバックグラウンドでページネーションを処理します。
+
+順序が重要（例：一貫したバッチ処理）な場合は、idでソートすることを忘れないでください。`
+    },
+    trick3: {
+      title: "3. ストリーミングにlazy()またはcursor()を使用する",
+      content: `本当に巨大なデータセットを扱っている場合、チャンキングでもまだメモリを消費しすぎる可能性があります。その場合は、カーソルを使用してください：
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // レコードを一つずつストリーミング
+}</code></pre>
+
+これは大きなチャンクをメモリに読み込むことを避け、データベースから直接行をストリーミングします。行ごとは遅いですが、メモリ効率は極めて高いです。`
+    },
+    trick4: {
+      title: "4. リレーションを事前読み込みする（ただし過負荷にしない）",
+      content: `N+1クエリ問題は、Laravelアプリで最大のパフォーマンスキラーの一つです。
+
+<pre><code class="language-php">// ❌ 悪い：各投稿に対して新しいクエリを実行
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ 良い：ユーザーを事前読み込み
+$posts = Post::with('user')->get();</code></pre>
+
+これにより、数十のクエリがわずか2つに削減されます。
+
+⚠️ ただし、すべてを事前読み込みしないでください。本当に必要なリレーションのみを読み込み、そうしないと未使用のデータでメモリを圧迫します。`
+    },
+    trick5: {
+      title: "5. データベース列にインデックスを付ける",
+      content: `時々、ボトルネックはEloquentではありません - データベース自体です。適切なインデックスを追加することで、クエリ時間を秒からミリ秒に短縮できます。
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 WHERE、ORDER BY、またはJOIN句で頻繁に使用される列は常にインデックスを付けてください。`
+    },
+    trick6: {
+      title: "6. すべてを取得する代わりにページネーションを使用する",
+      content: `リストやダッシュボードでは、一度に数千のレコードを読み込まないでください。代わりにページネーションを使用します。
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+これにより、きれいなページネーションリンクが得られ、メモリ使用量を小さく保てます。
+
+無限スクロールが必要な場合は、simplePaginate()がさらに高速です。`
+    },
+    trick7: {
+      title: "7. 一括でupdate()とdelete()を使用する",
+      content: `多くのレコードを更新または削除する必要がある場合、ループで処理しないでください。一つのクエリで行います。
+
+<pre><code class="language-php">// ❌ 悪い：行ごとに更新
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ 良い：単一の一括更新
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+これにより、数千のクエリを避け、アプリを飛ばせます。`
+    },
+    trick8: {
+      title: "8. 意味があるときにキャッシュを使用する",
+      content: `同じ重いクエリを繰り返し実行している場合は、結果をキャッシュすることを検討してください。
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravelはこれを簡単にし、キャッシュは遅いDBクエリを高速なメモリ検索に変えることができます。`
+    },
+    trick9: {
+      title: "9. クエリのプロファイリング",
+      content: `ボトルネックがどこにあるかを推測しないでください。DB::enableQueryLog()またはLaravel Telescopeを使用してクエリをプロファイリングしてください。
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+または、Eloquentが生成するものを確認するためにtoSql()を使用してください：
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. 必要に応じて...生のクエリに下がる",
+      content: `Eloquentはエレガントですが、時には生のパフォーマンスが必要です。Laravelはクエリビルダーや生のSQLに戻ることを簡単にします。
+
+<pre><code class="language-php">// クエリビルダー
+$users = DB::table('users')->where('status', 'active')->get();
+
+// 生のSQL
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+アプローチを混ぜることは失敗ではありません - それは実用的なエンジニアリングです。`
+    },
+    conclusion: `LaravelのEloquent ORMは小さなプロジェクトだけのものではありません。正しいコツ - チャンキングとカーソルから、イーガーローディングと一括更新まで - で、Laravelを特別にする読みやすさと保守性を放棄することなく、数百万の行を効率的に処理できます。
+
+一日の終わりに、Laravelでのパフォーマンス最適化はEloquentを放棄することではありません。その強みを理解し、その落とし穴を避け、いつ生の力を混ぜるべきかを知ることです。
+
+そして、はい、これらすべての年が経った後でも、私はまだLaravelでコーディングすることを愛しています。それは私の最初のサイドプロジェクトから今日のCTOとしての役割まで、私と一緒に成長してきました。PHP自体のように、それは死ぬことを拒否します - そして正直に言って、私はそれで大丈夫です。🚀`,
+    backToBlog: "ブログに戻る",
+    shareArticle: "記事を共有",
+    readTime: "9分で読める",
+    publishedOn: "公開日",
+    category: "Web Development"
+  },
+  ko: {
+    title: "Eloquent 성능 트릭: 수천 개의 레코드로 Laravel을 날게 만들기",
+    metaDescription: "Laravel의 Eloquent ORM 성능을 최적화하는 고급 기법을 발견하세요. 코드의 우아함을 희생하지 않고 수천 개의 레코드를 효율적으로 처리하는 실용적인 트릭들.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `Laravel을 처음 시작할 때, Eloquent는 마법처럼 느껴집니다. 몇 줄의 코드로 아름답고 표현력 있는 구문으로 데이터베이스를 쿼리할 수 있습니다. 하지만 프로젝트가 성장하고 수천 개(또는 수백만 개)의 행을 처리하기 시작하면, 그 마법이 갑자기 느린 쿼리, 메모리 스파이크, 지연되는 페이지로 변할 수 있습니다.
+
+좋은 소식? Laravel의 Eloquent ORM은 정말 잘 확장될 수 있습니다 - 몇 가지 성능 트릭을 알고 있다면. 이 기사에서는 Eloquent의 우아함을 포기하지 않고 대규모 애플리케이션을 최적화하는 데 저와 제 팀을 도운 기법들을 공유하겠습니다.`,
+    trick1: {
+      title: "1. select()를 사용하여 필요한 것만 검색하기",
+      content: `기본적으로 Eloquent는 데이터베이스에서 모든 열(SELECT *)을 검색합니다. 작은 테이블의 경우 괜찮습니다. 하지만 큰 테이블과 넓은 스키마에서는 메모리를 낭비하고 쿼리를 느리게 만듭니다.
+
+<pre><code class="language-php">// ❌ 피하기: 모든 열을 가져옴
+$users = User::all();
+
+// ✅ 더 좋음: 필요한 필드만 가져옴
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 이 작은 변경으로 큰 쿼리에서 메가바이트의 메모리를 절약할 수 있습니다.`
+    },
+    trick2: {
+      title: "2. 큰 쿼리를 청크로 처리하기",
+      content: `수천 개의 레코드를 처리해야 할 때, 한 번에 모두 로드하지 마세요. 청킹을 사용하여 배치로 처리하세요.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // 사용자 처리
+    }
+});</code></pre>
+
+100k 행을 메모리로 가져오는 대신, 이것은 한 번에 500개를 가져옵니다. Laravel이 백그라운드에서 페이지네이션을 처리합니다.
+
+순서가 중요한 경우(예: 일관된 배치 처리), id로 정렬하는 것을 잊지 마세요.`
+    },
+    trick3: {
+      title: "3. 스트리밍을 위해 lazy() 또는 cursor() 사용하기",
+      content: `정말 거대한 데이터셋을 작업하고 있다면, 청킹도 여전히 너무 많은 메모리를 소비할 수 있습니다. 그 경우 커서를 사용하세요:
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // 레코드를 하나씩 스트리밍
+}</code></pre>
+
+이것은 큰 청크를 메모리에 로드하는 것을 피하고, 데이터베이스에서 직접 행을 스트리밍합니다. 행당으로는 느리지만 메모리 효율성이 극도로 높습니다.`
+    },
+    trick4: {
+      title: "4. 관계를 미리 로드하기 (하지만 과부하하지 않기)",
+      content: `N+1 쿼리 문제는 Laravel 앱에서 가장 큰 성능 킬러 중 하나입니다.
+
+<pre><code class="language-php">// ❌ 나쁨: 각 포스트에 대해 새로운 쿼리 실행
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ 좋음: 사용자 미리 로드
+$posts = Post::with('user')->get();</code></pre>
+
+이것은 수십 개의 쿼리를 단 두 개로 줄입니다.
+
+⚠️ 하지만 모든 것을 미리 로드하지 마세요. 정말 필요한 관계만 로드하세요, 그렇지 않으면 사용하지 않는 데이터로 메모리를 압도할 것입니다.`
+    },
+    trick5: {
+      title: "5. 데이터베이스 열에 인덱스 추가하기",
+      content: `때로는 병목이 Eloquent가 아닙니다 - 데이터베이스 자체입니다. 적절한 인덱스를 추가하면 쿼리 시간을 초에서 밀리초로 단축할 수 있습니다.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 WHERE, ORDER BY, 또는 JOIN 절에서 자주 사용되는 열은 항상 인덱스를 추가하세요.`
+    },
+    trick6: {
+      title: "6. 모든 것을 가져오는 대신 페이지네이션 사용하기",
+      content: `목록과 대시보드의 경우, 한 번에 수천 개의 레코드를 로드하지 마세요. 대신 페이지네이션을 사용하세요.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+이것은 깔끔한 페이지네이션 링크를 제공하고 메모리 사용량을 작게 유지합니다.
+
+무한 스크롤이 필요하다면, simplePaginate()가 더욱 빠릅니다.`
+    },
+    trick7: {
+      title: "7. 대량으로 update()와 delete() 사용하기",
+      content: `많은 레코드를 업데이트하거나 삭제해야 할 때, 루프로 처리하지 마세요. 하나의 쿼리로 하세요.
+
+<pre><code class="language-php">// ❌ 나쁨: 행별로 업데이트
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ 좋음: 단일 대량 업데이트
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+이것은 수천 개의 쿼리를 피하고 앱을 날게 만듭니다.`
+    },
+    trick8: {
+      title: "8. 의미가 있을 때 캐시 사용하기",
+      content: `같은 무거운 쿼리를 반복적으로 실행하고 있다면, 결과를 캐시하는 것을 고려하세요.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel은 이것을 쉽게 만들고, 캐싱은 느린 DB 쿼리를 빠른 메모리 검색으로 바꿀 수 있습니다.`
+    },
+    trick9: {
+      title: "9. 쿼리 프로파일링",
+      content: `병목이 어디에 있는지 추측하지 마세요. DB::enableQueryLog() 또는 Laravel Telescope를 사용하여 쿼리를 프로파일링하세요.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+또는 Eloquent가 생성하는 것을 보기 위해 toSql()을 사용하세요:
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. 필요할 때... 원시 쿼리로 내려가기",
+      content: `Eloquent는 우아하지만, 때로는 원시 성능이 필요합니다. Laravel은 쿼리 빌더나 심지어 원시 SQL로 돌아가는 것을 쉽게 만듭니다.
+
+<pre><code class="language-php">// 쿼리 빌더
+$users = DB::table('users')->where('status', 'active')->get();
+
+// 원시 SQL
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+접근 방식을 혼합하는 것은 실패가 아닙니다 - 그것은 실용적인 엔지니어링입니다.`
+    },
+    conclusion: `Laravel의 Eloquent ORM은 작은 프로젝트만을 위한 것이 아닙니다. 올바른 트릭들 - 청킹과 커서부터, 이거 로딩과 대량 업데이트까지 - 으로 Laravel을 특별하게 만드는 가독성과 유지보수성을 포기하지 않고 수백만 개의 행을 효율적으로 처리할 수 있습니다.
+
+하루의 끝에, Laravel에서의 성능 최적화는 Eloquent를 포기하는 것이 아닙니다. 그것의 강점을 이해하고, 그것의 함정을 피하고, 언제 원시 힘을 섞을지 아는 것입니다.
+
+그리고 네, 이 모든 년이 지난 후에도, 저는 여전히 Laravel로 코딩하는 것을 사랑합니다. 그것은 제 첫 번째 사이드 프로젝트부터 오늘의 CTO 역할까지 저와 함께 성장했습니다. PHP 자체처럼, 그것은 죽기를 거부합니다 - 그리고 솔직히, 저는 그것으로 괜찮습니다. 🚀`,
+    backToBlog: "블로그로 돌아가기",
+    shareArticle: "기사 공유",
+    readTime: "9분 읽기",
+    publishedOn: "게시일",
+    category: "Web Development"
+  },
+  zh: {
+    title: "Eloquent性能技巧：让Laravel处理数千条记录时飞起来",
+    metaDescription: "发现优化Laravel中Eloquent ORM性能的高级技术。在不牺牲代码优雅性的情况下高效处理数千条记录的实用技巧。",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `当你刚开始使用Laravel时，Eloquent感觉就像魔法。几行代码，你就可以用美丽、富有表现力的语法查询数据库。但随着项目增长，你开始处理数千（甚至数百万）行时，这种魔法可能突然变成慢查询、内存峰值和延迟页面。
+
+好消息？Laravel的Eloquent ORM可以很好地扩展 - 如果你知道一些性能技巧。在这篇文章中，我将分享帮助我和我的团队优化大规模应用程序而不放弃Eloquent优雅性的技术。`,
+    trick1: {
+      title: "1. 使用select()只检索你需要的内容",
+      content: `默认情况下，Eloquent从数据库检索所有列（SELECT *）。对于小表，这很好。但对于大表和宽模式，这会浪费内存并减慢查询。
+
+<pre><code class="language-php">// ❌ 避免：拉取所有列
+$users = User::all();
+
+// ✅ 更好：只获取需要的字段
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 这个小小的改变可以在大查询中节省兆字节的内存。`
+    },
+    trick2: {
+      title: "2. 分块处理大查询",
+      content: `当你需要处理数千条记录时，不要一次性加载所有记录。使用分块处理将它们分批处理。
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // 处理用户
+    }
+});</code></pre>
+
+不是将100k行拉入内存，而是一次获取500行。Laravel在后台处理分页。
+
+如果顺序很重要（例如，对于一致的批处理），不要忘记按id排序。`
+    },
+    trick3: {
+      title: "3. 使用lazy()或cursor()进行流式处理",
+      content: `如果你正在处理真正巨大的数据集，分块可能仍然消耗太多内存。在这种情况下，使用游标：
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // 逐条流式处理记录
+}</code></pre>
+
+这避免了将大块加载到内存中，直接从数据库流式传输行。每行较慢但内存效率极高。`
+    },
+    trick4: {
+      title: "4. 预加载关系（但不要过载）",
+      content: `N+1查询问题是Laravel应用程序中最大的性能杀手之一。
+
+<pre><code class="language-php">// ❌ 坏：为每个帖子运行新查询
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ 好：预加载用户
+$posts = Post::with('user')->get();</code></pre>
+
+这将数十个查询减少到只有两个。
+
+⚠️ 但不要预加载所有内容。只加载你真正需要的关系，否则你会用未使用的数据压倒内存。`
+    },
+    trick5: {
+      title: "5. 为数据库列添加索引",
+      content: `有时，瓶颈不是Eloquent - 而是数据库本身。添加适当的索引可以将查询时间从秒缩短到毫秒。
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 总是为在WHERE、ORDER BY或JOIN子句中频繁使用的列添加索引。`
+    },
+    trick6: {
+      title: "6. 使用分页而不是获取所有内容",
+      content: `对于列表和仪表板，永远不要一次性加载数千条记录。相反，对它们进行分页。
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+这给你提供了干净的分页链接，并保持内存使用量很小。
+
+如果你需要无限滚动，simplePaginate()甚至更快。`
+    },
+    trick7: {
+      title: "7. 批量使用update()和delete()",
+      content: `如果你需要更新或删除大量记录，不要循环遍历它们。在一个查询中完成。
+
+<pre><code class="language-php">// ❌ 坏：逐行更新
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ 好：单一批量更新
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+这避免了数千个查询，让你的应用程序飞起来。`
+    },
+    trick8: {
+      title: "8. 在合适的时候使用缓存",
+      content: `如果你反复运行相同的重查询，考虑缓存结果。
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel使这变得容易，缓存可以将慢的DB查询转换为快速的内存查找。`
+    },
+    trick9: {
+      title: "9. 查询分析",
+      content: `不要猜测瓶颈在哪里。使用DB::enableQueryLog()或Laravel Telescope来分析查询。
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+或者使用toSql()来查看Eloquent生成的内容：
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. 必要时...降级到原始查询",
+      content: `Eloquent很优雅，但有时你需要原始性能。Laravel使回退到查询构建器甚至原始SQL变得容易。
+
+<pre><code class="language-php">// 查询构建器
+$users = DB::table('users')->where('status', 'active')->get();
+
+// 原始SQL
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+混合方法不是失败 - 这是务实的工程。`
+    },
+    conclusion: `Laravel的Eloquent ORM不仅仅适用于小项目。有了正确的技巧 - 从分块和游标，到预加载和批量更新 - 你可以高效地处理数百万行，而不放弃使Laravel特别的可读性和可维护性。
+
+归根结底，Laravel中的性能优化不是关于放弃Eloquent。它是关于理解它的优势，避免它的陷阱，并知道何时混合原始力量。
+
+是的，即使经过这么多年，我仍然喜欢用Laravel编程。它从我的第一个副项目到今天我作为CTO的角色一直与我一起成长。就像PHP本身一样，它拒绝死亡 - 老实说，我对此很满意。🚀`,
+    backToBlog: "返回博客",
+    shareArticle: "分享文章",
+    readTime: "9分钟阅读",
+    publishedOn: "发布于",
+    category: "Web Development"
+  },
+  ar: {
+    title: "حيل أداء Eloquent: جعل Laravel يطير مع آلاف السجلات",
+    metaDescription: "اكتشف التقنيات المتقدمة لتحسين أداء Eloquent ORM في Laravel. حيل عملية للتعامل بكفاءة مع آلاف السجلات دون التضحية بأناقة الكود.",
+    date: "2024-02-05",
+    readTime: "9",
+    category: "Web Development",
+    introduction: `عندما تبدأ مع Laravel، يبدو Eloquent كالسحر. بضعة أسطر من الكود، ويمكنك الاستعلام عن قاعدة البيانات الخاصة بك ببناء جملة جميل ومعبر. ولكن مع نمو مشروعك وبدء التعامل مع آلاف (أو حتى ملايين) الصفوف، يمكن أن يتحول هذا السحر فجأة إلى استعلامات بطيئة وارتفاعات في الذاكرة وصفحات متأخرة.
+
+الأخبار الجيدة؟ يمكن لـ Eloquent ORM في Laravel أن يتوسع بشكل جيد حقاً - إذا كنت تعرف بعض حيل الأداء. في هذه المقالة، سأشارك التقنيات التي ساعدتني وفريقي على تحسين التطبيقات واسعة النطاق دون التخلي عن أناقة Eloquent.`,
+    trick1: {
+      title: "1. استخدم select() لاسترداد ما تحتاجه فقط",
+      content: `افتراضياً، يسترد Eloquent جميع الأعمدة (SELECT *) من قاعدة البيانات الخاصة بك. للجداول الصغيرة، هذا جيد. ولكن مع الجداول الكبيرة والمخططات الواسعة، هذا يهدر الذاكرة ويبطئ الاستعلامات.
+
+<pre><code class="language-php">// ❌ تجنب: يسحب جميع الأعمدة
+$users = User::all();
+
+// ✅ أفضل: جلب الحقول المطلوبة فقط
+$users = User::select('id', 'name', 'email')->get();</code></pre>
+
+👉 هذا التغيير الصغير يمكن أن يوفر ميجابايت من الذاكرة في الاستعلامات الكبيرة.`
+    },
+    trick2: {
+      title: "2. قم بمعالجة الاستعلامات الكبيرة على دفعات",
+      content: `عندما تحتاج إلى معالجة آلاف السجلات، لا تحملها كلها مرة واحدة. استخدم المعالجة على دفعات لمعالجتها في مجموعات.
+
+<pre><code class="language-php">User::chunk(500, function ($users) {
+    foreach ($users as $user) {
+        // معالجة المستخدم
+    }
+});</code></pre>
+
+بدلاً من سحب 100k صف في الذاكرة، هذا يأخذ 500 في المرة الواحدة. Laravel يتولى الترقيم في الخلفية.
+
+إذا كان الترتيب مهم (مثلاً، للمعالجة المتسقة على دفعات)، لا تنس الترتيب حسب id.`
+    },
+    trick3: {
+      title: "3. استخدم lazy() أو cursor() للتدفق",
+      content: `إذا كنت تعمل مع مجموعات بيانات ضخمة حقاً، قد تستهلك المعالجة على دفعات الكثير من الذاكرة. في هذه الحالة، استخدم المؤشرات:
+
+<pre><code class="language-php">foreach (User::cursor() as $user) {
+    // تدفق عبر السجلات واحداً تلو الآخر
+}</code></pre>
+
+هذا يتجنب تحميل الدفعات الكبيرة في الذاكرة، ويتدفق بالصفوف مباشرة من قاعدة البيانات. إنه أبطأ لكل صف ولكنه فعال جداً في الذاكرة.`
+    },
+    trick4: {
+      title: "4. حمّل العلاقات مسبقاً (لكن لا تفرط في التحميل)",
+      content: `مشكلة الاستعلام N+1 هي واحدة من أكبر قتلة الأداء في تطبيقات Laravel.
+
+<pre><code class="language-php">// ❌ سيء: يشغل استعلام جديد لكل منشور
+$posts = Post::all();
+foreach ($posts as $post) {
+    echo $post->user->name;
+}
+
+// ✅ جيد: حمّل المستخدمين مسبقاً
+$posts = Post::with('user')->get();</code></pre>
+
+هذا يقلل العشرات من الاستعلامات إلى اثنين فقط.
+
+⚠️ لكن لا تحمل كل شيء مسبقاً. حمّل فقط العلاقات التي تحتاجها حقاً، وإلا ستطغى على الذاكرة ببيانات غير مستخدمة.`
+    },
+    trick5: {
+      title: "5. فهرس أعمدة قاعدة البيانات الخاصة بك",
+      content: `أحياناً، الاختناق ليس Eloquent - إنه قاعدة البيانات نفسها. إضافة الفهارس المناسبة يمكن أن تقطع أوقات الاستعلام من ثوانٍ إلى ميلي ثوانٍ.
+
+<pre><code class="language-php">Schema::table('users', function (Blueprint $table) {
+    $table->index('email');
+    $table->index(['status', 'created_at']);
+});</code></pre>
+
+👉 فهرس دائماً الأعمدة التي تُستخدم بشكل متكرر في شروط WHERE أو ORDER BY أو JOIN.`
+    },
+    trick6: {
+      title: "6. استخدم الترقيم بدلاً من جلب كل شيء",
+      content: `لل قوائم واللوحات، لا تحمل آلاف السجلات مرة واحدة أبداً. بدلاً من ذلك، رقمها.
+
+<pre><code class="language-php">$users = User::paginate(50);</code></pre>
+
+هذا يعطيك روابط ترقيم نظيفة ويبقي استخدام الذاكرة صغيراً.
+
+إذا كنت تحتاج تمرير لا نهائي، simplePaginate() أسرع حتى.`
+    },
+    trick7: {
+      title: "7. استخدم update() و delete() بكميات كبيرة",
+      content: `إذا كنت تحتاج إلى تحديث أو حذف الكثير من السجلات، لا تعبرها في حلقة. افعلها في استعلام واحد.
+
+<pre><code class="language-php">// ❌ سيء: يحدث صفاً بصف
+foreach ($users as $user) {
+    $user->update(['active' => false]);
+}
+
+// ✅ جيد: تحديث بكمية كبيرة واحد
+User::where('active', true)->update(['active' => false]);</code></pre>
+
+هذا يتجنب آلاف الاستعلامات ويجعل تطبيقك يطير.`
+    },
+    trick8: {
+      title: "8. استخدم التخزين المؤقت عندما يكون منطقياً",
+      content: `إذا كنت تشغل نفس الاستعلام الثقيل بشكل متكرر، فكر في تخزين النتائج مؤقتاً.
+
+<pre><code class="language-php">$users = Cache::remember('active_users', 600, function () {
+    return User::where('active', true)->get();
+});</code></pre>
+
+Laravel يجعل هذا سهلاً، والتخزين المؤقت يمكن أن يحول استعلام DB بطيء إلى بحث ذاكرة سريع.`
+    },
+    trick9: {
+      title: "9. تحليل الاستعلامات",
+      content: `لا تخمن أين هي الاختناقات. استخدم DB::enableQueryLog() أو Laravel Telescope لتحليل الاستعلامات.
+
+<pre><code class="language-php">DB::enableQueryLog();
+$users = User::where('status', 'active')->get();
+dd(DB::getQueryLog());</code></pre>
+
+أو استخدم toSql() لرؤية ما يولده Eloquent:
+
+<pre><code class="language-php">dd(User::where('status', 'active')->toSql());</code></pre>`
+    },
+    trick10: {
+      title: "10. عند الحاجة... انزل إلى الاستعلامات الخام",
+      content: `Eloquent أنيق، لكن أحياناً تحتاج أداء خام. Laravel يجعل من السهل العودة إلى منشئ الاستعلامات أو حتى SQL خام.
+
+<pre><code class="language-php">// منشئ الاستعلامات
+$users = DB::table('users')->where('status', 'active')->get();
+
+// SQL خام
+$users = DB::select('SELECT id, name FROM users WHERE status = ?', ['active']);</code></pre>
+
+خلط الأساليب ليس فشلاً - إنه هندسة عملية.`
+    },
+    conclusion: `Eloquent ORM في Laravel ليس فقط للمشاريع الصغيرة. مع الحيل الصحيحة - من المعالجة على دفعات والمؤشرات، إلى التحميل المسبق والتحديثات بكميات كبيرة - يمكنك التعامل مع ملايين الصفوف بكفاءة دون التخلي عن القابلية للقراءة والصيانة التي تجعل Laravel مميزاً.
+
+في نهاية المطاف، تحسين الأداء في Laravel ليس حول التخلي عن Eloquent. إنه حول فهم نقاط قوته، وتجنب مآزقه، ومعرفة متى تخلط القوة الخام.
+
+ونعم، حتى بعد كل هذه السنوات، ما زلت أحب البرمجة بـ Laravel. لقد نما معي من مشاريعي الجانبية الأولى إلى دوري كـ CTO اليوم. تماماً مثل PHP نفسه، يرفض الموت - وبصراحة، أنا بخير مع ذلك. 🚀`,
+    backToBlog: "العودة إلى المدونة",
+    shareArticle: "مشاركة المقال",
+    readTime: "9 دقائق قراءة",
+    publishedOn: "نُشر في",
+    category: "Web Development"
+  }
+};
+
+const content = articleContent[lang as keyof typeof articleContent] || articleContent.en;
+const title = content.title;
+const description = content.metaDescription;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={canonical}
+  currentPath={currentPath}
+  currentLang={currentLang}
+>
+  <main class="container mx-auto px-4 py-8">
+    <article class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-8 lg:p-10">
+      <a href={`/${lang}/blog/`} class="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        {content.backToBlog}
+      </a>
+
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">{content.title}</h1>
+      <div class="flex items-center text-gray-600 text-sm mb-6">
+        <span class="mr-3">{content.date}</span>
+        <span class="mr-3">*</span>
+        <span class="mr-3">{content.readTime} {content.readTime.includes('min') ? 'min' : 'min de lecture'}</span>
+        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">{content.category}</span>
+      </div>
+
+      <div class="text-lg text-gray-800 mb-8 leading-relaxed" set:html={content.introduction} />
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick1.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick1.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick2.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick2.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick3.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick3.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick4.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick4.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick5.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick5.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick6.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick6.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick7.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick7.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick8.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick8.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick9.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick9.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">{content.trick10.title}</h2>
+        <div class="text-gray-700 leading-relaxed" set:html={content.trick10.content} />
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">Conclusion</h2>
+        <div class="text-lg text-gray-800 leading-relaxed" set:html={content.conclusion} />
+      </section>
+
+      <div class="flex justify-center gap-4 mt-8">
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(content.title + ' by Oussema Trabelsi ' + canonical)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.407 0-6.17 2.763-6.17 6.169 0 .484.055.955.162 1.404-5.13-.259-9.665-2.723-12.704-6.475-.526.906-.833 1.956-.833 3.076 0 2.132 1.084 4.006 2.723 5.107-.8-.025-1.555-.247-2.21-.612v.078c0 2.98 2.12 5.46 4.928 6.02-.514.14-1.055.215-1.61.215-.395 0-.778-.038-1.153-.11.78 2.43 3.04 4.207 5.713 4.256-2.09 1.64-4.724 2.62-7.59 2.62-.493 0-.978-.029-1.45-.085 2.704 1.736 5.918 2.755 9.36 2.755 11.23 0 17.36-9.31 17.36-17.36 0-.265-.007-.525-.02-.788.95-.688 1.77-1.544 2.42-2.52Z"/></svg>
+          {content.shareArticle}
+        </a>
+        <a
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonical)}&title=${encodeURIComponent(content.title)}&summary=${encodeURIComponent(content.metaDescription)}&source=${encodeURIComponent('Oussema Trabelsi Portfolio')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
+        >
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.062 2.062 2.062 0 012.063-2.062c1.136 0 2.064.926 2.064 2.062 0 1.136-.928 2.062-2.064 2.062zm1.787 13.019H3.55v-11.66h3.574v11.66zM22.227 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.456c.98 0 1.772-.773 1.772-1.729V1.729C24 .774 23.208 0 22.227 0z"/></svg>
+          {content.shareArticle}
+        </a>
+      </div>
+    </article>
+  </main>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": content.title,
+    "description": content.metaDescription,
+    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "author": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "url": "https://www.oussematrabelsi.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/oussematrabelsi",
+        "https://github.com/oussematrabelsi"
+      ]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "url": "https://www.oussematrabelsi.com"
+    },
+    "datePublished": `${content.date}T00:00:00+01:00`,
+    "dateModified": `${content.date}T00:00:00+01:00`,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonical
+    },
+    "url": canonical,
+    "articleSection": content.category,
+    "wordCount": "2500",
+    "timeRequired": `PT${content.readTime}M`,
+    "inLanguage": lang,
+    "keywords": ["Laravel", "Eloquent", "Performance", "PHP", "Database", "Optimization", "Web Development"],
+    "about": {
+      "@type": "Thing",
+      "name": "Laravel Eloquent Performance Optimization"
+    }
+  })} />
+</Layout>

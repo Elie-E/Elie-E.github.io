@@ -1,0 +1,108 @@
+---
+import { getJourneyContent } from '../data/index.js';
+
+export interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const journeyContent = getJourneyContent(lang);
+---
+
+<section class="py-12 md:py-20 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+  <div class="container mx-auto px-4 md:px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+        {journeyContent.title}
+      </h2>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+        {journeyContent.subtitle}
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Timeline Line -->
+      <div class="absolute left-4 md:left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-200 via-blue-400 to-cyan-400 rounded-full"></div>
+      
+      <!-- Timeline Items -->
+      <div class="space-y-8 md:space-y-12">
+        {journeyContent.story.map((item, index) => (
+          <div class="relative flex items-start group">
+            <!-- Timeline Dot -->
+            <div class="relative z-10 flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-white rounded-full shadow-lg border-4 border-blue-200 group-hover:border-blue-400 transition-all duration-300 group-hover:scale-110">
+              <span class="text-lg md:text-2xl">{item.icon}</span>
+            </div>
+            
+            <!-- Content Card -->
+            <div class="ml-4 md:ml-8 flex-1">
+              <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 md:p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300 group-hover:translate-x-2">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="px-3 py-1 md:px-4 md:py-2 bg-blue-100 text-blue-700 rounded-full text-xs md:text-sm font-semibold">
+                    {item.year}
+                  </span>
+                  <div class="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                </div>
+                
+                <h3 class="text-lg md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                
+                <p class="text-gray-600 leading-relaxed text-sm md:text-lg">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-12 md:mt-16">
+      <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 md:p-8 border border-blue-100 max-w-2xl mx-auto">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          {journeyContent.ctaTitle}
+        </h3>
+        <p class="text-gray-600 mb-6 text-sm md:text-base">
+          {journeyContent.ctaDescription}
+        </p>
+        <a 
+          href={`/${lang}/contact`}
+          class="inline-flex items-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-sm md:text-base"
+        >
+          {journeyContent.ctaButton}
+          <svg class="ml-2 w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Custom animations for timeline */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .timeline-item {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+  .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+</style>

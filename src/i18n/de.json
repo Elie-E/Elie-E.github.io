@@ -1,0 +1,79 @@
+{
+  "home": {
+    "title": "Oussema Trabelsi - CTO & Lead Developer",
+    "description": "Professionelle Website von Oussema Trabelsi, CTO und Lead Developer mit mehr als 5 Jahren Erfahrung.",
+    "viewCV": "Lebenslauf ansehen",
+    "viewPortfolio": "Portfolio ansehen",
+    "yearsExperience": "Jahre Erfahrung",
+    "currentRole": "Aktuelle Position",
+    "languagesSupported": "Unterstützte Sprachen",
+    "getInTouch": "Kontakt aufnehmen",
+    "contactDescription": "Bereit für neue Herausforderungen und Zusammenarbeit.",
+    "sendEmail": "E-Mail senden",
+    "connectLinkedIn": "Auf LinkedIn verbinden"
+  },
+  "cv": {
+    "title": "Lebenslauf - Oussema Trabelsi",
+    "description": "Professioneller Lebenslauf von Oussema Trabelsi, CTO und Lead Developer.",
+    "bio": "Über mich",
+    "experience": "Berufserfahrung",
+    "education": "Bildung",
+    "skills": "Fähigkeiten",
+    "technicalSkills": "Technische Fähigkeiten",
+    "languages": "Sprachen",
+    "certifications": "Zertifizierungen",
+    "grade": "Note",
+    "present": "Gegenwart",
+    "downloadCV": "Lebenslauf herunterladen"
+  },
+  "portfolio": {
+    "title": "Portfolio - Oussema Trabelsi",
+    "description": "Projektportfolio von Oussema Trabelsi, CTO und Lead Developer.",
+    "allProjects": "Alle Projekte",
+    "featured": "Empfohlen",
+    "web": "Web",
+    "mobile": "Mobile",
+    "ai": "KI",
+    "backend": "Backend",
+    "frontend": "Frontend",
+    "fullstack": "Full-Stack",
+    "viewProject": "Projekt ansehen",
+    "viewCode": "Code ansehen",
+    "technologies": "Technologien",
+    "getInTouch": "Kontakt aufnehmen",
+    "contactDescription": "Interessiert an einer Zusammenarbeit? Kontaktieren Sie mich gerne.",
+    "contact": "Kontakt"
+  },
+  "blog": {
+    "title": "Blog - Oussema Trabelsi",
+    "description": "Technische Artikel und Einblicke in Entwicklung und Führung.",
+    "allPosts": "Alle Artikel",
+    "featured": "Empfohlen",
+    "latest": "Neueste",
+    "readMore": "Weiterlesen",
+    "publishedOn": "Veröffentlicht am",
+    "readTime": "Lesezeit",
+    "tags": "Tags",
+    "noPosts": "Keine Artikel gefunden"
+  },
+  "about": {
+    "title": "Über mich - Oussema Trabelsi",
+    "description": "Erfahren Sie mehr über Oussema Trabelsi, CTO und Lead Developer.",
+    "myStory": "Meine Geschichte",
+    "passion": "Leidenschaft",
+    "values": "Werte",
+    "achievements": "Erfolge",
+    "getInTouch": "Kontakt aufnehmen",
+    "contactDescription": "Lassen Sie uns über Möglichkeiten sprechen."
+  },
+  "contact": {
+    "title": "Kontakt - Oussema Trabelsi",
+    "description": "Kontaktieren Sie Oussema Trabelsi für Projekte und Zusammenarbeit.",
+    "getInTouch": "Kontakt aufnehmen",
+    "sendMessage": "Nachricht senden",
+    "email": "E-Mail",
+    "linkedin": "LinkedIn",
+    "location": "Standort",
+    "sendMessage": "Nachricht senden"
+  }
+}
