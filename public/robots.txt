@@ -1,14 +1,8 @@
 User-agent: *
 Allow: /
 
-# Disallow incorrect language combinations
-Disallow: /jp/
-Disallow: /cn/
-Disallow: /*/jp/
-Disallow: /*/cn/
-
 # Sitemap
-Sitemap: https://www.oussematrabelsi.com/sitemap-index.xml
+Sitemap: https://elie-e.github.io/sitemap-index.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
