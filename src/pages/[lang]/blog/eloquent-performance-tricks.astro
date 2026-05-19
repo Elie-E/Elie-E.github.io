@@ -13,7 +13,7 @@ const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
 const currentPath = `/${lang}/blog/eloquent-performance-tricks`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}/blog/eloquent-performance-tricks`;
+const canonical = `https://elie-e.github.io/${lang}/blog/eloquent-performance-tricks`;
 
 const articleContent = {
   fr: {
@@ -1382,7 +1382,7 @@ const description = content.metaDescription;
 
       <div class="flex justify-center gap-4 mt-8">
         <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(content.title + ' by Oussema Trabelsi ' + canonical)}`}
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(content.title + ' by Alban ' + canonical)}`}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
@@ -1391,7 +1391,7 @@ const description = content.metaDescription;
           {content.shareArticle}
         </a>
         <a
-          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonical)}&title=${encodeURIComponent(content.title)}&summary=${encodeURIComponent(content.metaDescription)}&source=${encodeURIComponent('Oussema Trabelsi Portfolio')}`}
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonical)}&title=${encodeURIComponent(content.title)}&summary=${encodeURIComponent(content.metaDescription)}&source=${encodeURIComponent('Alban - Portfolio')}`}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
@@ -1409,20 +1409,20 @@ const description = content.metaDescription;
     "@type": "BlogPosting",
     "headline": content.title,
     "description": content.metaDescription,
-    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "image": "https://elie-e.github.io/images/og-image.png",
     "author": {
       "@type": "Person",
       "name": personalInfo.name,
-      "url": "https://www.oussematrabelsi.com",
+      "url": "https://elie-e.github.io",
       "sameAs": [
-        "https://www.linkedin.com/in/oussematrabelsi",
-        "https://github.com/oussematrabelsi"
+        "https://linkedin.com/in/alban-augier-a64297108/",
+        "https://github.com/Elie-E"
       ]
     },
     "publisher": {
       "@type": "Person",
       "name": personalInfo.name,
-      "url": "https://www.oussematrabelsi.com"
+      "url": "https://elie-e.github.io"
     },
     "datePublished": `${content.date}T00:00:00+01:00`,
     "dateModified": `${content.date}T00:00:00+01:00`,

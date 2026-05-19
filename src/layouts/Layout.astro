@@ -28,7 +28,7 @@ const {
   currentLang: propCurrentLang
 } = Astro.props;
 
-const site = 'https://www.oussematrabelsi.com';
+const site = 'https://elie-e.github.io';
 const currentLang = propCurrentLang || lang;
 const currentPath = propCurrentPath || Astro.url.pathname;
 const currentUrl = canonical || `${site}${currentPath}`;
@@ -79,7 +79,7 @@ const alternateUrls = languages.map(lang => {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={currentUrl} />
     <meta property="og:title" content={`${personalInfo.name} - ${personalInfo.title}`} />
-    <meta property="og:description" content="Experienced CTO and Lead Developer with 5+ years at Advercity, specializing in full-stack development, team leadership, and technical architecture." />
+    <meta property="og:description" content={description} />
     <meta property="og:image" content={`${site}/images/og-image.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -89,11 +89,9 @@ const alternateUrls = languages.map(lang => {
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@oussematrabelsi" />
-    <meta name="twitter:creator" content="@oussematrabelsi" />
     <meta name="twitter:url" content={currentUrl} />
     <meta name="twitter:title" content={`${personalInfo.name} - ${personalInfo.title}`} />
-    <meta name="twitter:description" content="Experienced CTO and Lead Developer with 5+ years at Advercity, specializing in full-stack development, team leadership, and technical architecture." />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${site}/images/og-image.png`} />
     <meta name="twitter:image:alt" content={`${personalInfo.name} - ${personalInfo.title}`} />
     
@@ -116,13 +114,8 @@ const alternateUrls = languages.map(lang => {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
     
-    <!-- Preload critical CSS -->
-    <link rel="preload" href="/_astro/page.DTIbhfSr.js" as="script" />
-    <link rel="preload" href="/_astro/hoisted.BzJg_0AP.js" as="script" />
-    
     <!-- Preload critical resources -->
-    <link rel="preload" href="/images/oussema-trabelsi-cto.webp" as="image" type="image/webp" fetchpriority="high" />
-    <link rel="preload" href="/images/oussema-trabelsi-cto.png" as="image" type="image/png" fetchpriority="high" />
+    <link rel="preload" href="/images/og-image.webp" as="image" type="image/webp" fetchpriority="high" />
     
     <!-- Critical CSS inline for above-the-fold content -->
     <style>
@@ -151,51 +144,18 @@ const alternateUrls = languages.map(lang => {
       .btn-primary:hover { background: #2563eb; }
     </style>
     
-    <!-- Google Analytics - Optimized loading -->
-    <script>
-      // Load Google Analytics with requestIdleCallback for better performance
-      function loadGA() {
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-V5ZN06BDH7';
-        document.head.appendChild(script);
-        
-        script.onload = function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-V5ZN06BDH7', {
-            send_page_view: false
-          });
-        };
-      }
-      
-      // Use requestIdleCallback if available, otherwise fallback to setTimeout
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadGA, { timeout: 2000 });
-      } else {
-        setTimeout(loadGA, 1000);
-      }
-    </script>
-    
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
       "name": personalInfo.name,
-      "jobTitle": "CTO & Lead Developer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Advercity"
-      },
-      "url": "https://www.oussematrabelsi.com",
+      "jobTitle": "Full Stack Developer",
+      "url": "https://elie-e.github.io",
       "sameAs": [
-        "https://www.linkedin.com/in/oussema-trabelsi/"
+        "https://linkedin.com/in/alban-augier-a64297108/"
       ],
-      "email": "contact@oussematrabelsi.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Lyon",
         "addressCountry": "FR"
       }
     })}>

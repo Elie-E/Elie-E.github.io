@@ -12,15 +12,9 @@ const personalInfo = getPersonalInfo(currentLang);
 
 // Navigation items with translations
 const navItems = {
-  fr: { home: 'Accueil', resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', recommendations: 'Recommandations', contact: 'Contact' },
   en: { home: 'Home', resume: 'Resume', portfolio: 'Portfolio', blog: 'Blog', about: 'About', recommendations: 'Recommendations', contact: 'Contact' },
+  fr: { home: 'Accueil', resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', recommendations: 'Recommandations', contact: 'Contact' },
   es: { home: 'Inicio', resume: 'Currículum', portfolio: 'Portafolio', blog: 'Blog', about: 'Acerca de', recommendations: 'Recomendaciones', contact: 'Contacto' },
-  de: { home: 'Startseite', resume: 'Lebenslauf', portfolio: 'Portfolio', blog: 'Blog', about: 'Über mich', recommendations: 'Empfehlungen', contact: 'Kontakt' },
-  pt: { home: 'Início', resume: 'Currículo', portfolio: 'Portfólio', blog: 'Blog', about: 'Sobre', recommendations: 'Recomendações', contact: 'Contato' },
-  ja: { home: 'ホーム', resume: '履歴書', portfolio: 'ポートフォリオ', blog: 'ブログ', about: 'について', recommendations: '推薦', contact: 'お問い合わせ' },
-  ko: { home: '홈', resume: '이력서', portfolio: '포트폴리오', blog: '블로그', about: '소개', recommendations: '추천', contact: '연락처' },
-  zh: { home: '首页', resume: '简历', portfolio: '作品集', blog: '博客', about: '关于', recommendations: '推荐', contact: '联系' },
-  ar: { home: 'الرئيسية', resume: 'السيرة الذاتية', portfolio: 'المحفظة', blog: 'المدونة', about: 'حول', recommendations: 'التوصيات', contact: 'اتصل' }
 };
 
 const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en;

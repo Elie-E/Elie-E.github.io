@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Oussema Trabelsi - CTO & Lead Developer",
-    "description": "CTO y Lead Developer experimentado con 5+ años en Advercity. Especializado en desarrollo full-stack, liderazgo de equipos y arquitectura técnica.",
+    "title": "Alban Augier - Desarrollador Full Stack",
+    "description": "Desarrollador web autónomo y profesional con experiencia en desarrollo full-stack y gestión de proyectos.",
     "viewCV": "Ver CV",
     "viewPortfolio": "Ver Portfolio",
     "yearsExperience": "Años de experiencia",
@@ -14,8 +14,8 @@
     "connectLinkedIn": "Conectar en LinkedIn"
   },
   "cv": {
-    "title": "CV - Oussema Trabelsi",
-    "description": "CV profesional de Oussema Trabelsi, CTO y Lead Developer en Advercity.",
+    "title": "CV - Alban Augier",
+    "description": "CV profesional de Alban Augier, Desarrollador Full Stack.",
     "bio": "Sobre Mí",
     "experience": "Experiencia Profesional",
     "education": "Educación",
@@ -28,8 +28,8 @@
     "downloadCV": "Descargar CV"
   },
   "portfolio": {
-    "title": "Portfolio - Oussema Trabelsi",
-    "description": "Portfolio de proyectos de Oussema Trabelsi, CTO y Lead Developer.",
+    "title": "Portfolio - Alban Augier",
+    "description": "Portfolio de proyectos de Alban Augier, Desarrollador Full Stack.",
     "allProjects": "Todos los Proyectos",
     "featured": "Destacados",
     "web": "Web",
@@ -43,8 +43,8 @@
     "technologies": "Tecnologías"
   },
   "blog": {
-    "title": "Blog - Oussema Trabelsi",
-    "description": "Artículos técnicos e insights sobre desarrollo y liderazgo.",
+    "title": "Blog - Alban Augier",
+    "description": "Artículos técnicos e insights sobre desarrollo web.",
     "allPosts": "Todos los Artículos",
     "featured": "Destacados",
     "readMore": "Leer Más",
@@ -53,8 +53,8 @@
     "tags": "Etiquetas"
   },
   "about": {
-    "title": "Acerca de - Oussema Trabelsi",
-    "description": "Conoce más sobre Oussema Trabelsi, su trayectoria y visión.",
+    "title": "Acerca de - Alban Augier",
+    "description": "Conoce más sobre Alban Augier, su trayectoria y visión.",
     "myStory": "Mi Historia",
     "myJourney": "Mi Trayectoria",
     "currentRole": "Rol Actual",
@@ -63,8 +63,8 @@
     "contact": "Contacto"
   },
   "contact": {
-    "title": "Contacto - Oussema Trabelsi",
-    "description": "Contacta a Oussema Trabelsi para cualquier colaboración u oportunidad.",
+    "title": "Contacto - Alban Augier",
+    "description": "Contacta a Alban Augier para cualquier colaboración u oportunidad.",
     "getInTouch": "Ponerse en Contacto",
     "contactDescription": "¿Interesado en colaborar? No dudes en contactarme.",
     "sendMessage": "Enviar Mensaje",

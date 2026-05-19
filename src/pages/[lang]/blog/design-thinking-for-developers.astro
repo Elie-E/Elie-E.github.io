@@ -13,7 +13,7 @@ const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
 const currentPath = `/${lang}/blog/design-thinking-for-developers`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}/blog/design-thinking-for-developers`;
+const canonical = `https://elie-e.github.io/${lang}/blog/design-thinking-for-developers`;
 const title = `Design Thinking for Developers: How My Logo-Making Past Shapes My Code - ${personalInfo.name}`;
 const description = `Discover how design thinking principles, learned through logo creation and visual design, can shape better developers. A personal journey from creative design to coding and CTO leadership.`;
 
@@ -733,20 +733,20 @@ const content = articleContent[lang as keyof typeof articleContent] || articleCo
     "@type": "BlogPosting",
     "headline": content.title,
     "description": content.metaDescription,
-    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "image": "https://elie-e.github.io/images/og-image.png",
     "author": {
       "@type": "Person",
       "name": personalInfo.name,
-      "url": "https://www.oussematrabelsi.com",
+      "url": "https://elie-e.github.io",
       "sameAs": [
-        "https://www.linkedin.com/in/oussematrabelsi",
-        "https://github.com/oussematrabelsi"
+        "https://linkedin.com/in/alban-augier-a64297108/",
+        "https://github.com/Elie-E"
       ]
     },
     "publisher": {
       "@type": "Person",
       "name": personalInfo.name,
-      "url": "https://www.oussematrabelsi.com"
+      "url": "https://elie-e.github.io"
     },
     "datePublished": `${content.date}T00:00:00+01:00`,
     "dateModified": `${content.date}T00:00:00+01:00`,

@@ -20,21 +20,15 @@ const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
 const currentPath = `/${lang}`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}`;
+const canonical = `https://elie-e.github.io/${lang}`;
 const title = `${personalInfo.name} - ${personalInfo.title}`;
 const description = personalInfo.bio;
 
 // Navigation translations
 const navTranslations = {
-  fr: { resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', contact: 'Contact' },
   en: { resume: 'Resume', portfolio: 'Portfolio', blog: 'Blog', about: 'About', contact: 'Contact' },
+  fr: { resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', contact: 'Contact' },
   es: { resume: 'Currículum', portfolio: 'Portafolio', blog: 'Blog', about: 'Acerca de', contact: 'Contacto' },
-  de: { resume: 'Lebenslauf', portfolio: 'Portfolio', blog: 'Blog', about: 'Über mich', contact: 'Kontakt' },
-  pt: { resume: 'Currículo', portfolio: 'Portfólio', blog: 'Blog', about: 'Sobre', contact: 'Contato' },
-  ja: { resume: '履歴書', portfolio: 'ポートフォリオ', blog: 'ブログ', about: 'について', contact: 'お問い合わせ' },
-  ko: { resume: '이력서', portfolio: '포트폴리오', blog: 'ブログ', about: '소개', contact: '연락처' },
-  zh: { resume: '简历', portfolio: '作品集', blog: '博客', about: '关于', contact: '联系' },
-  ar: { resume: 'السيرة الذاتية', portfolio: 'المحفظة', blog: 'المدونة', about: 'حول', contact: 'اتصل' }
 };
 
 const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslations.en;
@@ -90,10 +84,10 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
               <div class="relative group">
                 <div class="w-56 h-56 md:w-72 md:h-72 lg:w-[28rem] lg:h-[28rem] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-200 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-3xl">
                 <picture>
-                  <source srcset="/images/oussema-trabelsi-cto.webp" type="image/webp">
+                  <source srcset="/images/og-image.webp" type="image/webp">
                   <img 
-                    src="/images/oussema-trabelsi-cto.png" 
-                    alt="Oussema Trabelsi - CTO & Lead Developer"
+                    src="/images/og-image.png" 
+                    alt="Alban Augier - Full Stack Developer"
                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                     style="object-position: center 20%;"
                     loading="eager"
@@ -138,29 +132,22 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
     "name": personalInfo.name,
     "jobTitle": personalInfo.title,
     "description": personalInfo.bio,
-    "url": "https://www.oussematrabelsi.com",
-    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "url": "https://elie-e.github.io",
+    "image": "https://elie-e.github.io/images/og-image.png",
     "sameAs": [
-      "https://www.linkedin.com/in/oussematrabelsi",
-      "https://github.com/oussematrabelsi"
+      "https://linkedin.com/in/alban-augier-a64297108/"
     ],
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Lyon",
       "addressCountry": "France"
     },
     "worksFor": {
       "@type": "Organization",
-      "name": "Advercity",
-      "url": "https://advercity.com"
+      "name": "Advercity"
     },
     "knowsAbout": [
-      "PHP", "Laravel", "JavaScript", "React", "Node.js", "Docker", 
-      "Web Development", "CTO", "Leadership", "Team Management"
-    ],
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "Université de Lyon"
-    }
+      "PHP", "Laravel", "JavaScript", "React", "Python",
+      "Web Development", "Project Management", "Full Stack Development"
+    ]
   })} />
 </Layout>

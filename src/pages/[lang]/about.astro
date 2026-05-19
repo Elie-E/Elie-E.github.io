@@ -16,7 +16,7 @@ const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
 const currentPath = `/${lang}/about`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}/about`;
+const canonical = `https://elie-e.github.io/${lang}/about`;
 const title = `About - ${personalInfo.name}`;
 const description = `Learn more about ${personalInfo.name}, his journey, values, and approach to technology and leadership`;
 
@@ -417,11 +417,11 @@ const t = aboutTranslations[lang as keyof typeof aboutTranslations] || aboutTran
       "name": personalInfo.name,
       "jobTitle": personalInfo.title,
       "description": personalInfo.bio,
-      "url": "https://www.oussematrabelsi.com",
-      "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+      "url": "https://elie-e.github.io",
+      "image": "https://elie-e.github.io/images/og-image.png",
       "sameAs": [
-        "https://www.linkedin.com/in/oussematrabelsi",
-        "https://github.com/oussematrabelsi"
+        "https://linkedin.com/in/alban-augier-a64297108/",
+        "https://github.com/Elie-E"
       ],
       "address": {
         "@type": "PostalAddress",

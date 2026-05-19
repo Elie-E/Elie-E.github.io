@@ -8,15 +8,9 @@ export interface Language {
 }
 
 export const languages: Language[] = [
-  { code: 'fr', name: 'French', nativeName: 'Français', flag: '/flags/fr.png' },
   { code: 'en', name: 'English', nativeName: 'English', flag: '/flags/us.png' },
+  { code: 'fr', name: 'French', nativeName: 'Français', flag: '/flags/fr.png' },
   { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '/flags/es.png' },
-  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '/flags/de.png' },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '/flags/pt.png' },
-  { code: 'ja', name: 'Japanese', nativeName: '日本語', flag: '/flags/jp.png' },
-  { code: 'ko', name: 'Korean', nativeName: '한국어', flag: '/flags/ko.png' },
-  { code: 'zh', name: 'Chinese', nativeName: '中文', flag: '/flags/cn.png' },
-  { code: 'ar', name: 'Arabic', nativeName: 'العربية', flag: '/flags/ar.png' },
 ];
 
 export interface SEOData {
@@ -48,7 +42,7 @@ export interface Experience {
   description: string;
   technologies: string[];
   duration: string;
-  type: 'CDI' | 'Freelance' | 'Stage' | 'Internship';
+  type: 'CDI' | 'Freelance' | 'Stage' | 'Internship' | 'Full-time';
   achievements?: string[];
 }
 
@@ -57,8 +51,9 @@ export interface Education {
   degree: string;
   field: string;
   startDate: string;
-  endDate: string;
+  endDate?: string;
   grade?: string;
+  location?: string;
 }
 
 export interface Project {

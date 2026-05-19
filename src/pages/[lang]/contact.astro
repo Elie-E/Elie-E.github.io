@@ -15,7 +15,7 @@ const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
 const currentPath = `/${lang}/contact`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}/contact`;
+const canonical = `https://elie-e.github.io/${lang}/contact`;
 const title = `Contact - ${personalInfo.name}`;
 const description = `Get in touch with ${personalInfo.name} for opportunities, collaborations, or just to say hello`;
 
@@ -439,12 +439,12 @@ const t = contactTranslations[lang as keyof typeof contactTranslations] || conta
       "name": personalInfo.name,
       "jobTitle": personalInfo.title,
       "description": personalInfo.bio,
-      "url": "https://www.oussematrabelsi.com",
-      "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
-      "email": "contact@oussematrabelsi.com",
+      "url": "https://elie-e.github.io",
+      "image": "https://elie-e.github.io/images/og-image.png",
+      "email": "",
       "sameAs": [
-        "https://www.linkedin.com/in/oussematrabelsi",
-        "https://github.com/oussematrabelsi"
+        "https://linkedin.com/in/alban-augier-a64297108/",
+        "https://github.com/Elie-E"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -458,7 +458,7 @@ const t = contactTranslations[lang as keyof typeof contactTranslations] || conta
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "contact@oussematrabelsi.com",
+        "email": "",
         "contactType": "professional",
         "availableLanguage": ["French", "English", "Arabic"]
       }

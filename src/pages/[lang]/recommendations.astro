@@ -16,7 +16,7 @@ const personalInfo = getPersonalInfo(lang);
 const testimonials = getTestimonials(lang);
 const currentPath = `/${lang}/recommendations`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}/recommendations`;
+const canonical = `https://elie-e.github.io/${lang}/recommendations`;
 const title = `Recommendations - ${personalInfo.name}`;
 const description = `Client recommendations and testimonials for ${personalInfo.name}`;
 
@@ -251,8 +251,8 @@ const t = testimonialsTranslations[lang as keyof typeof testimonialsTranslations
       "@type": "Service",
       "name": `${personalInfo.name} - ${personalInfo.title}`,
       "description": personalInfo.bio,
-      "url": "https://www.oussematrabelsi.com",
-      "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+      "url": "https://elie-e.github.io",
+      "image": "https://elie-e.github.io/images/og-image.png",
       "provider": {
         "@type": "Person",
         "name": personalInfo.name,

@@ -13,7 +13,7 @@ const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
 const currentPath = `/${lang}/blog/why-we-still-love-php-in-2025`;
 const currentLang = lang;
-const canonical = `https://www.oussematrabelsi.com/${lang}/blog/why-we-still-love-php-in-2025`;
+const canonical = `https://elie-e.github.io/${lang}/blog/why-we-still-love-php-in-2025`;
 const title = `Why We Still Love PHP in 2025: A Personal Perspective - ${personalInfo.name}`;
 const description = `Every year, someone predicts the death of PHP. And every year, PHP just shrugs, updates itself, and keeps powering a huge portion of the internet. A personal perspective on why PHP remains relevant in 2025.`;
 
@@ -602,20 +602,20 @@ const content = articleContent[lang as keyof typeof articleContent] || articleCo
     "@type": "BlogPosting",
     "headline": content.title,
     "description": content.metaDescription,
-    "image": "https://www.oussematrabelsi.com/images/oussema-trabelsi-cto.png",
+    "image": "https://elie-e.github.io/images/og-image.png",
     "author": {
       "@type": "Person",
       "name": personalInfo.name,
-      "url": "https://www.oussematrabelsi.com",
+      "url": "https://elie-e.github.io",
       "sameAs": [
-        "https://www.linkedin.com/in/oussematrabelsi",
-        "https://github.com/oussematrabelsi"
+        "https://linkedin.com/in/alban-augier-a64297108/",
+        "https://github.com/Elie-E"
       ]
     },
     "publisher": {
       "@type": "Person",
       "name": personalInfo.name,
-      "url": "https://www.oussematrabelsi.com"
+      "url": "https://elie-e.github.io"
     },
     "datePublished": `${content.date}T00:00:00+01:00`,
     "dateModified": `${content.date}T00:00:00+01:00`,
