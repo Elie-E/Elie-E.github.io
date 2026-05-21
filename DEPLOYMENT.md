@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide — GitHub Pages
+# 🚀 Deployment Guide - GitHub Pages
 
 ## Automatic Deployment (Recommended)
 
@@ -31,7 +31,7 @@ npm run preview
 
 1. Go to the repository **Settings → Pages**
 2. Set **Source** to `GitHub Actions`
-3. Push to `main` — the workflow handles the rest
+3. Push to `main` - the workflow handles the rest
 
 ## Troubleshooting
 

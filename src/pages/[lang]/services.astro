@@ -1,0 +1,902 @@
+---
+import { getPersonalInfo } from '../../data/index.js';
+import { languages } from '../../types/index.js';
+
+export async function getStaticPaths() {
+  return languages.map(lang => ({
+    params: { lang: lang.code }
+  }));
+}
+
+const lang = Astro.params.lang || 'en';
+const personalInfo = getPersonalInfo(lang);
+const canonical = `https://elie-e.github.io/${lang}/services`;
+
+const translations = {
+  en: {
+    description: 'Freelance web development services: new websites, bug fixes, maintenance plans and ongoing evolution.',
+    nav: { services: 'Services', process: 'Process', contact: 'Contact', startProject: 'Start Project' },
+    hero: {
+      subtitle: 'Freelance Web Developer / Service Studio',
+      titleAccent: 'I build, fix & evolve',
+      titleRest: 'websites that convert.',
+      desc1: 'Need a', new_website: 'new website', desc2: ', urgent', bug_fixes: 'bug fixes', desc3: ', or a dev to',
+      maintain: 'maintain & improve', desc4: 'what you already have? I help small businesses, solo founders and agencies keep sites fast, stable and effective.',
+      tags: ['Website creation', 'Debug & rescue', 'Maintenance plans', 'Ongoing evolution'],
+      viewServices: 'View services', bookCall: 'Book a short call',
+      metaLaunch: 'Launch', metaLaunchRest: 'new sites',
+      metaFix: 'Fix', metaFixRest: 'broken ones',
+      metaMaintain: 'Maintain', metaMaintainRest: 'long-term',
+    },
+    services: {
+      label: '/services', title: 'Clear ways to work together',
+      desc: "Start small (a fix), or go full build (new website). Everything is scoped clearly so you're never guessing.",
+      cards: [
+        { num: '01', title: 'New website or redesign', pill: 'Creation', body: "For when your current site feels old, off-brand, or you don't have one yet.", items: ['Structure & layout tailored to your content', 'Design & build (no bloated theme)', 'Performance & basic SEO pass', 'Launch support & handover'], note: 'Typical scope: landing page / small marketing site.' },
+        { num: '02', title: 'Debug & rescue missions', pill: 'Fixes', body: 'Something is broken or slow? I investigate, explain clearly, and fix.', items: ['Broken layouts (often mobile-only)', 'Forms, checkout or login failing', 'Random errors & crashes', 'Sudden slowdowns after updates'], note: 'Usually starts as a fixed-price diagnostic + fix.' },
+        { num: '03', title: 'Maintenance & care plans', pill: 'Ongoing', body: 'For businesses that rely on their website and want it to stay healthy.', items: ['Regular updates & security patches', 'Monitoring & error alerts', 'Backups & rollback plan', 'Small content edits each month'], note: 'Goal: your website quietly stays stable in the background.' },
+        { num: '04', title: 'Evolution & new features', pill: 'Growth', body: 'Your site works, but you want it to do more: better UX, new flows, integrations.', items: ['New pages, components & layouts', 'Integrations (email tools, payments, analytics)', 'UX improvements & content restructuring', 'Small experiments (A/B tests)'], note: 'Project-based or monthly reserved hours.' },
+      ],
+    },
+    process: {
+      label: '/process', title: 'Simple collaboration flow',
+      desc: 'No endless meetings. A clear path from "we have a problem" to "this feels much better".',
+      cards: [
+        { num: '01', title: 'Brief', pill: '20–30 min', body: 'You share what\'s wrong or what you want to launch. A few key questions reveal priorities & constraints.' },
+        { num: '02', title: 'Plan & quote', pill: 'Scope', body: 'I outline options with trade-offs and a clear price. You choose what fits your stage right now.' },
+        { num: '03', title: 'Build & iterate', pill: 'Execution', body: 'I work in visible steps (links / short updates) so you can react early and avoid surprises.' },
+        { num: '04', title: 'Launch & beyond', pill: 'Aftercare', body: 'We launch calmly, fix last details, and optionally continue with maintenance or ongoing improvements.' },
+      ],
+    },
+    contact: {
+      label: '/contact', title: 'Tell me what you need',
+      desc: "A couple of paragraphs are enough. I'll reply with questions, a first direction, and a rough budget range.",
+      formTitle: 'Project brief', formPill: 'Message',
+      fields: { name: 'Name / company', namePh: 'Who should I reply to?', email: 'Email', emailPh: 'you@company.com', type: 'What do you need?', typePh: 'New website, debug, maintenance, evolution...', budget: 'Rough budget (optional)', budgetPh: 'e.g. 500–1k, 1–3k, 5–10k, not sure yet', message: 'Project details', messagePh: 'Tell me what\'s broken, what you want to change, or what you want to launch.' },
+      send: 'Send message', sending: 'Sending...', success: "✓ Message received. I'll reply shortly.", error: '✗ Something went wrong. Try emailing directly.',
+      sideTitle: 'Signals & links', sidePill: 'Uplink',
+      sideDesc: 'Remote-first. Async-friendly. Fast replies. Clear scope. Calm launches.',
+      sideItems: ['Good fit: solo founders, small teams, agencies needing an extra dev.', 'Typical projects: 1–8 weeks depending on scope.', 'Also available: monthly "on-call" support.'],
+    },
+    footer: 'Services',
+    terminalList: '[ new-site ] [ debug ] [ maintain ] [ evolve ]',
+    terminalCommands: [
+      { input: 'new-site', output: ['→ custom website or redesign, no generic template.', 'includes structure, design, build and launch support.'] },
+      { input: 'debug',    output: ['→ investigate & fix issues on your existing site.', 'good for broken layouts, slow pages, failing forms.'] },
+      { input: 'maintain', output: ['→ ongoing updates, backups and monitoring.', 'your site stays stable and secure quietly in the background.'] },
+      { input: 'evolve',   output: ['→ new features, UX improvements & experiments.', 'so your website grows with your business instead of restarting from zero.'] },
+    ],
+  },
+  fr: {
+    description: 'Services de développement web freelance : création de sites, corrections de bugs, plans de maintenance et évolution continue.',
+    nav: { services: 'Services', process: 'Processus', contact: 'Contact', startProject: 'Démarrer un projet' },
+    hero: {
+      subtitle: 'Développeur Web Freelance / Studio de Services',
+      titleAccent: 'Je crée, corrige & fais évoluer',
+      titleRest: 'des sites qui convertissent.',
+      desc1: 'Besoin d\'un', new_website: 'nouveau site', desc2: ', de', bug_fixes: 'corrections urgentes', desc3: ', ou d\'un dev pour',
+      maintain: 'maintenir & améliorer', desc4: 'ce que vous avez déjà ? J\'aide les petites entreprises, fondateurs solo et agences à garder leurs sites rapides, stables et efficaces.',
+      tags: ['Création de site', 'Debug & sauvetage', 'Plans de maintenance', 'Évolution continue'],
+      viewServices: 'Voir les services', bookCall: 'Réserver un appel',
+      metaLaunch: 'Lancer', metaLaunchRest: 'de nouveaux sites',
+      metaFix: 'Corriger', metaFixRest: 'les problèmes',
+      metaMaintain: 'Maintenir', metaMaintainRest: 'sur le long terme',
+    },
+    services: {
+      label: '/services', title: 'Des façons claires de travailler ensemble',
+      desc: 'Commencez petit (un correctif) ou lancez un projet complet (nouveau site). Tout est cadré clairement, sans surprise.',
+      cards: [
+        { num: '01', title: 'Nouveau site ou refonte', pill: 'Création', body: "Pour quand votre site actuel semble vieux, hors-marque, ou que vous n'en avez pas encore.", items: ['Structure & mise en page adaptée à votre contenu', 'Design & développement (sans thème générique)', 'Performance & optimisation SEO de base', 'Support au lancement & transfert'], note: 'Portée typique : landing page / petit site marketing.' },
+        { num: '02', title: 'Debug & missions de sauvetage', pill: 'Corrections', body: 'Quelque chose est cassé ou lent ? J\'investigate, explique clairement, et corrige.', items: ['Mises en page cassées (souvent mobile)', 'Formulaires, paiement ou connexion qui échouent', 'Erreurs & crashs aléatoires', 'Ralentissements soudains après des mises à jour'], note: 'Commence généralement par un diagnostic + correction à prix fixe.' },
+        { num: '03', title: 'Maintenance & plans de suivi', pill: 'Continu', body: 'Pour les entreprises qui dépendent de leur site et veulent qu\'il reste en bonne santé.', items: ['Mises à jour régulières & correctifs de sécurité', 'Surveillance & alertes d\'erreur', 'Sauvegardes & plan de retour arrière', 'Petites modifications de contenu chaque mois'], note: 'Objectif : votre site reste stable en arrière-plan, sans effort.' },
+        { num: '04', title: 'Évolution & nouvelles fonctionnalités', pill: 'Croissance', body: 'Votre site fonctionne, mais vous voulez qu\'il fasse plus : meilleure UX, nouveaux parcours, intégrations.', items: ['Nouvelles pages, composants & mises en page', 'Intégrations (outils email, paiements, analytics)', 'Améliorations UX & restructuration de contenu', 'Petites expérimentations (tests A/B)'], note: 'Basé sur un projet ou des heures réservées mensuellement.' },
+      ],
+    },
+    process: {
+      label: '/processus', title: 'Un flux de collaboration simple',
+      desc: 'Pas de réunions sans fin. Un chemin clair de "nous avons un problème" à "ça se sent beaucoup mieux".',
+      cards: [
+        { num: '01', title: 'Briefing', pill: '20–30 min', body: 'Vous partagez ce qui ne va pas ou ce que vous voulez lancer. Quelques questions clés révèlent les priorités & contraintes.' },
+        { num: '02', title: 'Plan & devis', pill: 'Cadrage', body: 'Je présente les options avec leurs compromis et un prix clair. Vous choisissez ce qui convient à votre stade actuel.' },
+        { num: '03', title: 'Construction & itération', pill: 'Exécution', body: 'Je travaille en étapes visibles (liens / mises à jour courtes) pour que vous puissiez réagir tôt et éviter les surprises.' },
+        { num: '04', title: 'Lancement & au-delà', pill: 'Suivi', body: 'On lance calmement, on corrige les derniers détails, et on continue optionnellement avec la maintenance ou des améliorations.' },
+      ],
+    },
+    contact: {
+      label: '/contact', title: 'Dites-moi ce dont vous avez besoin',
+      desc: 'Quelques paragraphes suffisent. Je répondrai avec des questions, une première direction et une fourchette de budget.',
+      formTitle: 'Brief projet', formPill: 'Message',
+      fields: { name: 'Nom / entreprise', namePh: 'À qui dois-je répondre ?', email: 'Email', emailPh: 'vous@entreprise.com', type: 'De quoi avez-vous besoin ?', typePh: 'Nouveau site, debug, maintenance, évolution...', budget: 'Budget approximatif (optionnel)', budgetPh: 'ex. 500–1k, 1–3k, 5–10k, pas encore sûr', message: 'Détails du projet', messagePh: 'Dites-moi ce qui est cassé, ce que vous voulez changer, ou ce que vous voulez lancer.' },
+      send: 'Envoyer le message', sending: 'Envoi en cours...', success: '✓ Message reçu. Je vous répondrai rapidement.', error: '✗ Quelque chose s\'est mal passé. Essayez d\'envoyer un email directement.',
+      sideTitle: 'Signaux & liens', sidePill: 'Uplink',
+      sideDesc: 'Remote-first. Async-friendly. Réponses rapides. Cadre clair. Lancements sereins.',
+      sideItems: ['Bonne adéquation : fondateurs solo, petites équipes, agences cherchant un dev supplémentaire.', 'Projets typiques : 1 à 8 semaines selon la portée.', 'Également disponible : support mensuel "on-call".'],
+    },
+    footer: 'Services',
+    terminalList: '[ new-site ] [ debug ] [ maintain ] [ evolve ]',
+    terminalCommands: [
+      { input: 'new-site', output: ['→ site personnalisé ou refonte, sans thème générique.', 'comprend structure, design, développement et support au lancement.'] },
+      { input: 'debug',    output: ['→ investiguer & corriger les problèmes sur votre site.', 'idéal pour les mises en page cassées, pages lentes, formulaires défaillants.'] },
+      { input: 'maintain', output: ['→ mises à jour continues, sauvegardes et surveillance.', 'votre site reste stable et sécurisé en arrière-plan.'] },
+      { input: 'evolve',   output: ['→ nouvelles fonctionnalités, améliorations UX & expérimentations.', 'votre site grandit avec votre activité plutôt que de repartir de zéro.'] },
+    ],
+  },
+  es: {
+    description: 'Servicios de desarrollo web freelance: nuevos sitios, corrección de errores, planes de mantenimiento y evolución continua.',
+    nav: { services: 'Servicios', process: 'Proceso', contact: 'Contacto', startProject: 'Iniciar proyecto' },
+    hero: {
+      subtitle: 'Desarrollador Web Freelance / Estudio de Servicios',
+      titleAccent: 'Creo, corrijo & hago evolucionar',
+      titleRest: 'sitios que convierten.',
+      desc1: '¿Necesitas un', new_website: 'nuevo sitio web', desc2: ', correcciones urgentes de', bug_fixes: 'errores', desc3: ', o un dev para',
+      maintain: 'mantener & mejorar', desc4: 'lo que ya tienes? Ayudo a pequeñas empresas, fundadores independientes y agencias a mantener sus sitios rápidos, estables y efectivos.',
+      tags: ['Creación de sitios', 'Debug & rescate', 'Planes de mantenimiento', 'Evolución continua'],
+      viewServices: 'Ver servicios', bookCall: 'Reservar una llamada',
+      metaLaunch: 'Lanzar', metaLaunchRest: 'nuevos sitios',
+      metaFix: 'Corregir', metaFixRest: 'los problemas',
+      metaMaintain: 'Mantener', metaMaintainRest: 'a largo plazo',
+    },
+    services: {
+      label: '/servicios', title: 'Formas claras de trabajar juntos',
+      desc: 'Empieza pequeño (un arreglo) o construye completo (nuevo sitio). Todo está bien definido para que nunca haya sorpresas.',
+      cards: [
+        { num: '01', title: 'Nuevo sitio web o rediseño', pill: 'Creación', body: 'Para cuando tu sitio actual se siente antiguo, fuera de marca, o aún no tienes uno.', items: ['Estructura & maquetación adaptada a tu contenido', 'Diseño & desarrollo (sin tema genérico)', 'Rendimiento & revisión SEO básica', 'Soporte en el lanzamiento & traspaso'], note: 'Alcance típico: landing page / pequeño sitio de marketing.' },
+        { num: '02', title: 'Debug & misiones de rescate', pill: 'Correcciones', body: '¿Algo está roto o lento? Investigo, explico claramente y lo corrijo.', items: ['Layouts rotos (frecuentemente solo en móvil)', 'Formularios, checkout o login fallando', 'Errores & crashes aleatorios', 'Ralentizaciones repentinas tras actualizaciones'], note: 'Normalmente comienza con un diagnóstico + corrección a precio fijo.' },
+        { num: '03', title: 'Mantenimiento & planes de cuidado', pill: 'Continuo', body: 'Para empresas que dependen de su sitio web y quieren que se mantenga en buen estado.', items: ['Actualizaciones regulares & parches de seguridad', 'Monitoreo & alertas de error', 'Copias de seguridad & plan de reversión', 'Pequeñas ediciones de contenido cada mes'], note: 'Objetivo: tu sitio se mantiene estable en segundo plano sin esfuerzo.' },
+        { num: '04', title: 'Evolución & nuevas funcionalidades', pill: 'Crecimiento', body: 'Tu sitio funciona, pero quieres que haga más: mejor UX, nuevos flujos, integraciones.', items: ['Nuevas páginas, componentes & maquetaciones', 'Integraciones (herramientas de email, pagos, analytics)', 'Mejoras de UX & reestructuración de contenido', 'Pequeños experimentos (pruebas A/B)'], note: 'Basado en proyecto o horas reservadas mensualmente.' },
+      ],
+    },
+    process: {
+      label: '/proceso', title: 'Flujo de colaboración simple',
+      desc: 'Sin reuniones interminables. Un camino claro de "tenemos un problema" a "esto se siente mucho mejor".',
+      cards: [
+        { num: '01', title: 'Briefing', pill: '20–30 min', body: 'Compartes qué está mal o qué quieres lanzar. Unas pocas preguntas clave revelan prioridades & restricciones.' },
+        { num: '02', title: 'Plan & presupuesto', pill: 'Alcance', body: 'Presento opciones con sus compensaciones y un precio claro. Tú eliges lo que encaja en tu etapa actual.' },
+        { num: '03', title: 'Construcción & iteración', pill: 'Ejecución', body: 'Trabajo en pasos visibles (enlaces / actualizaciones breves) para que puedas reaccionar pronto y evitar sorpresas.' },
+        { num: '04', title: 'Lanzamiento & más allá', pill: 'Seguimiento', body: 'Lanzamos con calma, corregimos los últimos detalles y opcionalmente continuamos con mantenimiento o mejoras.' },
+      ],
+    },
+    contact: {
+      label: '/contacto', title: '¿Qué necesitas?',
+      desc: 'Un par de párrafos son suficientes. Responderé con preguntas, una primera dirección y un rango de presupuesto aproximado.',
+      formTitle: 'Brief del proyecto', formPill: 'Mensaje',
+      fields: { name: 'Nombre / empresa', namePh: '¿A quién debo responder?', email: 'Email', emailPh: 'tu@empresa.com', type: '¿Qué necesitas?', typePh: 'Nuevo sitio, debug, mantenimiento, evolución...', budget: 'Presupuesto aproximado (opcional)', budgetPh: 'ej. 500–1k, 1–3k, 5–10k, aún no lo sé', message: 'Detalles del proyecto', messagePh: 'Cuéntame qué está roto, qué quieres cambiar, o qué quieres lanzar.' },
+      send: 'Enviar mensaje', sending: 'Enviando...', success: '✓ Mensaje recibido. Te responderé en breve.', error: '✗ Algo salió mal. Intenta enviar un email directamente.',
+      sideTitle: 'Señales & enlaces', sidePill: 'Uplink',
+      sideDesc: 'Remote-first. Async-friendly. Respuestas rápidas. Alcance claro. Lanzamientos tranquilos.',
+      sideItems: ['Buen encaje: fundadores independientes, equipos pequeños, agencias que necesitan un dev extra.', 'Proyectos típicos: 1 a 8 semanas según el alcance.', 'También disponible: soporte mensual "on-call".'],
+    },
+    footer: 'Servicios',
+    terminalList: '[ new-site ] [ debug ] [ maintain ] [ evolve ]',
+    terminalCommands: [
+      { input: 'new-site', output: ['→ sitio personalizado o rediseño, sin plantilla genérica.', 'incluye estructura, diseño, desarrollo y soporte en el lanzamiento.'] },
+      { input: 'debug',    output: ['→ investigar & corregir problemas en tu sitio existente.', 'ideal para layouts rotos, páginas lentas, formularios fallando.'] },
+      { input: 'maintain', output: ['→ actualizaciones continuas, copias de seguridad y monitoreo.', 'tu sitio se mantiene estable y seguro en segundo plano.'] },
+      { input: 'evolve',   output: ['→ nuevas funcionalidades, mejoras UX & experimentos.', 'tu sitio crece con tu negocio en lugar de empezar desde cero.'] },
+    ],
+  },
+};
+
+const t = translations[lang as keyof typeof translations] ?? translations.en;
+const description = t.description;
+---
+
+<!DOCTYPE html>
+<html lang={lang} data-theme="cyberpunk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — {personalInfo.name}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================================
+       THEME SYSTEM — mirrors terminalresume.html exactly
+       ========================================================= */
+
+    :root {
+      --bg: #050505;
+      --bg-alt: #050818;
+      --panel: rgba(15, 15, 20, 0.98);
+      --primary: #00ff9d;
+      --accent: #bd00ff;
+      --cyan: #00f3ff;
+      --sun: #00f3ff;
+      --pink: #bd00ff;
+      --text: #e0e6ed;
+      --muted: #8892b0;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 0 40px rgba(0, 0, 0, 0.8);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease-out;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --bg-radial-1: rgba(189, 0, 255, 0.18);
+      --bg-radial-2: rgba(0, 243, 255, 0.14);
+      --bg-radial-3: rgba(0, 255, 157, 0.10);
+      --grid-a: rgba(189, 0, 255, 0.95);
+      --grid-b: rgba(0, 243, 255, 0.85);
+      --nav-bg: rgba(10, 10, 10, 0.7);
+      --btn-border: rgba(0, 255, 157, 0.9);
+      --btn-bg: rgba(0, 0, 0, 0.9);
+      --btn-text: var(--primary);
+      --btn-hover-bg: var(--primary);
+      --btn-hover-text: #000;
+      --term-bg: rgba(15, 15, 20, 0.98);
+      --term-prefix: var(--accent);
+      --term-command: var(--cyan);
+      --term-output: var(--muted);
+      --cursor: var(--primary);
+      --card-bg: rgba(10,10,15,0.95);
+      --card-pill-border: rgba(189, 0, 255, 0.6);
+      --card-pill-bg: rgba(189, 0, 255, 0.18);
+      --card-pill-text: #ffd3ff;
+      --sun-opacity: 0;
+    }
+
+    html[data-theme="synthwave"] {
+      --bg: #070014;
+      --bg-alt: #0b0030;
+      --panel: rgba(10, 3, 24, 0.88);
+      --sun: #ffcc33;
+      --pink: #ff2bd6;
+      --accent: #7a2cff;
+      --cyan: #00e6ff;
+      --primary: var(--cyan);
+      --text: #f3f0ff;
+      --muted: #b2a9d6;
+      --border: rgba(255, 255, 255, 0.10);
+      --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.75);
+      --bg-radial-1: rgba(255, 43, 214, 0.25);
+      --bg-radial-2: rgba(0, 230, 255, 0.16);
+      --bg-radial-3: rgba(122, 44, 255, 0.18);
+      --grid-a: rgba(255, 43, 214, 0.95);
+      --grid-b: rgba(0, 230, 255, 0.85);
+      --nav-bg: rgba(10, 3, 24, 0.68);
+      --btn-border: rgba(255, 43, 214, 0.85);
+      --btn-bg: rgba(0, 0, 0, 0.35);
+      --btn-text: var(--text);
+      --btn-hover-bg: var(--primary);
+      --btn-hover-text: var(--text);
+      --term-bg: rgba(10, 3, 24, 0.88);
+      --term-prefix: var(--pink);
+      --term-command: var(--sun);
+      --term-output: rgba(243, 240, 255, 0.70);
+      --cursor: var(--cyan);
+      --card-bg: rgba(18, 8, 45, 0.75);
+      --card-pill-border: rgba(255, 204, 51, 0.35);
+      --card-pill-bg: rgba(255, 204, 51, 0.10);
+      --card-pill-text: rgba(255, 204, 51, 0.95);
+      --sun-opacity: 0.22;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-display);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 70% -10%, var(--bg-radial-1), transparent 55%),
+        radial-gradient(900px 650px at 20% 10%, var(--bg-radial-2), transparent 55%),
+        radial-gradient(850px 650px at 60% 90%, var(--bg-radial-3), transparent 55%),
+        linear-gradient(180deg, var(--bg-alt), var(--bg));
+      overflow-x: hidden;
+      line-height: 1.6;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* CRT overlay */
+    .crt-overlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 8;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.12));
+      background-size: 100% 4px;
+      animation: scanlines 0.22s linear infinite;
+      opacity: 0.28; mix-blend-mode: soft-light;
+    }
+    @keyframes scanlines { 0% { background-position: 0 0; } 100% { background-position: 0 4px; } }
+
+    .noise {
+      position: fixed; inset: 0; pointer-events: none; z-index: 7; opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    .sun {
+      position: fixed; left: 50%; top: 64%; transform: translate(-50%, -50%);
+      width: min(520px, 70vw); height: min(520px, 70vw); border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(255,204,51,0.92), rgba(255,43,214,0.30) 55%, transparent 70%),
+        radial-gradient(circle at 50% 60%, rgba(255,204,51,0.18), transparent 70%);
+      opacity: var(--sun-opacity); z-index: -2; pointer-events: none;
+      mask-image: linear-gradient(to top, black 0%, transparent 68%);
+      -webkit-mask-image: linear-gradient(to top, black 0%, transparent 68%);
+    }
+
+    .perspective-grid {
+      position: fixed; width: 220%; height: 100vh; bottom: -30vh; left: -60%;
+      background-image: linear-gradient(var(--grid-a) 1px, transparent 1px), linear-gradient(90deg, var(--grid-b) 1px, transparent 1px);
+      background-size: 52px 52px;
+      transform: perspective(520px) rotateX(62deg);
+      opacity: 0.16; z-index: -3;
+      animation: gridMove 18s linear infinite;
+      mask-image: linear-gradient(to top, black 0%, transparent 80%);
+      -webkit-mask-image: linear-gradient(to top, black 0%, transparent 80%);
+    }
+    @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 52px; } }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 18px; left: 0; right: 0;
+      display: flex; justify-content: center; padding: 0 20px; z-index: 20; pointer-events: none;
+    }
+    .nav-inner {
+      width: 100%; max-width: 1120px; border-radius: 999px;
+      background: var(--nav-bg); border: 1px solid var(--border);
+      backdrop-filter: blur(14px); box-shadow: 0 10px 34px rgba(0,0,0,0.7);
+      padding: 10px 18px; display: flex; align-items: center; justify-content: space-between;
+      pointer-events: auto; position: relative; overflow: hidden;
+    }
+    .nav-inner::after {
+      content: ""; position: absolute; top: -30%; left: -30%; width: 60%; height: 180%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.10), transparent);
+      transform: rotate(18deg); animation: sweep 7s linear infinite; opacity: 0.55; pointer-events: none;
+    }
+    @keyframes sweep { 0% { transform: translateX(-20%) rotate(18deg); } 100% { transform: translateX(210%) rotate(18deg); } }
+
+    .logo-pill {
+      border-radius: 999px; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.12);
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em;
+      font-family: var(--font-code); color: var(--cyan); background: rgba(0,0,0,0.25);
+      position: relative; z-index: 1; user-select: none;
+    }
+    .logo-dot {
+      width: 8px; height: 8px; border-radius: 999px; background: var(--primary);
+      box-shadow: 0 0 12px rgba(0,255,157,0.9);
+    }
+    html[data-theme="synthwave"] .logo-dot { background: var(--pink); box-shadow: 0 0 14px rgba(255,43,214,0.9); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 22px; font-size: 12px;
+      text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.68);
+      font-family: var(--font-code); position: relative; z-index: 1;
+    }
+    .nav-links a { position: relative; padding-bottom: 2px; transition: color var(--transition-fast); }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan)); transition: width var(--transition-fast);
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta { display: flex; align-items: center; gap: 10px; font-family: var(--font-code); position: relative; z-index: 1; }
+
+    .pill-muted {
+      border-radius: 999px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.25);
+      text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap;
+    }
+
+    .btn-neon {
+      border-radius: 999px; padding: 8px 16px; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.16em;
+      border: 1px solid var(--btn-border); background: var(--btn-bg); color: var(--btn-text);
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, color 0.18s ease-out;
+      font-family: var(--font-code); white-space: nowrap; text-decoration: none;
+    }
+    .btn-neon span.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px rgba(0,243,255,0.55); }
+    html[data-theme="cyberpunk"] .btn-neon:hover { transform: translateY(-1px); box-shadow: var(--shadow-soft); background: var(--btn-hover-bg); color: var(--btn-hover-text); }
+    html[data-theme="synthwave"] .btn-neon:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(255,43,214,0.25), 0 0 40px rgba(0,230,255,0.2); border-color: rgba(0,230,255,0.7); }
+
+    .theme-switch {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 999px;
+      padding: 6px 10px; background: rgba(0,0,0,0.20); user-select: none;
+    }
+    .theme-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.70); }
+    .switch-btn {
+      border: 1px solid rgba(255,255,255,0.16); background: rgba(0,0,0,0.25);
+      color: rgba(255,255,255,0.85); border-radius: 999px; padding: 6px 10px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: var(--font-code); cursor: pointer; transition: 0.18s ease-out;
+    }
+    .switch-btn:hover { transform: translateY(-1px); border-color: rgba(0,243,255,0.35); color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 120px 24px 72px; position: relative;
+    }
+    .hero-inner {
+      width: 100%; max-width: 1120px;
+      display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap: 64px; align-items: center;
+    }
+    .hero-subtitle {
+      font-size: 13px; text-transform: uppercase; letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.65); margin-bottom: 18px; font-family: var(--font-code);
+    }
+    .hero-title { font-size: clamp(2.7rem, 4.8vw, 3.9rem); line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; letter-spacing: -0.03em; }
+    .hero-title .accent {
+      background: linear-gradient(90deg, var(--accent), var(--cyan), var(--sun));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.08));
+    }
+    .hero-description { font-size: 1rem; color: rgba(255,255,255,0.72); max-width: 520px; margin-bottom: 26px; }
+    .hero-description strong { color: var(--cyan); font-weight: 600; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+    .hero-tag {
+      font-family: var(--font-code); font-size: 11px; padding: 6px 12px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.03);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
+    .btn-ghost {
+      border-radius: 999px; padding: 8px 16px; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.16em;
+      border: 1px dashed rgba(255,255,255,0.25); color: rgba(255,255,255,0.75);
+      background: rgba(0,0,0,0.25); display: inline-flex; align-items: center; gap: 8px;
+      cursor: pointer; transition: 0.2s ease-out; font-family: var(--font-code); white-space: nowrap; text-decoration: none;
+    }
+    .btn-ghost svg { width: 14px; height: 14px; }
+    .btn-ghost:hover { color: var(--text); border-style: solid; border-color: rgba(0,243,255,0.45); background: rgba(0,0,0,0.35); transform: translateY(-1px); }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.58); font-family: var(--font-code);
+    }
+    .hero-meta span strong { color: var(--sun); margin-right: 6px; }
+
+    /* Terminal */
+    .hero-terminal-wrapper { position: relative; }
+    .hero-terminal-outline {
+      position: absolute; inset: -16px -18px -18px -18px;
+      border-radius: calc(var(--radius-lg) + 12px);
+      background: conic-gradient(from 210deg, rgba(255,255,255,0.10), rgba(255,255,255,0.08), rgba(255,255,255,0.06), transparent 65%);
+      opacity: 0.75; filter: blur(20px); z-index: -2;
+    }
+    .terminal-window {
+      border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.12);
+      background: var(--term-bg); box-shadow: var(--shadow-soft); overflow: hidden;
+      font-family: var(--font-code); font-size: 13px;
+    }
+    .terminal-header {
+      background: rgba(255,255,255,0.04); padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .window-controls { display: flex; gap: 6px; align-items: center; }
+    .window-dot { width: 9px; height: 9px; border-radius: 50%; background: #ff5f56; }
+    .window-dot:nth-child(2) { background: #ffbd2f; }
+    .window-dot:nth-child(3) { background: #27c93f; }
+    .terminal-title { font-size: 11px; color: rgba(255,255,255,0.65); letter-spacing: 0.14em; text-transform: uppercase; }
+    .terminal-status-pill {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; border-radius: 999px;
+      padding: 2px 8px; border: 1px solid rgba(255,255,255,0.16); color: var(--cyan);
+      background: rgba(0,0,0,0.35); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 999px; background: var(--cyan);
+      box-shadow: 0 0 9px rgba(0,243,255,0.5); animation: statusPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes statusPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.6; } }
+    .terminal-body { padding: 16px 18px 18px; height: 470px; overflow-y: hidden; position: relative; display: flex; flex-direction: column; }
+    .terminal-line { display: block; margin-bottom: 4px; }
+    .terminal-line span.prefix { color: var(--term-prefix); }
+    .terminal-line span.command { color: var(--term-command); }
+    .terminal-line span.output { color: var(--term-output); }
+    .terminal-prompt { margin-top: 6px; display: flex; align-items: baseline; gap: 6px; }
+    .terminal-input { display: inline-block; min-height: 1em; white-space: pre; }
+    .terminal-cursor {
+      display: inline-block; width: 8px; height: 1.1em; margin-left: 2px;
+      background: var(--cursor); animation: cursorBlink 1s step-end infinite;
+      box-shadow: 0 0 12px rgba(0,243,255,0.35);
+    }
+    @keyframes cursorBlink { 0%, 50% { opacity: 1; } 50.1%, 100% { opacity: 0; } }
+    .terminal-footer-hints { margin-top: auto; padding-top: 10px; font-size: 11px; color: rgba(255,255,255,0.60); display: flex; flex-wrap: wrap; gap: 6px; }
+    .hint-pill {
+      border-radius: 999px; padding: 3px 8px; border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.28); display: inline-flex; align-items: center; gap: 4px;
+    }
+    .hint-pill code { font-family: var(--font-code); font-size: 11px; color: var(--accent); }
+    html[data-theme="synthwave"] .hint-pill code { color: var(--pink); }
+
+    /* Sections */
+    main { padding: 0 24px 72px; }
+    .section { max-width: 1120px; margin: 0 auto; padding: 92px 0 18px; }
+    .section-header { margin-bottom: 42px; border-left: 2px solid rgba(0,243,255,0.45); padding-left: 18px; }
+    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.62); font-family: var(--font-code); margin-bottom: 6px; }
+    .section-title { font-size: 1.9rem; letter-spacing: 0.02em; text-transform: uppercase; }
+    .section-description { font-size: 0.95rem; color: rgba(255,255,255,0.65); max-width: 520px; margin-top: 8px; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; }
+    .card {
+      border-radius: 16px; border: 1px solid rgba(255,255,255,0.12); background: var(--card-bg);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.72); padding: 18px 20px; position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 55%);
+      opacity: 0.7; mix-blend-mode: soft-light; pointer-events: none;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 12px; }
+    .card-title { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-code); }
+    .card-pill {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; border-radius: 999px;
+      padding: 4px 10px; border: 1px solid var(--card-pill-border); color: var(--card-pill-text);
+      background: var(--card-pill-bg); font-family: var(--font-code); white-space: nowrap;
+    }
+    .card-body { font-size: 0.93rem; color: rgba(255,255,255,0.72); }
+    .card-body ul { list-style: none; margin: 10px 0 0; padding: 0; }
+    .card-body ul li { margin-bottom: 5px; color: rgba(255,255,255,0.66); }
+    .card-note { margin-top: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.60); font-family: var(--font-code); }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); gap: 26px; }
+    .contact-form { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 6px; }
+    .field { display: grid; gap: 4px; font-size: 12px; }
+    .field label { text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255,255,255,0.62); font-size: 11px; font-family: var(--font-code); }
+    .field input, .field textarea {
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.28);
+      padding: 10px 12px; color: var(--text); font-size: 13px; outline: none;
+      resize: vertical; min-height: 42px; font-family: var(--font-display);
+    }
+    .field input:focus, .field textarea:focus { border-color: rgba(0,243,255,0.55); box-shadow: 0 0 0 1px rgba(0,243,255,0.35); }
+    .contact-side { font-size: 0.95rem; color: rgba(255,255,255,0.68); }
+    .contact-side ul { list-style: none; margin-top: 10px; padding: 0; display: grid; gap: 6px; }
+    .contact-side li::before { content: "▸"; margin-right: 8px; color: var(--cyan); font-family: var(--font-code); font-size: 11px; }
+    .contact-links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .contact-link-pill {
+      border-radius: 999px; padding: 7px 12px; font-size: 12px; border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.90); background: rgba(0,0,0,0.25);
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      transition: 0.2s ease-out; font-family: var(--font-code); text-decoration: none;
+    }
+    .contact-link-pill:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,0.8); background: rgba(255,255,255,0.06); border-color: rgba(0,243,255,0.35); }
+    html[data-theme="synthwave"] .contact-link-pill:hover { background: linear-gradient(90deg, rgba(255,43,214,0.22), rgba(0,230,255,0.14)); border-color: rgba(0,230,255,0.6); }
+    .contact-link-pill svg { width: 14px; height: 14px; }
+
+    footer { padding: 24px; font-size: 11px; color: rgba(255,255,255,0.55); border-top: 1px solid rgba(255,255,255,0.10); background: rgba(0,0,0,0.20); }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto; display: flex; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; font-family: var(--font-code); text-transform: uppercase; letter-spacing: 0.16em;
+    }
+
+    @media (max-width: 880px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 34px; }
+      .hero { padding-top: 110px; }
+      .nav-links { display: none; }
+      .hero-meta { flex-direction: column; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .theme-label { display: none; }
+    }
+    @media (max-width: 640px) {
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .pill-muted { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="perspective-grid" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="crt-overlay" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="logo-pill" href={`/${lang}`}>
+        <span class="logo-dot"></span>
+        <span>{personalInfo.name.toUpperCase()}</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services">{t.nav.services}</a>
+        <a href="#process">{t.nav.process}</a>
+        <a href="#contact">{t.nav.contact}</a>
+      </nav>
+      <div class="nav-cta">
+        <div class="theme-switch" role="group" aria-label="Theme switcher">
+          <span class="theme-label">Theme</span>
+          <button class="switch-btn" id="themeToggle" type="button" aria-label="Toggle theme">CYBERPUNK</button>
+        </div>
+        <a class="btn-neon" href="#contact">
+          <span class="dot"></span>
+          <span>{t.nav.startProject}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="hero-subtitle">{t.hero.subtitle}</p>
+        <h1 class="hero-title">
+          <span class="accent">{t.hero.titleAccent}</span><br/>{t.hero.titleRest}
+        </h1>
+        <p class="hero-description">
+          {t.hero.desc1} <strong>{t.hero.new_website}</strong>{t.hero.desc2} <strong>{t.hero.bug_fixes}</strong>{t.hero.desc3}
+          <strong>{t.hero.maintain}</strong> {t.hero.desc4}
+        </p>
+        <div class="hero-tags">
+          {t.hero.tags.map((tag: string) => <span class="hero-tag">{tag}</span>)}
+        </div>
+        <div class="hero-actions">
+          <a class="btn-neon" href="#services">
+            <span class="dot"></span>
+            <span>{t.hero.viewServices}</span>
+          </a>
+          <a class="btn-ghost" href="#contact">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9h-2a7 7 0 1 1-7-7V3Zm1 4v6l4 2-.75 1.86L11 14V7h2Z"/></svg>
+            <span>{t.hero.bookCall}</span>
+          </a>
+        </div>
+        <div class="hero-meta">
+          <span><strong>{t.hero.metaLaunch}</strong> {t.hero.metaLaunchRest}</span>
+          <span><strong>{t.hero.metaFix}</strong> {t.hero.metaFixRest}</span>
+          <span><strong>{t.hero.metaMaintain}</strong> {t.hero.metaMaintainRest}</span>
+        </div>
+      </div>
+
+      <div class="hero-terminal-wrapper">
+        <div class="hero-terminal-outline"></div>
+        <div class="terminal-window" aria-label="Service terminal">
+          <div class="terminal-header">
+            <div class="window-controls" aria-hidden="true">
+              <span class="window-dot"></span>
+              <span class="window-dot"></span>
+              <span class="window-dot"></span>
+            </div>
+            <div class="terminal-title">/services/cli — shell</div>
+            <div class="terminal-status-pill">
+              <span class="status-dot"></span>
+              <span>Live</span>
+            </div>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <span class="terminal-line"><span class="prefix">$</span> <span class="command">services.list</span></span>
+            <span class="terminal-line"><span class="output">{t.terminalList}</span></span>
+            <div id="terminal-log"></div>
+            <div class="terminal-prompt" style="flex-shrink:0">
+              <span class="prefix">$</span>
+              <span class="terminal-input" id="terminal-input"></span>
+              <span class="terminal-cursor" aria-hidden="true"></span>
+            </div>
+            <div class="terminal-footer-hints">
+              <span class="hint-pill"><code>new-site</code> → website / redesign</span>
+              <span class="hint-pill"><code>debug</code> → fixes &amp; issues</span>
+              <span class="hint-pill"><code>maintain</code> → care plans</span>
+              <span class="hint-pill"><code>evolve</code> → new features</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <p class="section-label">{t.services.label}</p>
+        <h2 class="section-title">{t.services.title}</h2>
+        <p class="section-description">{t.services.desc}</p>
+      </div>
+      <div class="grid-2">
+        {t.services.cards.map((c: any) => (
+          <article class="card">
+            <div class="card-header"><h3 class="card-title">{c.num} · {c.title}</h3><span class="card-pill">{c.pill}</span></div>
+            <div class="card-body">
+              <p>{c.body}</p>
+              <ul>{c.items.map((item: string) => <li>• {item}</li>)}</ul>
+              <p class="card-note">{c.note}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section" id="process">
+      <div class="section-header">
+        <p class="section-label">{t.process.label}</p>
+        <h2 class="section-title">{t.process.title}</h2>
+        <p class="section-description">{t.process.desc}</p>
+      </div>
+      <div class="grid-2">
+        {t.process.cards.map((c: any) => (
+          <article class="card">
+            <div class="card-header"><h3 class="card-title">{c.num} · {c.title}</h3><span class="card-pill">{c.pill}</span></div>
+            <div class="card-body"><p>{c.body}</p></div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="section-header">
+        <p class="section-label">{t.contact.label}</p>
+        <h2 class="section-title">{t.contact.title}</h2>
+        <p class="section-description">{t.contact.desc}</p>
+      </div>
+      <div class="contact-grid">
+        <article class="card">
+          <div class="card-header"><h3 class="card-title">{t.contact.formTitle}</h3><span class="card-pill">{t.contact.formPill}</span></div>
+          <div class="card-body">
+            <form class="contact-form" id="contactForm">
+              <div class="field">
+                <label for="cf-name">{t.contact.fields.name}</label>
+                <input id="cf-name" name="name" type="text" placeholder={t.contact.fields.namePh} required />
+              </div>
+              <div class="field">
+                <label for="cf-email">{t.contact.fields.email}</label>
+                <input id="cf-email" name="email" type="email" placeholder={t.contact.fields.emailPh} required />
+              </div>
+              <div class="field">
+                <label for="cf-type">{t.contact.fields.type}</label>
+                <input id="cf-type" name="type" type="text" placeholder={t.contact.fields.typePh} />
+              </div>
+              <div class="field">
+                <label for="cf-budget">{t.contact.fields.budget}</label>
+                <input id="cf-budget" name="budget" type="text" placeholder={t.contact.fields.budgetPh} />
+              </div>
+              <div class="field">
+                <label for="cf-message">{t.contact.fields.message}</label>
+                <textarea id="cf-message" name="message" rows="4" placeholder={t.contact.fields.messagePh} required></textarea>
+              </div>
+              <button class="btn-neon" type="submit" id="submitBtn">
+                <span class="dot"></span>
+                <span>{t.contact.send}</span>
+              </button>
+              <p id="formStatus" style="font-size:12px;font-family:var(--font-code);margin-top:6px;display:none;"></p>
+            </form>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3 class="card-title">{t.contact.sideTitle}</h3><span class="card-pill">{t.contact.sidePill}</span></div>
+          <div class="card-body contact-side">
+            <p>{t.contact.sideDesc}</p>
+            <ul>
+              {t.contact.sideItems.map((item: string) => <li>{item}</li>)}
+            </ul>
+            <div class="contact-links">
+              <a class="contact-link-pill" href={`mailto:${personalInfo.email || 'hello@albanaugier.dev'}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h12c1.1 0 2 .9 2 2v.35l-8 4.8-8-4.8V6Zm0 2.85V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.85l-7.4 4.44a2.5 2.5 0 0 1-2.6 0L4 8.85Z"/></svg>
+                <span>Email</span>
+              </a>
+              <a class="contact-link-pill" href="https://linkedin.com/in/alban-augier-a64297108/" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/></svg>
+                <span>LinkedIn</span>
+              </a>
+              <a class="contact-link-pill" href="https://github.com/Elie-E" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>{personalInfo.name} · {t.footer}</span>
+      <span>Vanilla HTML / CSS / JS</span>
+    </div>
+  </footer>
+
+  <script id="terminal-commands-data" type="application/json" set:html={JSON.stringify(t.terminalCommands)}></script>
+  <script id="contact-i18n-data" type="application/json" set:html={JSON.stringify({ sending: t.contact.sending, success: t.contact.success, error: t.contact.error })}></script>
+
+  <style is:global>
+    .terminal-line {
+      display: block;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .terminal-line .prefix { color: var(--term-prefix); }
+    .terminal-line .command { color: var(--term-command); font-weight: 700; }
+    .terminal-line .output { color: var(--term-output); }
+    #terminal-log { display: flex; flex-direction: column; }
+  </style>
+
+  <script>
+    // Theme toggle
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('srvTheme', theme);
+      if (btn) btn.textContent = theme.toUpperCase();
+    }
+
+    const saved = localStorage.getItem('srvTheme');
+    setTheme(saved === 'synthwave' ? 'synthwave' : 'cyberpunk');
+    btn?.addEventListener('click', () => {
+      setTheme(root.getAttribute('data-theme') === 'cyberpunk' ? 'synthwave' : 'cyberpunk');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('[href^="#"]').forEach(el => {
+      el.addEventListener('click', e => {
+        const target = document.querySelector(el.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 86, behavior: 'smooth' });
+      });
+    });
+
+    // Terminal animation
+    const terminalLog = document.getElementById('terminal-log');
+    const terminalInput = document.getElementById('terminal-input');
+    const commands = JSON.parse(document.getElementById('terminal-commands-data').textContent);
+    let cmdIdx = 0, phase = 'typingInput', charIdx = 0;
+
+    function appendLine(text, type) {
+      const line = document.createElement('span');
+      line.className = 'terminal-line';
+      line.innerHTML = type === 'input'
+        ? `<span class="prefix">$</span> <span class="command">${text}</span>`
+        : `<span class="output">${text}</span>`;
+      terminalLog.appendChild(line);
+      const body = document.getElementById('terminal-body');
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function step() {
+      const cmd = commands[cmdIdx];
+      if (phase === 'typingInput') {
+        if (charIdx <= cmd.input.length) { terminalInput.textContent = cmd.input.slice(0, charIdx++); setTimeout(step, 85); }
+        else { appendLine(cmd.input, 'input'); terminalInput.textContent = ''; phase = 'showingOutput'; charIdx = 0; setTimeout(step, 280); }
+      } else if (phase === 'showingOutput') {
+        if (charIdx < cmd.output.length) { appendLine(cmd.output[charIdx++], 'output'); setTimeout(step, 420); }
+        else { phase = 'idle'; charIdx = 0; setTimeout(step, 1900); }
+      } else { cmdIdx = (cmdIdx + 1) % commands.length; phase = 'typingInput'; charIdx = 0; setTimeout(step, 520); }
+    }
+    step();
+
+    // Contact form — ready for Resend / backend hookup
+    document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('submitBtn');
+      const status = document.getElementById('formStatus');
+      const data = Object.fromEntries(new FormData(form));
+
+      btn.style.opacity = '0.6';
+      btn.style.pointerEvents = 'none';
+      status.style.display = 'block';
+      status.style.color = 'var(--muted)';
+      const i18n = JSON.parse(document.getElementById('contact-i18n-data').textContent);
+      status.textContent = i18n.sending;
+
+      try {
+        // TODO: replace with your Resend / API endpoint
+        // const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        // if (!res.ok) throw new Error('Server error');
+        await new Promise(r => setTimeout(r, 800)); // demo delay — remove when wired
+        status.style.color = 'var(--primary)';
+        status.textContent = i18n.success;
+        form.reset();
+      } catch {
+        status.style.color = '#ff6b6b';
+        status.textContent = i18n.error;
+      } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>

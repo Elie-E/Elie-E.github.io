@@ -10,11 +10,24 @@ export interface Props {
 const { currentLang, currentPath } = Astro.props;
 const personalInfo = getPersonalInfo(currentLang);
 
+// Build the equivalent path for a different language
+const langLabels: Record<string, { label: string; flag: string }> = {
+  en: { label: 'EN', flag: '🇬🇧' },
+  fr: { label: 'FR', flag: '🇫🇷' },
+  es: { label: 'ES', flag: '🇪🇸' },
+};
+
+function switchLangPath(targetLang: string): string {
+  // currentPath starts with /{currentLang}[/rest]
+  const rest = currentPath.replace(new RegExp(`^/${currentLang}`), '') || '/';
+  return `/${targetLang}${rest}`;
+}
+
 // Navigation items with translations
 const navItems = {
-  en: { home: 'Home', resume: 'Resume', portfolio: 'Portfolio', blog: 'Blog', about: 'About', recommendations: 'Recommendations', contact: 'Contact' },
-  fr: { home: 'Accueil', resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', recommendations: 'Recommandations', contact: 'Contact' },
-  es: { home: 'Inicio', resume: 'Currículum', portfolio: 'Portafolio', blog: 'Blog', about: 'Acerca de', recommendations: 'Recomendaciones', contact: 'Contacto' },
+  en: { home: 'Home', resume: 'Resume', portfolio: 'Portfolio', about: 'About', contact: 'Contact', services: 'Services' },
+  fr: { home: 'Accueil', resume: 'CV', portfolio: 'Portfolio', about: 'À propos', contact: 'Contact', services: 'Services' },
+  es: { home: 'Inicio', resume: 'Currículum', portfolio: 'Portafolio', about: 'Acerca de', contact: 'Contacto', services: 'Servicios' },
 };
 
 const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en;
@@ -63,26 +76,6 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
           {currentNav.portfolio}
         </a>
         <a 
-          href={`/${currentLang}/recommendations/`} 
-          class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-            currentPath === `/${currentLang}/recommendations`
-              ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-              : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-          }`}
-        >
-          {currentNav.recommendations}
-        </a>
-        <a 
-          href={`/${currentLang}/blog/`} 
-          class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-            currentPath === `/${currentLang}/blog`
-              ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-              : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-          }`}
-        >
-          {currentNav.blog}
-        </a>
-        <a 
           href={`/${currentLang}/about/`} 
           class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
             currentPath === `/${currentLang}/about`
@@ -102,7 +95,44 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
         >
           {currentNav.contact}
         </a>
+        <a 
+          href={`/${currentLang}/services`} 
+          class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${
+            currentPath === `/${currentLang}/services`
+              ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-200 border-cyan-500'
+              : 'text-cyan-600 border-cyan-200 hover:bg-cyan-50 hover:border-cyan-400 shadow-sm shadow-cyan-100'
+          }`}
+          style="box-shadow: 0 0 8px rgba(6,182,212,0.25);"
+        >
+          {currentNav.services}
+        </a>
       </nav>
+
+      <!-- Language Switcher (Desktop) -->
+      <div class="hidden md:flex items-center ml-3 border-l border-blue-100 pl-3">
+        <div class="relative group">
+          <button class="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
+            <span>{langLabels[currentLang]?.flag}</span>
+            <span>{langLabels[currentLang]?.label}</span>
+            <svg class="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="absolute right-0 top-full mt-1 w-28 bg-white border border-blue-100 rounded-xl shadow-lg shadow-blue-100/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            {Object.entries(langLabels).map(([code, { label, flag }]) => (
+              <a
+                href={switchLangPath(code)}
+                class={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl ${
+                  code === currentLang
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                }`}
+              >
+                <span>{flag}</span>
+                <span>{label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <!-- Mobile menu button -->
       <div class="md:hidden">
@@ -193,6 +223,32 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
         >
           {currentNav.contact}
         </a>
+        <a 
+          href={`/${currentLang}/services`} 
+          class={`block px-3 py-2 rounded-lg text-base font-medium transition-all duration-200 border ${
+            currentPath === `/${currentLang}/services`
+              ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-200 border-cyan-500'
+              : 'text-cyan-600 border-cyan-200 hover:bg-cyan-50 hover:border-cyan-400'
+          }`}
+        >
+          {currentNav.services}
+        </a>
+        <!-- Language Switcher (Mobile) -->
+        <div class="pt-2 mt-2 border-t border-blue-100 flex gap-2">
+          {Object.entries(langLabels).map(([code, { label, flag }]) => (
+            <a
+              href={switchLangPath(code)}
+              class={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                code === currentLang
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                  : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+              }`}
+            >
+              <span>{flag}</span>
+              <span>{label}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </div>

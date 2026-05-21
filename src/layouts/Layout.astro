@@ -6,6 +6,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
+const langEmoji: Record<string, string> = { en: '🇬🇧', fr: '🇫🇷', es: '🇪🇸' };
+
 export interface Props {
   title: string;
   description: string;
@@ -185,12 +187,7 @@ const alternateUrls = languages.map(lang => {
           class="lang-toggle pulse-glow"
           aria-label="Change language"
         >
-          <img 
-            id="current-flag"
-            src="/flags/fr.png" 
-            alt="Current language flag"
-            class="flag-bounce"
-          />
+          <span id="current-flag" class="flag-bounce" style="font-size:1.25rem;line-height:1;">{langEmoji[currentLang] ?? '🇬🇧'}</span>
         </button>
         
         <div 
@@ -203,11 +200,7 @@ const alternateUrls = languages.map(lang => {
                 href={`/${lang.code}${currentPath.replace(/^\/[a-z]{2}(\/|$)/, '/')}`}
                 class={currentLang === lang.code ? 'active' : ''}
               >
-                <img 
-                  src={lang.flag} 
-                  alt={`${lang.name} flag`}
-                  class="lang-flag"
-                />
+                <span style="font-size:1.1rem;line-height:1;">{langEmoji[lang.code] ?? ''}</span>
                 <span>{lang.name}</span>
               </a>
             ))}
@@ -267,12 +260,6 @@ const alternateUrls = languages.map(lang => {
             });
           });
           
-          // Update current flag
-          const updateCurrentFlag = () => {
-            const currentLangFlag = languages.find(lang => lang.code === currentLang)?.flag || '/flags/us.png';
-            currentFlag.src = currentLangFlag;
-          };
-          updateCurrentFlag();
         }
         
         // Back to top functionality

@@ -51,7 +51,9 @@ const aboutTranslations = {
     communicateClearly: 'Communiquer clairement et souvent',
     openSourceDesc: 'Contribuer à des projets qui bénéficient à la communauté développeur',
     speakingDesc: 'Partager les connaissances lors de conférences tech et meetups',
-    writingDesc: 'Bloguer sur les pratiques de développement et les tendances de l\'industrie'
+    writingDesc: 'Bloguer sur les pratiques de développement et les tendances de l\'industrie',
+    languages: 'Langues',
+    langItems: [{ flag: '🇫🇷', name: 'Français', level: 'Natif' }, { flag: '🇬🇧', name: 'Anglais', level: 'Courant' }, { flag: '🇪🇸', name: 'Espagnol', level: 'Courant' }]
   },
   en: {
     title: 'About Me',
@@ -82,7 +84,9 @@ const aboutTranslations = {
     communicateClearly: 'Communicate clearly and often',
     openSourceDesc: 'Contributing to projects that benefit the developer community',
     speakingDesc: 'Sharing knowledge at tech conferences and meetups',
-    writingDesc: 'Blogging about development practices and industry trends'
+    writingDesc: 'Blogging about development practices and industry trends',
+    languages: 'Languages',
+    langItems: [{ flag: '🇫🇷', name: 'French', level: 'Native' }, { flag: '🇬🇧', name: 'English', level: 'Fluent' }, { flag: '🇪🇸', name: 'Spanish', level: 'Fluent' }]
   },
   es: {
     title: 'Acerca de mí',
@@ -113,7 +117,9 @@ const aboutTranslations = {
     communicateClearly: 'Comunicar clara y frecuentemente',
     openSourceDesc: 'Contribuyendo a proyectos que benefician a la comunidad desarrolladora',
     speakingDesc: 'Compartiendo conocimiento en conferencias tech y meetups',
-    writingDesc: 'Blogueando sobre prácticas de desarrollo y tendencias de la industria'
+    writingDesc: 'Blogueando sobre prácticas de desarrollo y tendencias de la industria',
+    languages: 'Idiomas',
+    langItems: [{ flag: '🇫🇷', name: 'Francés', level: 'Nativo' }, { flag: '🇬🇧', name: 'Inglés', level: 'Fluido' }, { flag: '🇪🇸', name: 'Español', level: 'Fluido' }]
   },
   de: {
     title: 'Über mich',
@@ -351,6 +357,22 @@ const t = aboutTranslations[lang as keyof typeof aboutTranslations] || aboutTran
           </div>
         </div>
       </section>
+
+      <!-- Languages -->
+      {t.langItems && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-semibold mb-6">{t.languages}</h2>
+          <div class="grid grid-cols-3 gap-4">
+            {t.langItems.map((l: any) => (
+              <div class="bg-gradient-to-br from-violet-50 to-violet-100 border border-violet-200 rounded-xl p-5 text-center">
+                <div class="text-3xl mb-2">{l.flag}</div>
+                <p class="font-semibold text-gray-800">{l.name}</p>
+                <p class="text-xs text-violet-600 font-medium mt-1">{l.level}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <!-- Interests & Hobbies -->
       <section class="mb-12">

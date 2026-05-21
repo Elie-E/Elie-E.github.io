@@ -62,9 +62,9 @@ export { formatDate };
 const journeyTranslations = {
   en: {
     title: 'My Journey',
-    subtitle: 'From adventure to profession',
+    subtitle: '',
     story: [
-      { year: '2013-2015', title: 'Globe Trotter', description: 'Traveled and worked around the world across Europe and the Americas.', icon: '✈️' },
+      { year: '2013-2015', title: 'Globe Trotter', description: 'Traveled and worked across Europe and the Americas, developing adaptability, independence and intercultural communication skills.', icon: '✈️' },
       { year: '2015-2017', title: 'Team Manager', description: 'Led teams of street fundraisers at Ong Conseil, ensuring achievement of financial targets.', icon: '👥' },
       { year: '2017-2021', title: 'Founder & Restaurant Manager', description: 'Created El Viaje - Mexico from scratch. Managed daily operations, staff and guest experience.', icon: '🍽️' },
       { year: '2021-2022', title: 'E-Commerce Project Manager', description: 'Led and coordinated e-commerce website projects at Nateev, from conception to delivery.', icon: '🛒' },
@@ -76,9 +76,9 @@ const journeyTranslations = {
   },
   fr: {
     title: 'Mon Parcours',
-    subtitle: 'De l\'aventure à la profession',
+    subtitle: '',
     story: [
-      { year: '2013-2015', title: 'Globe Trotteur', description: 'Voyage et travail autour du monde, en Europe et en Amérique.', icon: '✈️' },
+      { year: '2013-2015', title: 'Globe Trotteur', description: 'Voyage et travail en Europe et en Amérique, développement de l\'adaptabilité, de l\'autonomie et de compétences interculturelles.', icon: '✈️' },
       { year: '2015-2017', title: 'Team Manager', description: 'Encadrement d\'équipes de fundraiseurs chez Ong Conseil, avec atteinte des objectifs financiers.', icon: '👥' },
       { year: '2017-2021', title: 'Fondateur & Gérant', description: 'Création du restaurant El Viaje - Mexico. Gestion des opérations quotidiennes, équipes et satisfaction clients.', icon: '🍽️' },
       { year: '2021-2022', title: 'Chef de Projet E-Commerce', description: 'Coordination des projets e-commerce chez Nateev, de la conception à la livraison finale.', icon: '🛒' },
@@ -90,9 +90,9 @@ const journeyTranslations = {
   },
   es: {
     title: 'Mi Trayectoria',
-    subtitle: 'De la aventura a la profesión',
+    subtitle: '',
     story: [
-      { year: '2013-2015', title: 'Trotamundos', description: 'Viajé y trabajé por el mundo, por Europa y las Américas.', icon: '✈️' },
+      { year: '2013-2015', title: 'Trotamundos', description: 'Viajé y trabajé por Europa y las Américas, desarrollando adaptabilidad, autonomía y habilidades de comunicación intercultural.', icon: '✈️' },
       { year: '2015-2017', title: 'Team Manager', description: 'Lideré equipos de captadores de fondos en Ong Conseil, asegurando el logro de los objetivos financieros.', icon: '👥' },
       { year: '2017-2021', title: 'Fundador y Gerente', description: 'Creé el restaurante El Viaje - Mexico desde cero. Gestioné las operaciones diarias, personal y experiencia de los clientes.', icon: '🍽️' },
       { year: '2021-2022', title: 'Jefe de Proyecto E-Commerce', description: 'Coordiné proyectos de e-commerce en Nateev, desde la concepción hasta la entrega final.', icon: '🛒' },
@@ -104,33 +104,18 @@ const journeyTranslations = {
   }
 };
 
-// Skills Data
+// Skills Data - grouped by pillar, no misleading percentages
 const skillsData = {
-  programming: [
-    { name: 'PHP', level: 88, category: 'Backend' },
-    { name: 'Laravel', level: 85, category: 'Backend' },
-    { name: 'JavaScript', level: 85, category: 'Frontend' },
-    { name: 'React', level: 80, category: 'Frontend' },
-    { name: 'jQuery', level: 82, category: 'Frontend' },
-    { name: 'Python', level: 70, category: 'Backend' },
-    { name: 'HTML/SASS', level: 88, category: 'Frontend' },
-    { name: 'SQL', level: 85, category: 'Database' },
-    { name: 'CodeIgniter', level: 72, category: 'Backend' },
-  ],
-  cloud: [
-    { name: 'AWS', level: 72, category: 'Cloud' },
-    { name: 'Docker', level: 75, category: 'DevOps' },
-    { name: 'CI/CD', level: 68, category: 'DevOps' },
-  ],
-  databases: [
-    { name: 'MySQL', level: 88, category: 'Database' },
-    { name: 'PostgreSQL', level: 72, category: 'Database' },
-  ],
-  design: [
-    { name: 'UI/UX Design', level: 75, category: 'Design' },
-    { name: 'SEO', level: 78, category: 'Marketing' },
-    { name: 'Project Management', level: 85, category: 'Management' },
-  ]
+  mainStack: ['PHP', 'Laravel', 'JavaScript', 'SQL', 'HTML', 'SCSS', 'Docker'],
+  frontend: ['Angular', 'Nuxt', 'Vue', 'Astro', 'Responsive Integration'],
+  backend: ['Laravel', 'PHP', 'REST APIs', 'Node.js', 'Python'],
+  databases: ['MySQL', 'PostgreSQL', 'Supabase', 'Database Design', 'Query Optimization'],
+  devops: ['Docker', 'Git', 'Linux', 'AWS', 'VPS Deployment', 'CI/CD', 'Cloudflare', 'Caddy', 'Apache'],
+  mobile: ['Ionic', 'Capacitor', 'Angular', 'Android', 'Google Play Console'],
+  web: ['SEO', 'Analytics', 'Performance Optimization'],
+  exploring: ['Software Architecture', 'DDD', 'Scalable Deployment'],
+  practices: ['Project Management', 'Debugging', 'Code Review', 'Production maintenance', 'API integration'],
+  certifications: ['PSM 1 - Professional Scrum Master']
 };
 
 // Contact Information
@@ -145,22 +130,22 @@ const contactInfo = {
 // Personal information translations
 const personalInfoTranslations = {
   en: {
-    title: 'Full Stack Developer',
-    bio: 'I am an autonomous and professional web developer with two years of experience in full-stack development and project management. Skilled in working with a variety of programming languages. I have a comprehensive understanding of both front-end and back-end technologies, supplemented by my abilities to interpret requirements and designing solutions to coordinating teams and handling client communications.',
+    title: 'Full-Stack Developer',
+    bio: 'Full-stack developer with 4+ years of experience building and maintaining web applications with PHP, Laravel, JavaScript and SQL. I combine hands-on development skills with a background in project management, team coordination and entrepreneurship - allowing me to understand business needs, communicate clearly and deliver practical end-to-end solutions.',
     languages: ['French (Native)', 'English (Professional)', 'Spanish (Conversational)'],
-    certifications: []
+    certifications: ['PSM 1 - Professional Scrum Master']
   },
   fr: {
-    title: 'Développeur Full Stack',
-    bio: 'Développeur web autonome et professionnel avec deux ans d\'expérience en développement full-stack et gestion de projet. Compétent dans divers langages de programmation. Bonne maîtrise des technologies front-end et back-end, complétée par mes capacités à analyser les besoins, concevoir des solutions, coordonner des équipes et gérer les communications clients.',
+    title: 'Développeur Full-Stack',
+    bio: 'Développeur full-stack avec plus de 4 ans d\'expérience professionnelle dans la construction et la maintenance d\'applications web avec PHP, Laravel, JavaScript et SQL. Mon parcours en gestion de projet e-commerce, management d\'équipe et entrepreneuriat me donne une approche pragmatique et orientée produit : je comprends les besoins métier, communique clairement et livre des solutions de bout en bout.',
     languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Conversationnel)'],
-    certifications: []
+    certifications: ['PSM 1 - Professional Scrum Master']
   },
   es: {
-    title: 'Desarrollador Full Stack',
-    bio: 'Desarrollador web autónomo y profesional con dos años de experiencia en desarrollo full-stack y gestión de proyectos. Con habilidades en múltiples lenguajes de programación. Tengo una comprensión integral de las tecnologías front-end y back-end, complementada con mi capacidad para interpretar requisitos, diseñar soluciones, coordinar equipos y gestionar comunicaciones con clientes.',
+    title: 'Desarrollador Full-Stack',
+    bio: 'Desarrollador full-stack con más de 4 años de experiencia profesional construyendo y manteniendo aplicaciones web con PHP, Laravel, JavaScript y SQL. Mi trayectoria en gestión de proyectos e-commerce, coordinación de equipos y emprendimiento me da un enfoque pragmático y orientado al producto: entiendo las necesidades del negocio, comunico con claridad y entrego soluciones de extremo a extremo.',
     languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Conversacional)'],
-    certifications: []
+    certifications: ['PSM 1 - Professional Scrum Master']
   }
 };
 
@@ -200,15 +185,15 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Full-Stack Developer',
         startDate: '2022-01',
         location: 'France',
-        description: 'Specializing in constructing efficient web applications and enhancing existing company websites with new functionalities. Managing database operations, troubleshooting and resolving issues across multiple websites built with PHP, Laravel, React and various CMS platforms. Implementing changes and improvements, contributing significantly to website stability and user experience. Employed Docker for containerization and AWS for deployment.',
-        technologies: ['Laravel', 'Python', 'jQuery', 'PHP', 'HTML/SASS', 'SQL'],
+        description: 'Developing and maintaining production web applications and company websites. Implementing new features, debugging production issues, managing database updates, improving performance and contributing to deployment workflows using Docker and AWS.',
+        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Led full stack development of web applications and functionalities',
-          'Handled database operations and improvement',
-          'Employed Docker for containerization and AWS for deployment',
-          'Optimized website performance'
+          'Built and maintained multiple production web applications',
+          'Implemented new backend and frontend features on existing codebases',
+          'Managed database operations and performance improvements',
+          'Containerized applications with Docker and deployed on AWS'
         ]
       },
       {
@@ -217,15 +202,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'France',
-        description: 'As project manager, led and coordinated all phases of e-commerce website projects from initial conception to final delivery. Implemented new features to keep sites modern, user-friendly, and aligned with client business needs.',
-        technologies: ['JavaScript', 'CodeIgniter', 'RedBooth', 'HTML/SASS'],
+        description: 'Coordinated e-commerce website projects from requirements to delivery, working with clients, designers, developers, SEO and marketing teams. Also contributed front-end features and JavaScript interactions.',
+        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Managed and coordinated multiple e-commerce projects',
-          'Managed a cross-functional team of designers and developers',
-          'Worked closely with SEO, marketing, and analytics teams',
-          'Successfully managed the entire Season Paper project from engagement to delivery'
+          'Managed multiple e-commerce projects end-to-end',
+          'Coordinated cross-functional teams (design, dev, SEO, marketing)',
+          'Delivered the Season Paper project on time and within scope',
+          'Improved client communication and delivery quality'
         ]
       },
       {
@@ -234,14 +219,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2017-01',
         endDate: '2021-01',
         location: 'France',
-        description: 'Created a restaurant from scratch, injecting personal vision into everything from the unique style and decor to the innovative menu. Ensured smooth operations and that every guest left with a smile.',
+        description: 'Built a restaurant business from scratch - from concept and branding to operations, recruitment, team management and customer experience. Developed strong skills in leadership, communication, decision-making and problem-solving that now support my work as a developer.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
         type: 'Freelance' as const,
         achievements: [
-          'Conceived and launched a restaurant concept',
-          'Managed daily operations, ensuring efficient and high-quality service',
-          'Recruited, trained, and mentored restaurant staff'
+          'Business operations',
+          'Team management',
+          'Customer experience',
+          'Problem-solving'
         ]
       },
       {
@@ -250,23 +236,32 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2015-01',
         endDate: '2017-01',
         location: 'France',
-        description: 'Provided training and leadership to teams of street fundraisers, while also ensuring the achievement of financial targets.',
+        description: 'Led and trained teams of street fundraisers, with responsibility for motivation, field organization and achievement of financial targets.',
         technologies: [],
         duration: formatDuration(calculateDuration('2015-01', '2017-01'), lang),
         type: 'Full-time' as const,
-        achievements: []
+        achievements: [
+          'Team leadership',
+          'Training',
+          'Communication',
+          'Performance tracking'
+        ]
       },
       {
-        company: 'Europe & America',
+        company: 'Europe & Americas',
         position: 'Globe Trotter',
         startDate: '2013-01',
         endDate: '2015-01',
         location: 'World',
-        description: 'Travel and work around the world.',
+        description: 'Traveled and worked across Europe and the Americas, developing adaptability, independence and intercultural communication skills.',
         technologies: [],
         duration: formatDuration(calculateDuration('2013-01', '2015-01'), lang),
         type: 'Freelance' as const,
-        achievements: []
+        achievements: [
+          'Adaptability',
+          'Autonomy',
+          'Intercultural communication'
+        ]
       }
     ],
     fr: [
@@ -275,15 +270,15 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Développeur Full-Stack',
         startDate: '2022-01',
         location: 'France',
-        description: 'Spécialisé dans la construction d\'applications web efficaces et l\'amélioration des sites existants avec de nouvelles fonctionnalités. Gestion des opérations de base de données, dépannage et résolution de problèmes sur plusieurs sites construits avec PHP, Laravel, React et diverses plateformes CMS. Mise en œuvre de changements et améliorations contribuant à la stabilité et à l\'expérience utilisateur.',
-        technologies: ['Laravel', 'Python', 'jQuery', 'PHP', 'HTML/SASS', 'SQL'],
+        description: 'Développement et maintenance d\'applications web en production et de sites d\'entreprise. Implémentation de nouvelles fonctionnalités, débogage de problèmes en production, gestion des mises à jour de base de données, amélioration des performances et contribution aux workflows de déploiement avec Docker et AWS.',
+        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Direction du développement full stack d\'applications web',
-          'Gestion des opérations et améliorations de base de données',
-          'Utilisation de Docker pour la conteneurisation et AWS pour le déploiement',
-          'Optimisation des performances des sites web'
+          'Développement et maintenance de plusieurs applications web en production',
+          'Implémentation de fonctionnalités back-end et front-end',
+          'Gestion des bases de données et amélioration des performances',
+          'Conteneurisation avec Docker et déploiement sur AWS'
         ]
       },
       {
@@ -292,15 +287,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'France',
-        description: 'En tant que chef de projet, direction et coordination de toutes les phases des projets de sites e-commerce, de la conception initiale à la livraison finale. Mise en œuvre de nouvelles fonctionnalités pour maintenir les sites modernes et alignés avec les besoins clients.',
-        technologies: ['JavaScript', 'CodeIgniter', 'RedBooth', 'HTML/SASS'],
+        description: 'Coordination de projets e-commerce de la définition des besoins à la livraison, en travaillant avec les clients, designers, développeurs, équipes SEO et marketing. Contribution aux fonctionnalités front-end et interactions JavaScript.',
+        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Gestion et coordination de multiples projets e-commerce',
-          'Management d\'une équipe pluridisciplinaire de designers et développeurs',
-          'Collaboration étroite avec les équipes SEO, marketing et analytics',
-          'Gestion complète du projet Season Paper du début à la livraison'
+          'Gestion de plusieurs projets e-commerce de bout en bout',
+          'Coordination d\'équipes pluridisciplinaires (design, dev, SEO, marketing)',
+          'Livraison du projet Season Paper dans les délais et le périmètre défini',
+          'Amélioration de la communication client et de la qualité de livraison'
         ]
       },
       {
@@ -309,14 +304,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2017-01',
         endDate: '2021-01',
         location: 'France',
-        description: 'Création d\'un restaurant from scratch, en injectant ma vision personnelle dans le style, le décor et le menu. Gestion de la totalité des opérations et satisfaction des clients.',
+        description: 'Création d\'une activité de restauration from scratch - du concept et de l\'identité visuelle aux opérations, au recrutement, au management d\'équipe et à l\'expérience client. Développement de compétences solides en leadership, communication, prise de décision et résolution de problèmes qui soutiennent aujourd\'hui mon travail de développeur.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
         type: 'Freelance' as const,
         achievements: [
-          'Conception et lancement d\'un concept de restaurant',
-          'Gestion des opérations quotidiennes avec un service de qualité',
-          'Recrutement, formation et encadrement du personnel'
+          'Gestion des opérations',
+          'Management d\'équipe',
+          'Expérience client',
+          'Résolution de problèmes'
         ]
       },
       {
@@ -325,11 +321,16 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2015-01',
         endDate: '2017-01',
         location: 'France',
-        description: 'Formation et management d\'équipes de fundraiseurs, tout en assurant l\'atteinte des objectifs financiers.',
+        description: 'Formation et management d\'équipes de fundraiseurs, avec responsabilité sur la motivation, l\'organisation terrain et l\'atteinte des objectifs financiers.',
         technologies: [],
         duration: formatDuration(calculateDuration('2015-01', '2017-01'), lang),
         type: 'Full-time' as const,
-        achievements: []
+        achievements: [
+          'Leadership d\'équipe',
+          'Formation',
+          'Communication',
+          'Suivi des performances'
+        ]
       },
       {
         company: 'Europe & Amérique',
@@ -337,11 +338,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2013-01',
         endDate: '2015-01',
         location: 'Monde',
-        description: 'Voyage et travail autour du monde.',
+        description: 'Voyage et travail en Europe et en Amérique, développement de l\'adaptabilité, de l\'autonomie et de compétences interculturelles.',
         technologies: [],
         duration: formatDuration(calculateDuration('2013-01', '2015-01'), lang),
         type: 'Freelance' as const,
-        achievements: []
+        achievements: [
+          'Adaptabilité',
+          'Autonomie',
+          'Communication interculturelle'
+        ]
       }
     ],
     es: [
@@ -350,15 +355,15 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Desarrollador Full-Stack',
         startDate: '2022-01',
         location: 'Francia',
-        description: 'Especializado en construir aplicaciones web eficientes y mejorar sitios web existentes con nuevas funcionalidades. Gestión de operaciones de base de datos, resolución de problemas en múltiples sitios web construidos con PHP, Laravel, React y varias plataformas CMS.',
-        technologies: ['Laravel', 'Python', 'jQuery', 'PHP', 'HTML/SASS', 'SQL'],
+        description: 'Desarrollo y mantenimiento de aplicaciones web en producción y sitios corporativos. Implementación de nuevas funcionalidades, depuración de problemas en producción, gestión de actualizaciones de base de datos, mejora del rendimiento y contribución a los flujos de despliegue con Docker y AWS.',
+        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Lideré el desarrollo full stack de aplicaciones web',
-          'Gestioné operaciones y mejoras de base de datos',
-          'Utilicé Docker para containerización y AWS para despliegue',
-          'Optimicé el rendimiento de sitios web'
+          'Desarrollo y mantenimiento de múltiples aplicaciones web en producción',
+          'Implementación de funcionalidades back-end y front-end',
+          'Gestión de bases de datos y mejoras de rendimiento',
+          'Containerización con Docker y despliegue en AWS'
         ]
       },
       {
@@ -367,14 +372,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'Francia',
-        description: 'Como jefe de proyecto, lideré y coordiné todas las fases de proyectos de sitios e-commerce, desde la concepción hasta la entrega final. Implementé nuevas funcionalidades para mantener los sitios modernos y alineados con las necesidades del cliente.',
-        technologies: ['JavaScript', 'CodeIgniter', 'RedBooth', 'HTML/SASS'],
+        description: 'Coordinación de proyectos e-commerce desde la definición de requisitos hasta la entrega, trabajando con clientes, diseñadores, desarrolladores, equipos SEO y marketing. Contribución a funcionalidades front-end e interacciones JavaScript.',
+        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Gestioné y coordiné múltiples proyectos e-commerce',
-          'Gestioné un equipo multifuncional de diseñadores y desarrolladores',
-          'Gestioné exitosamente el proyecto completo Season Paper de inicio a entrega'
+          'Gestión de múltiples proyectos e-commerce de principio a fin',
+          'Coordinación de equipos multifuncionales (diseño, dev, SEO, marketing)',
+          'Entrega del proyecto Season Paper en plazo y alcance definido',
+          'Mejora de la comunicación con clientes y la calidad de entrega'
         ]
       },
       {
@@ -383,14 +389,15 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2017-01',
         endDate: '2021-01',
         location: 'Francia',
-        description: 'Creé un restaurante desde cero, imprimiendo mi visión personal en el estilo, la decoración y el menú. Aseguré el buen funcionamiento de las operaciones y la satisfacción de cada cliente.',
+        description: 'Construí un negocio de restaurante desde cero - del concepto y branding a las operaciones, la contratación, la gestión de equipo y la experiencia del cliente. Desarrollé habilidades sólidas de liderazgo, comunicación, toma de decisiones y resolución de problemas que ahora apoyan mi trabajo como desarrollador.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
         type: 'Freelance' as const,
         achievements: [
-          'Concebí y lancé un concepto de restaurante',
-          'Gestioné operaciones diarias con servicio de calidad',
-          'Reclutamiento, formación y mentoría del personal'
+          'Gestión de operaciones',
+          'Gestión de equipos',
+          'Experiencia del cliente',
+          'Resolución de problemas'
         ]
       },
       {
@@ -399,23 +406,32 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2015-01',
         endDate: '2017-01',
         location: 'Francia',
-        description: 'Formación y liderazgo de equipos de captadores de fondos, asegurando el logro de objetivos financieros.',
+        description: 'Lideré y formé equipos de captadores de fondos, con responsabilidad sobre la motivación, organización en campo y logro de objetivos financieros.',
         technologies: [],
         duration: formatDuration(calculateDuration('2015-01', '2017-01'), lang),
         type: 'Full-time' as const,
-        achievements: []
+        achievements: [
+          'Liderazgo de equipos',
+          'Formación',
+          'Comunicación',
+          'Seguimiento del rendimiento'
+        ]
       },
       {
-        company: 'Europa & América',
+        company: 'Europa & Américas',
         position: 'Trotamundos',
         startDate: '2013-01',
         endDate: '2015-01',
         location: 'Mundo',
-        description: 'Viaje y trabajo alrededor del mundo.',
+        description: 'Viajé y trabajé por Europa y las Américas, desarrollando adaptabilidad, autonomía y habilidades de comunicación intercultural.',
         technologies: [],
         duration: formatDuration(calculateDuration('2013-01', '2015-01'), lang),
         type: 'Freelance' as const,
-        achievements: []
+        achievements: [
+          'Adaptabilidad',
+          'Autonomía',
+          'Comunicación intercultural'
+        ]
       }
     ]
   };

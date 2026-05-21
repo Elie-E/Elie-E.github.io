@@ -52,7 +52,9 @@ const contactTranslations = {
     responseTime: 'Je réponds généralement dans les 24 heures',
     professionalNetworking: 'Réseautage professionnel et mises à jour',
     remoteCollaboration: 'Ouvert à la collaboration à distance',
-    currentAvailability: 'Disponibilité actuelle'
+    currentAvailability: 'Disponibilité actuelle',
+    languagesLabel: 'Langues',
+    languagesValue: 'Nous pouvons communiquer en français, anglais ou espagnol.'
   },
   en: {
     title: 'Contact Me',
@@ -85,7 +87,9 @@ const contactTranslations = {
     responseTime: 'I typically respond within 24 hours',
     professionalNetworking: 'Professional networking and updates',
     remoteCollaboration: 'Open to remote collaboration',
-    currentAvailability: 'Current Availability'
+    currentAvailability: 'Current Availability',
+    languagesLabel: 'Languages',
+    languagesValue: 'We can communicate in French, English or Spanish.'
   },
   es: {
     title: 'Contáctame',
@@ -118,7 +122,9 @@ const contactTranslations = {
     responseTime: 'Normalmente respondo dentro de 24 horas',
     professionalNetworking: 'Redes profesionales y actualizaciones',
     remoteCollaboration: 'Abierto a colaboración remota',
-    currentAvailability: 'Disponibilidad Actual'
+    currentAvailability: 'Disponibilidad Actual',
+    languagesLabel: 'Idiomas',
+    languagesValue: 'Podemos comunicarnos en francés, inglés o español.'
   },
   de: {
     title: 'Kontaktieren Sie mich',
@@ -395,6 +401,19 @@ const t = contactTranslations[lang as keyof typeof contactTranslations] || conta
                 </p>
               </div>
             </div>
+
+            {t.languagesLabel && (
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center text-lg">
+                  🌍
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">{t.languagesLabel}</h3>
+                  <p class="text-gray-700">{t.languagesValue}</p>
+                  <p class="text-sm text-gray-500 mt-1">🇫🇷 🇬🇧 🇪🇸</p>
+                </div>
+              </div>
+            )}
           </div>
 
           <!-- Availability -->

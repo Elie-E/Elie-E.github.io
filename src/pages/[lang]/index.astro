@@ -26,9 +26,9 @@ const description = personalInfo.bio;
 
 // Navigation translations
 const navTranslations = {
-  en: { resume: 'Resume', portfolio: 'Portfolio', blog: 'Blog', about: 'About', contact: 'Contact' },
-  fr: { resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', contact: 'Contact' },
-  es: { resume: 'Currículum', portfolio: 'Portafolio', blog: 'Blog', about: 'Acerca de', contact: 'Contacto' },
+  en: { resume: 'Resume', portfolio: 'Portfolio', blog: 'Blog', about: 'About', contact: 'Contact', services: 'Services' },
+  fr: { resume: 'CV', portfolio: 'Portfolio', blog: 'Blog', about: 'À propos', contact: 'Contact', services: 'Services' },
+  es: { resume: 'Currículum', portfolio: 'Portafolio', blog: 'Blog', about: 'Acerca de', contact: 'Contacto', services: 'Servicios' },
 };
 
 const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslations.en;
@@ -61,21 +61,13 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
               
               <!-- Quick Navigation -->
               <div class="flex flex-nowrap justify-center lg:justify-start gap-1 md:gap-2 mb-8 md:mb-12 overflow-x-auto px-1 md:px-2">
-        <a href={`/${lang}/resume/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
-          {nav.resume}
-        </a>
-        <a href={`/${lang}/portfolio/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
-          {nav.portfolio}
-        </a>
-        <a href={`/${lang}/blog/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
-          {nav.blog}
-        </a>
-        <a href={`/${lang}/about/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
-          {nav.about}
-        </a>
-        <a href={`/${lang}/contact/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
-          {nav.contact}
-        </a>
+                <a href={`/${lang}/resume/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
+                  {nav.resume}
+                </a>
+ 
+                <a href={`/${lang}/services`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-cyan-600 border-2 border-cyan-200 rounded-lg md:rounded-xl hover:bg-cyan-50 hover:border-cyan-400 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs font-medium" style="box-shadow: 0 0 8px rgba(6,182,212,0.25);">
+                  {nav.services}
+                </a>
               </div>
             </div>
 
@@ -120,6 +112,37 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
     <TestimonialsCarousel lang={lang} />
     
     <ExperienceTimeline lang={lang} />
+
+    <!-- Services Teaser -->
+    <section class="py-12 md:py-16 bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white">
+      <div class="container mx-auto px-4 md:px-6 max-w-5xl">
+        <div class="text-center mb-8 md:mb-10">
+          <p class="text-xs uppercase tracking-widest text-blue-400 font-mono mb-2">/ services</p>
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">Need a dev for your project?</h2>
+          <p class="text-gray-300 max-w-xl mx-auto">New website, urgent bug fix, or long-term maintenance — clear scope, no bloated agency process.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            { label: 'New website', desc: 'Custom build, no generic theme', icon: '⚡' },
+            { label: 'Debug & rescue', desc: 'Investigate & fix broken things', icon: '🔧' },
+            { label: 'Maintenance', desc: 'Updates, backups, monitoring', icon: '🛡️' },
+            { label: 'Evolution', desc: 'New features & UX improvements', icon: '🚀' },
+          ].map(s => (
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-sm">
+              <div class="text-2xl mb-2">{s.icon}</div>
+              <div class="font-semibold text-white mb-1">{s.label}</div>
+              <div class="text-gray-400 text-xs">{s.desc}</div>
+            </div>
+          ))}
+        </div>
+        <div class="text-center">
+          <a href={`/${lang}/services`} class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            View all services
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- Contact Section -->
     <ContactSection lang={lang} />
