@@ -598,6 +598,7 @@ const t = contactTranslations[lang as keyof typeof contactTranslations] || conta
           <span class="text-xs font-mono uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-200 rounded-full px-3 py-1">{t.formPill}</span>
         </div>
         <form id="contactEmailForm" class="space-y-4">
+          <input type="text" name="_hp" tabindex="-1" autocomplete="off" class="hidden" />
           <div>
             <label for="ef-name" class="block text-xs font-mono uppercase tracking-widest text-gray-500 mb-1">{t.formName}</label>
             <input id="ef-name" name="name" type="text" placeholder={t.formNamePh} required
@@ -627,26 +628,36 @@ const t = contactTranslations[lang as keyof typeof contactTranslations] || conta
             <p id="efStatus" class="text-sm font-mono hidden"></p>
           </div>
         </form>
-        <script id="contact-form-i18n" type="application/json" set:html={JSON.stringify({ sending: t.formSending, success: t.formSuccess, error: t.formError })}></script>
+        <script id="contact-form-i18n" type="application/json"
+          data-worker-url={import.meta.env.PUBLIC_CONTACT_WORKER_URL ?? ''}
+          set:html={JSON.stringify({ sending: t.formSending, success: t.formSuccess, error: t.formError })}></script>
       </div>
     </div>
   </main>
 
   <script>
+    document.getElementById('contactEmailForm')?.addEventListener('focusin', () => {
+      if (!sessionStorage.getItem('_cft')) sessionStorage.setItem('_cft', String(Date.now()));
+    }, { once: true });
+
     document.getElementById('contactEmailForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target as HTMLFormElement;
       const btn = document.getElementById('efSubmitBtn') as HTMLButtonElement | null;
       const status = document.getElementById('efStatus') as HTMLElement | null;
-      const i18n = JSON.parse(document.getElementById('contact-form-i18n')?.textContent ?? '{}');
+      const i18nEl = document.getElementById('contact-form-i18n') as (HTMLElement & { dataset: DOMStringMap }) | null;
+      const i18n = JSON.parse(i18nEl?.textContent ?? '{}');
+      const WORKER_URL = i18nEl?.dataset?.workerUrl ?? '';
       const data = Object.fromEntries(new FormData(form));
       if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
       if (status) { status.textContent = i18n.sending; status.className = 'text-sm font-mono text-gray-500'; status.classList.remove('hidden'); }
       try {
-        // TODO: replace with your actual API endpoint
-        // const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        // if (!res.ok) throw new Error('Server error');
-        await new Promise(r => setTimeout(r, 800));
+        const res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, _t: Number(sessionStorage.getItem('_cft') || Date.now()) })
+        });
+        if (!res.ok) throw new Error('Server error');
         if (status) { status.textContent = i18n.success; status.className = 'text-sm font-mono text-green-600'; }
         form.reset();
       } catch {

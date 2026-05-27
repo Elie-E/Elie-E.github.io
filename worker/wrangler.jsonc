@@ -1,0 +1,10 @@
+{
+  "name": "resume-contact-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-27",
+  "vars": {
+    "ALLOWED_ORIGIN": "https://elie-e.github.io",
+    "TO_EMAIL": "augier.al@gmail.com",
+    "FROM_EMAIL": "Resume Contact <contact@voyalib.com>"
+  }
+}

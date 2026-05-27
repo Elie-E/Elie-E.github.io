@@ -1006,6 +1006,7 @@ const langLabels: Record<string, { label: string; flag: string }> = {
           <div class="card-header"><h3 class="card-title">{t.contact.formTitle}</h3><span class="card-pill">{t.contact.formPill}</span></div>
           <div class="card-body">
             <form class="contact-form" id="contactForm">
+              <input type="text" name="_hp" tabindex="-1" autocomplete="off" style="display:none" />
               <div class="field">
                 <label for="cf-name">{t.contact.fields.name}</label>
                 <input id="cf-name" name="name" type="text" placeholder={t.contact.fields.namePh} required />
@@ -1069,7 +1070,9 @@ const langLabels: Record<string, { label: string; flag: string }> = {
   </footer>
 
   <script id="terminal-commands-data" type="application/json" set:html={JSON.stringify(t.terminalCommands)}></script>
-  <script id="contact-i18n-data" type="application/json" set:html={JSON.stringify({ sending: t.contact.sending, success: t.contact.success, error: t.contact.error })}></script>
+  <script id="contact-i18n-data" type="application/json"
+    data-worker-url={import.meta.env.PUBLIC_CONTACT_WORKER_URL ?? ''}
+    set:html={JSON.stringify({ sending: t.contact.sending, success: t.contact.success, error: t.contact.error })}></script>
 
   <style is:global>
     .terminal-line {
@@ -1202,6 +1205,10 @@ const langLabels: Record<string, { label: string; flag: string }> = {
     updateNavPosition();
 
     // Contact form — ready for Resend / backend hookup
+    document.getElementById('contactForm')?.addEventListener('focusin', () => {
+      if (!sessionStorage.getItem('_cft')) sessionStorage.setItem('_cft', String(Date.now()));
+    }, { once: true });
+
     document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target as HTMLFormElement;
@@ -1215,11 +1222,14 @@ const langLabels: Record<string, { label: string; flag: string }> = {
       const i18n = JSON.parse(i18nEl?.textContent ?? '{}');
       if (status) status.textContent = i18n.sending;
 
+      const WORKER_URL = (document.getElementById('contact-i18n-data') as HTMLElement & { dataset: DOMStringMap })?.dataset?.workerUrl ?? '';
       try {
-        // TODO: replace with your Resend / API endpoint
-        // const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        // if (!res.ok) throw new Error('Server error');
-        await new Promise(r => setTimeout(r, 800)); // demo delay — remove when wired
+        const res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, _t: Number(sessionStorage.getItem('_cft') || Date.now()) })
+        });
+        if (!res.ok) throw new Error('Server error');
         if (status) { status.style.color = 'var(--primary)'; status.textContent = i18n.success; }
         form.reset();
       } catch {

@@ -38,6 +38,7 @@ jobs:
         run: npm run build
         env:
           SITE: ${{ steps.pages.outputs.origin }}
+          PUBLIC_CONTACT_WORKER_URL: ${{ secrets.PUBLIC_CONTACT_WORKER_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
