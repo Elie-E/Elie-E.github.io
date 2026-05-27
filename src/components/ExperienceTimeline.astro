@@ -1,12 +1,12 @@
 ---
-import { getExperiences, formatDate } from '../data';
+import { getExperiences, getExperiencesDev } from '../data';
 
 export interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const experiences = getExperiences(lang);
+const experiences = getExperiencesDev(lang);
 
 // Translations
 const translations = {
@@ -87,14 +87,15 @@ const translations = {
 const t = translations[lang as keyof typeof translations] || translations.en;
 
 // Format date for display
-function formatDate(dateStr: string): string {
+function formatDate(dateStr: string, language: string = 'en'): string {
   const [year, month] = dateStr.split('-');
-  const monthNames = {
-    '01': 'janv.', '02': 'févr.', '03': 'mars', '04': 'avr.',
-    '05': 'mai', '06': 'juin', '07': 'juil.', '08': 'août',
-    '09': 'sept.', '10': 'oct.', '11': 'nov.', '12': 'déc.'
+  const monthNames: Record<string, string[]> = {
+    en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    fr: ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
+    es: ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'],
   };
-  return `${monthNames[month as keyof typeof monthNames]} ${year}`;
+  const months = monthNames[language] || monthNames.en;
+  return `${months[parseInt(month) - 1]} ${year}`;
 }
 
 // Get type color
@@ -170,7 +171,7 @@ function getTypeColor(type: string): string {
                     </svg>
                     <span>
                       {formatDate(exp.startDate, lang)}
-                      {exp.endDate ? ` - ${formatDate(exp.endDate, lang)}` : ` - ${t.present}`}
+                      {exp.endDate ? ` - ${formatDate(exp.endDate, lang)}` : ` – ${t.present}`}
                     </span>
                   </div>
                   <div class="flex items-center">
@@ -200,11 +201,11 @@ function getTypeColor(type: string): string {
                     </div>
                   </div>
                 )}
-                {exp.technologies.length === 0 && exp.achievements.length > 0 && (
+                {exp.technologies.length === 0 && (exp.achievements ?? []).length > 0 && (
                   <div>
                     <h5 class="text-sm font-semibold text-gray-600 mb-3">{t.labels.relevantSkills}</h5>
                     <div class="flex flex-wrap gap-2">
-                      {exp.achievements.map((skill) => (
+                      {(exp.achievements ?? []).map((skill) => (
                         <span class="px-3 py-1 bg-gray-50 text-gray-700 rounded-lg text-sm font-medium border border-gray-200">
                           {skill}
                         </span>
@@ -225,9 +226,6 @@ function getTypeColor(type: string): string {
         <h3 class="text-2xl font-bold text-gray-900 mb-4">
           {t.summary.title}
         </h3>
-        <p class="text-gray-600 mb-6">
-          {t.summary.description}
-        </p>
         <div class="flex flex-wrap justify-center gap-4">
           {t.summary.skills.map(skill => (
             <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">

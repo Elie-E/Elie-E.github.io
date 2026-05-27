@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Alban Augier - Full Stack Developer",
+    "title": "Alban - Full Stack Developer",
     "description": "Autonomous and professional full-stack developer with experience in web development and project management.",
     "viewCV": "View CV",
     "viewPortfolio": "View Portfolio",
@@ -14,8 +14,8 @@
     "connectLinkedIn": "Connect on LinkedIn"
   },
   "cv": {
-    "title": "CV - Alban Augier",
-    "description": "Professional CV of Alban Augier, Full Stack Developer.",
+    "title": "CV - Alban",
+    "description": "Professional CV of Alban, Full Stack Developer.",
     "bio": "About Me",
     "experience": "Professional Experience",
     "education": "Education",
@@ -28,8 +28,8 @@
     "downloadCV": "Download CV"
   },
   "portfolio": {
-    "title": "Portfolio - Alban Augier",
-    "description": "Project portfolio of Alban Augier, Full Stack Developer.",
+    "title": "Portfolio - Alban",
+    "description": "Project portfolio of Alban, Full Stack Developer.",
     "allProjects": "All Projects",
     "featured": "Featured",
     "web": "Web",
@@ -43,7 +43,7 @@
     "technologies": "Technologies"
   },
   "blog": {
-    "title": "Blog - Alban Augier",
+    "title": "Blog - Alban",
     "description": "Technical articles and insights on web development.",
     "allPosts": "All Posts",
     "featured": "Featured",
@@ -53,8 +53,8 @@
     "tags": "Tags"
   },
   "about": {
-    "title": "About - Alban Augier",
-    "description": "Learn more about Alban Augier, his journey and vision.",
+    "title": "About - Alban",
+    "description": "Learn more about Alban, his journey and vision.",
     "myStory": "My Story",
     "myJourney": "My Journey",
     "currentRole": "Current Role",
@@ -63,8 +63,8 @@
     "contact": "Contact"
   },
   "contact": {
-    "title": "Contact - Alban Augier",
-    "description": "Contact Alban Augier for any collaboration or opportunity.",
+    "title": "Contact - Alban",
+    "description": "Contact Alban for any collaboration or opportunity.",
     "getInTouch": "Get in Touch",
     "contactDescription": "Interested in collaboration? Feel free to contact me.",
     "sendMessage": "Send Message",

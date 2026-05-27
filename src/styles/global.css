@@ -706,3 +706,53 @@ pre code {
     height: 1.25rem;
   }
 }
+
+/* ============================================================
+   Print / PDF export styles
+   ============================================================ */
+@media print {
+  /* Hide UI chrome */
+  header,
+  footer,
+  #back-to-top,
+  .lang-switcher-container,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset page background */
+  body,
+  html {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Full-width content without padding from layout */
+  main {
+    padding: 0 !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Ensure section backgrounds print */
+  section {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Avoid page breaks inside experience/education cards */
+  .border-l-4,
+  .bg-gray-100 {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 1.5cm 1.5cm;
+    size: A4 portrait;
+  }
+}

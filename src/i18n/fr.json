@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Alban Augier - Développeur Full Stack",
+    "title": "Alban - Développeur Full Stack",
     "description": "Développeur web autonome et professionnel avec de l'expérience en développement full-stack et gestion de projet.",
     "viewCV": "Voir le CV",
     "viewPortfolio": "Voir le Portfolio",
@@ -14,8 +14,8 @@
     "connectLinkedIn": "Se connecter sur LinkedIn"
   },
   "cv": {
-    "title": "CV - Alban Augier",
-    "description": "CV professionnel d'Alban Augier, Développeur Full Stack.",
+    "title": "CV - Alban",
+    "description": "CV professionnel d'Alban, Développeur Full Stack.",
     "bio": "À propos de moi",
     "experience": "Expérience professionnelle",
     "education": "Formation",
@@ -28,8 +28,8 @@
     "downloadCV": "Télécharger le CV"
   },
   "portfolio": {
-    "title": "Portfolio - Alban Augier",
-    "description": "Portfolio de projets d'Alban Augier, Développeur Full Stack.",
+    "title": "Portfolio - Alban",
+    "description": "Portfolio de projets d'Alban, Développeur Full Stack.",
     "allProjects": "Tous les projets",
     "featured": "En vedette",
     "web": "Web",
@@ -46,7 +46,7 @@
     "contact": "Contact"
   },
   "blog": {
-    "title": "Blog - Alban Augier",
+    "title": "Blog - Alban",
     "description": "Articles techniques et insights sur le développement web.",
     "allPosts": "Tous les articles",
     "featured": "En vedette",
@@ -56,8 +56,8 @@
     "tags": "Tags"
   },
   "about": {
-    "title": "À propos - Alban Augier",
-    "description": "En savoir plus sur Alban Augier, son parcours et sa vision.",
+    "title": "À propos - Alban",
+    "description": "En savoir plus sur Alban, son parcours et sa vision.",
     "myStory": "Mon histoire",
     "myJourney": "Mon parcours",
     "currentRole": "Rôle actuel",
@@ -66,8 +66,8 @@
     "contact": "Contact"
   },
   "contact": {
-    "title": "Contact - Alban Augier",
-    "description": "Contactez Alban Augier pour toute collaboration ou opportunité.",
+    "title": "Contact - Alban",
+    "description": "Contactez Alban pour toute collaboration ou opportunité.",
     "getInTouch": "Entrer en contact",
     "contactDescription": "Intéressé par une collaboration ? N'hésitez pas à me contacter.",
     "sendMessage": "Envoyer un message",

@@ -1,4 +1,4 @@
-import { languages, type PersonalInfo, type Experience, type Education, type Project, type BlogPost } from '../types';
+import { languages, type PersonalInfo, type Experience, type Education, type Project, type BlogPost, PersonalIntroText } from '../types';
 
 // Testimonial type definition
 export interface Testimonial {
@@ -62,7 +62,7 @@ export { formatDate };
 const journeyTranslations = {
   en: {
     title: 'My Journey',
-    subtitle: '',
+    subtitle: 'Before becoming a full-stack developer, I worked in project management, team leadership and entrepreneurship. This helps me understand business constraints, communicate clearly and build solutions that are useful beyond the code.',
     story: [
       { year: '2013-2015', title: 'Globe Trotter', description: 'Traveled and worked across Europe and the Americas, developing adaptability, independence and intercultural communication skills.', icon: '✈️' },
       { year: '2015-2017', title: 'Team Manager', description: 'Led teams of street fundraisers at Ong Conseil, ensuring achievement of financial targets.', icon: '👥' },
@@ -106,15 +106,15 @@ const journeyTranslations = {
 
 // Skills Data - grouped by pillar, no misleading percentages
 const skillsData = {
-  mainStack: ['PHP', 'Laravel', 'JavaScript', 'SQL', 'HTML', 'SCSS', 'Docker'],
-  frontend: ['Angular', 'Nuxt', 'Vue', 'Astro', 'Responsive Integration'],
+  mainStack: ['PHP', 'Laravel', 'JavaScript', 'Typescript', 'SQL', 'HTML', 'SCSS'],
+  frontend: ['Angular', 'Nuxt', 'Vue', 'Astro', 'Tailwind'],
   backend: ['Laravel', 'PHP', 'REST APIs', 'Node.js', 'Python'],
   databases: ['MySQL', 'PostgreSQL', 'Supabase', 'Database Design', 'Query Optimization'],
   devops: ['Docker', 'Git', 'Linux', 'AWS', 'VPS Deployment', 'CI/CD', 'Cloudflare', 'Caddy', 'Apache'],
   mobile: ['Ionic', 'Capacitor', 'Angular', 'Android', 'Google Play Console'],
   web: ['SEO', 'Analytics', 'Performance Optimization'],
-  exploring: ['Software Architecture', 'DDD', 'Scalable Deployment'],
-  practices: ['Project Management', 'Debugging', 'Code Review', 'Production maintenance', 'API integration'],
+  exploring: ['Software Architecture', 'DevOps', 'Cloud Infrastructure', 'Monitoring', 'Scalable Deployment'],
+  practices: ['Project Management', 'Debugging', 'Production maintenance', 'Code review'],
   certifications: ['PSM 1 - Professional Scrum Master']
 };
 
@@ -123,7 +123,7 @@ const contactInfo = {
   email: '',
   linkedin: 'https://linkedin.com/in/alban-augier-a64297108/',
   website: 'https://elie-e.github.io/',
-  location: 'France',
+  location: 'France / Mexique',
   phone: ''
 };
 
@@ -131,29 +131,49 @@ const contactInfo = {
 const personalInfoTranslations = {
   en: {
     title: 'Full-Stack Developer',
-    bio: 'Full-stack developer with 4+ years of experience building and maintaining web applications with PHP, Laravel, JavaScript and SQL. I combine hands-on development skills with a background in project management, team coordination and entrepreneurship - allowing me to understand business needs, communicate clearly and deliver practical end-to-end solutions.',
+    subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
+    bio: `I am a full-stack developer with 4+ years of production experience, a strong PHP/Laravel foundation, and a broad understanding of the web stack.
+    
+    I build, maintain and improve practical web applications, from backend logic and databases to frontend interfaces, deployment workflows and production debugging. My background in project management, team coordination and entrepreneurship helps me understand business needs, communicate clearly and deliver reliable, business-oriented solutions.`,
     languages: ['French (Native)', 'English (Professional)', 'Spanish (Conversational)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   },
   fr: {
     title: 'Développeur Full-Stack',
+    subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
     bio: 'Développeur full-stack avec plus de 4 ans d\'expérience professionnelle dans la construction et la maintenance d\'applications web avec PHP, Laravel, JavaScript et SQL. Mon parcours en gestion de projet e-commerce, management d\'équipe et entrepreneuriat me donne une approche pragmatique et orientée produit : je comprends les besoins métier, communique clairement et livre des solutions de bout en bout.',
     languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Conversationnel)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   },
   es: {
     title: 'Desarrollador Full-Stack',
+    subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
     bio: 'Desarrollador full-stack con más de 4 años de experiencia profesional construyendo y manteniendo aplicaciones web con PHP, Laravel, JavaScript y SQL. Mi trayectoria en gestión de proyectos e-commerce, coordinación de equipos y emprendimiento me da un enfoque pragmático y orientado al producto: entiendo las necesidades del negocio, comunico con claridad y entrego soluciones de extremo a extremo.',
     languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Conversacional)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   }
 };
 
+const ctaContentTranslations = {
+  en: {
+    ctaTitle: 'Ready to collaborate?',
+    ctaDescription: 'Autonomous, professional and always eager to take on new challenges.',
+    ctaButton: 'Get in Touch'
+  },
+  fr: {
+
+  },
+  es: {
+
+  }
+}
+
 export function getPersonalInfo(lang: string = 'en'): PersonalInfo {
   const translations = personalInfoTranslations[lang as keyof typeof personalInfoTranslations] || personalInfoTranslations.en;
   return {
-    name: 'Alban Augier',
+    name: 'Alban',
     title: translations.title,
+    subtitle: translations.subtitle,
     email: contactInfo.email,
     linkedin: contactInfo.linkedin,
     website: contactInfo.website,
@@ -162,6 +182,10 @@ export function getPersonalInfo(lang: string = 'en'): PersonalInfo {
     languages: translations.languages,
     certifications: translations.certifications
   };
+}
+
+export function getCtaContent(lang: string = 'en') {
+  return ctaContentTranslations[lang as keyof typeof ctaContentTranslations] || ctaContentTranslations.en;
 }
 
 export function getJourneyContent(lang: string = 'en') {
@@ -185,7 +209,7 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Full-Stack Developer',
         startDate: '2022-01',
         location: 'France',
-        description: 'Developing and maintaining production web applications and company websites. Implementing new features, debugging production issues, managing database updates, improving performance and contributing to deployment workflows using Docker and AWS.',
+        description: 'Developing and maintaining production web applications and company websites. Responsible for implementing new features, debugging production issues, updating databases, improving performance and contributing to deployment workflows using Docker and AWS. Work across backend logic, frontend interfaces and production support.',
         technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
@@ -198,11 +222,11 @@ export function getExperiences(lang: string): Experience[] {
       },
       {
         company: 'Nateev',
-        position: 'E-Commerce Project Manager / Front End Developer',
+        position: 'E-Commerce Project Manager & Front-End Developer',
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'France',
-        description: 'Coordinated e-commerce website projects from requirements to delivery, working with clients, designers, developers, SEO and marketing teams. Also contributed front-end features and JavaScript interactions.',
+        description: 'Coordinated e-commerce website projects from requirements to delivery, working with clients, designers, developers, SEO and marketing teams. Also contributed front-end features, JavaScript interactions, SEO tracking and analytics-related improvements.',
         technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
@@ -218,7 +242,7 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Founder & Restaurant Manager',
         startDate: '2017-01',
         endDate: '2021-01',
-        location: 'France',
+        location: 'Mexico',
         description: 'Built a restaurant business from scratch - from concept and branding to operations, recruitment, team management and customer experience. Developed strong skills in leadership, communication, decision-making and problem-solving that now support my work as a developer.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
@@ -283,11 +307,11 @@ export function getExperiences(lang: string): Experience[] {
       },
       {
         company: 'Nateev',
-        position: 'Chef de Projet E-Commerce / Développeur Front End',
+        position: 'Chef de Projet E-Commerce & Développeur Front-End',
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'France',
-        description: 'Coordination de projets e-commerce de la définition des besoins à la livraison, en travaillant avec les clients, designers, développeurs, équipes SEO et marketing. Contribution aux fonctionnalités front-end et interactions JavaScript.',
+        description: 'Coordination de projets e-commerce de la définition des besoins à la livraison, en travaillant avec les clients, designers, développeurs, équipes SEO et marketing. Contribution aux fonctionnalités front-end, interactions JavaScript, suivi SEO et améliorations analytics.',
         technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
@@ -355,7 +379,7 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Desarrollador Full-Stack',
         startDate: '2022-01',
         location: 'Francia',
-        description: 'Desarrollo y mantenimiento de aplicaciones web en producción y sitios corporativos. Implementación de nuevas funcionalidades, depuración de problemas en producción, gestión de actualizaciones de base de datos, mejora del rendimiento y contribución a los flujos de despliegue con Docker y AWS.',
+        description: 'Desarrollo y mantenimiento de aplicaciones web en producción y sitios corporativos. Responsable de implementar nuevas funcionalidades, depurar problemas en producción, actualizar bases de datos, mejorar el rendimiento y contribuir a los flujos de despliegue con Docker y AWS. Trabajo en lógica back-end, interfaces front-end y soporte en producción.',
         technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
@@ -368,11 +392,11 @@ export function getExperiences(lang: string): Experience[] {
       },
       {
         company: 'Nateev',
-        position: 'Jefe de Proyecto E-Commerce / Desarrollador Front End',
+        position: 'Jefe de Proyecto E-Commerce & Desarrollador Front-End',
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'Francia',
-        description: 'Coordinación de proyectos e-commerce desde la definición de requisitos hasta la entrega, trabajando con clientes, diseñadores, desarrolladores, equipos SEO y marketing. Contribución a funcionalidades front-end e interacciones JavaScript.',
+        description: 'Coordinación de proyectos e-commerce desde la definición de requisitos hasta la entrega, trabajando con clientes, diseñadores, desarrolladores, equipos SEO y marketing. Contribución a funcionalidades front-end, interacciones JavaScript, seguimiento SEO y mejoras de analítica.',
         technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
@@ -431,6 +455,119 @@ export function getExperiences(lang: string): Experience[] {
           'Adaptabilidad',
           'Autonomía',
           'Comunicación intercultural'
+        ]
+      }
+    ]
+  };
+  return (data[lang as keyof typeof data] || data.en) as Experience[];
+}
+
+
+// Experiences with translations
+export function getExperiencesDev(lang: string): Experience[] {
+  const data = {
+    en: [
+      {
+        company: 'Advercity',
+        position: 'Full-Stack Developer',
+        startDate: '2022-01',
+        location: 'France',
+        description: 'Developing and maintaining production web applications and company websites, with responsibilities across backend logic, frontend interfaces, database updates, performance improvements, production debugging and deployment workflows.',
+        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
+        duration: formatDuration(calculateDuration('2022-01'), lang),
+        type: 'Full-time' as const,
+        achievements: [
+          'Built and maintained multiple production web applications',
+          'Implemented new backend and frontend features on existing codebases',
+          'Managed database operations and performance improvements',
+          'Containerized applications with Docker and deployed on AWS'
+        ]
+      },
+      {
+        company: 'Nateev',
+        position: 'E-Commerce Project Manager & Front-End Developer',
+        startDate: '2021-01',
+        endDate: '2022-01',
+        location: 'France',
+        description: 'Coordinated e-commerce website projects from requirements to delivery while contributing front-end features, JavaScript interactions, SEO tracking and analytics-related improvements.',
+        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
+        duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
+        type: 'Full-time' as const,
+        achievements: [
+          'Managed multiple e-commerce projects end-to-end',
+          'Coordinated cross-functional teams (design, dev, SEO, marketing)',
+          'Delivered the Season Paper project on time and within scope',
+          'Improved client communication and delivery quality'
+        ]
+      },
+    ],
+    fr: [
+      {
+        company: 'Advercity',
+        position: 'Développeur Full-Stack',
+        startDate: '2022-01',
+        location: 'France',
+        description: 'Développement et maintenance d\'applications web en production et de sites d\'entreprise, avec des responsabilités sur la logique back-end, les interfaces front-end, les mises à jour de base de données, l\'amélioration des performances, le débogage en production et les workflows de déploiement.',
+        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
+        duration: formatDuration(calculateDuration('2022-01'), lang),
+        type: 'Full-time' as const,
+        achievements: [
+          'Développement et maintenance de plusieurs applications web en production',
+          'Implémentation de fonctionnalités back-end et front-end',
+          'Gestion des bases de données et amélioration des performances',
+          'Conteneurisation avec Docker et déploiement sur AWS'
+        ]
+      },
+      {
+        company: 'Nateev',
+        position: 'Chef de Projet E-Commerce & Développeur Front-End',
+        startDate: '2021-01',
+        endDate: '2022-01',
+        location: 'France',
+        description: 'Coordination de projets e-commerce de la définition des besoins à la livraison, avec contribution aux fonctionnalités front-end, interactions JavaScript, suivi SEO et améliorations analytics.',
+        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
+        duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
+        type: 'Full-time' as const,
+        achievements: [
+          'Gestion de plusieurs projets e-commerce de bout en bout',
+          'Coordination d\'équipes pluridisciplinaires (design, dev, SEO, marketing)',
+          'Livraison du projet Season Paper dans les délais et le périmètre défini',
+          'Amélioration de la communication client et de la qualité de livraison'
+        ]
+      },
+    ],
+    es: [
+      {
+        company: 'Advercity',
+        position: 'Desarrollador Full-Stack',
+        startDate: '2022-01',
+        location: 'Francia',
+        description: 'Desarrollo y mantenimiento de aplicaciones web en producción y sitios corporativos, con responsabilidades en lógica back-end, interfaces front-end, actualizaciones de base de datos, mejoras de rendimiento, depuración en producción y flujos de despliegue.',
+        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
+        duration: formatDuration(calculateDuration('2022-01'), lang),
+        type: 'Full-time' as const,
+        achievements: [
+          'Desarrollo y mantenimiento de múltiples aplicaciones web en producción',
+          'Implementación de funcionalidades back-end y front-end',
+          'Gestión de bases de datos y mejoras de rendimiento',
+          'Containerización con Docker y despliegue en AWS'
+        ]
+      },
+      {
+        company: 'Nateev',
+        position: 'Jefe de Proyecto E-Commerce & Desarrollador Front-End',
+        startDate: '2021-01',
+        endDate: '2022-01',
+        location: 'Francia',
+        description: 'Coordinación de proyectos e-commerce desde la definición de requisitos hasta la entrega, con contribución a funcionalidades front-end, interacciones JavaScript, seguimiento SEO y mejoras de analítica.',
+        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
+        duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
+        type: 'Full-time' as const,
+        achievements: [
+          'Gestión de múltiples proyectos e-commerce de principio a fin',
+          'Coordinación de equipos multifuncionales (diseño, dev, SEO, marketing)',
+          'Entrega del proyecto Season Paper en plazo y alcance definido',
+          'Mejora de la comunicación con clientes y la calidad de entrega'
         ]
       }
     ]

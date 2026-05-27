@@ -39,7 +39,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
       <!-- Logo/Brand -->
       <div class="flex items-center">
         <a href={`/${currentLang}`} class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent hover:from-blue-700 hover:to-blue-900 transition-all duration-300">
-          {personalInfo.name}
+          Alban.dev
         </a>
       </div>
 
@@ -65,7 +65,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
         >
           {currentNav.resume}
         </a>
-        <a 
+        <!-- <a 
           href={`/${currentLang}/portfolio/`} 
           class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
             currentPath === `/${currentLang}/portfolio`
@@ -74,7 +74,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
           }`}
         >
           {currentNav.portfolio}
-        </a>
+        </a> -->
         <a 
           href={`/${currentLang}/about/`} 
           class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${

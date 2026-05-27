@@ -1,4 +1,4 @@
-# Alban Augier - Professional Resume
+# Alban - Professional Resume
 
 A multi-language professional resume website built with Astro and deployed on GitHub Pages.
 

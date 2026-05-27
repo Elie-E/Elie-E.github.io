@@ -24,6 +24,7 @@ export interface SEOData {
 export interface PersonalInfo {
   name: string;
   title: string;
+  subtitle: string;
   email: string;
   linkedin: string;
   website: string;

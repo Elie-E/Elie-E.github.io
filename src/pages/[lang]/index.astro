@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPersonalInfo } from '../../data/index.js';
+import { getPersonalInfo, getCtaContent } from '../../data/index.js';
 import { languages } from '../../types/index.js';
 import JourneySection from '../../components/JourneySection.astro';
 import SkillsSection from '../../components/SkillsSection.astro';
@@ -18,6 +18,7 @@ export async function getStaticPaths() {
 // Get language from URL path
 const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
+const ctaContent = getCtaContent(lang);
 const currentPath = `/${lang}`;
 const currentLang = lang;
 const canonical = `https://elie-e.github.io/${lang}`;
@@ -55,8 +56,10 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
               <h2 class="text-base md:text-lg lg:text-2xl text-gray-600 mb-4 md:mb-6 lg:mb-8">
                 {personalInfo.title}
               </h2>
-              <p class="text-xs md:text-sm lg:text-lg text-gray-700 max-w-full mx-auto lg:mx-0 mb-6 md:mb-8 lg:mb-12 leading-relaxed px-2 lg:px-0 text-overflow-fix">
-                {personalInfo.bio}
+              <p class="text-xs md:text-sm lg:text-lg text-gray-700 max-w-full mx-auto lg:mx-0 mb-6 md:mb-8 lg:mb-12 leading-relaxed px-2 lg:px-0">
+                {personalInfo.bio.split(/\n\s*\n/).map((paragraph) => (
+                  <p>{paragraph.trim()}</p>
+                ))}
               </p>
               
               <!-- Quick Navigation -->
@@ -71,7 +74,54 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
               </div>
             </div>
 
-            <!-- Photo -->
+            <!-- Tech Stack Card -->
+            <div class="flex justify-center lg:justify-end order-1 lg:order-2">
+              <div class="w-full max-w-sm lg:max-w-md bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-blue-100 p-6 md:p-8 space-y-5">
+                <!-- Card header -->
+                <div class="pb-4 border-b border-gray-100">
+                  <p class="text-xs font-mono uppercase tracking-widest text-blue-400 mb-1">CORE STACK</p>
+                  <p class="text-lg font-bold text-gray-900">Full-Stack Web Developer</p>
+                </div>
+
+                <!-- Backend -->
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-wider text-indigo-500 mb-2">Backend</p>
+                  <div class="flex flex-wrap gap-2">
+                    {['PHP', 'Laravel', 'MySQL', 'APIs'].map(tag => (
+                      <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Frontend -->
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-wider text-cyan-500 mb-2">Frontend</p>
+                  <div class="flex flex-wrap gap-2">
+                    {['Angular', 'Vue', 'Nuxt', 'Tailwind'].map(tag => (
+                      <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Production -->
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-wider text-orange-500 mb-2">Deployment</p>
+                  <div class="flex flex-wrap gap-2">
+                    {['Docker', 'Caddy', 'VPS', 'Cloudflare', 'Cloud'].map(tag => (
+                      <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-orange-50 text-orange-700 border border-orange-100">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Focus -->
+                <div class="pt-4 border-t border-gray-100">
+                  <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Focus</p>
+                  <p class="text-sm text-gray-700 leading-relaxed">Practical, reliable business web applications — from idea to production.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo (commented out — replaced by tech stack card above)
             <div class="flex justify-center lg:justify-end order-1 lg:order-2 photo-container">
               <div class="relative group">
                 <div class="w-56 h-56 md:w-72 md:h-72 lg:w-[28rem] lg:h-[28rem] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-200 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-3xl">
@@ -79,7 +129,7 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
                   <source srcset="/images/og-image.webp" type="image/webp">
                   <img 
                     src="/images/og-image.png" 
-                    alt="Alban Augier - Full Stack Developer"
+                    alt="Alban - Full Stack Developer"
                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                     style="object-position: center 20%;"
                     loading="eager"
@@ -88,29 +138,64 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
                   />
                 </picture>
                 </div>
-                <!-- Enhanced decorative elements - positioned inside container -->
                 <div class="absolute top-2 right-2 md:top-4 md:right-4 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 animate-pulse group-hover:opacity-40 transition-opacity duration-300 decorative-element"></div>
                 <div class="absolute bottom-2 left-2 md:bottom-4 md:left-4 w-4 h-4 md:w-6 md:h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full opacity-30 animate-pulse group-hover:opacity-50 transition-opacity duration-300 decorative-element" style="animation-delay: 0.5s;"></div>
                 <div class="absolute top-1/2 left-2 md:left-4 w-3 h-3 md:w-4 md:h-4 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-25 animate-pulse group-hover:opacity-40 transition-opacity duration-300 decorative-element" style="animation-delay: 1s;"></div>
-                <!-- Glow effect on hover -->
                 <div class="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-blue-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               </div>
             </div>
+            -->
+
           </div>
         </div>
       </div>
     </section>
 
+
+    <!-- Small section to replace my journey -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+        More than just code
+      </h2>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+        Before becoming a full-stack developer, I founded and managed a restaurant, then coordinated e-commerce projects.
+      </p>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+        This background gives me a practical understanding of business constraints, client communication, team collaboration and delivery pressure. Today, it helps me build solutions that are not only technically solid, but also useful, maintainable and aligned with real-world needs.
+      </p>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-12 md:mt-16">
+      <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 md:p-8 border border-blue-100 max-w-2xl mx-auto">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          {ctaContent.ctaTitle}
+        </h3>
+        <p class="text-gray-600 mb-6 text-sm md:text-base">
+          {ctaContent.ctaDescription}
+        </p>
+        <a 
+          href={`/${lang}/contact`}
+          class="inline-flex items-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-sm md:text-base"
+        >
+          {ctaContent.ctaButton}
+          <svg class="ml-2 w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
     <!-- My Journey Section -->
-    <JourneySection lang={lang} />
+    <!-- <JourneySection lang={lang} /> -->
 
     <!-- Skills Section -->
     <SkillsSection lang={lang} />
 
-    <!-- Experience Timeline -->
     <!-- Testimonials Carousel -->
-    <TestimonialsCarousel lang={lang} />
+    <!-- <TestimonialsCarousel lang={lang} /> -->
     
+    <!-- Experience Timeline -->
     <ExperienceTimeline lang={lang} />
 
     <!-- Services Teaser -->

@@ -40,10 +40,8 @@ const resumeTranslations = {
     certifications: 'Certifications',
     downloadCV: 'Télécharger mon CV',
     home: 'Accueil',
-    portfolio: 'Portfolio',
     blog: 'Blog',
     contact: 'Contact',
-    experience: 'Expérience',
     years: 'années',
     age: 'Âge',
     present: 'Présent',
@@ -73,10 +71,8 @@ const resumeTranslations = {
     certifications: 'Certifications',
     downloadCV: 'Download my CV',
     home: 'Home',
-    portfolio: 'Portfolio',
     blog: 'Blog',
     contact: 'Contact',
-    experience: 'Experience',
     years: 'years',
     age: 'Age',
     present: 'Present',
@@ -106,10 +102,8 @@ const resumeTranslations = {
     certifications: 'Certificaciones',
     downloadCV: 'Descargar mi CV',
     home: 'Inicio',
-    portfolio: 'Portafolio',
     blog: 'Blog',
     contact: 'Contacto',
-    experience: 'Experiencia',
     years: 'años',
     age: 'Edad',
     present: 'Presente',
@@ -149,7 +143,7 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
             <p><strong>{t.location}:</strong> {personalInfo.location}</p>
           </div>
           <div>
-                  <p><strong>{t.experience}:</strong> 2+ {t.years}</p>
+                  <p><strong>{t.experience}:</strong> 4+ {t.years}</p>
           </div>
         </div>
       </section>
@@ -160,8 +154,18 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
         <p class="text-gray-700 leading-relaxed mb-6">
           {personalInfo.bio}
         </p>
-        <!-- View CV Button -->
-        <div class="flex justify-center">
+        <!-- Download PDF Button -->
+        <div class="flex justify-center no-print">
+          <button
+            id="download-pdf-btn"
+            onclick="window.print()"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow transition-colors duration-200 cursor-pointer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+            </svg>
+            {t.downloadCV}
+          </button>
         </div>
       </section>
 

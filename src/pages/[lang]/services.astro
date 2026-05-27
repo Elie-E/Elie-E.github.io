@@ -17,9 +17,9 @@ const translations = {
     description: 'Freelance web development services: new websites, bug fixes, maintenance plans and ongoing evolution.',
     nav: { services: 'Services', process: 'Process', contact: 'Contact', startProject: 'Start Project' },
     hero: {
-      subtitle: 'Freelance Web Developer / Service Studio',
+      subtitle: 'Freelance Web Developer / ',
       titleAccent: 'I build, fix & evolve',
-      titleRest: 'websites that convert.',
+      titleRest: 'websites that stay fast, stable and useful.',
       desc1: 'Need a', new_website: 'new website', desc2: ', urgent', bug_fixes: 'bug fixes', desc3: ', or a dev to',
       maintain: 'maintain & improve', desc4: 'what you already have? I help small businesses, solo founders and agencies keep sites fast, stable and effective.',
       tags: ['Website creation', 'Debug & rescue', 'Maintenance plans', 'Ongoing evolution'],
@@ -32,7 +32,7 @@ const translations = {
       label: '/services', title: 'Clear ways to work together',
       desc: "Start small (a fix), or go full build (new website). Everything is scoped clearly so you're never guessing.",
       cards: [
-        { num: '01', title: 'New website or redesign', pill: 'Creation', body: "For when your current site feels old, off-brand, or you don't have one yet.", items: ['Structure & layout tailored to your content', 'Design & build (no bloated theme)', 'Performance & basic SEO pass', 'Launch support & handover'], note: 'Typical scope: landing page / small marketing site.' },
+        { num: '01', title: 'New website or redesign', pill: 'Creation', body: "For when your current site feels old, off-brand, or you don't have one yet.", items: ['Structure & layout tailored to your content', 'Design & build (no bloated theme)', 'Performance & basic SEO pass', 'Launch support & handover'], note: 'Typical scope: landing page, business website, redesign, admin tool. ' },
         { num: '02', title: 'Debug & rescue missions', pill: 'Fixes', body: 'Something is broken or slow? I investigate, explain clearly, and fix.', items: ['Broken layouts (often mobile-only)', 'Forms, checkout or login failing', 'Random errors & crashes', 'Sudden slowdowns after updates'], note: 'Usually starts as a fixed-price diagnostic + fix.' },
         { num: '03', title: 'Maintenance & care plans', pill: 'Ongoing', body: 'For businesses that rely on their website and want it to stay healthy.', items: ['Regular updates & security patches', 'Monitoring & error alerts', 'Backups & rollback plan', 'Small content edits each month'], note: 'Goal: your website quietly stays stable in the background.' },
         { num: '04', title: 'Evolution & new features', pill: 'Growth', body: 'Your site works, but you want it to do more: better UX, new flows, integrations.', items: ['New pages, components & layouts', 'Integrations (email tools, payments, analytics)', 'UX improvements & content restructuring', 'Small experiments (A/B tests)'], note: 'Project-based or monthly reserved hours.' },
@@ -179,10 +179,16 @@ const translations = {
 
 const t = translations[lang as keyof typeof translations] ?? translations.en;
 const description = t.description;
+
+const langLabels: Record<string, { label: string; flag: string }> = {
+  en: { label: 'EN', flag: '🇬🇧' },
+  fr: { label: 'FR', flag: '🇫🇷' },
+  es: { label: 'ES', flag: '🇪🇸' },
+};
 ---
 
 <!DOCTYPE html>
-<html lang={lang} data-theme="cyberpunk">
+<html lang={lang} data-theme="aurora">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -194,7 +200,7 @@ const description = t.description;
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
     /* =========================================================
-       THEME SYSTEM — mirrors terminalresume.html exactly
+       THEME SYSTEM
        ========================================================= */
 
     :root {
@@ -274,6 +280,148 @@ const description = t.description;
       --sun-opacity: 0.22;
     }
 
+    html[data-theme="aurora"] {
+      --bg: #f7fbff;
+      --bg-alt: #edf5ff;
+      --panel: rgba(255, 255, 255, 0.78);
+
+      --primary: #2563eb;
+      --accent: #7c3aed;
+      --cyan: #06b6d4;
+      --sun: #f59e0b;
+      --pink: #ec4899;
+
+      --text: #0f172a;
+      --muted: #526075;
+      --border: rgba(15, 23, 42, 0.10);
+
+      --shadow-soft: 0 24px 70px rgba(15, 23, 42, 0.14);
+
+      --bg-radial-1: rgba(124, 58, 237, 0.14);
+      --bg-radial-2: rgba(6, 182, 212, 0.16);
+      --bg-radial-3: rgba(37, 99, 235, 0.10);
+
+      --grid-a: rgba(124, 58, 237, 0.28);
+      --grid-b: rgba(6, 182, 212, 0.30);
+
+      --nav-bg: rgba(255, 255, 255, 0.72);
+
+      --btn-border: rgba(37, 99, 235, 0.70);
+      --btn-bg: rgba(255, 255, 255, 0.84);
+      --btn-text: #1d4ed8;
+      --btn-hover-bg: #2563eb;
+      --btn-hover-text: #ffffff;
+
+      --term-bg: rgba(255, 255, 255, 0.78);
+      --term-prefix: #7c3aed;
+      --term-command: #0891b2;
+      --term-output: rgba(15, 23, 42, 0.68);
+
+      --cursor: #2563eb;
+
+      --card-bg: rgba(255, 255, 255, 0.72);
+      --card-pill-border: rgba(37, 99, 235, 0.22);
+      --card-pill-bg: rgba(37, 99, 235, 0.08);
+      --card-pill-text: #1d4ed8;
+
+      --sun-opacity: 0.12;
+    }
+
+    html[data-theme="aurora"] body {
+      background:
+        radial-gradient(1000px 620px at 72% -10%, var(--bg-radial-1), transparent 56%),
+        radial-gradient(820px 560px at 12% 12%, var(--bg-radial-2), transparent 58%),
+        radial-gradient(760px 560px at 58% 92%, var(--bg-radial-3), transparent 62%),
+        linear-gradient(180deg, var(--bg-alt), var(--bg));
+    }
+
+    html[data-theme="aurora"] .crt-overlay,
+    html[data-theme="aurora"] .noise {
+      opacity: 0.03;
+    }
+
+    html[data-theme="aurora"] .nav-inner {
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
+    }
+
+    html[data-theme="aurora"] .logo-pill,
+    html[data-theme="aurora"] .pill-muted,
+    html[data-theme="aurora"] .hero-tag,
+    html[data-theme="aurora"] .btn-ghost,
+    html[data-theme="aurora"] .theme-switch,
+    html[data-theme="aurora"] .switch-btn,
+    html[data-theme="aurora"] .contact-link-pill,
+    html[data-theme="aurora"] .hint-pill,
+    html[data-theme="aurora"] .terminal-status-pill {
+      background: rgba(255, 255, 255, 0.68);
+      border-color: rgba(15, 23, 42, 0.12);
+      color: rgba(15, 23, 42, 0.76);
+    }
+
+    html[data-theme="aurora"] .nav-links {
+      color: rgba(15, 23, 42, 0.62);
+    }
+
+    html[data-theme="aurora"] .nav-links a:hover {
+      color: var(--text);
+    }
+
+    html[data-theme="aurora"] .hero-subtitle,
+    html[data-theme="aurora"] .section-label,
+    html[data-theme="aurora"] .field label {
+      color: rgba(15, 23, 42, 0.58);
+    }
+
+    html[data-theme="aurora"] .hero-description,
+    html[data-theme="aurora"] .section-description,
+    html[data-theme="aurora"] .card-body,
+    html[data-theme="aurora"] .contact-side {
+      color: rgba(15, 23, 42, 0.68);
+    }
+
+    html[data-theme="aurora"] .card-body ul li,
+    html[data-theme="aurora"] .card-note,
+    html[data-theme="aurora"] .hero-meta {
+      color: rgba(15, 23, 42, 0.58);
+    }
+
+    html[data-theme="aurora"] .terminal-window,
+    html[data-theme="aurora"] .card {
+      border-color: rgba(15, 23, 42, 0.10);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    html[data-theme="aurora"] .terminal-header {
+      background: rgba(248, 250, 252, 0.72);
+      border-bottom-color: rgba(15, 23, 42, 0.08);
+    }
+
+    html[data-theme="aurora"] .field input,
+    html[data-theme="aurora"] .field textarea {
+      background: rgba(255, 255, 255, 0.72);
+      border-color: rgba(15, 23, 42, 0.12);
+      color: var(--text);
+    }
+
+    html[data-theme="aurora"] .field input::placeholder,
+    html[data-theme="aurora"] .field textarea::placeholder {
+      color: rgba(15, 23, 42, 0.42);
+    }
+
+    html[data-theme="aurora"] footer {
+      background: rgba(255, 255, 255, 0.54);
+      border-top-color: rgba(15, 23, 42, 0.08);
+      color: rgba(15, 23, 42, 0.52);
+    }
+
+    html[data-theme="aurora"] .hero-title .accent {
+      background: linear-gradient(90deg, #4f46e5, #06b6d4, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: none;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body {
@@ -332,15 +480,50 @@ const description = t.description;
 
     /* NAV */
     .nav {
-      position: fixed; top: 18px; left: 0; right: 0;
-      display: flex; justify-content: center; padding: 0 20px; z-index: 20; pointer-events: none;
+      position: fixed;
+      top: 18px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 20;
+      pointer-events: none;
+      transition: top 0.22s ease-out, padding 0.22s ease-out;
     }
+    .nav.is-scrolled {
+      top: 0;
+      padding: 0;
+    }
+
     .nav-inner {
-      width: 100%; max-width: 1120px; border-radius: 999px;
-      background: var(--nav-bg); border: 1px solid var(--border);
-      backdrop-filter: blur(14px); box-shadow: 0 10px 34px rgba(0,0,0,0.7);
-      padding: 10px 18px; display: flex; align-items: center; justify-content: space-between;
-      pointer-events: auto; position: relative; overflow: hidden;
+      width: 100%;
+      max-width: 1120px;
+      border-radius: 999px;
+      background: var(--nav-bg);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 34px rgba(0,0,0,0.7);
+      padding: 10px 18px;
+      pointer-events: auto;
+      position: relative;
+      overflow: visible;
+      transition:
+        max-width 0.22s ease-out,
+        border-radius 0.22s ease-out,
+        padding 0.22s ease-out,
+        border-color 0.22s ease-out,
+        box-shadow 0.22s ease-out,
+        background 0.22s ease-out;
+    }
+
+    .nav.is-scrolled .nav-inner {
+      max-width: none;
+      border-radius: 0;
+      padding: 12px 24px;
+      border-left: none;
+      border-right: none;
+      border-top: none;
     }
     .nav-inner::after {
       content: ""; position: absolute; top: -30%; left: -30%; width: 60%; height: 180%;
@@ -349,6 +532,16 @@ const description = t.description;
     }
     @keyframes sweep { 0% { transform: translateX(-20%) rotate(18deg); } 100% { transform: translateX(210%) rotate(18deg); } }
 
+    .nav-content {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    
     .logo-pill {
       border-radius: 999px; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.12);
       display: inline-flex; align-items: center; gap: 8px;
@@ -395,12 +588,58 @@ const description = t.description;
     html[data-theme="cyberpunk"] .btn-neon:hover { transform: translateY(-1px); box-shadow: var(--shadow-soft); background: var(--btn-hover-bg); color: var(--btn-hover-text); }
     html[data-theme="synthwave"] .btn-neon:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(255,43,214,0.25), 0 0 40px rgba(0,230,255,0.2); border-color: rgba(0,230,255,0.7); }
 
+    .lang-dropdown-wrap { position: relative; z-index: 200; }
+    .lang-toggle-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      border: 1px solid rgba(255,255,255,0.16); background: rgba(0,0,0,0.25);
+      color: rgba(255,255,255,0.85); border-radius: 999px; padding: 6px 12px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: var(--font-code); cursor: pointer; transition: 0.18s ease-out;
+    }
+    .lang-toggle-btn:hover { border-color: rgba(0,243,255,0.35); color: var(--text); }
+    html[data-theme="aurora"] .lang-toggle-btn { color: rgba(15,23,42,0.78); background: rgba(255,255,255,0.72); border-color: rgba(15,23,42,0.14); }
+    html[data-theme="aurora"] .lang-toggle-btn:hover { color: #0f172a; border-color: rgba(37,99,235,0.35); background: rgba(255,255,255,0.92); }
+    .lang-dropdown {
+      display: none; position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden; min-width: 80px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      flex-direction: column;
+    }
+    .lang-dropdown.open { display: flex; }
+    .lang-option {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 16px; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; font-family: var(--font-code);
+      color: var(--muted); text-decoration: none; transition: 0.15s ease-out;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+    .lang-option.active { color: var(--primary); }
+    html[data-theme="aurora"] .lang-dropdown { background: #fff; border-color: rgba(0,0,0,0.08); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    html[data-theme="aurora"] .lang-option { color: rgba(15,23,42,0.55); }
+    html[data-theme="aurora"] .lang-option:hover { background: rgba(0,0,0,0.04); color: #0f172a; }
+    html[data-theme="aurora"] .lang-option.active { color: #1d4ed8; }
+
     .theme-switch {
       display: inline-flex; align-items: center; gap: 8px;
       border: 1px solid rgba(255,255,255,0.12); border-radius: 999px;
       padding: 6px 10px; background: rgba(0,0,0,0.20); user-select: none;
     }
     .theme-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.70); }
+    html[data-theme="aurora"] .theme-label {
+      color: rgba(15, 23, 42, 0.58);
+    }
+    html[data-theme="aurora"] .switch-btn {
+      color: rgba(15, 23, 42, 0.78);
+      background: rgba(255, 255, 255, 0.72);
+      border-color: rgba(15, 23, 42, 0.14);
+    }
+
+    html[data-theme="aurora"] .switch-btn:hover {
+      color: #0f172a;
+      border-color: rgba(37, 99, 235, 0.35);
+      background: rgba(255, 255, 255, 0.92);
+    }
     .switch-btn {
       border: 1px solid rgba(255,255,255,0.16); background: rgba(0,0,0,0.25);
       color: rgba(255,255,255,0.85); border-radius: 999px; padding: 6px 10px;
@@ -513,29 +752,41 @@ const description = t.description;
     .section-header { margin-bottom: 42px; border-left: 2px solid rgba(0,243,255,0.45); padding-left: 18px; }
     .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.62); font-family: var(--font-code); margin-bottom: 6px; }
     .section-title { font-size: 1.9rem; letter-spacing: 0.02em; text-transform: uppercase; }
-    .section-description { font-size: 0.95rem; color: rgba(255,255,255,0.65); max-width: 520px; margin-top: 8px; }
+    .section-description { font-size: 0.95rem; color: rgba(255,255,255,0.75); max-width: 520px; margin-top: 8px; }
 
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; }
+    .grid-2 { display: flex; flex-direction: column; gap: 16px; }
     .card {
       border-radius: 16px; border: 1px solid rgba(255,255,255,0.12); background: var(--card-bg);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.72); padding: 18px 20px; position: relative; overflow: hidden;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.72); padding: 0; position: relative; overflow: hidden;
     }
+    .grid-2 .card { display: grid; grid-template-columns: minmax(200px, 260px) 1fr; }
     .card::before {
       content: ""; position: absolute; inset: 0;
       background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 55%);
       opacity: 0.7; mix-blend-mode: soft-light; pointer-events: none;
     }
-    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 12px; }
+    .card-header { display: flex; gap: 10px; padding: 22px 24px; }
+    .grid-2 .card-header {
+      flex-direction: column; justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .contact-grid .card-header { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .card-title { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-code); }
     .card-pill {
       font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; border-radius: 999px;
       padding: 4px 10px; border: 1px solid var(--card-pill-border); color: var(--card-pill-text);
       background: var(--card-pill-bg); font-family: var(--font-code); white-space: nowrap;
     }
-    .card-body { font-size: 0.93rem; color: rgba(255,255,255,0.72); }
+    .grid-2 .card-pill { align-self: flex-start; }
+    .card-body { font-size: 0.93rem; color: rgba(255,255,255,0.72); padding: 22px 24px; }
+    .contact-grid .card-body { padding-top: 0; }
     .card-body ul { list-style: none; margin: 10px 0 0; padding: 0; }
     .card-body ul li { margin-bottom: 5px; color: rgba(255,255,255,0.66); }
     .card-note { margin-top: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.60); font-family: var(--font-code); }
+    @media (max-width: 600px) {
+      .grid-2 .card { grid-template-columns: 1fr; }
+      .grid-2 .card-header { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); flex-direction: row; align-items: center; justify-content: space-between; }
+    }
 
     /* Contact */
     .contact-grid { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); gap: 26px; }
@@ -592,25 +843,47 @@ const description = t.description;
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
-      <a class="logo-pill" href={`/${lang}`}>
-        <span class="logo-dot"></span>
-        <span>{personalInfo.name.toUpperCase()}</span>
-      </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#services">{t.nav.services}</a>
-        <a href="#process">{t.nav.process}</a>
-        <a href="#contact">{t.nav.contact}</a>
-      </nav>
-      <div class="nav-cta">
-        <div class="theme-switch" role="group" aria-label="Theme switcher">
-          <span class="theme-label">Theme</span>
-          <button class="switch-btn" id="themeToggle" type="button" aria-label="Toggle theme">CYBERPUNK</button>
-        </div>
-        <a class="btn-neon" href="#contact">
-          <span class="dot"></span>
-          <span>{t.nav.startProject}</span>
+      <div class="nav-content">
+        <a class="logo-pill" href={`/${lang}`}>
+          <span class="logo-dot"></span>
+          <span>{personalInfo.name.toUpperCase()}</span>
         </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#services">{t.nav.services}</a>
+          <a href="#process">{t.nav.process}</a>
+          <a href="#contact">{t.nav.contact}</a>
+          
+        </nav>
+        <div class="nav-cta">
+          <a class="btn-neon" href="#contact">
+            <span class="dot"></span>
+            <span>{t.nav.startProject}</span>
+          </a>
+          <div class="theme-switch" role="group" aria-label="Theme switcher">
+            <span class="theme-label">Theme</span>
+            <button class="switch-btn" id="themeToggle" type="button" aria-label="Toggle theme">AURORA</button>
+          </div>
+          <div class="lang-dropdown-wrap">
+            <button class="lang-toggle-btn" id="langToggle" type="button" aria-label="Switch language">
+              <span>{langLabels[lang]?.label}</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+              {Object.entries(langLabels).map(([code, { label, flag }]) => (
+                <a
+                  href={`/${code}/services`}
+                  class={`lang-option${lang === code ? ' active' : ''}`}
+                >
+                  <span style="font-size:1.1rem;line-height:1;">{flag}</span>
+                  <span>{label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+        
       </div>
+      
     </div>
   </header>
 
@@ -769,18 +1042,18 @@ const description = t.description;
               {t.contact.sideItems.map((item: string) => <li>{item}</li>)}
             </ul>
             <div class="contact-links">
-              <a class="contact-link-pill" href={`mailto:${personalInfo.email || 'hello@albanaugier.dev'}`}>
+              <!-- <a class="contact-link-pill" href={`mailto:${personalInfo.email}`}>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h12c1.1 0 2 .9 2 2v.35l-8 4.8-8-4.8V6Zm0 2.85V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.85l-7.4 4.44a2.5 2.5 0 0 1-2.6 0L4 8.85Z"/></svg>
                 <span>Email</span>
-              </a>
-              <a class="contact-link-pill" href="https://linkedin.com/in/alban-augier-a64297108/" target="_blank" rel="noreferrer">
+              </a> -->
+              <!-- <a class="contact-link-pill" href="https://linkedin.com/in/alban-augier-a64297108/" target="_blank" rel="noreferrer">
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/></svg>
                 <span>LinkedIn</span>
-              </a>
-              <a class="contact-link-pill" href="https://github.com/Elie-E" target="_blank" rel="noreferrer">
+              </a> -->
+              <!-- <a class="contact-link-pill" href="https://github.com/Elie-E" target="_blank" rel="noreferrer">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
                 <span>GitHub</span>
-              </a>
+              </a> -->
             </div>
           </div>
         </article>
@@ -815,22 +1088,55 @@ const description = t.description;
     const root = document.documentElement;
     const btn = document.getElementById('themeToggle');
 
-    function setTheme(theme) {
+    const themes = ['aurora', 'cyberpunk', 'synthwave'] as const;
+    type ThemeName = typeof themes[number];
+
+    const themeLabels: Record<ThemeName, string> = {
+      aurora: 'AURORA',
+      cyberpunk: 'CYBERPUNK',
+      synthwave: 'SYNTHWAVE',
+    };
+
+    function isTheme(value: string | null): value is ThemeName {
+      return value !== null && themes.includes(value as ThemeName);
+    }
+
+    function setTheme(theme: ThemeName) {
       root.setAttribute('data-theme', theme);
       localStorage.setItem('srvTheme', theme);
-      if (btn) btn.textContent = theme.toUpperCase();
+
+      if (btn) {
+        btn.textContent = themeLabels[theme];
+        btn.setAttribute('aria-label', `Current theme: ${themeLabels[theme]}`);
+      }
     }
 
     const saved = localStorage.getItem('srvTheme');
-    setTheme(saved === 'synthwave' ? 'synthwave' : 'cyberpunk');
+
+    if (isTheme(saved)) {
+      setTheme(saved);
+    } else {
+      setTheme('aurora');
+    }
+
     btn?.addEventListener('click', () => {
-      setTheme(root.getAttribute('data-theme') === 'cyberpunk' ? 'synthwave' : 'cyberpunk');
+      const current = root.getAttribute('data-theme');
+
+      const currentIndex = isTheme(current)
+        ? themes.indexOf(current)
+        : 0;
+
+      const nextTheme = themes[(currentIndex + 1) % themes.length];
+
+      setTheme(nextTheme);
     });
 
     // Smooth scroll
     document.querySelectorAll('[href^="#"]').forEach(el => {
       el.addEventListener('click', e => {
-        const target = document.querySelector(el.getAttribute('href'));
+        const href = (el as HTMLAnchorElement).getAttribute('href');
+        if (!href) return;
+        const target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
         window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 86, behavior: 'smooth' });
@@ -840,10 +1146,12 @@ const description = t.description;
     // Terminal animation
     const terminalLog = document.getElementById('terminal-log');
     const terminalInput = document.getElementById('terminal-input');
-    const commands = JSON.parse(document.getElementById('terminal-commands-data').textContent);
+    const commandsEl = document.getElementById('terminal-commands-data');
+    const commands = JSON.parse(commandsEl?.textContent ?? '[]');
     let cmdIdx = 0, phase = 'typingInput', charIdx = 0;
 
-    function appendLine(text, type) {
+    function appendLine(text: string, type: string) {
+      if (!terminalLog) return;
       const line = document.createElement('span');
       line.className = 'terminal-line';
       line.innerHTML = type === 'input'
@@ -851,14 +1159,14 @@ const description = t.description;
         : `<span class="output">${text}</span>`;
       terminalLog.appendChild(line);
       const body = document.getElementById('terminal-body');
-      body.scrollTop = body.scrollHeight;
+      if (body) body.scrollTop = body.scrollHeight;
     }
 
     function step() {
       const cmd = commands[cmdIdx];
       if (phase === 'typingInput') {
-        if (charIdx <= cmd.input.length) { terminalInput.textContent = cmd.input.slice(0, charIdx++); setTimeout(step, 85); }
-        else { appendLine(cmd.input, 'input'); terminalInput.textContent = ''; phase = 'showingOutput'; charIdx = 0; setTimeout(step, 280); }
+        if (charIdx <= cmd.input.length) { if (terminalInput) terminalInput.textContent = cmd.input.slice(0, charIdx++); setTimeout(step, 85); }
+        else { appendLine(cmd.input, 'input'); if (terminalInput) terminalInput.textContent = ''; phase = 'showingOutput'; charIdx = 0; setTimeout(step, 280); }
       } else if (phase === 'showingOutput') {
         if (charIdx < cmd.output.length) { appendLine(cmd.output[charIdx++], 'output'); setTimeout(step, 420); }
         else { phase = 'idle'; charIdx = 0; setTimeout(step, 1900); }
@@ -866,35 +1174,58 @@ const description = t.description;
     }
     step();
 
+    // language dropdown toggle
+    const langToggle = document.getElementById('langToggle');
+    const langDropdown = document.getElementById('langDropdown');
+    if (langToggle && langDropdown) {
+      langToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', () => langDropdown.classList.remove('open'));
+    }
+
+    // header animation on scroll
+    const nav = document.querySelector('.nav');
+
+    function updateNavPosition() {
+      if (!nav) return;
+
+      if (window.scrollY > 20) {
+        nav.classList.add('is-scrolled');
+      } else {
+        nav.classList.remove('is-scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', updateNavPosition);
+    updateNavPosition();
+
     // Contact form — ready for Resend / backend hookup
     document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const form = e.target;
-      const btn = document.getElementById('submitBtn');
-      const status = document.getElementById('formStatus');
+      const form = e.target as HTMLFormElement;
+      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+      const status = document.getElementById('formStatus') as HTMLElement | null;
       const data = Object.fromEntries(new FormData(form));
 
-      btn.style.opacity = '0.6';
-      btn.style.pointerEvents = 'none';
-      status.style.display = 'block';
-      status.style.color = 'var(--muted)';
-      const i18n = JSON.parse(document.getElementById('contact-i18n-data').textContent);
-      status.textContent = i18n.sending;
+      if (submitBtn) { submitBtn.style.opacity = '0.6'; submitBtn.style.pointerEvents = 'none'; }
+      if (status) { status.style.display = 'block'; status.style.color = 'var(--muted)'; }
+      const i18nEl = document.getElementById('contact-i18n-data');
+      const i18n = JSON.parse(i18nEl?.textContent ?? '{}');
+      if (status) status.textContent = i18n.sending;
 
       try {
         // TODO: replace with your Resend / API endpoint
         // const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
         // if (!res.ok) throw new Error('Server error');
         await new Promise(r => setTimeout(r, 800)); // demo delay — remove when wired
-        status.style.color = 'var(--primary)';
-        status.textContent = i18n.success;
+        if (status) { status.style.color = 'var(--primary)'; status.textContent = i18n.success; }
         form.reset();
       } catch {
-        status.style.color = '#ff6b6b';
-        status.textContent = i18n.error;
+        if (status) { status.style.color = '#ff6b6b'; status.textContent = i18n.error; }
       } finally {
-        btn.style.opacity = '1';
-        btn.style.pointerEvents = 'auto';
+        if (submitBtn) { submitBtn.style.opacity = '1'; submitBtn.style.pointerEvents = 'auto'; }
       }
     });
   </script>
