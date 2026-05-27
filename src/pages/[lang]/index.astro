@@ -106,7 +106,7 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
                 <div>
                   <p class="text-xs font-bold uppercase tracking-wider text-orange-500 mb-2">Deployment</p>
                   <div class="flex flex-wrap gap-2">
-                    {['Docker', 'Caddy', 'VPS', 'Cloudflare', 'Cloud'].map(tag => (
+                    {['Docker', 'VPS', 'Cloudflare', 'Cloud', 'Caddy',].map(tag => (
                       <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-orange-50 text-orange-700 border border-orange-100">{tag}</span>
                     ))}
                   </div>
