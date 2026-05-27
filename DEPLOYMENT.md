@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide - GitHub Pages
+# Deployment Guide - GitHub Pages
 
 ## Automatic Deployment (Recommended)
 
