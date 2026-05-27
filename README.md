@@ -71,5 +71,3 @@ Required secrets:
 - **Website**: https://elie-e.github.io
 
 ---
-
-Built with Astro
