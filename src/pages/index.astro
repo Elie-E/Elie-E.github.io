@@ -1,4 +1,8 @@
 ---
-// Static redirect to /en for GitHub Pages
-return Astro.redirect('/en', 302);
 ---
+<script is:inline>
+  const preferred = (navigator.language || 'en').split('-')[0].toLowerCase();
+  const lang = ['en', 'fr', 'es'].includes(preferred) ? preferred : 'en';
+  window.location.replace('/' + lang);
+</script>
+<noscript><meta http-equiv="refresh" content="0;url=/en" /></noscript>
