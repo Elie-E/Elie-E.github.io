@@ -82,7 +82,7 @@ export default {
         from: env.FROM_EMAIL,
         to: env.TO_EMAIL,
         reply_to: email,
-        subject: `[Portfolio] ${subject} — from ${name}`,
+        subject: `[Portfolio] ${subject} - from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}${budget}\n\n${message}`,
       }),
     });

@@ -3,9 +3,9 @@
 A multi-language professional resume website built with Astro and deployed on GitHub Pages.
 
 ## 🌍 Languages Supported
-- �� English
-- �� Français
-- 🇪🇸 Español
+- English
+- Français
+- Español
 
 ## 🚀 Features
 - **Multi-language support** with i18n
@@ -62,8 +62,8 @@ Pushing to `main` triggers the GitHub Actions workflow which builds and deploys 
 Emails are sent via a Cloudflare Worker in `worker/` using [Resend](https://resend.com). See [DEPLOYMENT.md](./DEPLOYMENT.md#contact-form--cloudflare-worker) for the full setup guide.
 
 Required secrets:
-- `PUBLIC_CONTACT_WORKER_URL` — GitHub repo secret (used at build time)
-- `RESEND_API_KEY` — Cloudflare Worker secret (set via `wrangler secret put`)
+- `PUBLIC_CONTACT_WORKER_URL` - GitHub repo secret (used at build time)
+- `RESEND_API_KEY` - Cloudflare Worker secret (set via `wrangler secret put`)
 
 ## 📞 Contact
 

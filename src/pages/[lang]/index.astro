@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPersonalInfo, getCtaContent } from '../../data/index.js';
+import { getPersonalInfo, getIntroTextData, getCtaContent, getServiceSectionContent } from '../../data/index.js';
 import { languages } from '../../types/index.js';
 import JourneySection from '../../components/JourneySection.astro';
 import SkillsSection from '../../components/SkillsSection.astro';
@@ -18,7 +18,9 @@ export async function getStaticPaths() {
 // Get language from URL path
 const lang = Astro.params.lang || 'en';
 const personalInfo = getPersonalInfo(lang);
+const introTextData = getIntroTextData(lang);
 const ctaContent = getCtaContent(lang);
+const serviceSectionContent = getServiceSectionContent(lang);
 const currentPath = `/${lang}`;
 const currentLang = lang;
 const canonical = `https://elie-e.github.io/${lang}`;
@@ -115,12 +117,12 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
                 <!-- Focus -->
                 <div class="pt-4 border-t border-gray-100">
                   <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Focus</p>
-                  <p class="text-sm text-gray-700 leading-relaxed">Practical, reliable business web applications — from idea to production.</p>
+                  <p class="text-sm text-gray-700 leading-relaxed">Practical, reliable business web applications - from idea to production.</p>
                 </div>
               </div>
             </div>
 
-            <!-- Photo (commented out — replaced by tech stack card above)
+            <!-- Photo (commented out - replaced by tech stack card above)
             <div class="flex justify-center lg:justify-end order-1 lg:order-2 photo-container">
               <div class="relative group">
                 <div class="w-56 h-56 md:w-72 md:h-72 lg:w-[28rem] lg:h-[28rem] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-200 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-3xl">
@@ -154,13 +156,13 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
     <!-- Small section to replace my journey -->
     <div class="text-center mb-12 md:mb-16">
       <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
-        More than just code
+        { introTextData.title }
       </h2>
       <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-        Before becoming a full-stack developer, I founded and managed a restaurant, then coordinated e-commerce projects.
+        { introTextData.firstParagraph }
       </p>
       <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-        This background gives me a practical understanding of business constraints, client communication, team collaboration and delivery pressure. Today, it helps me build solutions that are not only technically solid, but also useful, maintainable and aligned with real-world needs.
+        { introTextData.secondParagraph }
       </p>
     </div>
 
@@ -201,16 +203,16 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
     <section class="py-12 md:py-16 bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white">
       <div class="container mx-auto px-4 md:px-6 max-w-5xl">
         <div class="text-center mb-8 md:mb-10">
-          <p class="text-xs uppercase tracking-widest text-blue-400 font-mono mb-2">/ services</p>
-          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">Need a dev for your project?</h2>
-          <p class="text-gray-300 max-w-xl mx-auto">New website, urgent bug fix, or long-term maintenance — clear scope, no bloated agency process.</p>
+          <p class="text-xs uppercase tracking-widest text-blue-400 font-mono mb-2">{serviceSectionContent.title}</p>
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">{serviceSectionContent.subtitle}</h2>
+          <p class="text-gray-300 max-w-xl mx-auto">{serviceSectionContent.text}</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
-            { label: 'New website', desc: 'Custom build, no generic theme', icon: '⚡' },
-            { label: 'Debug & rescue', desc: 'Investigate & fix broken things', icon: '🔧' },
-            { label: 'Maintenance', desc: 'Updates, backups, monitoring', icon: '🛡️' },
-            { label: 'Evolution', desc: 'New features & UX improvements', icon: '🚀' },
+            { label: serviceSectionContent.label1.title, desc: serviceSectionContent.label1.description, icon: serviceSectionContent.label1.icon },
+            { label: serviceSectionContent.label2.title, desc: serviceSectionContent.label2.description, icon: serviceSectionContent.label2.icon },
+            { label: serviceSectionContent.label3.title, desc: serviceSectionContent.label3.description, icon: serviceSectionContent.label3.icon },
+            { label: serviceSectionContent.label4.title, desc: serviceSectionContent.label4.description, icon: serviceSectionContent.label4.icon },
           ].map(s => (
             <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-sm">
               <div class="text-2xl mb-2">{s.icon}</div>
@@ -222,7 +224,7 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
         <div class="text-center">
           <a href={`/${lang}/services`} class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-lg">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-            View all services
+            { serviceSectionContent.ctaButton }
           </a>
         </div>
       </div>

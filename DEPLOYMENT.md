@@ -33,7 +33,7 @@ npm run preview
 2. Set **Source** to `GitHub Actions`
 3. Push to `main` - the workflow handles the rest
 
-## Contact Form — Cloudflare Worker
+## Contact Form - Cloudflare Worker
 
 The contact forms on `/contact` and `/services` send emails via a Cloudflare Worker + [Resend](https://resend.com).
 
@@ -46,9 +46,9 @@ npm install
 ```
 
 **2. Edit `worker/wrangler.jsonc`**
-- `ALLOWED_ORIGIN` — your GitHub Pages URL (already set to `https://elie-e.github.io`)
-- `TO_EMAIL` — where you want to receive messages
-- `FROM_EMAIL` — a verified Resend sender (e.g. `Portfolio Contact <contact@yourdomain.com>`)
+- `ALLOWED_ORIGIN` - your GitHub Pages URL (already set to `https://elie-e.github.io`)
+- `TO_EMAIL` - where you want to receive messages
+- `FROM_EMAIL` - a verified Resend sender (e.g. `Portfolio Contact <contact@yourdomain.com>`)
 
 **3. Add your Resend API key as a secret** (never commit it)
 ```bash
@@ -65,12 +65,12 @@ npx wrangler deploy
 
 **5. Set the Worker URL**
 
-Locally — add to `.env`:
+Locally - add to `.env`:
 ```
 PUBLIC_CONTACT_WORKER_URL=https://resume-contact-worker.YOUR_SUBDOMAIN.workers.dev
 ```
 
-On GitHub — add `PUBLIC_CONTACT_WORKER_URL` as a **repository secret** (Settings → Secrets → Actions). The workflow already reads it.
+On GitHub - add `PUBLIC_CONTACT_WORKER_URL` as a **repository secret** (Settings → Secrets → Actions). The workflow already reads it.
 
 ### Local Worker development
 ```bash

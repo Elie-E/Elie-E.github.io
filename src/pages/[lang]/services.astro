@@ -192,7 +192,7 @@ const langLabels: Record<string, { label: string; flag: string }> = {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services — {personalInfo.name}</title>
+  <title>Services - {personalInfo.name}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -928,7 +928,7 @@ const langLabels: Record<string, { label: string; flag: string }> = {
               <span class="window-dot"></span>
               <span class="window-dot"></span>
             </div>
-            <div class="terminal-title">/services/cli — shell</div>
+            <div class="terminal-title">/services/cli - shell</div>
             <div class="terminal-status-pill">
               <span class="status-dot"></span>
               <span>Live</span>
@@ -1204,7 +1204,7 @@ const langLabels: Record<string, { label: string; flag: string }> = {
     window.addEventListener('scroll', updateNavPosition);
     updateNavPosition();
 
-    // Contact form — ready for Resend / backend hookup
+    // Contact form - ready for Resend / backend hookup
     document.getElementById('contactForm')?.addEventListener('focusin', () => {
       if (!sessionStorage.getItem('_cft')) sessionStorage.setItem('_cft', String(Date.now()));
     }, { once: true });

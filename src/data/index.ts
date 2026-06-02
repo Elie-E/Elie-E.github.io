@@ -1,4 +1,4 @@
-import { languages, type PersonalInfo, type Experience, type Education, type Project, type BlogPost, PersonalIntroText } from '../types';
+import { languages, type PersonalInfo, type Experience, type Education, type Project, type BlogPost, type IntroTextData } from '../types';
 
 // Testimonial type definition
 export interface Testimonial {
@@ -135,24 +135,42 @@ const personalInfoTranslations = {
     bio: `I am a full-stack developer with 4+ years of production experience, a strong PHP/Laravel foundation, and a broad understanding of the web stack.
     
     I build, maintain and improve practical web applications, from backend logic and databases to frontend interfaces, deployment workflows and production debugging. My background in project management, team coordination and entrepreneurship helps me understand business needs, communicate clearly and deliver reliable, business-oriented solutions.`,
-    languages: ['French (Native)', 'English (Professional)', 'Spanish (Conversational)'],
+    languages: ['French (Native)', 'English (Professional)', 'Spanish (Professional)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   },
   fr: {
     title: 'Développeur Full-Stack',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
     bio: 'Développeur full-stack avec plus de 4 ans d\'expérience professionnelle dans la construction et la maintenance d\'applications web avec PHP, Laravel, JavaScript et SQL. Mon parcours en gestion de projet e-commerce, management d\'équipe et entrepreneuriat me donne une approche pragmatique et orientée produit : je comprends les besoins métier, communique clairement et livre des solutions de bout en bout.',
-    languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Conversationnel)'],
+    languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Professionnel)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   },
   es: {
     title: 'Desarrollador Full-Stack',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
     bio: 'Desarrollador full-stack con más de 4 años de experiencia profesional construyendo y manteniendo aplicaciones web con PHP, Laravel, JavaScript y SQL. Mi trayectoria en gestión de proyectos e-commerce, coordinación de equipos y emprendimiento me da un enfoque pragmático y orientado al producto: entiendo las necesidades del negocio, comunico con claridad y entrego soluciones de extremo a extremo.',
-    languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Conversacional)'],
+    languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Profesional)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   }
 };
+
+const introTextTranslations = {
+  en: {
+    title: 'More than just code',
+    firstParagraph : 'Before becoming a full-stack developer, I founded and managed a restaurant, then coordinated e-commerce projects.',
+    secondParagraph: 'This background gives me a practical understanding of business constraints, client communication, team collaboration and delivery pressure. Today, it helps me build solutions that are not only technically solid, but also useful, maintainable and aligned with real-world needs.'
+  },
+  fr: {
+    title: 'Plus que du code',
+    firstParagraph: 'Avant de devenir développeur full-stack, j’ai fondé et géré un restaurant, puis coordonné des projets e-commerce.',
+    secondParagraph: 'Ce parcours me donne une compréhension concrète des contraintes business, de la communication client, du travail en équipe et de la pression liée à la livraison. Aujourd’hui, cela m’aide à créer des solutions non seulement solides techniquement, mais aussi utiles, maintenables et alignées avec les besoins réels.'
+  },
+  es: {
+    title: 'Más que solo código',
+    firstParagraph: 'Antes de convertirme en desarrollador full-stack, fundé y gestioné un restaurante, y después coordiné proyectos de e-commerce.',
+    secondParagraph: 'Esta experiencia me da una comprensión práctica de las limitaciones del negocio, la comunicación con clientes, la colaboración en equipo y la presión de entrega. Hoy, me ayuda a crear soluciones que no solo son técnicamente sólidas, sino también útiles, mantenibles y alineadas con necesidades reales.'
+  }
+}
 
 const ctaContentTranslations = {
   en: {
@@ -161,10 +179,95 @@ const ctaContentTranslations = {
     ctaButton: 'Get in Touch'
   },
   fr: {
-
+    ctaTitle: 'Prêt à collaborer ?',
+    ctaDescription: 'Autonome, professionnel et toujours motivé par de nouveaux défis.',
+    ctaButton: 'Me contacter'
   },
   es: {
+    ctaTitle: '¿Listo para colaborar?',
+    ctaDescription: 'Autónomo, profesional y siempre dispuesto a asumir nuevos retos.',
+    ctaButton: 'Contactar'
+  }
+}
 
+const serviceSectionContentTranslations = {
+  en: {
+    title: '/ services',
+    subtitle: 'Need a dev for your project?',
+    text: 'New website, urgent bug fix, or long-term maintenance - clear scope, no bloated agency process.',
+    label1: {
+      title: 'New website',
+      description: 'Custom build, no generic theme',
+      icon: '⚡'
+    },
+    label2: {
+      title: 'Debug & rescue',
+      description: 'Investigate & fix broken things',
+      icon: '🔧'
+    },
+    label3: {
+      title: 'Maintenance',
+      description: 'Updates, backups, monitoring',
+      icon: '🛡️'
+    },
+    label4: {
+      title: 'Evolution',
+      description: 'New features & UX improvements',
+      icon: '🚀'
+    },
+    ctaButton: 'View all services'
+  },
+  fr: {
+    title: '/ services',
+    subtitle: 'Besoin d’un développeur pour votre projet ?',
+    text: 'Nouveau site web, correction de bug urgente ou maintenance à long terme - un périmètre clair, sans processus d’agence inutilement lourd.',
+    label1: {
+      title: 'Nouveau site web',
+      description: 'Développement sur mesure, sans thème générique',
+      icon: '⚡'
+    },
+    label2: {
+      title: 'Debug & sauvetage',
+      description: 'Analyse et correction de problèmes',
+      icon: '🔧'
+    },
+    label3: {
+      title: 'Maintenance',
+      description: 'Mises à jour, sauvegardes, monitoring',
+      icon: '🛡️'
+    },
+    label4: {
+      title: 'Évolution',
+      description: 'Nouvelles fonctionnalités et améliorations UX',
+      icon: '🚀'
+    },
+    ctaButton: 'Voir les Services'
+  },
+  es: {
+    title: '/ servicios',
+    subtitle: '¿Necesitas un desarrollador para tu proyecto?',
+    text: 'Nuevo sitio web, corrección urgente de errores o mantenimiento a largo plazo: alcance claro, sin procesos de agencia innecesariamente pesados.',
+    label1: {
+      title: 'Nuevo sitio web',
+      description: 'Desarrollo a medida, sin plantillas genéricas',
+      icon: '⚡'
+    },
+    label2: {
+      title: 'Debug & rescate',
+      description: 'Investigar y corregir problemas',
+      icon: '🔧'
+    },
+    label3: {
+      title: 'Mantenimiento',
+      description: 'Actualizaciones, copias de seguridad, monitoreo',
+      icon: '🛡️'
+    },
+    label4: {
+      title: 'Evolución',
+      description: 'Nuevas funcionalidades y mejoras UX',
+      icon: '🚀'
+    },
+    ctaButton: 'Ver todos los servicios'
   }
 }
 
@@ -184,8 +287,21 @@ export function getPersonalInfo(lang: string = 'en'): PersonalInfo {
   };
 }
 
+export function getIntroTextData(lang: string = 'en'): IntroTextData {
+  const translations = introTextTranslations[lang as keyof typeof introTextTranslations] || introTextTranslations.en;
+  return {
+    title: translations.title,
+    firstParagraph: translations.firstParagraph,
+    secondParagraph: translations.secondParagraph,
+  }
+}
+
 export function getCtaContent(lang: string = 'en') {
   return ctaContentTranslations[lang as keyof typeof ctaContentTranslations] || ctaContentTranslations.en;
+}
+
+export function getServiceSectionContent(lang: string = 'en'): ServiceSectionContent {
+  return serviceSectionContentTranslations[lang as keyof typeof serviceSectionContentTranslations] || serviceSectionContentTranslations.en;
 }
 
 export function getJourneyContent(lang: string = 'en') {

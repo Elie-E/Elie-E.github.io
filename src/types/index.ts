@@ -34,6 +34,38 @@ export interface PersonalInfo {
   certifications: string[];
 }
 
+export interface IntroTextData {
+  title: string;
+  firstParagraph: string;
+  secondParagraph: string;
+}
+
+export interface ServiceSectionContent {
+  title: string,
+  subtitle: string,
+  text: string,
+  label1: {
+    title: string,
+    description: string,
+    icon: string
+  },
+  label2: {
+    title: string,
+    description: string,
+    icon: string
+  },
+  label3: {
+    title: string,
+    description: string,
+    icon: string
+  },
+  label4: {
+    title: string,
+    description: string,
+    icon: string
+  }
+}
+
 export interface Experience {
   company: string;
   position: string;
