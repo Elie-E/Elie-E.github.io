@@ -201,9 +201,10 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
             const period = `${edu.startDate} - ${edu.endDate}`;
             return (
               <div class="bg-gray-100 p-4 rounded-lg">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                  <h3 class="text-lg font-semibold">{edu.degree} - {edu.field}</h3>
-                  <span class="text-gray-600 text-sm">{period}</span>
+                <div class="flex flex-col mb-2">
+                  <h3 class="text-lg font-semibold">{edu.title}</h3>
+                  <p>{edu.subtitle}</p>
+                  {/* <span class="text-gray-600 text-sm">{period}</span> */}
                 </div>
                 <p class="text-blue-600 font-medium">{edu.institution}</p>
                 {edu.location && <p class="text-gray-600">{edu.location}</p>}

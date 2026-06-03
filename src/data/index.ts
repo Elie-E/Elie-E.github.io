@@ -1,4 +1,4 @@
-import { languages, type PersonalInfo, type Experience, type Education, type Project, type BlogPost, type IntroTextData } from '../types';
+import { languages, type PersonalInfo, type Experience, type Education, type Project, type BlogPost, type IntroTextData, type ServiceSectionContent } from '../types';
 
 // Testimonial type definition
 export interface Testimonial {
@@ -130,25 +130,29 @@ const contactInfo = {
 // Personal information translations
 const personalInfoTranslations = {
   en: {
-    title: 'Full-Stack Developer',
+    title: 'Full-Stack Developer PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: `I am a full-stack developer with 4+ years of production experience, a strong PHP/Laravel foundation, and a broad understanding of the web stack.
+    bio: `'Full-stack developer with over 4 years of experience designing, developing, and maintaining production web applications. 
     
-    I build, maintain and improve practical web applications, from backend logic and databases to frontend interfaces, deployment workflows and production debugging. My background in project management, team coordination and entrepreneurship helps me understand business needs, communicate clearly and deliver reliable, business-oriented solutions.`,
+    I work across the full product lifecycle: requirements analysis, backend and frontend development, databases, deployment, optimization, and maintenance. My background in e-commerce, project management, and entrepreneurship gives me a pragmatic approach focused on business needs and user value.'`,
     languages: ['French (Native)', 'English (Professional)', 'Spanish (Professional)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   },
   fr: {
-    title: 'Développeur Full-Stack',
+    title: 'Développeur Full-Stack PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: 'Développeur full-stack avec plus de 4 ans d\'expérience professionnelle dans la construction et la maintenance d\'applications web avec PHP, Laravel, JavaScript et SQL. Mon parcours en gestion de projet e-commerce, management d\'équipe et entrepreneuriat me donne une approche pragmatique et orientée produit : je comprends les besoins métier, communique clairement et livre des solutions de bout en bout.',
+    bio: `Développeur full-stack avec plus de 4 ans d’expérience dans la conception, le développement et la maintenance d’applications web en production. 
+    
+    J’interviens sur l’ensemble du cycle produit : analyse du besoin, développement backend et frontend, base de données, déploiement, optimisation et maintenance. Mon parcours en e-commerce, gestion de projet et entrepreneuriat me donne une approche pragmatique, orientée métier et utilisateur.`,
     languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Professionnel)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   },
   es: {
-    title: 'Desarrollador Full-Stack',
+    title: 'Desarrollador Full-Stack PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: 'Desarrollador full-stack con más de 4 años de experiencia profesional construyendo y manteniendo aplicaciones web con PHP, Laravel, JavaScript y SQL. Mi trayectoria en gestión de proyectos e-commerce, coordinación de equipos y emprendimiento me da un enfoque pragmático y orientado al producto: entiendo las necesidades del negocio, comunico con claridad y entrego soluciones de extremo a extremo.',
+    bio: `'Desarrollador full-stack con más de 4 años de experiencia en el diseño, desarrollo y mantenimiento de aplicaciones web en producción. 
+    
+    Trabajo en todo el ciclo de vida del producto: análisis de necesidades, desarrollo backend y frontend, bases de datos, despliegue, optimización y mantenimiento. Mi experiencia en e-commerce, gestión de proyectos y emprendimiento me da un enfoque pragmático, orientado al negocio y al usuario.'`,
     languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Profesional)'],
     certifications: ['PSM 1 - Professional Scrum Master']
   }
@@ -443,7 +447,7 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Fondateur & Gérant de Restaurant',
         startDate: '2017-01',
         endDate: '2021-01',
-        location: 'France',
+        location: 'Mexico',
         description: 'Création d\'une activité de restauration from scratch - du concept et de l\'identité visuelle aux opérations, au recrutement, au management d\'équipe et à l\'expérience client. Développement de compétences solides en leadership, communication, prise de décision et résolution de problèmes qui soutiennent aujourd\'hui mon travail de développeur.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
@@ -528,7 +532,7 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Fundador y Gerente de Restaurante',
         startDate: '2017-01',
         endDate: '2021-01',
-        location: 'Francia',
+        location: 'Mexico',
         description: 'Construí un negocio de restaurante desde cero - del concepto y branding a las operaciones, la contratación, la gestión de equipo y la experiencia del cliente. Desarrollé habilidades sólidas de liderazgo, comunicación, toma de decisiones y resolución de problemas que ahora apoyan mi trabajo como desarrollador.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
@@ -693,7 +697,49 @@ export function getExperiencesDev(lang: string): Experience[] {
 
 // Education
 export function getEducation(lang: string = 'en'): Education[] {
-  return [];
+  const data = {
+    en: [
+      {
+        title: 'Professional Certification in Web and Mobile Web Development - RNCP Level 5',
+        subtitle: '(Bac+2)',
+        institution: 'Human Booster',
+        degree: '',
+        field: '',
+        startDate: '',
+        endDate: '',
+        grade: '',
+        location: '',
+      },
+    ],
+    fr: [
+      {
+        title: 'Titre professionnel Développeur Web et Web Mobile - RNCP niveau 5',
+        subtitle: '(Bac+2)',
+        institution: 'Human Booster',
+        degree: '',
+        field: '',
+        startDate: '',
+        endDate: '',
+        grade: '',
+        location: '',
+      },
+    ],
+    es: [
+      {
+        title: 'Título profesional de Desarrollo Web y Web Móvil - RNCP nivel 5',
+        subtitle: '(Bac+2)',
+        institution: 'Human Booster',
+        degree: '',
+        field: '',
+        startDate: '',
+        endDate: '',
+        grade: '',
+        location: '',
+      },
+    ],
+  }
+
+  return (data[lang as keyof typeof data] || data.en) as Education[]
 }
 
 // Keep backward compat exports

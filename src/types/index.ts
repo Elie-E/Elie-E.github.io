@@ -80,6 +80,8 @@ export interface Experience {
 }
 
 export interface Education {
+  title: string;
+  subtitle: string;
   institution: string;
   degree: string;
   field: string;
