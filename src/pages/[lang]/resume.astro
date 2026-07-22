@@ -42,7 +42,7 @@ const resumeTranslations = {
     home: 'Accueil',
     blog: 'Blog',
     contact: 'Contact',
-    years: 'années',
+    years: 'ans',
     age: 'Âge',
     present: 'Présent',
     months: 'mois',
@@ -143,7 +143,7 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
             <p><strong>{t.location}:</strong> {personalInfo.location}</p>
           </div>
           <div>
-                  <p><strong>{t.experience}:</strong> 4+ {t.years}</p>
+                  <p><strong>{t.experience}:</strong> 4 {t.years}</p>
           </div>
         </div>
       </section>
@@ -186,7 +186,22 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
                 </div>
                 <p class="text-blue-600 font-medium mb-2">{exp.company}</p>
                 <p class="text-gray-600 mb-3">{exp.location}</p>
-                <p class="text-gray-700">{exp.description}</p>
+                <p class="text-gray-700 mb-3">{exp.description}</p>
+                {exp.achievements && exp.achievements.length > 0 && (
+                  <ul class="divide-y divide-gray-200 text-gray-700 mb-3 text-sm">
+                    {exp.achievements.map(achievement => (
+                      <li class="font-semibold py-1.5 flex gap-2 items-start">
+                        <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>
+                        <span>{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {exp.technologies && exp.technologies.length > 0 && (
+                  <p class="text-sm text-gray-500 mt-2">
+                    <span class="font-medium">Technologies :</span> {exp.technologies.join(', ')}
+                  </p>
+                )}
               </div>
             );
           })}

@@ -68,7 +68,7 @@ const journeyTranslations = {
       { year: '2015-2017', title: 'Team Manager', description: 'Led teams of street fundraisers at Ong Conseil, ensuring achievement of financial targets.', icon: '👥' },
       { year: '2017-2021', title: 'Founder & Restaurant Manager', description: 'Created El Viaje - Mexico from scratch. Managed daily operations, staff and guest experience.', icon: '🍽️' },
       { year: '2021-2022', title: 'E-Commerce Project Manager', description: 'Led and coordinated e-commerce website projects at Nateev, from conception to delivery.', icon: '🛒' },
-      { year: '2022-Present', title: 'Full-Stack Developer', description: 'Building efficient web applications at Advercity with PHP, Laravel, React and more.', icon: '💻' },
+      { year: '2022-Present', title: 'Full-Stack Developer', description: 'Building efficient web applications at Advercity with PHP, Laravel, Angular and more.', icon: '💻' },
     ],
     ctaTitle: 'Ready to collaborate?',
     ctaDescription: 'Autonomous, professional and always eager to take on new challenges.',
@@ -82,7 +82,7 @@ const journeyTranslations = {
       { year: '2015-2017', title: 'Team Manager', description: 'Encadrement d\'équipes de fundraiseurs chez Ong Conseil, avec atteinte des objectifs financiers.', icon: '👥' },
       { year: '2017-2021', title: 'Fondateur & Gérant', description: 'Création du restaurant El Viaje - Mexico. Gestion des opérations quotidiennes, équipes et satisfaction clients.', icon: '🍽️' },
       { year: '2021-2022', title: 'Chef de Projet E-Commerce', description: 'Coordination des projets e-commerce chez Nateev, de la conception à la livraison finale.', icon: '🛒' },
-      { year: '2022-Présent', title: 'Développeur Full-Stack', description: 'Développement d\'applications web efficaces chez Advercity avec PHP, Laravel, React et plus.', icon: '💻' },
+      { year: '2022-Présent', title: 'Développeur Full-Stack', description: 'Développement d\'applications web efficaces chez Advercity avec PHP, Laravel, Angular et plus.', icon: '💻' },
     ],
     ctaTitle: 'Prêt à collaborer ?',
     ctaDescription: 'Autonome, professionnel et toujours prêt à relever de nouveaux défis.',
@@ -96,7 +96,7 @@ const journeyTranslations = {
       { year: '2015-2017', title: 'Team Manager', description: 'Lideré equipos de captadores de fondos en Ong Conseil, asegurando el logro de los objetivos financieros.', icon: '👥' },
       { year: '2017-2021', title: 'Fundador y Gerente', description: 'Creé el restaurante El Viaje - Mexico desde cero. Gestioné las operaciones diarias, personal y experiencia de los clientes.', icon: '🍽️' },
       { year: '2021-2022', title: 'Jefe de Proyecto E-Commerce', description: 'Coordiné proyectos de e-commerce en Nateev, desde la concepción hasta la entrega final.', icon: '🛒' },
-      { year: '2022-Presente', title: 'Desarrollador Full-Stack', description: 'Construcción de aplicaciones web eficientes en Advercity con PHP, Laravel, React y más.', icon: '💻' },
+      { year: '2022-Presente', title: 'Desarrollador Full-Stack', description: 'Construcción de aplicaciones web eficientes en Advercity con PHP, Laravel, Angular y más.', icon: '💻' },
     ],
     ctaTitle: '¿Listo para colaborar?',
     ctaDescription: 'Autónomo, profesional y siempre listo para nuevos desafíos.',
@@ -231,7 +231,7 @@ const serviceSectionContentTranslations = {
       icon: '⚡'
     },
     label2: {
-      title: 'Debug & sauvetage',
+      title: 'Debug & urgence',
       description: 'Analyse et correction de problèmes',
       icon: '🔧'
     },
@@ -329,15 +329,22 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Full-Stack Developer',
         startDate: '2022-01',
         location: 'France',
-        description: 'Developing and maintaining production web applications and company websites. Responsible for implementing new features, debugging production issues, updating databases, improving performance and contributing to deployment workflows using Docker and AWS. Work across backend logic, frontend interfaces and production support.',
-        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
+        description: 'Autonomous developer within a small technical team, responsible for the maintenance and evolution of several production websites and applications.',
+        technologies: ['PHP', 'Laravel', 'Symfony', 'Doctrine', 'Twig', 'JavaScript', 'Angular', 'Python', 'SQL', 'Docker', 'AWS', 'CloudFront', 'Memcached', 'Varnish', 'Cloudflare'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Built and maintained multiple production web applications',
-          'Implemented new backend and frontend features on existing codebases',
-          'Managed database operations and performance improvements',
-          'Containerized applications with Docker and deployed on AWS'
+          'Corrective and evolutionary maintenance of native PHP (including legacy) and Laravel sites, keeping older applications in operational condition.',
+          'Corrective and evolutionary maintenance of an internal application built with Angular.',
+          'Maintenance and evolution of an internal administration tool developed with Symfony.',
+          'Development of back-end and front-end features on native PHP and Laravel applications: business logic, forms, data management, admin interfaces and JavaScript interactions.',
+          'Migration of PHP projects to more recent and modern versions, to improve application performance and maintainability.',
+          'Migration of several development environments to Docker, facilitating setup, maintenance and onboarding of new developers.',
+          'Global optimisation of websites: performance, SQL queries, application processing and page rendering.',
+          'Implementation of application and server-side caching systems using Memcached, Varnish and Cloudflare.',
+          'Participation in transforming server-side rendered PHP sites into static sites distributed via AWS CloudFront, to reduce server load and improve delivery.',
+          'Creation of Python and JavaScript scripts to automate data collection, processing and form-filling tasks previously done manually.',
+          'Monitoring and maintenance of applications hosted on AWS, including diagnosis and resolution of production incidents.',
         ]
       },
       {
@@ -346,15 +353,16 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'France',
-        description: 'Coordinated e-commerce website projects from requirements to delivery, working with clients, designers, developers, SEO and marketing teams. Also contributed front-end features, JavaScript interactions, SEO tracking and analytics-related improvements.',
-        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
+        description: 'Management and evolution of e-commerce projects built on a proprietary PHP framework based on CodeIgniter.',
+        technologies: ['PHP', 'CodeIgniter 3', 'JavaScript', 'jQuery', 'HTML', 'Sass', 'SQL'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Managed multiple e-commerce projects end-to-end',
-          'Coordinated cross-functional teams (design, dev, SEO, marketing)',
-          'Delivered the Season Paper project on time and within scope',
-          'Improved client communication and delivery quality'
+          'Management of several e-commerce projects from requirements gathering to delivery, ensuring scope and deadline compliance.',
+          'Coordination between clients, developers, designers and SEO teams, to streamline communication and reduce misunderstandings during development.',
+          'Development of front-end features in JavaScript, jQuery, HTML and Sass, improving interfaces and user journeys.',
+          'Correction of functional, visual and JavaScript bugs on live e-commerce sites.',
+          'Participation in site evolutions based on CodeIgniter 3 and carrying out acceptance testing before release, to secure production deployments.'
         ]
       },
       {
@@ -363,7 +371,7 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2017-01',
         endDate: '2021-01',
         location: 'Mexico',
-        description: 'Built a restaurant business from scratch - from concept and branding to operations, recruitment, team management and customer experience. Developed strong skills in leadership, communication, decision-making and problem-solving that now support my work as a developer.',
+        description: 'Built a restaurant business - from concept and branding to operations, recruitment, team management and customer experience. Developed strong skills in leadership, communication, decision-making and problem-solving.',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
         type: 'Freelance' as const,
@@ -414,15 +422,23 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Développeur Full-Stack',
         startDate: '2022-01',
         location: 'France',
-        description: 'Développement et maintenance d\'applications web en production et de sites d\'entreprise. Implémentation de nouvelles fonctionnalités, débogage de problèmes en production, gestion des mises à jour de base de données, amélioration des performances et contribution aux workflows de déploiement avec Docker et AWS.',
-        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
+        description: 'Développeur autonome au sein d\'une petite équipe technique, en charge de la maintenance et de l\'évolution de plusieurs sites et applications en production.',
+        technologies: ['PHP', 'Laravel', 'Symfony', 'Doctrine', 'Twig', 'JavaScript', 'Angular', 'Python', 'SQL', 'Docker', 'AWS', 'CloudFront', 'Memcached', 'Varnish', 'Cloudflare'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Développement et maintenance de plusieurs applications web en production',
-          'Implémentation de fonctionnalités back-end et front-end',
-          'Gestion des bases de données et amélioration des performances',
-          'Conteneurisation avec Docker et déploiement sur AWS'
+          
+          'Maintenance corrective et évolutive de sites en PHP natif (et legacy) et Laravel, permettant de maintenir et faire évoluer des applications anciennes en condition opérationnelle.',
+          'Maintenace corrective et évolutive d\'application interne avec Angular',
+          'Maintenance et évolution d’un outil d’administration interne développé avec Symfony.',
+          'Développement de fonctionnalités back-end et front-end sur des applications PHP natif et Laravel : logique métier, formulaires, gestion de données, interfaces d’administration et interactions JavaScript.',
+          'Migration de projets PHP vers des versions plus récentes et modernes, afin d\'améliorer la performance et la maintenabilité des applications.',
+          'Migration de plusieurs environnements de développement vers Docker, facilitant l’installation, la maintenance et l’intégration de nouveaux développeurs.',
+          'Optimisation globale de sites web : performances, requêtes SQL, traitements applicatifs et affichage des pages.',
+          'Mise en place de systèmes de cache applicatifs et serveur avec Memcached, Varnish et Cloudflare.',
+          'Participation à la transformation de sites PHP (rendu serveur) en sites statiques distribués avec AWS CloudFront, afin de réduire la charge serveur et d\'améliorer leur diffusion.',
+          'Création de scripts Python et JavaScript pour automatiser des tâches de collecte, de traitement de données et de remplissage de formulaires auparavant réalisées manuellement.',
+          'Monitoring et maintenance d\'applications hébergées sur AWS, avec diagnostic et résolution d\'incidents en production.',
         ]
       },
       {
@@ -431,15 +447,16 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'France',
-        description: 'Coordination de projets e-commerce de la définition des besoins à la livraison, en travaillant avec les clients, designers, développeurs, équipes SEO et marketing. Contribution aux fonctionnalités front-end, interactions JavaScript, suivi SEO et améliorations analytics.',
-        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
+        description: 'Gestion et évolution de projets e-commerce développés avec un framework PHP propriétaire basé sur CodeIgniter.',
+        technologies: ['PHP', 'CodeIgniter 3', 'JavaScript', 'jQuery', 'HTML', 'Sass', 'SQL'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Gestion de plusieurs projets e-commerce de bout en bout',
-          'Coordination d\'équipes pluridisciplinaires (design, dev, SEO, marketing)',
-          'Livraison du projet Season Paper dans les délais et le périmètre défini',
-          'Amélioration de la communication client et de la qualité de livraison'
+          'Gestion de plusieurs projets e-commerce, du recueil du besoin à la livraison, en assurant le respect du périmètre et des délais.',
+          'Coordination entre clients, développeurs, designers et équipes SEO, afin de fluidifier les échanges et de limiter les incompréhensions lors des développements.',
+          'Développement de fonctionnalités front-end en JavaScript, jQuery, HTML et Sass, améliorant les interfaces et les parcours utilisateurs.',
+          'Correction d\'anomalies fonctionnelles, graphiques et JavaScript sur des sites e-commerce en production.',
+          'Participation aux évolutions de sites reposant sur CodeIgniter 3 et réalisation des recettes avant livraison, afin de sécuriser les mises en production.'
         ]
       },
       {
@@ -448,7 +465,7 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2017-01',
         endDate: '2021-01',
         location: 'Mexico',
-        description: 'Création d\'une activité de restauration from scratch - du concept et de l\'identité visuelle aux opérations, au recrutement, au management d\'équipe et à l\'expérience client. Développement de compétences solides en leadership, communication, prise de décision et résolution de problèmes qui soutiennent aujourd\'hui mon travail de développeur.',
+        description: 'Création d\'un restaurant - du concept et de l\'identité visuelle aux opérations, au recrutement, au management d\'équipe et à l\'expérience client. Développement de compétences solides en leadership, communication, prise de décision et résolution de problèmes..',
         technologies: [],
         duration: formatDuration(calculateDuration('2017-01', '2021-01'), lang),
         type: 'Freelance' as const,
@@ -465,7 +482,7 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2015-01',
         endDate: '2017-01',
         location: 'France',
-        description: 'Formation et management d\'équipes de fundraiseurs, avec responsabilité sur la motivation, l\'organisation terrain et l\'atteinte des objectifs financiers.',
+        description: 'Gestion de mission, formation et management d\'équipes de fundraiseurs, avec responsabilité sur la motivation, l\'organisation terrain et l\'atteinte des objectifs financiers.',
         technologies: [],
         duration: formatDuration(calculateDuration('2015-01', '2017-01'), lang),
         type: 'Full-time' as const,
@@ -499,15 +516,22 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Desarrollador Full-Stack',
         startDate: '2022-01',
         location: 'Francia',
-        description: 'Desarrollo y mantenimiento de aplicaciones web en producción y sitios corporativos. Responsable de implementar nuevas funcionalidades, depurar problemas en producción, actualizar bases de datos, mejorar el rendimiento y contribuir a los flujos de despliegue con Docker y AWS. Trabajo en lógica back-end, interfaces front-end y soporte en producción.',
-        technologies: ['PHP', 'Laravel', 'JavaScript', 'jQuery', 'Python', 'HTML/SASS', 'SQL', 'Docker', 'AWS'],
+        description: 'Desarrollador autónomo en un pequeño equipo técnico, responsable del mantenimiento y la evolución de varios sitios y aplicaciones en producción.',
+        technologies: ['PHP', 'Laravel', 'Symfony', 'Doctrine', 'Twig', 'JavaScript', 'Angular', 'Python', 'SQL', 'Docker', 'AWS', 'CloudFront', 'Memcached', 'Varnish', 'Cloudflare'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Desarrollo y mantenimiento de múltiples aplicaciones web en producción',
-          'Implementación de funcionalidades back-end y front-end',
-          'Gestión de bases de datos y mejoras de rendimiento',
-          'Containerización con Docker y despliegue en AWS'
+          'Mantenimiento correctivo y evolutivo de sitios PHP nativo (incluidos legacy) y Laravel, manteniendo aplicaciones antiguas en condición operativa.',
+          'Mantenimiento correctivo y evolutivo de una aplicación interna desarrollada con Angular.',
+          'Mantenimiento y evolución de una herramienta de administración interna desarrollada con Symfony.',
+          'Desarrollo de funcionalidades back-end y front-end en aplicaciones PHP nativo y Laravel: lógica de negocio, formularios, gestión de datos, interfaces de administración e interacciones JavaScript.',
+          'Migración de proyectos PHP hacia versiones más recientes y modernas, para mejorar el rendimiento y la mantenibilidad de las aplicaciones.',
+          'Migración de varios entornos de desarrollo a Docker, facilitando la instalación, el mantenimiento y la incorporación de nuevos desarrolladores.',
+          'Optimización global de sitios web: rendimiento, consultas SQL, procesamiento de la aplicación y renderizado de páginas.',
+          'Implementación de sistemas de caché a nivel de aplicación y servidor con Memcached, Varnish y Cloudflare.',
+          'Participación en la transformación de sitios PHP (renderizado en servidor) en sitios estáticos distribuidos con AWS CloudFront, para reducir la carga del servidor y mejorar su distribución.',
+          'Creación de scripts Python y JavaScript para automatizar tareas de recopilación, procesamiento de datos y cumplimentación de formularios realizadas anteriormente de forma manual.',
+          'Monitorización y mantenimiento de aplicaciones alojadas en AWS, con diagnóstico y resolución de incidentes en producción.',
         ]
       },
       {
@@ -516,15 +540,16 @@ export function getExperiences(lang: string): Experience[] {
         startDate: '2021-01',
         endDate: '2022-01',
         location: 'Francia',
-        description: 'Coordinación de proyectos e-commerce desde la definición de requisitos hasta la entrega, trabajando con clientes, diseñadores, desarrolladores, equipos SEO y marketing. Contribución a funcionalidades front-end, interacciones JavaScript, seguimiento SEO y mejoras de analítica.',
-        technologies: ['JavaScript', 'CodeIgniter', 'HTML/SASS', 'SEO', 'Analytics'],
+        description: 'Gestión y evolución de proyectos e-commerce desarrollados con un framework PHP propietario basado en CodeIgniter.',
+        technologies: ['PHP', 'CodeIgniter 3', 'JavaScript', 'jQuery', 'HTML', 'Sass', 'SQL'],
         duration: formatDuration(calculateDuration('2021-01', '2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Gestión de múltiples proyectos e-commerce de principio a fin',
-          'Coordinación de equipos multifuncionales (diseño, dev, SEO, marketing)',
-          'Entrega del proyecto Season Paper en plazo y alcance definido',
-          'Mejora de la comunicación con clientes y la calidad de entrega'
+          'Gestión de varios proyectos e-commerce, desde la recogida de necesidades hasta la entrega, asegurando el cumplimiento del alcance y los plazos.',
+          'Coordinación entre clientes, desarrolladores, diseñadores y equipos SEO, para agilizar los intercambios y reducir malentendidos durante el desarrollo.',
+          'Desarrollo de funcionalidades front-end en JavaScript, jQuery, HTML y Sass, mejorando las interfaces y los recorridos de usuario.',
+          'Corrección de anomalías funcionales, visuales y JavaScript en sitios e-commerce en producción.',
+          'Participación en la evolución de sitios basados en CodeIgniter 3 y realización de pruebas de aceptación antes de la entrega, para asegurar las puestas en producción.'
         ]
       },
       {
