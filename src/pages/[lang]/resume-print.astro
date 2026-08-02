@@ -1,0 +1,603 @@
+---
+import PrintLayout from '../../layouts/PrintLayout.astro';
+import { getPersonalInfo, getExperiences, getEducation, getSkillsData, formatDate } from '../../data';
+import { languages } from '../../types';
+
+export function getStaticPaths() {
+  return languages.map(language => ({
+    params: { lang: language.code }
+  }));
+}
+
+const lang = Astro.params.lang || 'fr';
+
+const personalInfo = getPersonalInfo(lang);
+const experiences = getExperiences(lang);
+const education = getEducation(lang);
+const skills = getSkillsData();
+
+const translations = {
+  fr: {
+    resume: 'CV',
+    summary: 'Profil',
+    experience: 'Expérience professionnelle',
+    education: 'Formation',
+    skills: 'Compétences',
+    languages: 'Langues',
+    certifications: 'Certifications',
+    present: "Aujourd'hui",
+    save: 'Télécharger en PDF',
+    saveHint: 'Dans le panneau qui s\'ouvre → choisir "Enregistrer"',
+    stack: 'Stack'
+  },
+  en: {
+    resume: 'Resume',
+    summary: 'Profile',
+    experience: 'Professional Experience',
+    education: 'Education',
+    skills: 'Skills',
+    languages: 'Languages',
+    certifications: 'Certifications',
+    present: 'Present',
+    save: 'Download as PDF',
+    saveHint: 'In the panel that opens → select "Save"',
+    stack: 'Stack'
+  },
+  es: {
+    resume: 'Currículum',
+    summary: 'Perfil',
+    experience: 'Experiencia profesional',
+    education: 'Educación',
+    skills: 'Habilidades',
+    languages: 'Idiomas',
+    certifications: 'Certificaciones',
+    present: 'Hoy',
+    save: 'Descargar PDF',
+    saveHint: 'En el panel que se abre → selecciona "Guardar"',
+    stack: 'Stack'
+  }
+};
+
+const t = translations[lang as keyof typeof translations] ?? translations.en;
+
+// Short bios dedicated to the print version (not touching shared data)
+const printBio: Record<string, string> = {
+  fr: "Développeur full-stack avec plus de 4 ans d'expérience dans le développement, la maintenance et l'optimisation d'applications web en production. Autonome sur l'ensemble du cycle de développement, du recueil du besoin au déploiement. Mon parcours en e-commerce, gestion de projet et entrepreneuriat m'apporte une approche pragmatique, orientée métier et utilisateur.",
+  en: "Full-stack developer with 4+ years of experience building, maintaining and optimising production web applications. Autonomous across the full development lifecycle, from requirements to deployment. Background in e-commerce, project management and entrepreneurship brings a pragmatic, business-focused approach.",
+  es: "Desarrollador full-stack con más de 4 años de experiencia desarrollando, manteniendo y optimizando aplicaciones web en producción. Autónomo en todo el ciclo de desarrollo, desde los requisitos hasta el despliegue. Mi experiencia en e-commerce, gestión de proyectos y emprendimiento aporta un enfoque pragmático orientado al negocio.",
+};
+
+// Short achievements per experience, per lang — dedicated to the print CV
+const printAchievements: Record<string, Record<string, string[]>> = {
+  fr: {
+    Advercity: [
+      `Développement et maintenance d'applications en PHP natif, Laravel, Symfony et Angular.`,
+      `Développement de fonctionnalités back-end et front-end : logique métier, gestion de données, formulaires et interfaces d'administration.`,
+      `Modernisation de projets legacy : migrations PHP, améliorations d'architecture et conteneurisation Docker.`,
+      `Optimisation des performances : requêtes SQL, traitements applicatifs et temps de chargement.`,
+      `Mise en place de cache avec Memcached, Varnish, Cloudflare et diffusion AWS CloudFront.`,
+      `Automatisation de tâches de collecte et de traitement de données avec Python et JavaScript.`,
+      `Monitoring et résolution d'incidents sur des applications hébergées sur AWS.`,
+    ],
+    Nateev: [
+      `Pilotage de plusieurs projets e-commerce, du recueil du besoin à la livraison.`,
+      `Coordination entre clients, développeurs, designers et équipes SEO.`,
+      `Développement et correction d'interfaces avec JavaScript, jQuery, HTML et Sass.`,
+      `Maintenance sous CodeIgniter 3, correction d'anomalies et recettes avant mise en production.`,
+    ],
+    'El Viaje - Mexico': [
+      `Création et gestion d'un restaurant : opérations quotidiennes, équipes et expérience client.`,
+    ],
+    'Ong Conseil': [
+      `Management d'équipes de fundraiseurs, formation et atteinte des objectifs.`,
+    ],
+  },
+  en: {
+    Advercity: [
+      'Maintenance and development of applications in native PHP, Laravel, Symfony and Angular.',
+      'Back-end and front-end features: business logic, data management, forms and admin interfaces.',
+      'Legacy modernisation: PHP migrations, architecture improvements, Docker containerisation.',
+      'Performance optimisation: SQL queries, application processing and page load times.',
+      'Caching with Memcached, Varnish, Cloudflare and static delivery via AWS CloudFront.',
+      'Python and JavaScript scripts to automate data collection and processing tasks.',
+      'Monitoring and incident resolution for applications hosted on AWS.',
+    ],
+    Nateev: [
+      'Led several e-commerce projects from requirements to delivery.',
+      'Coordination between clients, developers, designers and SEO teams.',
+      'Front-end development and bug fixing with JavaScript, jQuery, HTML and Sass.',
+      'Maintenance on CodeIgniter 3 sites and acceptance testing before releases.',
+    ],
+    'El Viaje - Mexico': [
+      'Founded and managed a restaurant: daily operations, team management and customer experience.',
+    ],
+    'Ong Conseil': [
+      'Managed and trained teams of street fundraisers, hitting financial targets.',
+    ],
+  },
+  es: {
+    Advercity: [
+      'Mantenimiento y desarrollo de aplicaciones en PHP nativo, Laravel, Symfony y Angular.',
+      'Funcionalidades back-end y front-end: lógica de negocio, gestión de datos, formularios e interfaces de administración.',
+      'Modernización de proyectos legacy: migraciones PHP, mejoras de arquitectura, contenedorización Docker.',
+      'Optimización de rendimiento: consultas SQL, procesamiento de aplicaciones y tiempos de carga.',
+      'Caché con Memcached, Varnish, Cloudflare y distribución estática mediante AWS CloudFront.',
+      'Scripts Python y JavaScript para automatizar tareas de recolección y procesamiento de datos.',
+      'Monitoreo y resolución de incidentes en aplicaciones alojadas en AWS.',
+    ],
+    Nateev: [
+      'Gestión de varios proyectos e-commerce desde los requisitos hasta la entrega.',
+      'Coordinación entre clientes, desarrolladores, diseñadores y equipos SEO.',
+      'Desarrollo front-end y corrección de bugs con JavaScript, jQuery, HTML y Sass.',
+      'Mantenimiento en sitios CodeIgniter 3 y pruebas de aceptación antes de los lanzamientos.',
+    ],
+    'El Viaje - Mexico': [
+      'Fundé y gestioné un restaurante: operaciones diarias, gestión de equipos y experiencia del cliente.',
+    ],
+    'Ong Conseil': [
+      'Gestión y formación de equipos de captadores de fondos, alcanzando los objetivos financieros.',
+    ],
+  },
+};
+---
+
+<PrintLayout title={`${t.resume} - ${personalInfo.name}`} lang={lang}>
+
+  <!-- Action bar (hidden on print) -->
+  <div class="actions no-print">
+    <a href={`/${lang}/resume`} class="back-link">← CV web</a>
+    <div class="save-group">
+      <button type="button" onclick="window.print()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+        </svg>
+        {t.save}
+      </button>
+      <p class="save-hint">{t.saveHint}</p>
+    </div>
+  </div>
+
+  <main class="print-page">
+
+    <!-- ── HEADER ── -->
+    <header class="resume-header">
+      <div class="header-left">
+        <h1>{personalInfo.name}</h1>
+        <p class="job-title">{personalInfo.title}</p>
+        <p class="subtitle">{personalInfo.subtitle}</p>
+      </div>
+      <div class="contact">
+        <p>{personalInfo.location}</p>
+        {personalInfo.email && <p>{personalInfo.email}</p>}
+        {personalInfo.linkedin && (
+          <p>{personalInfo.linkedin.replace('https://', '')}</p>
+        )}
+        {personalInfo.website && (
+          <p>{personalInfo.website.replace('https://', '')}</p>
+        )}
+      </div>
+    </header>
+
+    <!-- ── SUMMARY ── -->
+    <section class="summary">
+      <h2>{t.summary}</h2>
+      <p>{printBio[lang] ?? printBio.en}</p>
+    </section>
+
+    <!-- ── MAIN GRID ── -->
+    <div class="resume-grid">
+
+      <!-- LEFT: Experience -->
+      <div class="main-column">
+        <section>
+          <h2>{t.experience}</h2>
+          <div class="experience-list">
+            {experiences.map((exp, idx) => {
+              const startDate = formatDate(exp.startDate, lang);
+              const endDate = exp.endDate ? formatDate(exp.endDate, lang) : t.present;
+              const achievements = printAchievements[lang]?.[exp.company]
+                ?? printAchievements['fr']?.[exp.company]
+                ?? exp.achievements;
+              return (
+                <article class={`experience${idx > 0 ? ' experience--separator' : ''}`}>
+                  <div class="experience-heading">
+                    <div>
+                      <h3>{exp.position}</h3>
+                      <p class="company">{exp.company}{exp.location ? ` · ${exp.location}` : ''}</p>
+                    </div>
+                    <p class="period">{startDate} – {endDate}</p>
+                  </div>
+
+                  {achievements && achievements.length > 0 && (
+                    <ul class="achievement-list">
+                      {achievements.map(achievement => (
+                        <li>{achievement}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {exp.technologies && exp.technologies.length > 0 && (
+                    <div class="tech-tags">
+                      {exp.technologies.map(tech => (
+                        <span class="tech-tag">{tech}</span>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT: Skills, Education, Languages, Certifications -->
+      <aside class="side-column">
+
+        <!-- Skills first -->
+        <section>
+          <h2>{t.skills}</h2>
+          <div class="skills-group">
+            <p class="skill-label">Main</p>
+            <p class="skill-tags">{skills.mainStack.join(' · ')}</p>
+          </div>
+          <div class="skills-group">
+            <p class="skill-label">Backend</p>
+            <p class="skill-tags">{skills.backend.join(' · ')}</p>
+          </div>
+          <div class="skills-group">
+            <p class="skill-label">Frontend</p>
+            <p class="skill-tags">{skills.frontend.join(' · ')}</p>
+          </div>
+          <div class="skills-group">
+            <p class="skill-label">DevOps</p>
+            <p class="skill-tags">{skills.devops.join(' · ')}</p>
+          </div>
+          <div class="skills-group">
+            <p class="skill-label">Databases</p>
+            <p class="skill-tags">{skills.databases.join(' · ')}</p>
+          </div>
+          <div class="skills-group">
+            <p class="skill-label">Mobile</p>
+            <p class="skill-tags">{skills.mobile.join(' · ')}</p>
+          </div>
+        </section>
+
+        <!-- Education below skills -->
+        <section>
+          <h2>{t.education}</h2>
+          {education.map(edu => (
+            <article class="education">
+              <h3>{edu.title}</h3>
+              {edu.subtitle && <p class="edu-subtitle">{edu.subtitle}</p>}
+              <p class="company">{edu.institution}</p>
+              {edu.location && <p class="edu-location">{edu.location}</p>}
+              <p class="period">{edu.startDate}{edu.endDate ? ` – ${edu.endDate}` : ''}</p>
+              {edu.grade && <p class="period">Note : {edu.grade}</p>}
+            </article>
+          ))}
+        </section>
+
+        <section>
+          <h2>{t.languages}</h2>
+          <ul class="simple-list">
+            {personalInfo.languages.map(language => (
+              <li>{language}</li>
+            ))}
+          </ul>
+        </section>
+
+        {personalInfo.certifications && personalInfo.certifications.length > 0 && (
+          <section>
+            <h2>{t.certifications}</h2>
+            <ul class="simple-list">
+              {personalInfo.certifications.map(cert => (
+                <li>{cert}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+      </aside>
+    </div>
+  </main>
+
+</PrintLayout>
+
+<style>
+  /* ── Actions bar (screen only) ── */
+  .actions {
+    width: 210mm;
+    margin: 0 auto 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .back-link {
+    color: #374151;
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .back-link:hover {
+    color: #111827;
+    text-decoration: underline;
+  }
+
+  .save-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .save-hint {
+    margin: 0;
+    font-size: 10px;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 6px;
+    background: #1e40af;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+  }
+
+  .actions button:hover {
+    background: #1d4ed8;
+  }
+
+  /* ── Header ── */
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #111827;
+    margin-bottom: 10px;
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 26px;
+    line-height: 1.1;
+    color: #111827;
+  }
+
+  .job-title {
+    margin: 0 0 3px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1e40af;
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: 10.5px;
+    color: #4b5563;
+  }
+
+  .contact {
+    text-align: right;
+    font-size: 10.5px;
+    color: #374151;
+    flex-shrink: 0;
+  }
+
+  .contact p {
+    margin: 0 0 3px;
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    margin: 0 0 7px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d1d5db;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #1e40af;
+  }
+
+  h3 {
+    margin: 0 0 2px;
+    font-size: 12px;
+    color: #111827;
+  }
+
+  p {
+    margin: 0 0 3px;
+  }
+
+  section {
+    margin-top: 14px;
+  }
+
+  /* ── Summary ── */
+  .summary {
+    margin-bottom: 10px;
+  }
+
+  .summary p {
+    text-align: justify;
+    color: #374151;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* ── Grid ── */
+  .resume-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .main-column,
+  .side-column {
+    min-width: 0;
+  }
+
+  /* ── Experience ── */
+  .experience {
+    padding-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Subtle separator between experiences */
+  .experience--separator {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 10px;
+  }
+
+  .experience-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .company {
+    margin: 2px 0 0;
+    font-weight: 700;
+    font-size: 10.5px;
+    color: #1e40af;
+  }
+
+  .period {
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: #6b7280;
+    font-size: 10px;
+    padding-top: 2px;
+  }
+
+  /* ── Achievements list ── */
+  .achievement-list {
+    margin: 4px 0 5px;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .achievement-list li {
+    position: relative;
+    padding-left: 13px;
+    margin-bottom: 3px;
+    font-size: 11px;
+    color: #374151;
+    line-height: 1.45;
+  }
+
+  .achievement-list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: #9ca3af;
+  }
+
+  /* ── Tech tags ── */
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .tech-tag {
+    display: inline-block;
+    padding: 2px 7px;
+    background: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    white-space: nowrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Education ── */
+  .education {
+    margin-bottom: 9px;
+    break-inside: avoid;
+  }
+
+  .edu-subtitle {
+    font-size: 10.5px;
+    color: #374151;
+  }
+
+  .edu-location {
+    font-size: 10px;
+    color: #6b7280;
+  }
+
+  /* ── Skills ── */
+  .skills-group {
+    margin-bottom: 6px;
+  }
+
+  .skill-label {
+    font-weight: 700;
+    font-size: 10px;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+
+  .skill-tags {
+    font-size: 10px;
+    color: #4b5563;
+    line-height: 1.5;
+  }
+
+  /* ── Simple list ── */
+  .simple-list {
+    margin: 4px 0 0;
+    padding-left: 14px;
+    font-size: 11px;
+  }
+
+  .simple-list li {
+    margin-bottom: 3px;
+  }
+
+  @media print {
+    .resume-grid {
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    section {
+      margin-top: 12px;
+    }
+
+    .tech-tag {
+      background: #eff6ff !important;
+      color: #1e40af !important;
+      border-color: #bfdbfe !important;
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+interface Props {
+  title: string;
+  lang?: string;
+}
+
+const { title, lang = 'fr' } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        color: #111827;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      @page {
+        size: A4;
+        margin: 10mm 12mm;
+      }
+
+      @media screen {
+        body {
+          background: #e5e7eb;
+          padding: 24px;
+        }
+
+        .print-page {
+          width: 210mm;
+          min-height: 297mm;
+          margin: 0 auto;
+          padding: 10mm 12mm;
+          background: white;
+          box-shadow: 0 4px 20px rgb(0 0 0 / 12%);
+        }
+      }
+
+      @media print {
+        body {
+          background: white;
+          font-size: 11px;
+          line-height: 1.4;
+        }
+
+        .print-page {
+          width: auto;
+          min-height: auto;
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

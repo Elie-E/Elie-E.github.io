@@ -108,7 +108,7 @@ const journeyTranslations = {
 const skillsData = {
   mainStack: ['PHP', 'Laravel', 'JavaScript', 'Typescript', 'SQL', 'HTML', 'SCSS'],
   frontend: ['Angular', 'Nuxt', 'Vue', 'Astro', 'Tailwind'],
-  backend: ['Laravel', 'PHP', 'REST APIs', 'Node.js', 'Python'],
+  backend: ['Laravel', 'PHP', 'Symfony', 'REST APIs', 'Node.js'],
   databases: ['MySQL', 'PostgreSQL', 'Supabase', 'Database Design', 'Query Optimization'],
   devops: ['Docker', 'Git', 'Linux', 'AWS', 'VPS Deployment', 'CI/CD', 'Cloudflare', 'Caddy', 'Apache'],
   mobile: ['Ionic', 'Capacitor', 'Angular', 'Android', 'Google Play Console'],
