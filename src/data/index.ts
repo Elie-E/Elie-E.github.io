@@ -115,7 +115,7 @@ const skillsData = {
   web: ['SEO', 'Analytics', 'Performance Optimization'],
   exploring: ['Software Architecture', 'DevOps', 'Cloud Infrastructure', 'Monitoring', 'Scalable Deployment'],
   practices: ['Project Management', 'Debugging', 'Production maintenance', 'Code review'],
-  certifications: ['PSM 1 - Professional Scrum Master']
+  certifications: ['PSM 1 - Professional Scrum Master', 'EF SET C2 Proficient']
 };
 
 // Contact Information
@@ -136,7 +136,10 @@ const personalInfoTranslations = {
     
     I work across the full product lifecycle: requirements analysis, backend and frontend development, databases, deployment, optimization, and maintenance. My background in e-commerce, project management, and entrepreneurship gives me a pragmatic approach focused on business needs and user value.'`,
     languages: ['French (Native)', 'English (Professional)', 'Spanish (Professional)'],
-    certifications: ['PSM 1 - Professional Scrum Master']
+    certifications: [
+      { label: 'PSM 1 - Professional Scrum Master' },
+      { label: 'EF SET English Certificate C2 Proficient', url: 'https://cert.efset.org/en/7dN2sm' },
+    ]
   },
   fr: {
     title: 'Développeur Full-Stack PHP / Laravel / Angular',
@@ -145,7 +148,10 @@ const personalInfoTranslations = {
     
     J’interviens sur l’ensemble du cycle produit : analyse du besoin, développement backend et frontend, base de données, déploiement, optimisation et maintenance. Mon parcours en e-commerce, gestion de projet et entrepreneuriat me donne une approche pragmatique, orientée métier et utilisateur.`,
     languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Professionnel)'],
-    certifications: ['PSM 1 - Professional Scrum Master']
+    certifications: [
+      { label: 'PSM 1 - Professional Scrum Master' },
+      { label: 'EF SET English Certificate C2 Proficient', url: 'https://cert.efset.org/en/7dN2sm' },
+    ]
   },
   es: {
     title: 'Desarrollador Full-Stack PHP / Laravel / Angular',
@@ -154,7 +160,10 @@ const personalInfoTranslations = {
     
     Trabajo en todo el ciclo de vida del producto: análisis de necesidades, desarrollo backend y frontend, bases de datos, despliegue, optimización y mantenimiento. Mi experiencia en e-commerce, gestión de proyectos y emprendimiento me da un enfoque pragmático, orientado al negocio y al usuario.'`,
     languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Profesional)'],
-    certifications: ['PSM 1 - Professional Scrum Master']
+    certifications: [
+      { label: 'PSM 1 - Professional Scrum Master' },
+      { label: 'EF SET English Certificate C2 Proficient', url: 'https://cert.efset.org/en/7dN2sm' },
+    ]
   }
 };
 

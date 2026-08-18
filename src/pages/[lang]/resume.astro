@@ -255,7 +255,10 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
               {personalInfo.certifications.map(cert => (
                 <li class="flex items-center gap-2">
                   <div class="w-2 h-2 bg-green-600 rounded-full"></div>
-                  {cert}
+                  {cert.url
+                    ? <a href={cert.url} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{cert.label}</a>
+                    : cert.label
+                  }
                 </li>
               ))}
             </ul>

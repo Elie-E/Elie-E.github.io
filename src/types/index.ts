@@ -31,7 +31,7 @@ export interface PersonalInfo {
   location: string;
   bio: string;
   languages: string[];
-  certifications: string[];
+  certifications: { label: string; url?: string }[];
 }
 
 export interface IntroTextData {
