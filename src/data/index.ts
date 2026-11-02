@@ -104,17 +104,18 @@ const journeyTranslations = {
   }
 };
 
-// Skills Data - grouped by pillar, no misleading percentages
+// Skills Data - grouped by domain, no misleading percentages
 const skillsData = {
-  mainStack: ['PHP', 'Laravel', 'JavaScript', 'Typescript', 'SQL', 'HTML', 'SCSS'],
-  frontend: ['Angular', 'Nuxt', 'Vue', 'Astro', 'Tailwind'],
-  backend: ['Laravel', 'PHP', 'Symfony', 'REST APIs', 'Node.js'],
-  databases: ['MySQL', 'PostgreSQL', 'Supabase', 'Database Design', 'Query Optimization'],
-  devops: ['Docker', 'Git', 'Linux', 'AWS', 'VPS Deployment', 'CI/CD', 'Cloudflare', 'Caddy', 'Apache'],
+  backend: ['PHP', 'Laravel', 'Symfony', 'Node.js', 'REST APIs'],
+  frontend: ['JavaScript', 'TypeScript', 'Angular', 'Vue', 'Nuxt', 'Astro', 'Tailwind'],
+  databases: ['MySQL', 'PostgreSQL', 'Supabase', 'SQL', 'Query Optimization'],
+  devops: ['Docker', 'Linux', 'AWS', 'CI/CD', 'VPS Deployment', 'Cloudflare', 'Caddy', 'Apache'],
   mobile: ['Ionic', 'Capacitor', 'Angular', 'Android', 'Google Play Console'],
-  web: ['SEO', 'Analytics', 'Performance Optimization'],
-  exploring: ['Software Architecture', 'DevOps', 'Cloud Infrastructure', 'Monitoring', 'Scalable Deployment'],
-  practices: ['Project Management', 'Debugging', 'Production maintenance', 'Code review'],
+  automation: ['Python', 'JavaScript', 'Scripting', 'Data Processing'],
+  aiAssisted: ['AI Agents', 'Claude Code', 'Agentic Workflows', 'Generated Code Review'],
+  web: ['Technical SEO', 'Analytics', 'Performance Optimization'],
+  practices: ['Git', 'Debugging', 'Production Maintenance', 'Project Management', 'Code Review'],
+  exploring: ['Java', 'Software Architecture', 'Advanced DevOps', 'Cloud'],
   certifications: ['PSM 1 - Professional Scrum Master', 'EF SET C2 Proficient']
 };
 
@@ -132,9 +133,15 @@ const personalInfoTranslations = {
   en: {
     title: 'Full-Stack Developer PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: `'Full-stack developer with over 4 years of experience designing, developing, and maintaining production web applications. 
-    
-    I work across the full product lifecycle: requirements analysis, backend and frontend development, databases, deployment, optimization, and maintenance. My background in e-commerce, project management, and entrepreneurship gives me a pragmatic approach focused on business needs and user value.'`,
+    bio: `Full-stack developer with close to 5 years of experience building, modernizing and maintaining production web applications.
+
+    Versatile, I work across the full development cycle: functional analysis, backend, frontend, APIs, databases, automation, infrastructure and deployment.
+
+    Comfortable with both existing codebases and varied technical environments, I favor pragmatic, performant and maintainable solutions.
+
+    I integrate AI-assisted development tools and coding agents into my workflow to boost productivity and speed up delivery, without compromising on code quality or understanding.
+
+    My background in project management and entrepreneurship also helps me understand business needs beyond the purely technical aspects.`,
     languages: ['French (Native)', 'English (Professional)', 'Spanish (Professional)'],
     certifications: [
       { label: 'PSM 1 - Professional Scrum Master' },
@@ -144,9 +151,15 @@ const personalInfoTranslations = {
   fr: {
     title: 'Développeur Full-Stack PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: `Développeur full-stack avec plus de 4 ans d’expérience dans la conception, le développement et la maintenance d’applications web en production. 
-    
-    J’interviens sur l’ensemble du cycle produit : analyse du besoin, développement backend et frontend, base de données, déploiement, optimisation et maintenance. Mon parcours en e-commerce, gestion de projet et entrepreneuriat me donne une approche pragmatique, orientée métier et utilisateur.`,
+    bio: `Développeur full-stack avec près de 5 ans d'expérience dans le développement, la modernisation et la maintenance d'applications web en production.
+
+    Polyvalent et autonome, j'interviens sur l'ensemble du cycle de développement : analyse fonctionnelle, backend, frontend, APIs, bases de données, automatisation, infrastructure et déploiement.
+
+    À l'aise avec les applications existantes et les environnements techniques variés, je privilégie les solutions pragmatiques, performantes et maintenables.
+
+    J'intègre les outils de développement assisté par IA et les agents de codage à mes méthodes de travail pour améliorer ma productivité et accélérer la livraison, sans jamais perdre la maîtrise du code produit.
+
+    Mon parcours en gestion de projet et en entrepreneuriat me permet également de comprendre les besoins métier au-delà des seuls aspects techniques.`,
     languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Professionnel)'],
     certifications: [
       { label: 'PSM 1 - Professional Scrum Master' },
@@ -156,9 +169,15 @@ const personalInfoTranslations = {
   es: {
     title: 'Desarrollador Full-Stack PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: `'Desarrollador full-stack con más de 4 años de experiencia en el diseño, desarrollo y mantenimiento de aplicaciones web en producción. 
-    
-    Trabajo en todo el ciclo de vida del producto: análisis de necesidades, desarrollo backend y frontend, bases de datos, despliegue, optimización y mantenimiento. Mi experiencia en e-commerce, gestión de proyectos y emprendimiento me da un enfoque pragmático, orientado al negocio y al usuario.'`,
+    bio: `Desarrollador full-stack con casi 5 años de experiencia en el desarrollo, modernización y mantenimiento de aplicaciones web en producción.
+
+    Polivalente y autónomo, trabajo en todo el ciclo de desarrollo: análisis funcional, backend, frontend, APIs, bases de datos, automatización, infraestructura y despliegue.
+
+    Cómodo tanto con aplicaciones existentes como con entornos técnicos variados, priorizo soluciones pragmáticas, eficientes y mantenibles.
+
+    Integro herramientas de desarrollo asistido por IA y agentes de código en mi flujo de trabajo para mejorar mi productividad y acelerar la entrega, sin perder el control sobre la calidad del código.
+
+    Mi trayectoria en gestión de proyectos y emprendimiento también me permite entender las necesidades de negocio más allá de los aspectos puramente técnicos.`,
     languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Profesional)'],
     certifications: [
       { label: 'PSM 1 - Professional Scrum Master' },
@@ -202,6 +221,114 @@ const ctaContentTranslations = {
     ctaButton: 'Contactar'
   }
 }
+
+// Home hero content - short, home-specific intro (distinct from the longer resume bio)
+const heroContentTranslations = {
+  en: {
+    roleTitle: 'Full-Stack Developer',
+    tagline: 'PHP & JavaScript',
+    intro: `Full-stack developer with close to 5 years of experience on production web applications.
+
+    Versatile, I work across the full development cycle: backend, frontend, APIs, databases, scripting, infrastructure, deployment and maintenance.
+
+    Comfortable with both existing projects and new developments, I can quickly get up to speed on a codebase, understand the business stakes and deliver reliable, maintainable solutions.
+
+    I also integrate AI-assisted development and coding agents into my workflow to speed up design, development and problem-solving, while staying in control of the code produced.`,
+    ctaResume: 'View my resume',
+    ctaProjects: 'Discover my projects',
+  },
+  fr: {
+    roleTitle: 'Développeur Full-Stack',
+    tagline: 'PHP & JavaScript',
+    intro: `Développeur full-stack avec près de 5 ans d'expérience sur des applications web en production.
+
+    Polyvalent, j'interviens sur l'ensemble du cycle de développement : backend, frontend, APIs, bases de données, scripting, infrastructure, déploiement et maintenance.
+
+    Habitué aux projets existants comme aux nouveaux développements, je sais prendre rapidement en main une codebase, comprendre les enjeux métier et apporter des solutions fiables et maintenables.
+
+    J'intègre également le développement assisté par IA et les agents de codage à mon workflow pour accélérer la conception, le développement et la résolution de problèmes, tout en gardant la maîtrise du code produit.`,
+    ctaResume: 'Voir mon CV',
+    ctaProjects: 'Découvrir mes projets',
+  },
+  es: {
+    roleTitle: 'Desarrollador Full-Stack',
+    tagline: 'PHP & JavaScript',
+    intro: `Desarrollador full-stack con casi 5 años de experiencia en aplicaciones web en producción.
+
+    Polivalente, trabajo en todo el ciclo de desarrollo: backend, frontend, APIs, bases de datos, scripting, infraestructura, despliegue y mantenimiento.
+
+    Acostumbrado tanto a proyectos existentes como a nuevos desarrollos, sé ponerme al día rápidamente en una base de código, entender los retos de negocio y aportar soluciones fiables y mantenibles.
+
+    También integro el desarrollo asistido por IA y los agentes de código en mi flujo de trabajo para acelerar el diseño, el desarrollo y la resolución de problemas, manteniendo siempre el control sobre el código producido.`,
+    ctaResume: 'Ver mi currículum',
+    ctaProjects: 'Descubrir mis proyectos',
+  },
+};
+
+// Home "strengths" strip (Full-stack / Production / AI-assisted)
+const strengthsTranslations = {
+  en: [
+    { title: 'Full-stack', description: 'Backend, frontend, APIs and databases' },
+    { title: 'Production', description: 'Infrastructure, deployment, optimization and maintenance' },
+    { title: 'AI-assisted', description: 'Coding agents, automation and AI workflows' },
+  ],
+  fr: [
+    { title: 'Full-stack', description: 'Backend, frontend, APIs et bases de données' },
+    { title: 'Production', description: 'Infrastructure, déploiement, optimisation et maintenance' },
+    { title: 'AI-assisted', description: 'Agents de codage, automatisation et workflows IA' },
+  ],
+  es: [
+    { title: 'Full-stack', description: 'Backend, frontend, APIs y bases de datos' },
+    { title: 'Producción', description: 'Infraestructura, despliegue, optimización y mantenimiento' },
+    { title: 'AI-assisted', description: 'Agentes de código, automatización y flujos de trabajo con IA' },
+  ],
+};
+
+// Home "Engineering & development practices" section
+const practicesContentTranslations = {
+  en: {
+    title: 'Engineering & Development Practices',
+    subtitle: 'What I know how to do, beyond the list of tools.',
+    items: [
+      { label: 'Application Architecture', icon: '🏗️' },
+      { label: 'Existing Codebases / Legacy', icon: '🗄️' },
+      { label: 'Production Debugging', icon: '🐞' },
+      { label: 'Performance Optimization', icon: '⚡' },
+      { label: 'Deployment & Maintenance', icon: '🚀' },
+      { label: 'Automation', icon: '🤖' },
+      { label: 'AI-Assisted Development', icon: '🧠' },
+      { label: 'Code Review', icon: '👀' },
+    ],
+  },
+  fr: {
+    title: 'Ingénierie & pratiques de développement',
+    subtitle: 'Ce que je sais faire, au-delà de la liste des outils.',
+    items: [
+      { label: 'Architecture applicative', icon: '🏗️' },
+      { label: 'Codebase existante / Legacy', icon: '🗄️' },
+      { label: 'Débogage en production', icon: '🐞' },
+      { label: 'Optimisation des performances', icon: '⚡' },
+      { label: 'Déploiement et maintenance', icon: '🚀' },
+      { label: 'Automatisation', icon: '🤖' },
+      { label: 'Développement assisté par IA', icon: '🧠' },
+      { label: 'Revue de code', icon: '👀' },
+    ],
+  },
+  es: {
+    title: 'Ingeniería y prácticas de desarrollo',
+    subtitle: 'Lo que sé hacer, más allá de la lista de herramientas.',
+    items: [
+      { label: 'Arquitectura de aplicaciones', icon: '🏗️' },
+      { label: 'Código existente / Legacy', icon: '🗄️' },
+      { label: 'Depuración en producción', icon: '🐞' },
+      { label: 'Optimización del rendimiento', icon: '⚡' },
+      { label: 'Despliegue y mantenimiento', icon: '🚀' },
+      { label: 'Automatización', icon: '🤖' },
+      { label: 'Desarrollo asistido por IA', icon: '🧠' },
+      { label: 'Revisión de código', icon: '👀' },
+    ],
+  },
+};
 
 const serviceSectionContentTranslations = {
   en: {
@@ -315,6 +442,18 @@ export function getCtaContent(lang: string = 'en') {
 
 export function getServiceSectionContent(lang: string = 'en'): ServiceSectionContent {
   return serviceSectionContentTranslations[lang as keyof typeof serviceSectionContentTranslations] || serviceSectionContentTranslations.en;
+}
+
+export function getHeroContent(lang: string = 'en') {
+  return heroContentTranslations[lang as keyof typeof heroContentTranslations] || heroContentTranslations.en;
+}
+
+export function getStrengths(lang: string = 'en') {
+  return strengthsTranslations[lang as keyof typeof strengthsTranslations] || strengthsTranslations.en;
+}
+
+export function getPracticesContent(lang: string = 'en') {
+  return practicesContentTranslations[lang as keyof typeof practicesContentTranslations] || practicesContentTranslations.en;
 }
 
 export function getJourneyContent(lang: string = 'en') {

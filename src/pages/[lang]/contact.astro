@@ -46,7 +46,6 @@ const contactTranslations = {
     speakingEngagements: 'Intéressé par les engagements de conférence',
     home: 'Accueil',
     resume: 'CV',
-    portfolio: 'Portfolio',
     blog: 'Blog',
     about: 'À propos',
     responseTime: 'Je réponds généralement dans les 24 heures',
@@ -96,7 +95,6 @@ const contactTranslations = {
     speakingEngagements: 'Interested in speaking engagements',
     home: 'Home',
     resume: 'Resume',
-    portfolio: 'Portfolio',
     blog: 'Blog',
     about: 'About',
     responseTime: 'I typically respond within 24 hours',
@@ -146,7 +144,6 @@ const contactTranslations = {
     speakingEngagements: 'Interesado en compromisos de conferencias',
     home: 'Inicio',
     resume: 'Currículum',
-    portfolio: 'Portafolio',
     blog: 'Blog',
     about: 'Acerca de',
     responseTime: 'Normalmente respondo dentro de 24 horas',
@@ -196,7 +193,6 @@ const contactTranslations = {
     speakingEngagements: 'مهتم بالالتزامات التحدث',
     home: 'الرئيسية',
     resume: 'السيرة الذاتية',
-    portfolio: 'المحفظة',
     blog: 'المدونة',
     about: 'حول',
     responseTime: 'أستجيب عادة خلال 24 ساعة',
@@ -371,7 +367,7 @@ const t = contactTranslations[lang as keyof typeof contactTranslations] || conta
           </div>
           <div class="flex items-center gap-4">
             <button id="efSubmitBtn" type="submit"
-              class="inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 transition focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+              class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white text-sm font-semibold px-5 py-2.5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               {t.formSend}
             </button>

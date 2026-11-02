@@ -1,6 +1,7 @@
 ---
 import { languages } from '../types/index.js';
 import { getPersonalInfo } from '../data/index.js';
+import AnimatedLogo from './AnimatedLogo.astro';
 
 export interface Props {
   currentLang: string;
@@ -25,9 +26,9 @@ function switchLangPath(targetLang: string): string {
 
 // Navigation items with translations
 const navItems = {
-  en: { home: 'Home', resume: 'Resume', portfolio: 'Portfolio', about: 'About', contact: 'Contact', services: 'Services' },
-  fr: { home: 'Accueil', resume: 'CV', portfolio: 'Portfolio', about: 'À propos', contact: 'Contact', services: 'Services' },
-  es: { home: 'Inicio', resume: 'Currículum', portfolio: 'Portafolio', about: 'Acerca de', contact: 'Contacto', services: 'Servicios' },
+  en: { home: 'Home', resume: 'Resume', portfolio: 'Portfolio', about: 'About', contact: 'Contact', services: 'Services', recommendations: 'Recommendations', blog: 'Blog' },
+  fr: { home: 'Accueil', resume: 'CV', portfolio: 'Portfolio', about: 'À propos', contact: 'Contact', services: 'Services', recommendations: 'Recommandations', blog: 'Blog' },
+  es: { home: 'Inicio', resume: 'Currículum', portfolio: 'Portafolio', about: 'Acerca de', contact: 'Contacto', services: 'Servicios', recommendations: 'Recomendaciones', blog: 'Blog' },
 };
 
 const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en;
@@ -38,9 +39,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
     <div class="flex items-center justify-between h-20">
       <!-- Logo/Brand -->
       <div class="flex items-center">
-        <a href={`/${currentLang}`} class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent hover:from-blue-700 hover:to-blue-900 transition-all duration-300">
-          ( ° _°)-_/
-        </a>
+        <AnimatedLogo currentLang={currentLang} />
       </div>
 
       <!-- Desktop Navigation -->
@@ -65,7 +64,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
         >
           {currentNav.resume}
         </a>
-        <!-- <a 
+        <a 
           href={`/${currentLang}/portfolio/`} 
           class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
             currentPath === `/${currentLang}/portfolio`
@@ -74,7 +73,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
           }`}
         >
           {currentNav.portfolio}
-        </a> -->
+        </a>
         <a 
           href={`/${currentLang}/about/`} 
           class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
@@ -277,7 +276,7 @@ const currentNav = navItems[currentLang as keyof typeof navItems] || navItems.en
       
       // Close mobile menu when clicking outside
       document.addEventListener('click', (e) => {
-        if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+        if (!mobileMenuButton.contains(e.target as Node) && !mobileMenu.contains(e.target as Node)) {
           mobileMenu.classList.add('hidden');
         }
       });

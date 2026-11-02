@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { getPersonalInfo } from '../../data/index.js';
 import { languages } from '../../types/index.js';
+import imgnoteImg from '../../assets/projects/imgnote.png';
+import voyalibImg from '../../assets/projects/voyalib.png';
 
 // Generate static paths for all languages
 export async function getStaticPaths() {
@@ -23,103 +26,91 @@ const description = `Portfolio of ${personalInfo.name}, showcasing professional 
 const portfolioTranslations = {
   fr: {
     title: 'Portfolio',
-    subtitle: 'Une vitrine de mes projets professionnels, réalisations techniques et contributions à la communauté de développement.',
-    featuredProjects: 'Projets en Vedette',
+    subtitle: 'Quelques projets perso.',
+    featuredProjects: 'Projets',
     technicalExpertise: 'Expertise Technique',
-    frontendDev: 'Développement Frontend',
-    backendDev: 'Développement Backend',
-    databaseMgmt: 'Gestion de Base de Données',
-    devopsCloud: 'DevOps & Cloud',
-    keyAchievements: 'Réalisations Clés',
-    leadership: 'Leadership & Management',
-    technicalImpact: 'Impact Technique',
-    home: 'Accueil',
-    resume: 'CV',
-    blog: 'Blog',
-    contact: 'Contact',
-    viewDetails: 'Voir les Détails',
-    sourceCode: 'Code Source',
-    technologiesUsed: 'Technologies Utilisées',
+    frontendDev: 'Développement frontend',
+    backendDev: 'Développement backend & APIs',
+    backendDesc: 'PHP, Laravel, Symfony, Node.js, Fastify, APIs REST, IA',
+    devopsCloud: 'Infrastructure & DevOps',
+    devopsDesc: 'Docker, Linux, VPS, Cloudflare, Git, déploiement et monitoring applicatif',
+    architecture: 'Architecture & conception',
+    architectureDesc: 'Architecture full-stack, conception d\'interfaces interactives, internationalisation (i18n), optimisation des performances web',
+    keyAchievements: 'Réalisations clés',
+    designDev: 'Conception & développement',
+    innovation: 'Innovation & mise en production',
+    viewDetails: 'Voir le projet',
+    technologiesUsed: 'Technologies',
     achievements: {
-      leadership: [
-        'Dirigé des équipes de développement de 5+ développeurs',
-        'Implémenté des méthodologies agiles et les meilleures pratiques',
-        'Mentoré des développeurs juniors et effectué des revues de code',
-        'Géré les décisions d\'architecture technique'
+      design: [
+        'Conception et développement d\'applications web complètes, de l\'idée à la mise en production',
+        'Réalisation d\'interfaces interactives et d\'outils de manipulation d\'images directement dans le navigateur',
+        'Développement d\'applications combinant frontend moderne, backend API et services externes',
       ],
-      technical: [
-        'Amélioré les performances des applications de 40%',
-        'Réduit le temps de déploiement de heures à minutes',
-        'Implémenté des tests automatisés réduisant les bugs de 60%',
-        'Construit des systèmes évolutifs gérant 100k+ utilisateurs'
+      innovation: [
+        'Intégration de l\'intelligence artificielle pour automatiser des fonctionnalités métier, notamment la génération d\'itinéraires',
+        'Développement d\'applications multilingues accessibles à un public international',
+        'Déploiement et exploitation de services web sur infrastructure Linux avec Docker et outils de monitoring',
       ]
     }
   },
   en: {
     title: 'Portfolio',
-    subtitle: 'A showcase of my professional projects, technical achievements, and contributions to the development community.',
-    featuredProjects: 'Featured Projects',
+    subtitle: 'A few personal projects.',
+    featuredProjects: 'Projects',
     technicalExpertise: 'Technical Expertise',
     frontendDev: 'Frontend Development',
-    backendDev: 'Backend Development',
-    databaseMgmt: 'Database Management',
-    devopsCloud: 'DevOps & Cloud',
+    backendDev: 'Backend & APIs',
+    backendDesc: 'PHP, Laravel, Symfony, Node.js, Fastify, REST APIs, AI',
+    devopsCloud: 'Infrastructure & DevOps',
+    devopsDesc: 'Docker, Linux, VPS, Cloudflare, Git, deployment and application monitoring',
+    architecture: 'Architecture & Design',
+    architectureDesc: 'Full-stack architecture, interactive UI design, internationalisation (i18n), web performance optimisation',
     keyAchievements: 'Key Achievements',
-    leadership: 'Leadership & Management',
-    technicalImpact: 'Technical Impact',
-    home: 'Home',
-    resume: 'Resume',
-    blog: 'Blog',
-    contact: 'Contact',
-    viewDetails: 'View Details',
-    sourceCode: 'Source Code',
-    technologiesUsed: 'Technologies Used',
+    designDev: 'Design & Development',
+    innovation: 'Innovation & Shipping',
+    viewDetails: 'View project',
+    technologiesUsed: 'Technologies',
     achievements: {
-      leadership: [
-        'Led development teams of 5+ developers',
-        'Implemented agile methodologies and best practices',
-        'Mentored junior developers and conducted code reviews',
-        'Managed technical architecture decisions'
+      design: [
+        'Designed and developed complete web applications from idea to production',
+        'Built interactive interfaces and in-browser image manipulation tools',
+        'Developed applications combining modern frontend, API backend and external services',
       ],
-      technical: [
-        'Improved application performance by 40%',
-        'Reduced deployment time from hours to minutes',
-        'Implemented automated testing reducing bugs by 60%',
-        'Built scalable systems handling 100k+ users'
+      innovation: [
+        'Integrated AI to automate business features, including itinerary generation',
+        'Built multilingual applications accessible to an international audience',
+        'Deployed and operated web services on Linux infrastructure with Docker and monitoring tools',
       ]
     }
   },
   es: {
     title: 'Portafolio',
-    subtitle: 'Una vitrina de mis proyectos profesionales, logros técnicos y contribuciones a la comunidad de desarrollo.',
-    featuredProjects: 'Proyectos Destacados',
+    subtitle: 'Algunos proyectos personales.',
+    featuredProjects: 'Proyectos',
     technicalExpertise: 'Experiencia Técnica',
     frontendDev: 'Desarrollo Frontend',
-    backendDev: 'Desarrollo Backend',
-    databaseMgmt: 'Gestión de Base de Datos',
-    devopsCloud: 'DevOps y Cloud',
+    backendDev: 'Backend & APIs',
+    backendDesc: 'PHP, Laravel, Symfony, Node.js, Fastify, APIs REST, IA',
+    devopsCloud: 'Infraestructura & DevOps',
+    devopsDesc: 'Docker, Linux, VPS, Cloudflare, Git, despliegue y monitorización de aplicaciones',
+    architecture: 'Arquitectura & Diseño',
+    architectureDesc: 'Arquitectura full-stack, diseño de interfaces interactivas, internacionalización (i18n), optimización del rendimiento web',
     keyAchievements: 'Logros Clave',
-    leadership: 'Liderazgo y Gestión',
-    technicalImpact: 'Impacto Técnico',
-    home: 'Inicio',
-    resume: 'Currículum',
-    blog: 'Blog',
-    contact: 'Contacto',
-    viewDetails: 'Ver Detalles',
-    sourceCode: 'Código Fuente',
-    technologiesUsed: 'Tecnologías Utilizadas',
+    designDev: 'Diseño & Desarrollo',
+    innovation: 'Innovación & Producción',
+    viewDetails: 'Ver proyecto',
+    technologiesUsed: 'Tecnologías',
     achievements: {
-      leadership: [
-        'Dirigí equipos de desarrollo de 5+ desarrolladores',
-        'Implementé metodologías ágiles y mejores prácticas',
-        'Mentoricé desarrolladores junior y realicé revisiones de código',
-        'Gestioné decisiones de arquitectura técnica'
+      design: [
+        'Diseño y desarrollo de aplicaciones web completas, desde la idea hasta la producción',
+        'Creación de interfaces interactivas y herramientas de manipulación de imágenes en el navegador',
+        'Desarrollo de aplicaciones combinando frontend moderno, backend API y servicios externos',
       ],
-      technical: [
-        'Mejoré el rendimiento de aplicaciones en un 40%',
-        'Reduje el tiempo de despliegue de horas a minutos',
-        'Implementé pruebas automatizadas reduciendo bugs en un 60%',
-        'Construí sistemas escalables manejando 100k+ usuarios'
+      innovation: [
+        'Integración de inteligencia artificial para automatizar funcionalidades, como la generación de itinerarios',
+        'Desarrollo de aplicaciones multilingües accesibles a un público internacional',
+        'Despliegue y operación de servicios web en infraestructura Linux con Docker y herramientas de monitorización',
       ]
     }
   },
@@ -131,88 +122,120 @@ const t = portfolioTranslations[lang as keyof typeof portfolioTranslations] || p
 const projects = {
   fr: [
     {
-      title: "Advercity - Développement Full Stack",
-      description: "Construction d'applications web efficaces et amélioration de sites existants. Gestion des bases de données, résolution de problèmes et déploiement sur AWS avec Docker.",
-      technologies: ["Laravel", "PHP", "jQuery", "Python", "HTML/SASS", "SQL", "Docker", "AWS"],
-      period: "2022 - Présent",
-      role: "Développeur Full Stack",
-      url: "https://www.advercity.fr/",
-      achievements: ["Applications web optimisées", "Déploiement Docker/AWS", "Amélioration BDD", "Performances accrues"]
+      title: "ImgNote - Annotation de captures d'écran",
+      description: "Outil en ligne pour annoter des captures d'écran et des images directement dans le navigateur : flèches, texte, formes, surlignage, flou et recadrage. Landing page en Astro et éditeur applicatif développé en Angular.",
+      technologies: ["Astro", "Angular", "TypeScript", "Canvas", "Tailwind CSS"],
+      url: "https://imgnote.app",
+      image: imgnoteImg,
+      achievements: ["Éditeur d'annotation dans le navigateur", "Landing page Astro performante", "App Angular", "Multilingue (EN/FR)"]
     },
     {
-      title: "Nateev - Gestion de Projets E-Commerce",
-      description: "Chef de projet e-commerce et développeur front-end. Coordination de projets de la conception à la livraison, avec une équipe pluridisciplinaire.",
-      technologies: ["JavaScript", "CodeIgniter", "HTML/SASS", "SEO", "Analytics"],
-      period: "2021 - 2022",
-      role: "Chef de Projet & Développeur Front End",
-      achievements: ["Gestion multi-projets", "Livraison dans les délais", "Coordination d'équipe", "Projet Season Paper"]
-    },
-    {
-      title: "El Viaje - Mexico",
-      description: "Création et gestion d'un restaurant mexicain. Conception du concept, de l'identité visuelle et du menu. Management d'équipe et satisfaction clients.",
-      technologies: [],
-      period: "2017 - 2021",
-      role: "Fondateur & Gérant",
-      achievements: ["Création from scratch", "Management d'équipe", "Satisfaction clients", "4 ans d'exploitation"]
+      title: "Voyalib - Planificateur de voyage assisté par IA",
+      description: "Application web de planification de voyage assistée par intelligence artificielle. Frontend en Nuxt, backend en Fastify et génération d'itinéraires via l'API OpenAI.",
+      technologies: ["Nuxt", "Vue.js", "Fastify", "Node.js", "OpenAI API", "TypeScript"],
+      url: "https://voyalib.com",
+      image: voyalibImg,
+      achievements: ["Génération d'itinéraires par IA", "Frontend Nuxt", "Backend Fastify", "Intégration API OpenAI"]
     }
   ],
   en: [
     {
-      title: "Advercity - Full Stack Development",
-      description: "Building efficient web applications and improving existing sites. Database management, problem-solving, and deployment on AWS with Docker.",
-      technologies: ["Laravel", "PHP", "jQuery", "Python", "HTML/SASS", "SQL", "Docker", "AWS"],
-      period: "2022 - Present",
-      role: "Full Stack Developer",
-      url: "https://www.advercity.fr/",
-      achievements: ["Optimized web apps", "Docker/AWS deployment", "DB improvements", "Performance gains"]
+      title: "ImgNote - Screenshot Annotation Tool",
+      description: "Online tool to annotate screenshots and images directly in the browser: arrows, text, shapes, highlight, blur and crop. Astro landing page and an editor app built with Angular.",
+      technologies: ["Astro", "Angular", "TypeScript", "Canvas", "Tailwind CSS"],
+      url: "https://imgnote.app",
+      image: imgnoteImg,
+      achievements: ["In-browser annotation editor", "Fast Astro landing page", "Angular app", "Multilingual (EN/FR)"]
     },
     {
-      title: "Nateev - E-Commerce Project Management",
-      description: "E-commerce project manager and front-end developer. Coordinating projects from conception to delivery with a multidisciplinary team.",
-      technologies: ["JavaScript", "CodeIgniter", "HTML/SASS", "SEO", "Analytics"],
-      period: "2021 - 2022",
-      role: "Project Manager & Front End Developer",
-      achievements: ["Multi-project management", "On-time delivery", "Team coordination", "Season Paper project"]
-    },
-    {
-      title: "El Viaje - Mexico",
-      description: "Created and managed a Mexican restaurant from scratch. Designed concept, visual identity, and menu. Team management and customer satisfaction.",
-      technologies: [],
-      period: "2017 - 2021",
-      role: "Founder & Manager",
-      achievements: ["Built from scratch", "Team management", "Customer satisfaction", "4 years of operation"]
+      title: "Voyalib - AI Travel Planner",
+      description: "AI-assisted travel planning web app. Nuxt frontend, Fastify backend and itinerary generation powered by the OpenAI API.",
+      technologies: ["Nuxt", "Vue.js", "Fastify", "Node.js", "OpenAI API", "TypeScript"],
+      url: "https://voyalib.com",
+      image: voyalibImg,
+      achievements: ["AI-powered itinerary generation", "Nuxt frontend", "Fastify backend", "OpenAI API integration"]
     }
   ],
   es: [
     {
-      title: "Advercity - Desarrollo Full Stack",
-      description: "Construcción de aplicaciones web eficientes y mejora de sitios existentes. Gestión de bases de datos, resolución de problemas y despliegue en AWS con Docker.",
-      technologies: ["Laravel", "PHP", "jQuery", "Python", "HTML/SASS", "SQL", "Docker", "AWS"],
-      period: "2022 - Presente",
-      role: "Desarrollador Full Stack",
-      url: "https://www.advercity.fr/",
-      achievements: ["Apps web optimizadas", "Despliegue Docker/AWS", "Mejoras de BDD", "Rendimiento mejorado"]
+      title: "ImgNote - Anotación de capturas de pantalla",
+      description: "Herramienta en línea para anotar capturas de pantalla e imágenes directamente en el navegador: flechas, texto, formas, resaltado, desenfoque y recorte. Landing page en Astro y editor de la app desarrollado en Angular.",
+      technologies: ["Astro", "Angular", "TypeScript", "Canvas", "Tailwind CSS"],
+      url: "https://imgnote.app",
+      image: imgnoteImg,
+      achievements: ["Editor de anotación en el navegador", "Landing page Astro rápida", "App Angular", "Multilingüe (EN/FR)"]
     },
     {
-      title: "Nateev - Gestión de Proyectos E-Commerce",
-      description: "Jefe de proyecto e-commerce y desarrollador front-end. Coordinación de proyectos desde la concepción hasta la entrega con un equipo multidisciplinar.",
-      technologies: ["JavaScript", "CodeIgniter", "HTML/SASS", "SEO", "Analytics"],
-      period: "2021 - 2022",
-      role: "Jefe de Proyecto & Desarrollador Front End",
-      achievements: ["Gestión multi-proyecto", "Entrega a tiempo", "Coordinación de equipo", "Proyecto Season Paper"]
-    },
-    {
-      title: "El Viaje - Mexico",
-      description: "Creación y gestión de un restaurante mexicano desde cero. Diseño del concepto, identidad visual y menú. Gestión del equipo y satisfacción del cliente.",
-      technologies: [],
-      period: "2017 - 2021",
-      role: "Fundador & Gerente",
-      achievements: ["Creación desde cero", "Gestión de equipo", "Satisfacción del cliente", "4 años de operación"]
+      title: "Voyalib - Planificador de viajes con IA",
+      description: "Aplicación web de planificación de viajes asistida por inteligencia artificial. Frontend en Nuxt, backend en Fastify y generación de itinerarios mediante la API de OpenAI.",
+      technologies: ["Nuxt", "Vue.js", "Fastify", "Node.js", "OpenAI API", "TypeScript"],
+      url: "https://voyalib.com",
+      image: voyalibImg,
+      achievements: ["Generación de itinerarios con IA", "Frontend Nuxt", "Backend Fastify", "Integración API OpenAI"]
     }
   ],
 };
 
 const projectData = projects[lang as keyof typeof projects] || projects.en;
+
+// Simple Icons slugs — https://simpleicons.org
+const techIcons: Record<string, { slug: string; color: string }> = {
+  'Angular':      { slug: 'angular',       color: '#DD0031' },
+  'Vue.js':       { slug: 'vuedotjs',      color: '#4FC08D' },
+  'Nuxt':         { slug: 'nuxtdotjs',     color: '#00DC82' },
+  'Astro':        { slug: 'astro',         color: '#FF5D01' },
+  'TypeScript':   { slug: 'typescript',    color: '#3178C6' },
+  'Tailwind CSS': { slug: 'tailwindcss',   color: '#06B6D4' },
+  'Tailwind':     { slug: 'tailwindcss',   color: '#06B6D4' },
+  'Canvas API':   { slug: 'html5',         color: '#E34F26' },
+  'Node.js':      { slug: 'nodedotjs',     color: '#5FA04E' },
+  'Fastify':      { slug: 'fastify',       color: '#000000' },
+  'PHP':          { slug: 'php',           color: '#777BB4' },
+  'Laravel':      { slug: 'laravel',       color: '#FF2D20' },
+  'Symfony':      { slug: 'symfony',       color: '#000000' },
+  'OpenAI API':   { slug: 'openai',        color: '#412991' },
+  'Docker':       { slug: 'docker',        color: '#2496ED' },
+  'Linux':        { slug: 'linux',         color: '#FCC624' },
+  'Git':          { slug: 'git',           color: '#F05032' },
+  'Cloudflare':   { slug: 'cloudflare',    color: '#F38020' },
+  'VPS':          { slug: 'linux',         color: '#FCC624' },
+  'AWS':          { slug: 'amazonwebservices', color: '#FF9900' },
+  'JavaScript':   { slug: 'javascript',    color: '#F7DF1E' },
+};
+
+async function fetchSvg(slug: string): Promise<string> {
+  try {
+    const res = await fetch(`https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/${slug}.svg`);
+    if (!res.ok) return '';
+    return await res.text();
+  } catch {
+    return '';
+  }
+}
+
+// Pre-fetch all needed SVGs at build time
+const uniqueSlugs = [...new Set(Object.values(techIcons).map(v => v.slug))];
+const svgCache: Record<string, string> = {};
+await Promise.all(uniqueSlugs.map(async slug => {
+  svgCache[slug] = await fetchSvg(slug);
+}));
+
+function techBadgeSvg(tech: string): string {
+  const icon = techIcons[tech];
+  if (!icon) return '';
+  const raw = svgCache[icon.slug] || '';
+  if (!raw) return '';
+  // inject width, height and fill color directly on the <svg> tag
+  return raw.replace('<svg ', `<svg width="14" height="14" fill="${icon.color}" `);
+}
+
+// Expertise sections with their tech list
+const expertiseSections = [
+  { key: 'frontendDev',  techs: ['Angular', 'Vue.js', 'Nuxt', 'Astro', 'TypeScript', 'Tailwind CSS', 'JavaScript'] },
+  { key: 'backendDev',   techs: ['PHP', 'Laravel', 'Symfony', 'Node.js', 'Fastify', 'OpenAI API'] },
+  { key: 'devopsCloud',  techs: ['Docker', 'Linux', 'Cloudflare', 'Git', 'AWS'] },
+  { key: 'architecture', techs: [] },
+] as const;
 ---
 
 <Layout 
@@ -235,13 +258,23 @@ const projectData = projects[lang as keyof typeof projects] || projects.en;
       <!-- Featured Projects -->
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-8">{t.featuredProjects}</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 gap-8">
           {projectData.map(project => (
-            <div class="rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 bg-white">
+            <div class="rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
+              {project.image && (
+                <a href={project.url} target="_blank" rel="noopener noreferrer" class="block">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full aspect-video object-cover object-top"
+                    widths={[640, 1280]}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </a>
+              )}
+              <div class="p-6">
               <div class="mb-4">
                 <h3 class="text-xl font-semibold mb-2">{project.title}</h3>
-                <p class="text-sm text-gray-600 mb-2">{project.period}</p>
-                <p class="text-sm font-medium text-blue-600">{project.role}</p>
               </div>
               
               <p class="text-gray-700 mb-4 leading-relaxed">
@@ -266,7 +299,8 @@ const projectData = projects[lang as keyof typeof projects] || projects.en;
                 <h4 class="text-sm font-semibold mb-2">{t.technologiesUsed}:</h4>
                 <div class="flex flex-wrap gap-2">
                   {project.technologies.map(tech => (
-                    <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">
+                    <span class="flex items-center gap-1.5 px-2 py-1 text-xs rounded bg-gray-100 text-gray-700 font-medium">
+                      <span class="inline-block w-3.5 h-3.5 shrink-0" set:html={techBadgeSvg(tech)} />
                       {tech}
                     </span>
                   ))}
@@ -275,59 +309,38 @@ const projectData = projects[lang as keyof typeof projects] || projects.en;
               
               <div class="flex gap-2">
                 {project.url && (
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" class="px-4 py-2 text-white rounded hover:transition-colors text-sm bg-blue-600 hover:bg-blue-700">
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                     {t.viewDetails}
                   </a>
                 )}
+              </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <!-- Technical Skills -->
+      <!-- Technical Expertise -->
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-8">{t.technicalExpertise}</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-gray-50 p-6 rounded-lg text-center">
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
+        <div class="grid md:grid-cols-2 gap-6">
+          {expertiseSections.map(section => (
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h3 class="font-semibold mb-3">{t[section.key]}</h3>
+              {section.techs.length > 0 ? (
+                <div class="flex flex-wrap gap-2">
+                  {section.techs.map(tech => (
+                    <span class="flex items-center gap-1.5 px-2 py-1 text-xs rounded bg-white border border-gray-200 text-gray-700 font-medium">
+                      <span class="inline-block w-3.5 h-3.5 shrink-0" set:html={techBadgeSvg(tech)} />
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p class="text-sm text-gray-600">{t[section.key + 'Desc' as keyof typeof t]}</p>
+              )}
             </div>
-            <h3 class="font-semibold mb-2">{t.frontendDev}</h3>
-            <p class="text-sm text-gray-600">Vue.js, Nuxt, Angular, TypeScript, Tailwind CSS</p>
-          </div>
-          
-          <div class="bg-gray-50 p-6 rounded-lg text-center">
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold mb-2">{t.backendDev}</h3>
-            <p class="text-sm text-gray-600">Node.js, PHP, Laravel, Python, REST APIs</p>
-          </div>
-          
-          <div class="bg-gray-50 p-6 rounded-lg text-center">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold mb-2">{t.databaseMgmt}</h3>
-            <p class="text-sm text-gray-600">MySQL, MongoDB, PostgreSQL, Redis</p>
-          </div>
-          
-          <div class="bg-gray-50 p-6 rounded-lg text-center">
-            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold mb-2">{t.devopsCloud}</h3>
-            <p class="text-sm text-gray-600">AWS, Docker, CI/CD, Linux, Git</p>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -336,19 +349,24 @@ const projectData = projects[lang as keyof typeof projects] || projects.en;
         <h2 class="text-2xl font-semibold mb-8">{t.keyAchievements}</h2>
         <div class="grid md:grid-cols-2 gap-6">
           <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
-            <h3 class="text-lg font-semibold mb-3">{t.leadership}</h3>
-            <ul class="space-y-2 text-gray-700">
-              {t.achievements.leadership.map(achievement => (
-                <li>* {achievement}</li>
+            <h3 class="text-lg font-semibold mb-3">{t.designDev}</h3>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              {t.achievements.design.map((item: string) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
+                  {item}
+                </li>
               ))}
             </ul>
           </div>
-          
           <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
-            <h3 class="text-lg font-semibold mb-3">{t.technicalImpact}</h3>
-            <ul class="space-y-2 text-gray-700">
-              {t.achievements.technical.map(achievement => (
-                <li>* {achievement}</li>
+            <h3 class="text-lg font-semibold mb-3">{t.innovation}</h3>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              {t.achievements.innovation.map((item: string) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
+                  {item}
+                </li>
               ))}
             </ul>
           </div>

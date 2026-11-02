@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPersonalInfo, getIntroTextData, getCtaContent, getServiceSectionContent } from '../../data/index.js';
+import { getPersonalInfo, getIntroTextData, getCtaContent, getServiceSectionContent, getHeroContent, getStrengths, getPracticesContent } from '../../data/index.js';
 import { languages } from '../../types/index.js';
 import JourneySection from '../../components/JourneySection.astro';
 import SkillsSection from '../../components/SkillsSection.astro';
@@ -21,6 +21,9 @@ const personalInfo = getPersonalInfo(lang);
 const introTextData = getIntroTextData(lang);
 const ctaContent = getCtaContent(lang);
 const serviceSectionContent = getServiceSectionContent(lang);
+const heroContent = getHeroContent(lang);
+const strengths = getStrengths(lang);
+const practicesContent = getPracticesContent(lang);
 const currentPath = `/${lang}`;
 const currentLang = lang;
 const canonical = `https://elie-e.github.io/${lang}`;
@@ -55,24 +58,37 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
               <h1 class="text-2xl md:text-3xl lg:text-6xl font-bold mb-3 md:mb-4 lg:mb-6 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                 {personalInfo.name}
               </h1>
-              <h2 class="text-base md:text-lg lg:text-2xl text-gray-600 mb-4 md:mb-6 lg:mb-8">
-                {personalInfo.title}
+              <h2 class="text-base md:text-lg lg:text-2xl text-gray-600 mb-1 md:mb-2">
+                {heroContent.roleTitle}
               </h2>
-              <p class="text-xs md:text-sm lg:text-lg text-gray-700 max-w-full mx-auto lg:mx-0 mb-6 md:mb-8 lg:mb-12 leading-relaxed px-2 lg:px-0">
-                {personalInfo.bio.split(/\n\s*\n/).map((paragraph) => (
+              <p class="text-xs md:text-sm lg:text-base font-mono uppercase tracking-widest text-blue-500 mb-4 md:mb-6 lg:mb-8">
+                {heroContent.tagline}
+              </p>
+              <div class="text-xs md:text-sm lg:text-lg text-gray-700 max-w-full mx-auto lg:mx-0 mb-6 md:mb-8 lg:mb-12 leading-relaxed px-2 lg:px-0 space-y-2 md:space-y-3">
+                {heroContent.intro.split(/\n\s*\n/).map((paragraph) => (
                   <p>{paragraph.trim()}</p>
                 ))}
-              </p>
-              
+              </div>
+
               <!-- Quick Navigation -->
               <div class="flex flex-nowrap justify-center lg:justify-start gap-1 md:gap-2 mb-8 md:mb-12 overflow-x-auto px-1 md:px-2">
                 <a href={`/${lang}/resume/`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-gray-700 border-2 border-gray-300 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs">
-                  {nav.resume}
+                  {heroContent.ctaResume}
                 </a>
- 
-                <a href={`/${lang}/services`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-cyan-600 border-2 border-cyan-200 rounded-lg md:rounded-xl hover:bg-cyan-50 hover:border-cyan-400 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs font-medium" style="box-shadow: 0 0 8px rgba(6,182,212,0.25);">
-                  {nav.services}
+
+                <a href={`/${lang}/portfolio`} class="px-2 py-1 md:px-3 md:py-2 bg-white text-cyan-600 border-2 border-cyan-200 rounded-lg md:rounded-xl hover:bg-cyan-50 hover:border-cyan-400 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap text-xs font-medium" style="box-shadow: 0 0 8px rgba(6,182,212,0.25);">
+                  {heroContent.ctaProjects}
                 </a>
+              </div>
+
+              <!-- Strengths strip -->
+              <div class="grid grid-cols-3 gap-2 md:gap-4 max-w-full lg:max-w-xl">
+                {strengths.map(strength => (
+                  <div class="text-center lg:text-left px-1">
+                    <p class="text-xs md:text-sm font-bold text-gray-900">{strength.title}</p>
+                    <p class="text-[10px] md:text-xs text-gray-500 leading-snug">{strength.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -110,6 +126,16 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
                   <div class="flex flex-wrap gap-2">
                     {['Docker', 'VPS', 'Cloudflare', 'Cloud', 'Caddy',].map(tag => (
                       <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-orange-50 text-orange-700 border border-orange-100">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- AI-assisted -->
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-wider text-violet-500 mb-2">AI-Assisted</p>
+                  <div class="flex flex-wrap gap-2">
+                    {['Claude Code', 'Agentic Workflows', 'Automation'].map(tag => (
+                      <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-violet-50 text-violet-700 border border-violet-100">{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -192,6 +218,26 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
 
     <!-- Skills Section -->
     <SkillsSection lang={lang} />
+
+    <!-- Engineering & Development Practices -->
+    <section class="py-12 md:py-16 bg-gray-50">
+      <div class="container mx-auto px-4 md:px-6 max-w-5xl">
+        <div class="text-center mb-8 md:mb-10">
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-3">
+            {practicesContent.title}
+          </h2>
+          <p class="text-gray-600 max-w-xl mx-auto">{practicesContent.subtitle}</p>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {practicesContent.items.map(item => (
+            <div class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <span class="text-xl">{item.icon}</span>
+              <span class="text-sm font-medium text-gray-800">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
     <!-- Testimonials Carousel -->
     <!-- <TestimonialsCarousel lang={lang} /> -->

@@ -27,7 +27,7 @@ const translations = {
     certifications: 'Certifications',
     present: "Aujourd'hui",
     save: 'Télécharger en PDF',
-    saveHint: 'Dans le panneau qui s\'ouvre → choisir "Enregistrer"',
+    saveHint: 'Dans le panneau qui s\'ouvre → désactiver "En-têtes et pieds de page", puis choisir "Enregistrer"',
     stack: 'Stack'
   },
   en: {
@@ -40,7 +40,7 @@ const translations = {
     certifications: 'Certifications',
     present: 'Present',
     save: 'Download as PDF',
-    saveHint: 'In the panel that opens → select "Save"',
+    saveHint: 'In the panel that opens → turn off "Headers and footers", then select "Save"',
     stack: 'Stack'
   },
   es: {
@@ -53,7 +53,7 @@ const translations = {
     certifications: 'Certificaciones',
     present: 'Hoy',
     save: 'Descargar PDF',
-    saveHint: 'En el panel que se abre → selecciona "Guardar"',
+    saveHint: 'En el panel que se abre → desactiva "Encabezados y pies de página" y luego selecciona "Guardar"',
     stack: 'Stack'
   }
 };
@@ -62,9 +62,9 @@ const t = translations[lang as keyof typeof translations] ?? translations.en;
 
 // Short bios dedicated to the print version (not touching shared data)
 const printBio: Record<string, string> = {
-  fr: "Développeur full-stack avec plus de 4 ans d'expérience dans le développement, la maintenance et l'optimisation d'applications web en production. Autonome sur l'ensemble du cycle de développement, du recueil du besoin au déploiement. Mon parcours en e-commerce, gestion de projet et entrepreneuriat m'apporte une approche pragmatique, orientée métier et utilisateur.",
-  en: "Full-stack developer with 4+ years of experience building, maintaining and optimising production web applications. Autonomous across the full development lifecycle, from requirements to deployment. Background in e-commerce, project management and entrepreneurship brings a pragmatic, business-focused approach.",
-  es: "Desarrollador full-stack con más de 4 años de experiencia desarrollando, manteniendo y optimizando aplicaciones web en producción. Autónomo en todo el ciclo de desarrollo, desde los requisitos hasta el despliegue. Mi experiencia en e-commerce, gestión de proyectos y emprendimiento aporta un enfoque pragmático orientado al negocio.",
+  fr: "Développeur full-stack avec près de 5 ans d'expérience dans le développement, la modernisation et la maintenance d'applications web en production. Autonome sur l'ensemble du cycle de développement, du recueil du besoin au déploiement. J'intègre le développement assisté par IA à mon workflow pour accélérer la livraison sans compromis sur la qualité. Mon parcours en e-commerce, gestion de projet et entrepreneuriat m'apporte une approche pragmatique, orientée métier et utilisateur.",
+  en: "Full-stack developer with close to 5 years of experience building, modernising and maintaining production web applications. Autonomous across the full development lifecycle, from requirements to deployment. I integrate AI-assisted development into my workflow to speed up delivery without compromising on quality. Background in e-commerce, project management and entrepreneurship brings a pragmatic, business-focused approach.",
+  es: "Desarrollador full-stack con casi 5 años de experiencia desarrollando, modernizando y manteniendo aplicaciones web en producción. Autónomo en todo el ciclo de desarrollo, desde los requisitos hasta el despliegue. Integro el desarrollo asistido por IA en mi flujo de trabajo para acelerar la entrega sin comprometer la calidad. Mi experiencia en e-commerce, gestión de proyectos y emprendimiento aporta un enfoque pragmático orientado al negocio.",
 };
 
 // Short achievements per experience, per lang — dedicated to the print CV
@@ -219,7 +219,7 @@ const printAchievements: Record<string, Record<string, string[]>> = {
                   {exp.technologies && exp.technologies.length > 0 && (
                     <div class="tech-tags">
                       {exp.technologies.map(tech => (
-                        <span class="tech-tag">{tech}</span>
+                        <span class="tech-tag">{tech}&nbsp;</span>
                       ))}
                     </div>
                   )}
@@ -237,10 +237,6 @@ const printAchievements: Record<string, Record<string, string[]>> = {
         <section>
           <h2>{t.skills}</h2>
           <div class="skills-group">
-            <p class="skill-label">Main</p>
-            <p class="skill-tags">{skills.mainStack.join(' · ')}</p>
-          </div>
-          <div class="skills-group">
             <p class="skill-label">Backend</p>
             <p class="skill-tags">{skills.backend.join(' · ')}</p>
           </div>
@@ -249,12 +245,16 @@ const printAchievements: Record<string, Record<string, string[]>> = {
             <p class="skill-tags">{skills.frontend.join(' · ')}</p>
           </div>
           <div class="skills-group">
+            <p class="skill-label">Databases</p>
+            <p class="skill-tags">{skills.databases.join(' · ')}</p>
+          </div>
+          <div class="skills-group">
             <p class="skill-label">DevOps</p>
             <p class="skill-tags">{skills.devops.join(' · ')}</p>
           </div>
           <div class="skills-group">
-            <p class="skill-label">Databases</p>
-            <p class="skill-tags">{skills.databases.join(' · ')}</p>
+            <p class="skill-label">Automation & AI</p>
+            <p class="skill-tags">{[...skills.automation, ...skills.aiAssisted].join(' · ')}</p>
           </div>
           <div class="skills-group">
             <p class="skill-label">Mobile</p>

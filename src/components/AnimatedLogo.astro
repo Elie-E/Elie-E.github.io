@@ -1,0 +1,205 @@
+---
+export interface Props {
+  currentLang: string;
+}
+const { currentLang } = Astro.props;
+---
+
+<a
+  href={`/${currentLang}`}
+  class="ascii-logo text-2xl font-bold inline-block hover:scale-110 origin-left transition-transform duration-300"
+  data-state="idle"
+  aria-label="Accueil"
+><span class="face" aria-hidden="true">( °_°)</span><span class="arm" aria-hidden="true">-</span><span class="laptop" aria-hidden="true">_/</span></a>
+
+<style>
+  .ascii-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    font-family: monospace;
+    font-variant-ligatures: none;
+    white-space: pre;
+    text-decoration: none;
+    /* dégradé identique au logo d'origine */
+    background: linear-gradient(to right, #2563eb, #1e40af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ascii-logo:hover {
+    background: linear-gradient(to right, #1d4ed8, #1e3a8a);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .face,
+  .arm,
+  .laptop {
+    display: inline-block;
+  }
+
+  .arm {
+    transform-origin: left center;
+  }
+
+  .laptop {
+    position: relative;
+  }
+
+  /* 01 - Repos : le bras tape au clavier (haut/bas uniquement) */
+  .ascii-logo[data-state="idle"] .arm {
+    animation: armBounce 0.18s ease-in-out infinite alternate;
+  }
+
+  @keyframes armBounce {
+    from { transform: translateY(-3px); }
+    to   { transform: translateY(3px); }
+  }
+
+  /* 02 - Tape au clavier */
+  .ascii-logo[data-state="typing"] .arm {
+    animation: typing 0.15s ease-in-out infinite alternate;
+  }
+
+  @keyframes typing {
+    from { transform: translateY(-4px) rotate(-8deg); }
+    to   { transform: translateY(3px)  rotate(8deg);  }
+  }
+
+  /* 03 - Bug */
+  .ascii-logo[data-state="bug"] .face {
+    animation: jump 0.25s 3;
+  }
+
+  @keyframes jump {
+    0%, 100% { transform: translateY(0);    }
+    50%       { transform: translateY(-4px); }
+  }
+
+  /* 04 - Concentration */
+  .ascii-logo[data-state="focus"] .face {
+    animation: concentrating 0.5s ease-in-out infinite;
+  }
+
+  @keyframes concentrating {
+    0%, 100% { transform: translateY(0);   }
+    50%       { transform: translateY(3px); }
+  }
+
+  /* 05 - Solution */
+  .ascii-logo[data-state="solution"] .face {
+    animation: success 0.5s ease-in-out 2;
+  }
+
+  @keyframes success {
+    0%, 100% { transform: scale(1);    }
+    50%       { transform: scale(1.13); }
+  }
+
+  /* 06 - Il juge */
+  .ascii-logo[data-state="judge"] .face {
+    transform: translateX(2px);
+  }
+
+  /* 07 - Ça marche pas */
+  .ascii-logo[data-state="failure"] .face {
+    animation: shake 0.1s infinite alternate;
+  }
+
+  @keyframes shake {
+    from { transform: translateX(-2px) rotate(-1deg); }
+    to   { transform: translateX(2px)  rotate(1deg);  }
+  }
+
+  /* 08 - Il s'endort */
+  .ascii-logo[data-state="sleep"] .face {
+    animation: sleepy 1.5s ease-in-out infinite;
+  }
+
+  .ascii-logo[data-state="sleep"] .face {
+    position: relative;
+  }
+
+  .ascii-logo[data-state="sleep"] .face::after {
+    content: "z";
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    font-size: 11px;
+    pointer-events: none;
+    -webkit-text-fill-color: initial;
+    color: #2563eb;
+    animation: floatingZ 1.5s ease-out infinite;
+  }
+
+  @keyframes sleepy {
+    0%, 100% { transform: translateY(0);   }
+    50%       { transform: translateY(3px); }
+  }
+
+  @keyframes floatingZ {
+    0%   { opacity: 0; transform: translateY(5px);  }
+    40%  { opacity: 1;                              }
+    100% { opacity: 0; transform: translateY(-12px);}
+  }
+
+  /* Accessibilité */
+  @media (prefers-reduced-motion: reduce) {
+    .face, .arm, .laptop::after {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initLogo(): void {
+    const logo = document.querySelector<HTMLElement>('.ascii-logo');
+    if (!logo) return;
+
+    const face = logo.querySelector<HTMLElement>('.face');
+    if (!face) return;
+
+    // À partir d'ici logo et face sont garantis non-null dans toute la fonction
+
+    // Durées ajustées : total = 15 000 ms
+    const stages = [
+      { state: 'idle',     face: '( °_°)', duration: 1900 }, // repos
+      { state: 'typing',   face: '( °_°)', duration: 2200 }, // tape
+      { state: 'bug',      face: '( O_O)', duration: 1300 }, // bug
+      { state: 'focus',    face: '( >_<)', duration: 1500 }, // concentration
+      { state: 'solution', face: '( ✧_✧)', duration: 1700 }, // solution
+      { state: 'judge',    face: '( ¬_¬)', duration: 1600 }, // il juge
+      { state: 'failure',  face: '( x_x)', duration: 2000 }, // ça marche pas
+      { state: 'sleep',    face: '( -_-)', duration: 2800 }, // dodo
+    ];
+
+    let currentStage = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    function playAnimation() {
+      if (!logo.isConnected) return;
+
+      const stage = stages[currentStage];
+      face.textContent = stage.face;
+      logo.dataset.state = stage.state;
+      currentStage = (currentStage + 1) % stages.length;
+
+      timeoutId = setTimeout(playAnimation, stage.duration);
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      playAnimation();
+    }
+
+    // Nettoyage à chaque navigation Astro (pas de { once: true } pour reboucler)
+    document.addEventListener('astro:before-swap', () => {
+      clearTimeout(timeoutId);
+    });
+  }
+
+  // Init au premier chargement et après chaque navigation côté client
+  initLogo();
+  document.addEventListener('astro:page-load' as keyof DocumentEventMap, () => initLogo());
+</script>
