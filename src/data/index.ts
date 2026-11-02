@@ -265,6 +265,14 @@ const heroContentTranslations = {
   },
 };
 
+// Hero frameworks strip - each badge uses its own brand color, same across languages (proper nouns)
+const heroFrameworks: { name: string; key: 'laravel' | 'symfony' | 'angular' | 'vue' }[] = [
+  { name: 'Laravel', key: 'laravel' },
+  { name: 'Symfony', key: 'symfony' },
+  { name: 'Angular', key: 'angular' },
+  { name: 'Vue', key: 'vue' },
+];
+
 // Home "strengths" strip (Full-stack / Production / AI-assisted)
 const strengthsTranslations = {
   en: [
@@ -446,6 +454,10 @@ export function getServiceSectionContent(lang: string = 'en'): ServiceSectionCon
 
 export function getHeroContent(lang: string = 'en') {
   return heroContentTranslations[lang as keyof typeof heroContentTranslations] || heroContentTranslations.en;
+}
+
+export function getHeroFrameworks() {
+  return heroFrameworks;
 }
 
 export function getStrengths(lang: string = 'en') {

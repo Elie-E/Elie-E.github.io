@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPersonalInfo, getIntroTextData, getCtaContent, getServiceSectionContent, getHeroContent, getStrengths, getPracticesContent } from '../../data/index.js';
+import { getPersonalInfo, getIntroTextData, getCtaContent, getServiceSectionContent, getHeroContent, getHeroFrameworks, getStrengths, getPracticesContent } from '../../data/index.js';
 import { languages } from '../../types/index.js';
 import JourneySection from '../../components/JourneySection.astro';
 import SkillsSection from '../../components/SkillsSection.astro';
@@ -22,6 +22,14 @@ const introTextData = getIntroTextData(lang);
 const ctaContent = getCtaContent(lang);
 const serviceSectionContent = getServiceSectionContent(lang);
 const heroContent = getHeroContent(lang);
+const heroFrameworks = getHeroFrameworks();
+// Each tool's own brand color
+const frameworkColors: Record<string, string> = {
+  laravel: 'bg-[#FF2D20]/10 text-[#FF2D20] border-[#FF2D20]/30',
+  symfony: 'bg-black/5 text-gray-900 border-black/20',
+  angular: 'bg-[#DD0031]/10 text-[#DD0031] border-[#DD0031]/30',
+  vue: 'bg-[#4FC08D]/10 text-[#4FC08D] border-[#4FC08D]/30',
+};
 const strengths = getStrengths(lang);
 const practicesContent = getPracticesContent(lang);
 const currentPath = `/${lang}`;
@@ -61,9 +69,16 @@ const nav = navTranslations[lang as keyof typeof navTranslations] || navTranslat
               <h2 class="text-base md:text-lg lg:text-2xl text-gray-600 mb-1 md:mb-2">
                 {heroContent.roleTitle}
               </h2>
-              <p class="text-xs md:text-sm lg:text-base font-mono uppercase tracking-widest text-blue-500 mb-4 md:mb-6 lg:mb-8">
+              <p class="text-xs md:text-sm lg:text-base font-mono uppercase tracking-widest text-blue-500 mb-1">
                 {heroContent.tagline}
               </p>
+              <div class="flex flex-wrap justify-center lg:justify-start gap-1.5 mb-4 md:mb-6 lg:mb-8">
+                {heroFrameworks.map(fw => (
+                  <span class={`px-2 py-0.5 text-[10px] md:text-xs font-medium rounded-full border ${frameworkColors[fw.key]}`}>
+                    {fw.name}
+                  </span>
+                ))}
+              </div>
               <div class="text-xs md:text-sm lg:text-lg text-gray-700 max-w-full mx-auto lg:mx-0 mb-6 md:mb-8 lg:mb-12 leading-relaxed px-2 lg:px-0 space-y-2 md:space-y-3">
                 {heroContent.intro.split(/\n\s*\n/).map((paragraph) => (
                   <p>{paragraph.trim()}</p>
