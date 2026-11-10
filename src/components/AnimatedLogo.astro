@@ -21,24 +21,30 @@ const { currentLang } = Astro.props;
     font-variant-ligatures: none;
     white-space: pre;
     text-decoration: none;
-    /* dégradé identique au logo d'origine */
-    background: linear-gradient(to right, #2563eb, #1e40af);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
-  .ascii-logo:hover {
-    background: linear-gradient(to right, #1d4ed8, #1e3a8a);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-
+  /*
+   * Le dégradé est appliqué sur chaque enfant (et non sur le parent) :
+   * avec background-clip:text sur le parent, les enfants animés par transform
+   * sont sur leur propre calque et ne se repeignent qu'au hover/sélection.
+   * Les 3 segments reproduisent le dégradé d'origine #34d399 -> #059669 (émeraude).
+   */
   .face,
   .arm,
   .laptop {
     display: inline-block;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
+
+  .face   { background-image: linear-gradient(to right, #34d399, #10b981); }
+  .arm    { background-image: linear-gradient(to right, #10b981, #0fa876); }
+  .laptop { background-image: linear-gradient(to right, #0fa876, #059669); }
+
+  .ascii-logo:hover .face   { background-image: linear-gradient(to right, #10b981, #0ea371); }
+  .ascii-logo:hover .arm    { background-image: linear-gradient(to right, #0ea371, #059669); }
+  .ascii-logo:hover .laptop { background-image: linear-gradient(to right, #059669, #047857); }
 
   .arm {
     transform-origin: left center;
@@ -130,7 +136,7 @@ const { currentLang } = Astro.props;
     font-size: 11px;
     pointer-events: none;
     -webkit-text-fill-color: initial;
-    color: #2563eb;
+    color: #10b981;
     animation: floatingZ 1.5s ease-out infinite;
   }
 

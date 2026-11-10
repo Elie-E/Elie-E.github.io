@@ -133,15 +133,14 @@ const personalInfoTranslations = {
   en: {
     title: 'Full-Stack Developer PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: `Full-stack developer with close to 5 years of experience building, modernizing and maintaining production web applications.
+    tagline: 'Autonomous developer specialized in production web applications, modernization of existing systems and AI-agent-assisted development.',
+    bio: `Full-stack developer with close to 5 years of experience in developing, modernizing and maintaining production web applications.
 
-    Versatile, I work across the full development cycle: functional analysis, backend, frontend, APIs, databases, automation, infrastructure and deployment.
+    Autonomous, I master the whole development cycle and have hands-on experience with legacy environments, debugging, performance optimization and deployments.
 
-    Comfortable with both existing codebases and varied technical environments, I favor pragmatic, performant and maintainable solutions.
+    I use coding agents and AI-assisted development workflows to speed up code analysis, implementation and problem-solving, with particular attention to code review, testing and maintainability.
 
-    I integrate AI-assisted development tools and coding agents into my workflow to boost productivity and speed up delivery, without compromising on code quality or understanding.
-
-    My background in project management and entrepreneurship also helps me understand business needs beyond the purely technical aspects.`,
+    My background in project management and entrepreneurship lets me combine technical efficiency, autonomy and an understanding of business needs.`,
     languages: ['French (Native)', 'English (Professional)', 'Spanish (Professional)'],
     certifications: [
       { label: 'PSM 1 - Professional Scrum Master' },
@@ -151,15 +150,14 @@ const personalInfoTranslations = {
   fr: {
     title: 'Développeur Full-Stack PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
+    tagline: 'Développeur autonome, spécialisé dans les applications web en production, la modernisation de systèmes existants et le développement assisté par agents IA.',
     bio: `Développeur full-stack avec près de 5 ans d'expérience dans le développement, la modernisation et la maintenance d'applications web en production.
 
-    Polyvalent et autonome, j'interviens sur l'ensemble du cycle de développement : analyse fonctionnelle, backend, frontend, APIs, bases de données, automatisation, infrastructure et déploiement.
+    Autonome, je maîtrise l'ensemble du cycle de développement et possède une expérience concrète des environnements legacy, du débogage, de l'optimisation des performances et des déploiements.
 
-    À l'aise avec les applications existantes et les environnements techniques variés, je privilégie les solutions pragmatiques, performantes et maintenables.
+    J'utilise les agents de codage et les workflows de développement assistés par IA pour accélérer l'analyse de code, l'implémentation et la résolution de problèmes, avec une attention particulière à la revue du code, aux tests et à la maintenabilité.
 
-    J'intègre les outils de développement assisté par IA et les agents de codage à mes méthodes de travail pour améliorer ma productivité et accélérer la livraison, sans jamais perdre la maîtrise du code produit.
-
-    Mon parcours en gestion de projet et en entrepreneuriat me permet également de comprendre les besoins métier au-delà des seuls aspects techniques.`,
+    Mon parcours en gestion de projet et en entrepreneuriat me permet d'allier efficacité technique, autonomie et compréhension des enjeux métier.`,
     languages: ['Français (Natif)', 'Anglais (Professionnel)', 'Espagnol (Professionnel)'],
     certifications: [
       { label: 'PSM 1 - Professional Scrum Master' },
@@ -169,15 +167,14 @@ const personalInfoTranslations = {
   es: {
     title: 'Desarrollador Full-Stack PHP / Laravel / Angular',
     subtitle : 'PHP/Laravel · JavaScript · SQL · Docker · Production Maintenance',
-    bio: `Desarrollador full-stack con casi 5 años de experiencia en el desarrollo, modernización y mantenimiento de aplicaciones web en producción.
+    tagline: 'Desarrollador autónomo, especializado en aplicaciones web en producción, modernización de sistemas existentes y desarrollo asistido por agentes de IA.',
+    bio: `Desarrollador full-stack con casi 5 años de experiencia en el desarrollo, la modernización y el mantenimiento de aplicaciones web en producción.
 
-    Polivalente y autónomo, trabajo en todo el ciclo de desarrollo: análisis funcional, backend, frontend, APIs, bases de datos, automatización, infraestructura y despliegue.
+    Autónomo, domino todo el ciclo de desarrollo y tengo experiencia concreta en entornos legacy, depuración, optimización del rendimiento y despliegues.
 
-    Cómodo tanto con aplicaciones existentes como con entornos técnicos variados, priorizo soluciones pragmáticas, eficientes y mantenibles.
+    Utilizo agentes de código y flujos de desarrollo asistidos por IA para acelerar el análisis de código, la implementación y la resolución de problemas, con especial atención a la revisión del código, las pruebas y la mantenibilidad.
 
-    Integro herramientas de desarrollo asistido por IA y agentes de código en mi flujo de trabajo para mejorar mi productividad y acelerar la entrega, sin perder el control sobre la calidad del código.
-
-    Mi trayectoria en gestión de proyectos y emprendimiento también me permite entender las necesidades de negocio más allá de los aspectos puramente técnicos.`,
+    Mi trayectoria en gestión de proyectos y emprendimiento me permite combinar eficiencia técnica, autonomía y comprensión de los retos de negocio.`,
     languages: ['Francés (Nativo)', 'Inglés (Profesional)', 'Español (Profesional)'],
     certifications: [
       { label: 'PSM 1 - Professional Scrum Master' },
@@ -227,48 +224,52 @@ const heroContentTranslations = {
   en: {
     roleTitle: 'Full-Stack Developer',
     tagline: 'PHP & JavaScript',
-    intro: `Full-stack developer with close to 5 years of experience on production web applications.
+    headline: 'Autonomous, versatile and production-oriented.',
+    subheadline: 'Development, modernization and maintenance of web applications, with a pragmatic approach and the use of AI tools to be more efficient.',
+    focus: 'Developing, modernizing and maintaining reliable web applications, from requirements analysis to production.',
+    intro: `Full-stack developer with close to 5 years of experience on production web applications, mainly in the PHP and JavaScript ecosystems.
 
-    Versatile, I work across the full development cycle: backend, frontend, APIs, databases, scripting, infrastructure, deployment and maintenance.
+    Autonomous and versatile, I work across the full development cycle: backend, frontend, APIs, databases, infrastructure and deployment. Comfortable with existing applications as well as new projects, I can quickly get up to speed on a codebase, understand the business stakes and deliver reliable, maintainable solutions.
 
-    Comfortable with both existing projects and new developments, I can quickly get up to speed on a codebase, understand the business stakes and deliver reliable, maintainable solutions.
-
-    I also integrate AI-assisted development and coding agents into my workflow to speed up design, development and problem-solving, while staying in control of the code produced.`,
+    I also integrate AI tools and coding agents into my workflow to speed up development, analysis and problem-solving, while staying in control of the code produced, its quality and the technical decisions.`,
     ctaResume: 'View my resume',
     ctaProjects: 'Discover my projects',
   },
   fr: {
     roleTitle: 'Développeur Full-Stack',
     tagline: 'PHP & JavaScript',
-    intro: `Développeur full-stack avec près de 5 ans d'expérience sur des applications web en production.
+    headline: 'Autonome, polyvalent et orienté production.',
+    subheadline: "Développement, modernisation et maintenance d'applications web, avec une approche pragmatique et l'utilisation d'outils IA pour gagner en efficacité.",
+    focus: "Développer, moderniser et maintenir des applications web fiables, de l'analyse du besoin jusqu'à la production.",
+    intro: `Développeur full-stack avec près de 5 ans d'expérience sur des applications web en production, principalement dans les écosystèmes PHP et JavaScript.
 
-    Polyvalent, j'interviens sur l'ensemble du cycle de développement : backend, frontend, APIs, bases de données, scripting, infrastructure, déploiement et maintenance.
+    Autonome et polyvalent, j'interviens sur l'ensemble du cycle de développement : backend, frontend, APIs, bases de données, infrastructure et déploiement. À l'aise avec les applications existantes comme les nouveaux projets, je sais rapidement prendre en main une codebase, comprendre les enjeux métier et apporter des solutions fiables et maintenables.
 
-    Habitué aux projets existants comme aux nouveaux développements, je sais prendre rapidement en main une codebase, comprendre les enjeux métier et apporter des solutions fiables et maintenables.
-
-    J'intègre également le développement assisté par IA et les agents de codage à mon workflow pour accélérer la conception, le développement et la résolution de problèmes, tout en gardant la maîtrise du code produit.`,
+    J'intègre également les outils d'IA et les agents de codage à mon workflow pour accélérer le développement, l'analyse et la résolution de problèmes, tout en gardant la maîtrise du code produit, de sa qualité et des choix techniques.`,
     ctaResume: 'Voir mon CV',
     ctaProjects: 'Découvrir mes projets',
   },
   es: {
     roleTitle: 'Desarrollador Full-Stack',
     tagline: 'PHP & JavaScript',
-    intro: `Desarrollador full-stack con casi 5 años de experiencia en aplicaciones web en producción.
+    headline: 'Autónomo, polivalente y orientado a producción.',
+    subheadline: 'Desarrollo, modernización y mantenimiento de aplicaciones web, con un enfoque pragmático y el uso de herramientas de IA para ganar eficiencia.',
+    focus: 'Desarrollar, modernizar y mantener aplicaciones web fiables, desde el análisis de la necesidad hasta la producción.',
+    intro: `Desarrollador full-stack con casi 5 años de experiencia en aplicaciones web en producción, principalmente en los ecosistemas PHP y JavaScript.
 
-    Polivalente, trabajo en todo el ciclo de desarrollo: backend, frontend, APIs, bases de datos, scripting, infraestructura, despliegue y mantenimiento.
+    Autónomo y polivalente, trabajo en todo el ciclo de desarrollo: backend, frontend, APIs, bases de datos, infraestructura y despliegue. Cómodo tanto con aplicaciones existentes como con proyectos nuevos, sé ponerme al día rápidamente en una base de código, entender los retos de negocio y aportar soluciones fiables y mantenibles.
 
-    Acostumbrado tanto a proyectos existentes como a nuevos desarrollos, sé ponerme al día rápidamente en una base de código, entender los retos de negocio y aportar soluciones fiables y mantenibles.
-
-    También integro el desarrollo asistido por IA y los agentes de código en mi flujo de trabajo para acelerar el diseño, el desarrollo y la resolución de problemas, manteniendo siempre el control sobre el código producido.`,
+    También integro herramientas de IA y agentes de código en mi flujo de trabajo para acelerar el desarrollo, el análisis y la resolución de problemas, manteniendo el control del código producido, de su calidad y de las decisiones técnicas.`,
     ctaResume: 'Ver mi currículum',
     ctaProjects: 'Descubrir mis proyectos',
   },
 };
 
 // Hero frameworks strip - each badge uses its own brand color, same across languages (proper nouns)
-const heroFrameworks: { name: string; key: 'laravel' | 'symfony' | 'angular' | 'vue' }[] = [
+const heroFrameworks: { name: string; key: 'laravel' | 'symfony' | 'node' | 'angular' | 'vue' }[] = [
   { name: 'Laravel', key: 'laravel' },
   { name: 'Symfony', key: 'symfony' },
+  { name: 'Node.js', key: 'node' },
   { name: 'Angular', key: 'angular' },
   { name: 'Vue', key: 'vue' },
 ];
@@ -276,19 +277,19 @@ const heroFrameworks: { name: string; key: 'laravel' | 'symfony' | 'angular' | '
 // Home "strengths" strip (Full-stack / Production / AI-assisted)
 const strengthsTranslations = {
   en: [
-    { title: 'Full-stack', description: 'Backend, frontend, APIs and databases' },
-    { title: 'Production', description: 'Infrastructure, deployment, optimization and maintenance' },
-    { title: 'AI-assisted', description: 'Coding agents, automation and AI workflows' },
+    { title: 'Full-Stack & Autonomy', description: 'Backend, frontend, APIs, databases and end-to-end project ownership' },
+    { title: 'Production & Modernization', description: 'Maintenance, migrations, performance optimization, infrastructure and deployment' },
+    { title: 'AI-Assisted Development', description: 'Coding agents, automation, AI workflows and code review' },
   ],
   fr: [
-    { title: 'Full-stack', description: 'Backend, frontend, APIs et bases de données' },
-    { title: 'Production', description: 'Infrastructure, déploiement, optimisation et maintenance' },
-    { title: 'AI-assisted', description: 'Agents de codage, automatisation et workflows IA' },
+    { title: 'Full-Stack & Autonomie', description: 'Backend, frontend, APIs, bases de données et prise en charge de projets de bout en bout' },
+    { title: 'Production & Modernisation', description: 'Maintenance, migrations, optimisation des performances, infrastructure et déploiement' },
+    { title: 'Développement assisté par IA', description: 'Agents de codage, automatisation, workflows IA et revue de code' },
   ],
   es: [
-    { title: 'Full-stack', description: 'Backend, frontend, APIs y bases de datos' },
-    { title: 'Producción', description: 'Infraestructura, despliegue, optimización y mantenimiento' },
-    { title: 'AI-assisted', description: 'Agentes de código, automatización y flujos de trabajo con IA' },
+    { title: 'Full-Stack y Autonomía', description: 'Backend, frontend, APIs, bases de datos y gestión de proyectos de principio a fin' },
+    { title: 'Producción y Modernización', description: 'Mantenimiento, migraciones, optimización del rendimiento, infraestructura y despliegue' },
+    { title: 'Desarrollo asistido por IA', description: 'Agentes de código, automatización, flujos de trabajo con IA y revisión de código' },
   ],
 };
 
@@ -429,6 +430,7 @@ export function getPersonalInfo(lang: string = 'en'): PersonalInfo {
     linkedin: contactInfo.linkedin,
     website: contactInfo.website,
     location: contactInfo.location,
+    tagline: translations.tagline,
     bio: translations.bio,
     languages: translations.languages,
     certifications: translations.certifications
@@ -489,21 +491,21 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Full-Stack Developer',
         startDate: '2022-01',
         location: 'France',
-        description: 'Autonomous developer within a small technical team, responsible for the maintenance and evolution of several production websites and applications.',
+        description: 'Autonomous full-stack developer within a small technical team, handling the maintenance, modernization and evolution of several production applications, from analysis of technical needs through to deployment of the solutions.',
         technologies: ['PHP', 'Laravel', 'Symfony', 'Doctrine', 'Twig', 'JavaScript', 'Angular', 'Python', 'SQL', 'Docker', 'AWS', 'CloudFront', 'Memcached', 'Varnish', 'Cloudflare'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Corrective and evolutionary maintenance of native PHP (including legacy) and Laravel sites, keeping older applications in operational condition.',
+          'Maintenance, modernization and evolution of legacy PHP and Laravel applications, handling both technical and functional issues.',
           'Corrective and evolutionary maintenance of an internal application built with Angular.',
           'Maintenance and evolution of an internal administration tool developed with Symfony.',
           'Development of back-end and front-end features on native PHP and Laravel applications: business logic, forms, data management, admin interfaces and JavaScript interactions.',
-          'Migration of PHP projects to more recent and modern versions, to improve application performance and maintainability.',
+          'Modernization of existing PHP applications: version migrations, code adaptation and improved maintainability.',
           'Migration of several development environments to Docker, facilitating setup, maintenance and onboarding of new developers.',
           'Global optimisation of websites: performance, SQL queries, application processing and page rendering.',
           'Implementation of application and server-side caching systems using Memcached, Varnish and Cloudflare.',
           'Participation in transforming server-side rendered PHP sites into static sites distributed via AWS CloudFront, to reduce server load and improve delivery.',
-          'Creation of Python and JavaScript scripts to automate data collection, processing and form-filling tasks previously done manually.',
+          'Design of Python and JavaScript automations to remove repetitive manual tasks and improve operational efficiency.',
           'Monitoring and maintenance of applications hosted on AWS, including diagnosis and resolution of production incidents.',
         ]
       },
@@ -582,22 +584,22 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Développeur Full-Stack',
         startDate: '2022-01',
         location: 'France',
-        description: 'Développeur autonome au sein d\'une petite équipe technique, en charge de la maintenance et de l\'évolution de plusieurs sites et applications en production.',
+        description: 'Développeur full-stack autonome au sein d\'une petite équipe technique, prenant en charge la maintenance, la modernisation et l\'évolution de plusieurs applications en production, de l\'analyse des besoins techniques jusqu\'au déploiement des solutions.',
         technologies: ['PHP', 'Laravel', 'Symfony', 'Doctrine', 'Twig', 'JavaScript', 'Angular', 'Python', 'SQL', 'Docker', 'AWS', 'CloudFront', 'Memcached', 'Varnish', 'Cloudflare'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
           
-          'Maintenance corrective et évolutive de sites en PHP natif (et legacy) et Laravel, permettant de maintenir et faire évoluer des applications anciennes en condition opérationnelle.',
+          'Maintenance, modernisation et évolution d\'applications PHP legacy et Laravel, avec prise en charge de problématiques techniques et fonctionnelles.',
           'Maintenace corrective et évolutive d\'application interne avec Angular',
           'Maintenance et évolution d’un outil d’administration interne développé avec Symfony.',
           'Développement de fonctionnalités back-end et front-end sur des applications PHP natif et Laravel : logique métier, formulaires, gestion de données, interfaces d’administration et interactions JavaScript.',
-          'Migration de projets PHP vers des versions plus récentes et modernes, afin d\'améliorer la performance et la maintenabilité des applications.',
+          'Modernisation d\'applications PHP existantes : migrations de versions, adaptation du code et amélioration de la maintenabilité.',
           'Migration de plusieurs environnements de développement vers Docker, facilitant l’installation, la maintenance et l’intégration de nouveaux développeurs.',
           'Optimisation globale de sites web : performances, requêtes SQL, traitements applicatifs et affichage des pages.',
           'Mise en place de systèmes de cache applicatifs et serveur avec Memcached, Varnish et Cloudflare.',
           'Participation à la transformation de sites PHP (rendu serveur) en sites statiques distribués avec AWS CloudFront, afin de réduire la charge serveur et d\'améliorer leur diffusion.',
-          'Création de scripts Python et JavaScript pour automatiser des tâches de collecte, de traitement de données et de remplissage de formulaires auparavant réalisées manuellement.',
+          'Conception d\'automatisations Python et JavaScript pour supprimer des tâches manuelles répétitives et améliorer l\'efficacité opérationnelle.',
           'Monitoring et maintenance d\'applications hébergées sur AWS, avec diagnostic et résolution d\'incidents en production.',
         ]
       },
@@ -676,21 +678,21 @@ export function getExperiences(lang: string): Experience[] {
         position: 'Desarrollador Full-Stack',
         startDate: '2022-01',
         location: 'Francia',
-        description: 'Desarrollador autónomo en un pequeño equipo técnico, responsable del mantenimiento y la evolución de varios sitios y aplicaciones en producción.',
+        description: 'Desarrollador full-stack autónomo en un pequeño equipo técnico, a cargo del mantenimiento, la modernización y la evolución de varias aplicaciones en producción, desde el análisis de las necesidades técnicas hasta el despliegue de las soluciones.',
         technologies: ['PHP', 'Laravel', 'Symfony', 'Doctrine', 'Twig', 'JavaScript', 'Angular', 'Python', 'SQL', 'Docker', 'AWS', 'CloudFront', 'Memcached', 'Varnish', 'Cloudflare'],
         duration: formatDuration(calculateDuration('2022-01'), lang),
         type: 'Full-time' as const,
         achievements: [
-          'Mantenimiento correctivo y evolutivo de sitios PHP nativo (incluidos legacy) y Laravel, manteniendo aplicaciones antiguas en condición operativa.',
+          'Mantenimiento, modernización y evolución de aplicaciones PHP legacy y Laravel, atendiendo problemáticas técnicas y funcionales.',
           'Mantenimiento correctivo y evolutivo de una aplicación interna desarrollada con Angular.',
           'Mantenimiento y evolución de una herramienta de administración interna desarrollada con Symfony.',
           'Desarrollo de funcionalidades back-end y front-end en aplicaciones PHP nativo y Laravel: lógica de negocio, formularios, gestión de datos, interfaces de administración e interacciones JavaScript.',
-          'Migración de proyectos PHP hacia versiones más recientes y modernas, para mejorar el rendimiento y la mantenibilidad de las aplicaciones.',
+          'Modernización de aplicaciones PHP existentes: migraciones de versión, adaptación del código y mejora de la mantenibilidad.',
           'Migración de varios entornos de desarrollo a Docker, facilitando la instalación, el mantenimiento y la incorporación de nuevos desarrolladores.',
           'Optimización global de sitios web: rendimiento, consultas SQL, procesamiento de la aplicación y renderizado de páginas.',
           'Implementación de sistemas de caché a nivel de aplicación y servidor con Memcached, Varnish y Cloudflare.',
           'Participación en la transformación de sitios PHP (renderizado en servidor) en sitios estáticos distribuidos con AWS CloudFront, para reducir la carga del servidor y mejorar su distribución.',
-          'Creación de scripts Python y JavaScript para automatizar tareas de recopilación, procesamiento de datos y cumplimentación de formularios realizadas anteriormente de forma manual.',
+          'Diseño de automatizaciones Python y JavaScript para eliminar tareas manuales repetitivas y mejorar la eficiencia operativa.',
           'Monitorización y mantenimiento de aplicaciones alojadas en AWS, con diagnóstico y resolución de incidentes en producción.',
         ]
       },

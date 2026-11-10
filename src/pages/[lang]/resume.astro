@@ -140,6 +140,7 @@ const t = resumeTranslations[lang as keyof typeof resumeTranslations] || resumeT
           <div>
             <p><strong>{t.name}:</strong> {personalInfo.name}</p>
             <p><strong>{t.title_label}:</strong> {personalInfo.title}</p>
+            <p class="text-gray-600 italic mt-1 mb-1">{personalInfo.tagline}</p>
             <p><strong>{t.location}:</strong> {personalInfo.location}</p>
           </div>
           <div>

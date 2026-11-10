@@ -25,6 +25,7 @@ export interface PersonalInfo {
   name: string;
   title: string;
   subtitle: string;
+  tagline: string;
   email: string;
   linkedin: string;
   website: string;
